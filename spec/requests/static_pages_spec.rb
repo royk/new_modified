@@ -6,10 +6,9 @@ describe "Static pages" do
 
 	shared_examples_for "all static pages" do
 		it {should have_selector('title', :text => full_title(page_title))}
-		it {should have_link("Sign up", href: "#")}
-		it {should have_link("Login", href: "#")}
+		it {should have_link("Sign up", href: signup_path)}
+		it {should have_link("Login", href: signin_path)}
 		it {should have_link("Home", href: root_path)}
-		it {should have_link("My Area", href: "#")}
 	end
 
 	describe "Home page" do

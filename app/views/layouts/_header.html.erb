@@ -1,10 +1,16 @@
 <header class="navbar navbar-fixed-top">
 	<div class="navbar-inner headernav">
 		<div class="container">
-			<ul class="nav pull-right headernav">
-				<li><%= link_to "Sign up", '#' %></li>
-				<li><%= link_to "Login", '#' %></li>
-			</ul>
+			<% if signed_in? %>
+				<ul class="pull-right nav headernav">
+					<li><%=link_to "Hello #{current_user.name}. Sign out", signout_path, method: "delete" %></li>
+				</ul>
+			<% else %>
+				<ul class="nav pull-right headernav">
+					<li><%= link_to "Sign up", signup_path %></li>
+					<li><%= link_to "Login", signin_path %></li>
+				</ul>
+			<% end %>
 		</div>
 	</div>
 </header>
@@ -15,6 +21,8 @@
 <div class="container">
 	<ul class="nav nav-pills">
 		<li><%= link_to "Home", root_path %></li>
-		<li><%= link_to "My Area", '#' %></li>
+		<% if signed_in? %>
+			<li><%= link_to "My Area", edit_user_path(current_user) %></li>
+		<% end %>
 	</ul>
 </div>
