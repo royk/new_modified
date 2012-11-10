@@ -1,0 +1,29 @@
+@import "bootstrap";
+
+/* vars */
+$lightYellow: #f9ed9d;
+/* Mixin */
+@mixin gradient ($origin: left, $start: #ffffff, $stop: #000000) {
+	background-color: $start;
+	background-image: -webkit-linear-gradient($origin, $start, $stop);
+	background-image: -moz-linear-gradient($origin, $start, $stop);
+	background-image: -o-linear-gradient($origin, $start, $stop);
+	background-image: -ms-linear-gradient($origin, $start, $stop);
+	background-image: linear-gradient($origin, $start, $stop);
+}
+
+.navbar-inner {
+	background-color: #ff0000;
+	@include gradient(right, #903, #903);
+}
+
+body {
+  padding-top: 60px;
+}
+
+.navbar .nav > li > a {
+	color: $white;
+}
+.navbar .nav > li > a:hover {
+	color: $lightYellow;
+}
