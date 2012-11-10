@@ -17,4 +17,24 @@ describe "Static pages" do
 		it_should_behave_like "all static pages"
 	end
 
+	describe "Sign in" do
+		before {visit signin_path}
+		let(:page_title) {"Sign in"}
+		it_should_behave_like "all static pages"
+		it {should have_selector("input", :name =>"session[email]")}
+		it {should have_selector("input", :name =>"session[password]")}
+		it {should have_selector("input", :type =>"submit")}
+	end
+
+	describe "Sign up" do
+		before {visit signup_path}
+		let(:page_title) {"Sign up"}
+		it_should_behave_like "all static pages"
+		it {should have_selector("input", :name =>"user[name]")}
+		it {should have_selector("input", :name =>"user[email]")}
+		it {should have_selector("input", :name =>"user[password]")}
+		it {should have_selector("input", :name =>"user[password_confirmation]")}
+		it {should have_selector("input", :type =>"submit")}
+	end
+
 end
