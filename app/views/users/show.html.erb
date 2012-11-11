@@ -6,5 +6,23 @@
 				<%= @user.name %>
 			</h1>
 		</section>
+		<h2>Make a new post:</h2>
+		<%= form_for(@post) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<div class="field">
+				<%= f.text_area :content %>
+			</div>
+			<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+		<% end %>
 	</aside>
+	<div class="span8">
+		<h2>Posts</h2>
+		<% if @user.posts.any? %>
+			<ol class="posts">
+				<%= render @posts %>
+			</ol>
+		<% else %>
+			<p class="pagination-centered">No posts by this user.</p>
+		<% end %>
+	</div>
 </div>

@@ -22,7 +22,7 @@
 	<ul class="nav nav-pills">
 		<li><%= link_to "Home", root_path %></li>
 		<% if signed_in? %>
-			<li><%= link_to "My Area", edit_user_path(current_user) %></li>
+			<li><%= link_to "My Area", user_path(current_user) %></li>
 		<% end %>
 	</ul>
 </div>

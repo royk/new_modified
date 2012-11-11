@@ -2,6 +2,7 @@ require 'spec_helper'
 include ApplicationHelper
 
 describe "Static pages" do
+	let(:user) { FactoryGirl.create(:user) }
 	subject {page}
 
 	shared_examples_for "all static pages" do
@@ -15,6 +16,15 @@ describe "Static pages" do
 		before {visit root_path}
 		let(:page_title) {"Home"}
 		it_should_behave_like "all static pages"
+		
+		describe "signed in view" do
+			before do
+				sign_in user
+				visit root_path
+			end
+
+			it { should have_link("My Area", href: user_path(user)) }
+		end
 	end
 
 	describe "Sign in" do
