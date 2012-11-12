@@ -6,13 +6,6 @@
 				<%= @user.name %>
 			</h1>
 		</section>
-		<h2>Make a new post:</h2>
-		<%= form_for(@post) do |f| %>
-			<div class="field">
-				<%= f.text_area :content %>
-			</div>
-			<%= f.submit "Post", class: "btn btn-large btn-primary" %>
-		<% end %>
 	</aside>
 	<div class="span8">
 		<h2>Posts</h2>

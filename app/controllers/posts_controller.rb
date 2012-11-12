@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
+	
 	before_filter	:signed_in_user,	only: [:create, :destroy]
 	before_filter	:correct_user, only: :destroy
+	
 
 	def create
 		@post = current_user.posts.build(params[:post])
@@ -8,12 +10,12 @@ class PostsController < ApplicationController
 		if @post.save
 			flash[:success] = "Post created"
 		end
-		redirect_to user_path(current_user)
+		redirect_to root_url
 	end
 
 	def destroy
 		Post.find(params[:id]).destroy
-		redirect_to user_path(current_user)
+		redirect_to root_url
 	end
 
 	private

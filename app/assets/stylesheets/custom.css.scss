@@ -137,9 +137,23 @@ input, textarea, select, .uneditable-input {
   }
   .content {
     display: block;
-    padding-left: 10px;
+    padding-bottom: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
   }
   .timestamp {
     color: $grayLight;
+  }
+  .user {
+    padding-bottom: 5px;
+
+    a {
+      color :#333;
+
+      &:hover {
+        color: #333;
+        text-decoration: underline;
+      }
+    }
   }
 }
