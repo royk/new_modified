@@ -125,3 +125,21 @@ input, textarea, select, .uneditable-input {
     }
   }
 }
+
+
+
+.posts {
+  .post {
+    padding-bottom: 10px;
+    &:last-child {
+      padding-bottom: 0px;
+    }
+  }
+  .content {
+    display: block;
+    padding-left: 10px;
+  }
+  .timestamp {
+    color: $grayLight;
+  }
+}
