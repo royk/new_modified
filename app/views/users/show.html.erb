@@ -5,6 +5,11 @@
 			<h1>
 				<%= @user.name %>
 			</h1>
+			<% if @user.admin? %>
+				<h2>
+					Admin
+				</h2>
+			<% end %>
 		</section>
 	</aside>
 	<div class="span8">
