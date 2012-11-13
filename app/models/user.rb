@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   def feed
-    Post
+    Post.all + Video.all
   end
 
   private

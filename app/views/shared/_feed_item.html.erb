@@ -1,22 +1,8 @@
-<div class="post" id="<%= feed_item.id %>">
-	<div class="content">
-		<%= feed_item.content %>
-	</div>
-	<div class="container">
-		<span class="user">
-			<%= link_to feed_item.user.name, feed_item.user %>
-		</span>
-		<span class="timestamp">
-			posted <%= time_ago_in_words(feed_item.created_at) %> ago.
-		</span>
-		<span class="delete">
-			<% if current_user %>
-				<% if current_user.admin? || current_user?(feed_item.user) %>
-					<% label = current_user?(feed_item.user) ? "delete" : "Admin delete" %>
-					<%= link_to "#{label}", feed_item, method: :delete, data: {confirm: "You sure?"}, title: feed_item.content %>
-				<% end %>
-			<% end %>
-		</span>
-	</div>
-	
-</div>
+<% @feed_item = feed_item %>
+<% if@feed_item.class==Post %>
+	<%= render '/shared/post_item' %>
+<% end %>
+
+<% if feed_item.class==Video %>
+	<%= render '/shared/video_item' %>
+<% end %>

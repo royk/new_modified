@@ -1,0 +1,22 @@
+<div class="video" id="<%= @feed_item.id %>">
+	<div class="content">
+		<%= @feed_item.title || "" %>
+	</div>
+	<div class="container">
+		<iframe id="131" class="youtube-player" type="text/html" width="500" height="281" src="http://www.youtube.com/embed/CoyEILQHJyc" frameborder="0"></iframe>
+		<span class="user">
+			<%= link_to @feed_item.user.name, @feed_item.user %>
+		</span>
+		<span class="timestamp">
+			posted <%= time_ago_in_words(@feed_item.created_at) %> ago.
+		</span>
+		<span class="delete">
+			<% if current_user %>
+				<% if current_user.admin? || current_user?(@feed_item.user) %>
+					<% label = current_user?(@feed_item.user) ? "delete" : "Admin delete" %>
+					<%= link_to "#{label}", @feed_item, method: :delete, data: {confirm: "You sure?"}, title: @feed_item.title %>
+				<% end %>
+			<% end %>
+		</span>
+	</div>
+</div>

@@ -1,6 +1,7 @@
 <% provide(:title, 'Home') %>
 <% if signed_in? %>
 	<%= render 'shared/post_form' %>
+	<%= render 'shared/video_form' %>
 <% end %>
 <h1>Timeline</h1>
 <% if @feed_items.any? %>
