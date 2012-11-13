@@ -27,6 +27,7 @@ describe User do
 	it { should respond_to(:authenticate) }
 	it { should respond_to(:admin) }
 	it { should respond_to(:posts) }
+	it { should respond_to(:videos) }
 
 	it {should be_valid}
 	it {should_not be_admin}
@@ -140,6 +141,27 @@ describe User do
 			posts.should_not be_empty
 			posts.each do |post|
 				Post.find_by_id(post.id).should be_nil
+			end
+		end
+	end
+
+	describe "videos" do
+		before { @user.save }
+		let!(:older_video) do
+			FactoryGirl.create(:video, url: "lala", user: @user, created_at: 1.day.ago)
+		end
+		let!(:newer_video) do
+			FactoryGirl.create(:video, url: "fufu", user: @user, created_at: 1.hour.ago)
+		end
+		it "should have the right order" do
+			@user.videos.should == [newer_video, older_video]
+		end
+		it "should not destroy associated videos" do
+			videos = @user.videos.dup
+			@user.destroy
+			videos.should_not be_empty
+			videos.each do |video|
+				Video.find_by_id(video.id).should_not be_nil
 			end
 		end
 	end

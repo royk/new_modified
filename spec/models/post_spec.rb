@@ -12,6 +12,8 @@
 require 'spec_helper'
 
 describe Post do
+	before(:all)  { User.delete_all }
+	
 	let!(:user) { FactoryGirl.create(:user) }
 
 	let!(:post) { user.posts.build(content: "lala") }

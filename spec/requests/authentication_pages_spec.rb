@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "AuthenticationPages" do
+	before(:all)  { User.delete_all }
+	
 	subject { page }
 
 	describe "sign in" do

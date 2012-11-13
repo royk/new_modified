@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112065538) do
+ActiveRecord::Schema.define(:version => 20121113051713) do
 
   create_table "posts", :force => true do |t|
     t.text     "content"
@@ -35,5 +35,17 @@ ActiveRecord::Schema.define(:version => 20121112065538) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "videos", :force => true do |t|
+    t.string   "url"
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "videos", ["url"], :name => "index_videos_on_url", :unique => true
+  add_index "videos", ["user_id", "created_at"], :name => "index_videos_on_user_id_and_created_at"
 
 end

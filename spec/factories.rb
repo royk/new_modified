@@ -14,4 +14,10 @@ FactoryGirl.define do
 		content "lalala"
 		user
 	end
+
+	factory :video do
+		title "some title"
+		url "http://www.youtube.com/watch?feature=player_embedded&v=svDPNjQV3ak"
+		user
+	end
 end
