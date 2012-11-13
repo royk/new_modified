@@ -1,11 +1,11 @@
 <% provide(:title, 'Home') %>
 <% if signed_in? %>
 	<%= render 'shared/post_form' %>
-	<h1>Timeline</h1>
-	<% if @feed_items.any? %>
-		<div class="posts offset3">
-			<%= render partial: 'shared/feed_item', collection: @feed_items %>
-		</div>
-		<%= will_paginate @feed_items %>
-	<% end %>
+<% end %>
+<h1>Timeline</h1>
+<% if @feed_items.any? %>
+	<div class="posts offset3">
+		<%= render partial: 'shared/feed_item', collection: @feed_items %>
+	</div>
+	<%= will_paginate @feed_items %>
 <% end %>
