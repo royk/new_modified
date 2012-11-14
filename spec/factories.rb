@@ -17,7 +17,7 @@ FactoryGirl.define do
 
 	factory :video do
 		title "some title"
-		url "http://www.youtube.com/watch?feature=player_embedded&v=svDPNjQV3ak"
+		uid "svDPNjQV3ak"
 		user
 	end
 end

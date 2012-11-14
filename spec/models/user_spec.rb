@@ -148,10 +148,10 @@ describe User do
 	describe "videos" do
 		before { @user.save }
 		let!(:older_video) do
-			FactoryGirl.create(:video, url: "lala", user: @user, created_at: 1.day.ago)
+			FactoryGirl.create(:video, uid: "lala", user: @user, created_at: 1.day.ago)
 		end
 		let!(:newer_video) do
-			FactoryGirl.create(:video, url: "fufu", user: @user, created_at: 1.hour.ago)
+			FactoryGirl.create(:video, uid: "fufu", user: @user, created_at: 1.hour.ago)
 		end
 		it "should have the right order" do
 			@user.videos.should == [newer_video, older_video]

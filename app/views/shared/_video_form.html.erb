@@ -1,7 +1,7 @@
 <%= form_for(Video.create()) do |f| %>
 	<div class="row offset3">
 		<div class="field span5">
-			<%= f.text_area(:url, :rows=>1, :cols=>2, placeholder: "Video URL")%>
+			<%= f.text_area(:uid, :rows=>1, :cols=>2, placeholder: "Video URL")%>
 		</div>
 	</div>
 	<div class="row offset5">
