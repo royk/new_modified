@@ -18,7 +18,7 @@ NewModified::Application.routes.draw do
 
   resources :posts, only: [:create, :destroy]
 
-  resource :videos, only: [:create, :destroy]
+  resources :videos, only: [:create, :destroy]
 
 
   # The priority is based upon order of creation:

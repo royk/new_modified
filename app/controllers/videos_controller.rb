@@ -5,12 +5,11 @@ class VideosController < ApplicationController
 	def create
 		@video = current_user.videos.build(params[:video])
 		@video.user_id = current_user.id
-		videoParsed = parse_video
-		if (videoParsed.any?)
-			@video.type = videoParsed["type"]
-			@video.uid = videoParsed["uid"]
+		if parse_video
 			if @video.save
 				flash[:success] = "Video created"
+			else
+				flash[:error] = "Video not saved: Already exists"
 			end
 		else
 			flash[:error] = "Unrecognized Video URL"
@@ -33,18 +32,21 @@ class VideosController < ApplicationController
 			vimeoID = @video.uid.scan(/vimeo\.com\/(\d+)$/i)
 			youtubeIDLong = @video.uid.scan(/(?:youtube\.com\/watch[^\s]*[\?&]v=)([\w-]+)/i);
 			youtubeIdShort = @video.uid.scan(/(?:youtu\.be\/)([\w-]+)/i)
-			ret = {}
+			ret = false
 			if vimeoID.any?
-				ret["uid"] = vimeoID[0][0]
-				ret["type"] = "vimeo"
+				@video.uid = vimeoID[0][0]
+				@video.vendor = "vimeo"
+				ret = true
 			end
 			if youtubeIDLong.any?
-				ret["uid"] = youtubeIDLong[0][0]
-				ret["type"] = "youtube"
+				@video.uid = youtubeIDLong[0][0]
+				@video.vendor = "youtube"
+				ret = true
 			end
 			if youtubeIdShort.any?
-				ret["uid"] = youtubeIdShort[0][0]
-				ret["type"] = "youtube"
+				@video.uid = youtubeIdShort[0][0]
+				@video.vendor = "youtube"
+				ret = true
 			end
 			return ret
 		end

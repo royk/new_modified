@@ -1,9 +1,13 @@
 <div class="video" id="<%= @feed_item.id %>">
-	<div class="content">
-		<%= @feed_item.title || "" %>
-	</div>
 	<div class="container">
-		<iframe id="131" class="youtube-player" type="text/html" width="500" height="281" src="http://www.youtube.com/embed/CoyEILQHJyc" frameborder="0"></iframe>
+		<div class="container">
+			<% if @feed_item.vendor=="youtube" %>
+				<iframe class="youtube-player" type="text/html" width="500" height="281" src="http://www.youtube.com/embed/<%= @feed_item.uid %>" frameborder="0"></iframe>
+			<% end %>
+			<% if @feed_item.vendor=="vimeo" %>
+				<iframe id="{id}" src="http://player.vimeo.com/video/<%= @feed_item.uid %>" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			<% end %>
+		</div>
 		<span class="user">
 			<%= link_to @feed_item.user.name, @feed_item.user %>
 		</span>
@@ -14,7 +18,7 @@
 			<% if current_user %>
 				<% if current_user.admin? || current_user?(@feed_item.user) %>
 					<% label = current_user?(@feed_item.user) ? "delete" : "Admin delete" %>
-					<%= link_to "#{label}", @feed_item, method: :delete, data: {confirm: "You sure?"}, title: @feed_item.title %>
+					<%= link_to "#{label}", @feed_item, :id => @feed_item.id, method: :delete, data: {confirm: "You sure?"} %>
 				<% end %>
 			<% end %>
 		</span>
