@@ -17,7 +17,7 @@ describe Video do
 	before(:all)  { User.delete_all }
 
 	let!(:user) { FactoryGirl.create(:user) }
-	let!(:video) { user.videos.build(title: "title", uid: "svDPNjQV3ak") }
+	let!(:video) { user.videos.build(title: "title", uid: "svDPNjQV3ak", vendor: "youtube") }
 
 	subject { video }
 
@@ -27,6 +27,7 @@ describe Video do
 	it { should respond_to(:uid) }
 	it { should respond_to(:user) }
 	it { should respond_to(:user_id) }
+	it { should respond_to(:vendor) }
 
 	its(:user) { should==user }
 
@@ -39,6 +40,12 @@ describe Video do
 
 		describe "should not be valid without uid" do
 			before { video.uid = nil }
+
+			it { should_not be_valid }
+		end
+
+		describe "should not be valid without vendor" do
+			before { video.vendor = nil }
 
 			it { should_not be_valid }
 		end

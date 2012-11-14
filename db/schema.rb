@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114064513) do
+ActiveRecord::Schema.define(:version => 20121114070924) do
 
   create_table "posts", :force => true do |t|
     t.text     "content"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20121114064513) do
   create_table "videos", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "type"
+    t.string   "vendor"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "uid"

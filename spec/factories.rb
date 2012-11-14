@@ -18,6 +18,7 @@ FactoryGirl.define do
 	factory :video do
 		title "some title"
 		uid "svDPNjQV3ak"
+		vendor "youtube"
 		user
 	end
 end
