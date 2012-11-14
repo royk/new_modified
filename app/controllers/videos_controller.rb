@@ -24,8 +24,10 @@ class VideosController < ApplicationController
 
 	private
 		def correct_user
-			@video = current_user.videos.find_by_id(params[:id])
-			redirect_to root_url if @video.nil?
+			if !current_user.admin?
+				@video = current_user.videos.find_by_id(params[:id])
+				redirect_to root_url if @video.nil?
+			end
 		end
 
 		def parse_video
