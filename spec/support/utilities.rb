@@ -5,3 +5,7 @@ def sign_in(user)
 	click_button "Sign in"
 	cookies[:remember_token] = user.remember_token
 end
+
+def sign_out
+	user.remember_token = nil
+end
