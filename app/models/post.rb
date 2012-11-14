@@ -15,6 +15,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   validates :user_id, presence: true
+  validates_length_of :content, :minimum => 1, maximum: 9999, presence: true
 
   default_scope order: 'posts.created_at DESC'
 end

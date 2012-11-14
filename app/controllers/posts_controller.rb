@@ -9,6 +9,8 @@ class PostsController < ApplicationController
 		@post.user_id = current_user.id
 		if @post.save
 			flash[:success] = "Post created"
+		else
+			flash[:error] = "Post not saved."
 		end
 		redirect_to root_url
 	end

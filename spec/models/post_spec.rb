@@ -28,12 +28,24 @@ describe Post do
 	it { should respond_to(:user) }
 	its(:user) { should==user } 
 
-	
-
-
-	describe "validation" do
-		before { post.user_id = nil }
-		it { should_not be_valid }
+	describe "Validations" do
+		context "without user id" do
+			before { post.user_id = nil }
+			it { should_not be_valid }
+		end
+		context "without content" do
+			before { post.content = nil}
+			it { should_not be_valid}
+		end
+		context "with empty content" do
+			before { post.content = "" }
+			it { should_not be_valid }
+		end
+		context "with too long a content" do
+			before { post.content = "a" * 10000 }
+			it { should_not be_valid }
+		end
 	end
+
 
 end
