@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   def feed
-    Post.all + Video.all
+    (Post.all + Video.all).sort_by {|f| -f.created_at.to_i} # sort by descending by converting to int and negating
   end
 
   private
