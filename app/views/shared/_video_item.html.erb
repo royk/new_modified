@@ -1,26 +1,11 @@
 <div class="video" id="<%= @feed_item.id %>">
 	<div class="container">
-		<div class="container">
-			<% if @feed_item.vendor=="youtube" %>
-				<iframe class="youtube-player" type="text/html" width="500" height="281" src="http://www.youtube.com/embed/<%= @feed_item.uid %>" frameborder="0"></iframe>
-			<% end %>
-			<% if @feed_item.vendor=="vimeo" %>
-				<iframe id="{id}" src="http://player.vimeo.com/video/<%= @feed_item.uid %>" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-			<% end %>
-		</div>
-		<span class="user">
-			<%= link_to @feed_item.user.name, @feed_item.user %>
-		</span>
-		<span class="timestamp">
-			posted <%= time_ago_in_words(@feed_item.created_at) %> ago.
-		</span>
-		<span class="delete">
-			<% if current_user %>
-				<% if current_user.admin? || current_user?(@feed_item.user) %>
-					<% label = current_user?(@feed_item.user) ? "delete" : "Admin delete" %>
-					<%= link_to "#{label}", @feed_item, :id => @feed_item.id, method: :delete, data: {confirm: "You sure?"} %>
-				<% end %>
-			<% end %>
-		</span>
+		<% if @feed_item.vendor=="youtube" %>
+			<%= render 'shared/youtube_video', :uid => @feed_item.uid %>
+		<% end %>
+		<% if @feed_item.vendor=="vimeo" %>
+			<%= render 'shared/vimeo_video', :uid => @feed_item.uid %>
+		<% end %>
 	</div>
+	<%= render 'shared/feed_item_footer', :feed_item => @feed_item %>
 </div>

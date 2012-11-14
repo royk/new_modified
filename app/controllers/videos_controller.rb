@@ -2,6 +2,10 @@ class VideosController < ApplicationController
 	before_filter	:signed_in_user,	only: [:create, :destroy]
 	before_filter	:correct_user, only: :destroy
 
+	def index
+		@videos = Video.paginate(page: params[:page])
+	end
+	
 	def create
 		@video = current_user.videos.build(params[:video])
 		@video.user_id = current_user.id

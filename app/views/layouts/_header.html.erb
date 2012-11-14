@@ -21,6 +21,7 @@
 <div class="container">
 	<ul class="nav nav-pills">
 		<li><%= link_to "Home", root_path %></li>
+		<li><%= link_to "Videos", videos_path %></li>
 		<% if signed_in? %>
 			<li><%= link_to "My Area", user_path(current_user) %></li>
 			<li><%= link_to "Users", users_path %></li>

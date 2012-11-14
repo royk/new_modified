@@ -1,0 +1,16 @@
+<div class="container">
+	<span class="user">
+		<%= link_to feed_item.user.name, feed_item.user %>
+	</span>
+	<span class="timestamp">
+		posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+	</span>
+	<span class="delete">
+		<% if current_user %>
+			<% if current_user.admin? || current_user?(feed_item.user) %>
+				<% label = current_user?(feed_item.user) ? "delete" : "Admin delete" %>
+				<%= link_to "#{label}", feed_item, :id => feed_item.id, method: :delete, data: {confirm: "You sure?"} %>
+			<% end %>
+		<% end %>
+	</span>
+</div>
