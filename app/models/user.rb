@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   before_save :create_remember_token
 
   has_many :posts, dependent: :destroy
-  
+
   has_many :videos
 
   validates :name, presence: true, length: {maximum: 50}

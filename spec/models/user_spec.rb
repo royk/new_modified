@@ -32,6 +32,8 @@ describe User do
 	it {should be_valid}
 	it {should_not be_admin}
 
+	
+
 	describe "with admin attribute set to 'true'" do
 		before do
 			@user.save!

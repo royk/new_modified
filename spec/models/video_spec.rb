@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  user_id    :integer
 #  title      :string(255)
-#  type       :string(255)
+#  vendor     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  uid        :string(255)
