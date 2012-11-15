@@ -20,6 +20,8 @@ NewModified::Application.routes.draw do
 
   resources :videos, only: [:index, :create, :destroy]
 
+  resources :comments, only: [:new, :create, :destroy]
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
