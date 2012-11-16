@@ -7,17 +7,22 @@ class CommentsController < ApplicationController
 	end
 
 	def create
-		if params[:parent_type]=="video"
+		if params[:parent_type]=="Video"
 			parent = Video.find(params[:parent_id])
+		end
+		if params[:parent_type]=="Post"
+			parent = Post.find(params[:parent_id])
 		end
 		if parent
 			@comment = parent.comments.build(params[:comment])
 			@comment.commenter = current_user
 		else
-			flash[:error] = "you suck"
+			flash[:error] = params[:parent_type]
 		end
-		if @comment.save
-			flash[:success] = "Comment posted"
+		if @comment
+			if @comment.save
+				flash[:success] = "Comment posted"
+			end
 		end
 		redirect_to root_url
 	end
