@@ -1,12 +1,12 @@
 <%= form_for(Comment.create()) do |f| %>
-	<div class="row offset3">
+	<div class="row">
 		<div class="field span5">
 			<%= f.text_area(:content, :rows=>1, :cols=>2, placeholder: "Comment")%>
 		</div>
 	</div>
 	<%= hidden_field_tag 'parent_id', parent.id  %>
 	<%= hidden_field_tag 'parent_type', "video"  %>
-	<div class="row offset5">
+	<div class="row">
 		<div class="button span4">
 			<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 		</div>

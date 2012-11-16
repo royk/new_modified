@@ -127,21 +127,15 @@ input, textarea, select, .uneditable-input {
 }
 
 
-
-.posts {
-  .post {
-    padding-bottom: 10px;
-    &:last-child {
-      padding-bottom: 0px;
-    }
-  }
-  .video {
+.feed {
+  .feed_item {
     padding-top: 10px;
     padding-bottom: 10px;
     &:last-child {
       padding-bottom: 0px;
     }
   }
+  
   .content {
     display: block;
     padding-bottom: 10px;
@@ -163,4 +157,18 @@ input, textarea, select, .uneditable-input {
       }
     }
   }
+}
+
+.comments {
+  cursor: pointer;
+  color: #08C;
+  &:hover {
+      color: #08C;
+      text-decoration: underline;
+    }
+
+}
+
+.comment-container {
+  padding-top: 10px;
 }

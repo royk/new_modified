@@ -13,7 +13,8 @@ class Post < ActiveRecord::Base
   attr_accessible :content
 
   belongs_to :user
-
+  has_many :comments, as: :commentable, order: 'created_at DESC'
+  
   validates :user_id, presence: true
   validates_length_of :content, :minimum => 1, maximum: 9999, presence: true
 

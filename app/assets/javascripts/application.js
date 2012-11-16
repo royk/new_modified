@@ -14,3 +14,19 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
+
+NM = (function() {
+	return {
+		toggleVisibility: function toggleVisibility(elem) {
+			if (elem) {
+				var mode = elem.css('display');
+				if (mode=="none") {
+					mode = "block";
+				} else {
+					mode = "none";
+				}
+				elem.css('display', mode);
+			}
+		}
+	};
+}());

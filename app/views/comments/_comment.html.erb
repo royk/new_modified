@@ -1,0 +1,15 @@
+<div class="comment">
+	<div class="container"
+		<span class="content"><%= comment.content %></span>
+	</div>
+	<span class="user">
+		<%= link_to comment.commenter.name, comment.commenter %>
+	</span>
+	<span class="timestamp">
+		posted <%= time_ago_in_words(comment.created_at) %> ago.
+	</span>
+	<% if current_user?(comment.commenter) %>
+		<%= link_to "delete", comment, method: :delete, data: {confirm: "You sure?"}, title: comment.content %>
+	<% end %>
+	
+</div>

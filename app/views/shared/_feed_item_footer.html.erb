@@ -1,16 +1,31 @@
-<div class="container">
+<div class="feed-footer">
 	<span class="user">
 		<%= link_to feed_item.user.name, feed_item.user %>
 	</span>
 	<span class="timestamp">
 		posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+	</span> |
+	<span class="comments" onclick="NM.toggleVisibility($('div#comment-container<%= feed_item.id %>'));">
+		<%= pluralize(feed_item.comments.count, "Comments") %>
 	</span>
+
 	<span class="delete">
 		<% if current_user %>
 			<% if current_user.admin? || current_user?(feed_item.user) %>
+				| 
 				<% label = current_user?(feed_item.user) ? "delete" : "Admin delete" %>
 				<%= link_to "#{label}", feed_item, :id => feed_item.id, method: :delete, data: {confirm: "You sure?"} %>
 			<% end %>
 		<% end %>
 	</span>
+	<div class="container comment-container" id="comment-container<%= feed_item.id %>" style="display:none">
+		<div class="container">
+			<% if feed_item.comments.any? %>
+				<%= render feed_item.comments %>
+			<% end %>
+			<div class="container">
+				<%= render 'shared/comment_form', parent: feed_item %>
+			</div>
+		</div>
+	</div>
 </div>
