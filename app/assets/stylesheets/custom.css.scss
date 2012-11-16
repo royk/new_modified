@@ -25,6 +25,14 @@ $linkColor: #08C;
   box-shadow: $params;
 }
 
+@mixin border($topleft, $topright: $topleft, $bottomright: $topleft, $bottomleft: $topleft) {
+
+    -moz-border-radius: $topleft $topright $bottomright $bottomleft;
+    -webkit-border-radius: $topleft $topright $bottomright $bottomleft;
+    border-radius: $topleft $topright $bottomright $bottomleft;
+
+}
+
 .headernav {
 	background-color: #ff0000;
 	@include gradient(right, #903, #903);
@@ -206,4 +214,21 @@ input, textarea, select, .uneditable-input {
 
 .notifications-count {
   padding-left: 5px;
+  
+}
+
+.notification_item {
+
+  @include border(1px);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #E3E8F0;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #E3E8F0;
+  
+
+}
+.notification_separator {
+  border-bottom-top: 2px;
 }

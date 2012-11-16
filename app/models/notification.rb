@@ -11,10 +11,12 @@
 #  updated_at  :datetime         not null
 #  action_type :string(255)
 #  action_id   :integer
+#  public      :boolean
+#  read        :boolean          default(FALSE)
 #
 
 class Notification < ActiveRecord::Base
-	attr_accessible :sender_id
+	attr_accessible :sender_id, :public, :read
 	
 	belongs_to :user
 

@@ -18,7 +18,10 @@ class UsersController < ApplicationController
   end
 
   def clear_notifications
-   Notification.destroy current_user.notifications.collect {|n| n.id}
+    current_user.notifications.where(read: false).each do |n|
+      n.read = true;
+      n.save
+    end
    render :text => ""
   end
 

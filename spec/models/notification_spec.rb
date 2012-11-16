@@ -11,6 +11,8 @@
 #  updated_at  :datetime         not null
 #  action_type :string(255)
 #  action_id   :integer
+#  public      :boolean
+#  read        :boolean          default(FALSE)
 #
 
 require 'spec_helper'
@@ -34,8 +36,14 @@ describe Notification do
 		it { should respond_to(:action_id) }
 		it { should respond_to(:action) }
 		it { should respond_to(:item) }
-		it { should respond_to(:feed) }
-		
-		its(:user) { should==recepient }
+		it { should respond_to(:user) }
+		it { should respond_to(:sender) }
+		it { should respond_to(:action_name) }
+		it { should respond_to(:public) }
+		it { should respond_to(:read) }
+
+		its(:read) { should==false }
 	end
+
+
 end
