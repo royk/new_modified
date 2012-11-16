@@ -10,6 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
+#  gravatar_suffix :string(255)
 #
 
 require 'spec_helper'
@@ -28,6 +29,9 @@ describe User do
 	it { should respond_to(:admin) }
 	it { should respond_to(:posts) }
 	it { should respond_to(:videos) }
+	it { should respond_to(:gravatar_suffix) }
+	it { should respond_to(:gravatar_email) }
+	it { should respond_to(:feed) }
 
 	it {should be_valid}
 	it {should_not be_admin}
@@ -164,6 +168,21 @@ describe User do
 			videos.should_not be_empty
 			videos.each do |video|
 				Video.find_by_id(video.id).should_not be_nil
+			end
+		end
+	end
+
+	context "Gravatar" do
+		context "when gravatar suffix" do
+			describe "is empty" do
+				its(:gravatar_email) { should==@user.email }
+			end
+			describe "is set" do
+				before do 
+					@user.email = "test@email.com"
+					@user.gravatar_suffix = "suffix"
+				end
+				its(:gravatar_email) { should== "test+suffix@email.com"}
 			end
 		end
 	end

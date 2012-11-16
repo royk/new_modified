@@ -10,6 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
+#  gravatar_suffix :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -29,6 +30,15 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: {minimum: 6}
   validates :password_confirmation, presence: true
+
+  def gravatar_email
+    if gravatar_suffix.nil? || gravatar_suffix.empty?
+      email
+    else
+      parts = email.split("@")
+      return parts[0] + "+" + gravatar_suffix + "@" + parts[1]
+    end
+  end
 
   def feed
     (Post.all + Video.all).sort_by {|f| -f.created_at.to_i} # sort by descending by converting to int and negating
