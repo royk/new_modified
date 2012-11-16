@@ -15,8 +15,16 @@
 
 		    <%= f.label :password_confirmation, "Confirm Password" %>
 		    <%= f.password_field :password_confirmation %>
+		    <div class="container optional">
 
-		    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+		    	<%= f.label :gravatar_suffix, "Gravatar Email" %>
+		    	<span class="span6">
+		    		<%= @user.email_parts[0] %>+<%= f.text_field :gravatar_suffix, class: "short-input" %>@<%= @user.email_parts[1] %>
+		    	</span>
+		    </div>
+		    <div class="container">
+		    	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+		    </div>
 		<% end  %>
 		</a>
 	</div>

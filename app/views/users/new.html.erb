@@ -15,8 +15,9 @@
 
 			<%= f.label :password_confirmation, "Confirmation" %>
 			<%= f.password_field  :password_confirmation %>
-			<div class="Container"></div> <!-- TBD: Remove this. without this container, the button mysteriously resids on the same line as password confirmation -->
-			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+			<div class="container">
+				<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+			</div>
 		<% end %>
 	</div>
 </div>

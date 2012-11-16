@@ -14,7 +14,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -35,9 +35,13 @@ class User < ActiveRecord::Base
     if gravatar_suffix.nil? || gravatar_suffix.empty?
       email
     else
-      parts = email.split("@")
+      parts = email_parts
       return parts[0] + "+" + gravatar_suffix + "@" + parts[1]
     end
+  end
+
+  def email_parts
+    email.split("@")
   end
 
   def feed
