@@ -2,15 +2,22 @@
 <div class="row">
 	<aside class="span4">
 		<section>
+
 			<h1>
 				<%= @user.name %>
 			</h1>
+			<div class="container span4 center">
+				<%= gravatar_for @user %>
+			</div>
 			<% if @user.admin? %>
 				<h2>
 					Admin
 				</h2>
 			<% end %>
 		</section>
+		<% if @user==current_user %>
+			<%= link_to "Edit details", edit_user_path(current_user) %>
+		<% end %>
 	</aside>
 	<div class="span8">
 		<h2>Posts</h2>
