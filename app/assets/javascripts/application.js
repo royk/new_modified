@@ -27,6 +27,12 @@ NM = (function() {
 				}
 				elem.css('display', mode);
 			}
+		},
+		
+		clearNotifications: function clearNotifications() {
+			$.ajax({
+				url: "/clear_notifications"
+			});
 		}
 	};
 }());

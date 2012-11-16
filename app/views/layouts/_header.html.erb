@@ -5,7 +5,7 @@
 				<ul class="pull-right nav headernav">
 					<li><%=link_to "Hello #{current_user.name}. Sign out", signout_path, method: "delete" %></li>
 					<% if current_user.notifications.any? %>
-						<li class="notifications-count" onclick="NM.toggleVisibility($('div.notifications-flyout'));"><%= current_user.notifications.count %></li>
+						<li class="notifications-count" onclick="NM.clearNotifications();NM.toggleVisibility($('div.notifications-flyout'));"><%= current_user.notifications.count %></li>
 						<div class="notifications-flyout span4">
 							<ul>
 								<%= render partial: 'shared/personal_notification_item', collection: current_user.notifications %>

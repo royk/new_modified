@@ -11,6 +11,8 @@ NewModified::Application.routes.draw do
 
   match '/signup', to: 'users#new'
 
+  match '/clear_notifications', to: 'users#clear_notifications'
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signin',  to: 'sessions#new'
