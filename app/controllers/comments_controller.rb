@@ -23,5 +23,15 @@ class CommentsController < ApplicationController
 	end
 
 	def destroy
+		Comment.find(params[:id]).destroy
+		flash[:success] = "Comment removed"
+		redirect_to root_url
 	end
+	private
+		def correct_user
+			if !current_user.admin?
+				@comment = current_user.comments.find_by_id(params[:id])
+				redirect_to root_url if @post.nil?
+			end
+		end
 end
