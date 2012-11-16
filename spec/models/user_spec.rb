@@ -32,6 +32,7 @@ describe User do
 	it { should respond_to(:gravatar_suffix) }
 	it { should respond_to(:gravatar_email) }
 	it { should respond_to(:feed) }
+	it { should respond_to(:notifications) }
 
 	it {should be_valid}
 	it {should_not be_admin}
