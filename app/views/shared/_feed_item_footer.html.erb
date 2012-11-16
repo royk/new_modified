@@ -6,7 +6,7 @@
 		posted <%= time_ago_in_words(feed_item.created_at) %> ago.
 	</span> |
 	<span class="comments" onclick="NM.toggleVisibility($('div#comment-container<%= feed_item.id %>'));">
-		<%= pluralize(feed_item.comments.count, "Comments") %>
+		<%= pluralize(feed_item.comments.count, "comment") %>
 	</span>
 
 	<span class="delete">
