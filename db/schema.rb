@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116140419) do
+ActiveRecord::Schema.define(:version => 20121116142419) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commenter_id"
@@ -30,8 +30,10 @@ ActiveRecord::Schema.define(:version => 20121116140419) do
     t.integer  "sender_id"
     t.integer  "item_id"
     t.string   "item_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "action_type"
+    t.integer  "action_id"
   end
 
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"

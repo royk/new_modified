@@ -2,6 +2,7 @@
 
 /* vars */
 $lightYellow: #f9ed9d;
+$linkColor: #08C;
 /* Mixin */
 @mixin gradient ($origin: left, $start: #ffffff, $stop: #000000) {
 	background-color: $start;
@@ -16,6 +17,12 @@ $lightYellow: #f9ed9d;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+@mixin boxShadow($params) {
+  -moz-box-shadow: $params;
+  -webkit-box-shadow: $params;
+  box-shadow: $params;
 }
 
 .headernav {
@@ -161,9 +168,9 @@ input, textarea, select, .uneditable-input {
 
 .comments {
   cursor: pointer;
-  color: #08C;
+  color: $linkColor;
   &:hover {
-      color: #08C;
+      color: $linkColor;
       text-decoration: underline;
     }
 
@@ -176,4 +183,27 @@ input, textarea, select, .uneditable-input {
 
 .short-input {
   width: 50%;
+}
+
+.notifications-count {
+  color: red;
+  cursor: pointer;
+}
+.notification_item {
+ color :  black;
+ a, a:visited {
+    color: $linkColor;
+  }
+}
+.notifications-flyout {
+  display: block;
+  position: absolute;
+  background-color: white;
+  @include boxShadow(0px 1px 3px #999);
+  top: 30px;
+  display:none;
+}
+
+.notifications-count {
+  padding-left: 5px;
 }

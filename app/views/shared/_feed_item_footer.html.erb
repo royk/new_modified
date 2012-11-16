@@ -1,3 +1,4 @@
+<% comments_shown ||=false  %>
 <div class="feed-footer">
 	<span class="user">
 		<%= link_to feed_item.user.name, feed_item.user %>
@@ -18,7 +19,8 @@
 			<% end %>
 		<% end %>
 	</span>
-	<div class="container comment-container" id="comment-container<%= feed_item.id %>" style="display:none">
+	<% commentDisplay = comments_shown ? "block" : "none" %>
+	<div class="container comment-container" id="comment-container<%= feed_item.id %>" style="display:<%=commentDisplay%>">
 		<div class="container">
 			<% if feed_item.comments.any? %>
 				<%= render feed_item.comments %>

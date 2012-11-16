@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     (Post.all + Video.all).sort_by {|f| -f.created_at.to_i} # sort by descending by converting to int and negating
   end
 
+  def notifications
+    Notification.where("user_id = ?", id).order("created_at DESC")
+  end
+
   private
   	def create_remember_token
   		self.remember_token = SecureRandom.urlsafe_base64

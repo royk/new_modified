@@ -4,11 +4,20 @@
 			<% if signed_in? %>
 				<ul class="pull-right nav headernav">
 					<li><%=link_to "Hello #{current_user.name}. Sign out", signout_path, method: "delete" %></li>
+					<% if current_user.notifications.any? %>
+						<li class="notifications-count" onclick="NM.toggleVisibility($('div.notifications-flyout'));"><%= current_user.notifications.count %></li>
+						<div class="notifications-flyout span4">
+							<ul>
+								<%= render partial: 'shared/personal_notification_item', collection: current_user.notifications %>
+							</ul>
+						</div>
+					<% end %>
 				</ul>
 			<% else %>
 				<ul class="nav pull-right headernav">
 					<li><%= link_to "Sign up", signup_path %></li>
 					<li><%= link_to "Login", signin_path %></li>
+
 				</ul>
 			<% end %>
 		</div>

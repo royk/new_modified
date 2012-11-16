@@ -1,0 +1,7 @@
+<% notification_item = personal_notification_item %>
+<li class="notification_item" id="item<%= notification_item.id %>">
+	<%= link_to notification_item.sender.name, notification_item.sender%> <%= notification_item.action_name %> on your <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+	<span class="timestamp">
+		<%= time_ago_in_words(notification_item.created_at) %> ago.
+	</span>
+</li>

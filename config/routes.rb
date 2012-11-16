@@ -16,9 +16,9 @@ NewModified::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
-  resources :posts, only: [:create, :destroy]
+  resources :posts, only: [:create, :destroy, :show]
 
-  resources :videos, only: [:index, :create, :destroy]
+  resources :videos, only: [:index, :create, :destroy, :show]
 
   resources :comments, only: [:new, :create, :destroy]
 
