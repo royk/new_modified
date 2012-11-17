@@ -1,0 +1,12 @@
+<%= link_to user do %>
+	<span>
+		<%= gravatar_for user %>
+			
+	</span>
+	<span>
+		<h3 id="user_name">
+			<%= user.name %>
+		</h3>
+		
+	</span>
+<% end %>

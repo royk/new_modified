@@ -7,17 +7,16 @@
 	</div>
 	<!-- MAIN BAR: 7 grids -->
 	<div class="span7">
-		<% if signed_in? %>
-			<%= render 'shared/post_form' %>
-		<% end %>
-
-		<% if @feed_items.any? %>
-			<div class="feed">
+		<div class="feed">
+			<% if signed_in? %>
+				<%= render 'shared/post_form' %>
+			<% end %>
+			<% if @feed_items.any? %>
 				<%= render partial: 'shared/feed_item', collection: @feed_items %>
-			</div>
-		<% end %>
+			<% end %>
+		</div>
 	</div>
-	<!-- RIGHT BAR: 2 grids -->
+	<!-- RIGHT BAR: 3 grids -->
 	<div class="right-bar span2">
 		RIGHT BAR
 	</div>
