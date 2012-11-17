@@ -1,17 +1,24 @@
 <% provide(:title, 'Home') %>
-<% if signed_in? %>
-	<%= render 'shared/post_form' %>
-	<%= render 'shared/video_form' %>
-<% end %>
-<h1>Timeline</h1>
-<% if @feed_items.any? %>
-	<div class="offset4">
-		<%= will_paginate @feed_items %>
+<div class="row">
+	<!-- LEFT BAR: 2 grids -->
+	<div class="left-bar span2">
+		
+		LEFT BAR
 	</div>
-	<div class="feed offset3">
-		<%= render partial: 'shared/feed_item', collection: @feed_items %>
+	<!-- MAIN BAR: 7 grids -->
+	<div class="span7">
+		<% if signed_in? %>
+			<%= render 'shared/post_form' %>
+		<% end %>
+
+		<% if @feed_items.any? %>
+			<div class="feed">
+				<%= render partial: 'shared/feed_item', collection: @feed_items %>
+			</div>
+		<% end %>
 	</div>
-	<div class="offset4">
-		<%= will_paginate @feed_items %>
+	<!-- RIGHT BAR: 2 grids -->
+	<div class="right-bar span2">
+		RIGHT BAR
 	</div>
-<% end %>
+</div>
