@@ -13,11 +13,17 @@
 			<% end %>
 			<% if @feed_items.any? %>
 				<%= render partial: 'shared/feed_item', collection: @feed_items %>
+
 			<% end %>
 		</div>
 	</div>
 	<!-- RIGHT BAR: 3 grids -->
 	<div class="right-bar span2">
 		RIGHT BAR
+	</div>
+	<div class="row">
+		<div class="span12" style="text-align:center;">
+			<%= will_paginate @feed_items %>
+		</div>
 	</div>
 </div>

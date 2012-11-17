@@ -272,7 +272,9 @@ input, textarea, select, .uneditable-input {
   border-color: #000000;
   height: 1000px;
 }
-
+.dropdown-menu li a {
+  color: black;
+}
 .feed {
   .feed_item#feed-form {
     padding-bottom: 0;
