@@ -1,13 +1,9 @@
-<%= form_for(Post.create()) do |f| %>
-	<div class="row offset3">
-		<div class="field span5">
-			<%= f.text_area(:content, :rows=>1, :cols=>2, placeholder: "Write something...")%>
-		</div>
-	</div>
-	<div class="row offset5">
-		<div class="button span4">
+<div class="feed_item" id="feed-form">
+	<%= form_for(Post.create()) do |f| %>
+		<%= render '/shared/feed_info', user: current_user %>
+		<div class="content">
+			<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
 			<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 		</div>
-	</div>
-
-<% end %>
+	<% end %>
+</div>

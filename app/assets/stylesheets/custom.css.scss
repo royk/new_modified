@@ -140,6 +140,64 @@ header {
   color: $white;
   background-color: transparent;
 }
+
+/* post footer */
+.post-footer {
+  height: 20px;
+  background-color: #bbbbbb;
+  @include border(0, 0, 4px, 4px);
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+  margin-bottom: 15px;
+  padding-top: -1px;
+  border-top-style: none;
+  .post-footer-info {
+    float: right;
+    padding-right: 10px;
+    li {
+      float: right;
+      padding-left: 10px;
+    }
+  }
+  .post-footer-actions {
+    float: left;
+    padding-left: 10px;
+
+    li {
+      float: left;
+      padding-right: 10px;
+      a {
+        color: black;
+      }
+      a:hover {
+        background-color: transparent;
+      }
+    }
+  }
+  .post-footer-info {
+    li a {
+      color: black;
+      background-color: transparent;
+    }
+    img.kudos-img {
+      width:15px;
+      padding: 0 2px;
+      padding-bottom: 2px;
+    }
+
+    img.comments-img {
+      width:18px;
+      padding: 0 2px;
+      padding-bottom: 2px;
+    }
+  }
+  .timestamp {
+    padding-right: 10px;
+  }
+}
+
+
   
 
 /* typography */
@@ -216,10 +274,14 @@ input, textarea, select, .uneditable-input {
 }
 
 .feed {
+  .feed_item#feed-form {
+    padding-bottom: 0;
+    margin-bottom: 15px;
+  }
   .feed_item {
     padding: 10px;
     background-color: white;
-    @include border(1px);
+    @include border(4px, 4px, 0, 0);
     border-style: solid;
     border-width: 1px;
     border-color: #000000;
@@ -236,6 +298,11 @@ input, textarea, select, .uneditable-input {
       font-size: 1.4em;
     }
 
+  }
+
+  .video-content {
+    padding-top: 10px;
+    text-align: center;
   }
 
   .content {
@@ -259,6 +326,12 @@ input, textarea, select, .uneditable-input {
         text-decoration: underline;
       }
     }
+  }
+  .post-input {
+    width: 80%;
+  }
+  .field_with_errors {
+    display: inline;
   }
 }
 

@@ -1,7 +1,8 @@
-<% if feed_item.vendor=="youtube" %>
-	<%= render 'shared/youtube_video', :uid => feed_item.uid %>
-<% end %>
-<% if feed_item.vendor=="vimeo" %>
-	<%= render 'shared/vimeo_video', :uid => feed_item.uid %>
-<% end %>
-
+<div class="video-content">
+	<% if feed_item.vendor=="youtube" %>
+		<%= render 'shared/youtube_video', :uid => feed_item.uid %>
+	<% end %>
+	<% if feed_item.vendor=="vimeo" %>
+		<%= render 'shared/vimeo_video', :uid => feed_item.uid %>
+	<% end %>
+</div>

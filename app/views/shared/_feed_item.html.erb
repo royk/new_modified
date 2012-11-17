@@ -1,24 +1,12 @@
 <div class="feed_item" id="item<%= feed_item.id %>">
-	<%= link_to feed_item.user do %>
-		<span>
-			<%= gravatar_for feed_item.user %>
-				
-		</span>
-		<span>
-			<h3 id="user_name">
-				<%= feed_item.user.name %>
-			</h3>
-			
-		</span>
+	<%= render '/shared/feed_info', user: feed_item.user %>
+	
+	<% if feed_item.class==Post %>
+		<%= render '/shared/post_item', :feed_item => feed_item%>
 	<% end %>
-	<div id="content">
-		<% if feed_item.class==Post %>
-			<%= render '/shared/post_item', :feed_item => feed_item%>
-		<% end %>
 
-		<% if feed_item.class==Video %>
-			<%= render '/shared/video_item', :feed_item => feed_item%>
-		<% end %>
-	</div>
+	<% if feed_item.class==Video %>
+		<%= render '/shared/video_item', :feed_item => feed_item%>
+	<% end %>
 </div>
 <%= render 'shared/feed_item_footer', :feed_item => feed_item %>
