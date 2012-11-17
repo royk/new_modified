@@ -279,6 +279,29 @@ input, textarea, select, .uneditable-input {
     margin-bottom: 15px;
     @include border(4px, 4px, 4px, 4px);
   }
+  .feed_item, .comment{
+    #user_name {
+      text-align: left;
+      display: inline;
+    }
+  }
+  .comment {
+    background-color: #eeeeee;
+    margin-bottom: 2px;
+    padding: 10px;
+    .timestamp {
+      padding-left: 45px;
+      padding-top: 5px;
+    }
+    .content {
+      display: inline;
+      padding-left: 5px;
+    }
+
+    .delete-img {
+      width: 15px;
+    }
+  }
   .feed_item {
     padding: 10px;
     background-color: white;
@@ -289,14 +312,14 @@ input, textarea, select, .uneditable-input {
     a:hover {
         text-decoration: none;
       }
-    #user_name {
-      text-align: left;
-      display: inline;
-
-    }
+    
     #content {
       padding-top: 10px;
       font-size: 1.4em;
+    }
+
+    .delete-img {
+      width: 15px;
     }
 
   }
@@ -346,13 +369,12 @@ input, textarea, select, .uneditable-input {
 
 }
 
-.comment-container {
-  padding-top: 10px;
-}
-
-
 .short-input {
   width: 50%;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .notifications-count {

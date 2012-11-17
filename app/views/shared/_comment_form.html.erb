@@ -1,15 +1,9 @@
 <%= form_for(Comment.create()) do |f| %>
-	<div class="row">
-		<div class="field span5">
-			<%= f.text_area(:content, :rows=>1, :cols=>2, placeholder: "Comment")%>
-		</div>
-	</div>
+<div class="comment">
+	<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Comment")%>
 	<%= hidden_field_tag 'parent_id', parent.id  %>
 	<%= hidden_field_tag 'parent_type', parent.class.to_s  %>
-	<div class="row">
-		<div class="button span4">
-			<%= f.submit "Post", class: "btn btn-large btn-primary" %>
-		</div>
-	</div>
+	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+</div>
 
 <% end %>

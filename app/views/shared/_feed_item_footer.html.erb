@@ -1,7 +1,9 @@
 <% comments_shown ||=false  %>
+<% commentDiv = "div#comment-container"+ feed_item.id.to_s; %>
+<% openCommentFunc = 'NM.toggleVisibility("'+commentDiv+'");' %>
 <div class="post-footer">
 	<ul class="nav post-footer-actions">
-		<li><%= link_to "Comment", '#' %></li>
+		<li><%= link_to_function "Comment", openCommentFunc %></li>
 		<li class="divider">|</li>
 		<li><%= link_to "Kudos", '#' %></li>
 	</ul>
@@ -11,18 +13,23 @@
 				<img class="kudos-img" src="/assets/kudos.png"/>2
 			<% end %>
 		</li>
-		<li><%= link_to '#' do %>
+		<li class="clickable" onclick="<%= openCommentFunc %>">
 				<img class="comments-img" src="/assets/comments.png">
 				<%= feed_item.comments.count %>
-			<% end %>
 		</li>
 		
 	</span>
 </div>	
-	<!--<span class="comments" onclick="NM.toggleVisibility($('div#comment-container<%= feed_item.id %>'));">
-		<%= pluralize(feed_item.comments.count, "comment") %>
-	</span>
-
+<% commentDisplay = comments_shown ? "block" : "none" %>
+	<div class="comment-container" id="comment-container<%= feed_item.id %>" style="display:<%=commentDisplay%>">
+		<% if feed_item.comments.any? %>
+			<%= render feed_item.comments %>
+		<% end %>
+		<div class="comment-form">
+			<%= render 'shared/comment_form', parent: feed_item %>
+		</div>
+	</div>
+	<!--
 	<span class="delete">
 		<% if current_user %>
 			<% if current_user.admin? || current_user?(feed_item.user) %>
@@ -31,15 +38,5 @@
 				<%= link_to "#{label}", feed_item, :id => feed_item.id, method: :delete, data: {confirm: "You sure?"} %>
 			<% end %>
 		<% end %>
-	</span>
-	<% commentDisplay = comments_shown ? "block" : "none" %>
-	<div class="container comment-container" id="comment-container<%= feed_item.id %>" style="display:<%=commentDisplay%>">
-		<div class="container">
-			<% if feed_item.comments.any? %>
-				<%= render feed_item.comments %>
-			<% end %>
-			<div class="container">
-				<%= render 'shared/comment_form', parent: feed_item %>
-			</div>
-		</div>
-	</div>-->
+	</span>-->
+	

@@ -18,6 +18,7 @@
 NM = (function() {
 	return {
 		toggleVisibility: function toggleVisibility(elem) {
+			elem = $(elem);
 			if (elem) {
 				var mode = elem.css('display');
 				if (mode=="none") {
