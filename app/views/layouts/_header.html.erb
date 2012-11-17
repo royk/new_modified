@@ -1,9 +1,18 @@
 <header class="navbar navbar-fixed-top">
 	<div class="navbar-inner headernav">
 		<div class="container">
+<!-- Logo -->				
+			<a href="/#">
+				<p class="brand">MODIFIED</p>
+				<p class="brand brand2">IN</p>
+			</a>
+				
+
 			<% if signed_in? %>
+<!-- Signed in top bar option -->				
 				<ul class="pull-right nav headernav">
 					<li><%=link_to "Hello #{current_user.name}. Sign out", signout_path, method: "delete", id: "signout" %></li>
+					<li><%= link_to "My Area", user_path(current_user) %></li>
 					<% unread_notifications = current_user.notifications.where(read: false) %>
 					<li class="notifications-count" onclick="NM.clearNotifications();NM.toggleVisibility($('div.notifications-flyout'));"><%= unread_notifications.count %></li>
 					<div class="notifications-flyout span4">
@@ -14,8 +23,10 @@
 					</div>
 				</ul>
 			<% else %>
+<!-- Signed out top bar option -->			
 				<ul class="nav pull-right headernav">
-					<li><%= link_to "Sign up", signup_path %></li>
+					<li><%= link_to "Register", signup_path %></li>
+					<li class="divider">|</li>
 					<li><%= link_to "Login", signin_path %></li>
 
 				</ul>
@@ -23,17 +34,12 @@
 		</div>
 	</div>
 </header>
-
+<!-- Main navigation -->
 <div class="container">
-	<img alt="<%= site_name %> Logo"  src="/assets/logo.png"/>
-</div>
-<div class="container">
-	<ul class="nav nav-pills">
-		<li><%= link_to "Home", root_path %></li>
-		<li><%= link_to "Videos", videos_path %></li>
-		<% if signed_in? %>
-			<li><%= link_to "My Area", user_path(current_user) %></li>
-			<li><%= link_to "Users", users_path %></li>
-		<% end %>
+	<ul class="nav nav-bold">
+		<li><%= link_to "Home", root_path, class: active_if(controller: 'static_pages') %></li>
+		<li><%= link_to "Videos", videos_path, class: active_if(controller: 'videos') %></li>
+		<li><%= link_to "Blogs", '#', class: active_if(controller: 'blogs') %></li>
+		<li><%= link_to "Users", users_path, class: active_if(controller: 'sessions') %></li>
 	</ul>
 </div>

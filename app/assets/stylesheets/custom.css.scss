@@ -33,9 +33,12 @@ $linkColor: #08C;
 
 }
 
+.navbar-inner {
+  @include boxShadow(1);
+}
 .headernav {
-	background-color: #ff0000;
-	@include gradient(right, #903, #903);
+	background-color: #666666;
+	@include gradient(right, #666666, #666666);
 }
 
 html {
@@ -44,6 +47,7 @@ html {
 
 body {
   padding-top: 60px;
+  background-color: #A2C9EA;
 }
 
 section {
@@ -70,12 +74,74 @@ header {
   }
 }
 
-.navbar .nav > li > a {
+.navbar .brand {
+  color: $black;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+.navbar .brand2{
+  color: $white;
+  padding-left: 4px;
+
+}
+
+.navbar .nav > li > a, .navbar .nav .divider {
 	color: $white;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+.navbar .nav .divider {
+  padding-top: 9px;
 }
 .navbar .nav > li > a:hover {
 	color: $lightYellow;
 }
+
+/* Bootstrap overrides */
+
+/* menu bar */
+
+.nav-tabs, .nav-bold {
+  *zoom: 1;
+}
+.nav-tabs:before, .nav-tabs:after, .nav-bold:before, .nav-bold:after {
+  display: table;
+  content: "";
+}
+.nav-tabs:after, .nav-bold:after {
+  clear: both;
+}
+
+.nav-tabs > li, .nav-bold > li {
+  float: left;
+}
+
+.nav-tabs > li > a, .nav-bold > li > a {
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+}
+
+.nav-bold > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: #dddddd;
+  font-size: 1.6em;
+  font-weight: bold;
+}
+
+.nav-bold > li > a:hover,  .nav-bold > li > .nav-active {
+  color: $white;
+  background-color: transparent;
+}
+  
 
 /* typography */
 

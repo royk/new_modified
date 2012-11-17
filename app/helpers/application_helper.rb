@@ -10,4 +10,10 @@ module ApplicationHelper
 			"#{site_name} | #{page_title}"
 		end
 	end
+
+	def active_if(options)
+	  if params.merge(options) == params
+	    'nav-active'
+	  end
+	end
 end
