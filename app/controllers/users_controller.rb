@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_filter :admin_user,  only: [:destroy]
 
   def destroy
-    User.find(params[:id]).destroy
+    User.find(params[:id]).destroy!
     flash[:success] = "User deleted."
     redirect_to users_url
   end
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       n.read = true;
       n.save
     end
-   render :text => ""
+    render :text => ""
   end
 
   def update

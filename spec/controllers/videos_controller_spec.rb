@@ -6,6 +6,18 @@ describe VideosController do
 
 	before { sign_in user }
 
+	describe "show" do
+		it "should assign the correct video" do
+			get :show, id: video
+			assigns(:video).should eq(video)
+		end
+		it "should render the show view" do
+			get :show, id: video
+			response.should render_template :show
+		end
+	end
+
+
 	describe "index" do
 		it "should return a list of videos" do
 			get :index

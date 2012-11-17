@@ -3,7 +3,7 @@
 		<div class="container">
 			<% if signed_in? %>
 				<ul class="pull-right nav headernav">
-					<li><%=link_to "Hello #{current_user.name}. Sign out", signout_path, method: "delete" %></li>
+					<li><%=link_to "Hello #{current_user.name}. Sign out", signout_path, method: "delete", id: "signout" %></li>
 					<% unread_notifications = current_user.notifications.where(read: false) %>
 					<li class="notifications-count" onclick="NM.clearNotifications();NM.toggleVisibility($('div.notifications-flyout'));"><%= unread_notifications.count %></li>
 					<div class="notifications-flyout span4">
