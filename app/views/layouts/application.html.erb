@@ -8,11 +8,13 @@
   <%= render 'layouts/shim' %>
 </head>
 <body>
+	<!-- static part of every page is the heade -->
 	<%= render 'layouts/header' %>
 	<div class="container">
 		<% flash.each do |key, value| %>
 			<%= content_tag(:div, value, class: "alert alert-#{key}") %>
 		<% end %>
+		<!-- dynamic part of every page is pasted here -->
 		<%= yield %>
 		<%= debug(params) if Rails.env.development? %>
 	</div>

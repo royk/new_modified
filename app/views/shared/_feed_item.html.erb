@@ -1,4 +1,5 @@
-<div class="feed_item" id="item<%= feed_item.id %>">
+<div class="feed-item" id="item<%= feed_item.id %>">
+	<!-- create a variable that tells us if the user already liked a post -->
 	<% 	@already_liked = false
 		if current_user && feed_item.likes.find_by_liker_id(current_user.id)
 			@already_liked = true
