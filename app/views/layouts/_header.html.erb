@@ -45,10 +45,12 @@
 								<%= unread_notifications.count if unread_notifications.any?%>
 							</span>
 						</a>
-						<ul class="dropdown-menu notifications-flyout">
+						<% if unread_notifications.any? %>
+							<ul class="dropdown-menu notifications-flyout">
 							<% @old_notifications = false %>
 							<%= render partial: 'shared/personal_notification_item', collection: current_user.notifications %>
-						</ul>
+							</ul>
+						<% end %>
 						</span>
 					</li>
 				</ul>
