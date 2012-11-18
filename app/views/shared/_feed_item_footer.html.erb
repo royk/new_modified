@@ -29,22 +29,12 @@
 	</span>
 </div>	
 <% commentDisplay = comments_shown ? "block" : "none" %>
-	<div class="comment-container" id="comment-container<%= feed_item.id %>" style="display:<%=commentDisplay%>">
-		<% if feed_item.comments.any? %>
-			<%= render feed_item.comments %>
-		<% end %>
-		<div class="comment-form">
-			<%= render 'shared/comment_form', parent: feed_item %>
-		</div>
+<div class="comment-container" id="comment-container<%= feed_item.id %>" style="display:<%=commentDisplay%>">
+	<% if feed_item.comments.any? %>
+		<%= render feed_item.comments %>
+	<% end %>
+	<div class="comment-form">
+		<%= render 'shared/comment_form', parent: feed_item %>
 	</div>
-	<!--
-	<span class="delete">
-		<% if current_user %>
-			<% if current_user.admin? || current_user?(feed_item.user) %>
-				| 
-				<% label = current_user?(feed_item.user) ? "delete" : "Admin delete" %>
-				<%= link_to "#{label}", feed_item, :id => feed_item.id, method: :delete, data: {confirm: "You sure?"} %>
-			<% end %>
-		<% end %>
-	</span>-->
+</div>
 	

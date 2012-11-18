@@ -1,16 +1,10 @@
 <div class="comment">
 	<%= render '/shared/feed_info_small', user: comment.commenter %>
-	<%= render '/shared/delete_icon', item: comment %>
+	<%= render '/shared/delete_icon', item: comment, user: comment.commenter %>
 	<span class="content">
 		<%= comment.content %>
 	</span>
 	<div class="timestamp">
 		<%= time_ago_in_words(comment.created_at) %> ago.
 	</div>
-	<!--
-	<% if current_user?(comment.commenter) %>
-		<%= link_to "delete", comment, method: :delete, data: {confirm: "You sure?"}, title: comment.content %>
-	<% end %>
--->
-	
 </div>

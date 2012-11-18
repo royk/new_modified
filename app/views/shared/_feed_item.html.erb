@@ -6,7 +6,7 @@
 		end
 	 %>
 	<%= render '/shared/feed_info', user: feed_item.user %>
-	<%= render '/shared/delete_icon', item: feed_item %>
+	<%= render '/shared/delete_icon', item: feed_item, user: feed_item.user %>
 	<% if feed_item.class==Post %>
 		<%= render '/shared/post_item', :feed_item => feed_item%>
 	<% end %>

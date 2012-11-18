@@ -19,6 +19,9 @@
 			<% if signed_in? %>
 				<!-- Signed in top bar option -->	
 				<!-- contains: user options(profile, logout) and notifications -->
+
+				
+
 				<ul class="pull-right nav user-menu">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %>
@@ -28,16 +31,25 @@
 							<li class="divider"></li>
 							<li><%= link_to "Log out", signout_path, method: "delete" %></li>
 						</ul>
-						<!--
 						
-					<% unread_notifications = current_user.notifications.where(read: false) %>
-					<li class="notifications-count" onclick="NM.clearNotifications();NM.toggleVisibility($('div.notifications-flyout'));"><%= unread_notifications.count %></li>
-					<div class="notifications-flyout span4">
-						<ul>
+					
+					</li>
+				</ul>
+
+				<% unread_notifications = current_user.notifications.where(read: false) %>
+				<ul class="nav pull-right">
+					<li class="dropdown">
+						<a href="#" class="header-notifications dropdown-toggle" data-toggle="dropdown">
+							<img src='/assets/notifications.png' class="notifications-img"/>
+							<span class="notifications-count">
+								<%= unread_notifications.count if unread_notifications.any?%>
+							</span>
+						</a>
+						<ul class="dropdown-menu notifications-flyout">
 							<% @old_notifications = false %>
 							<%= render partial: 'shared/personal_notification_item', collection: current_user.notifications %>
 						</ul>
-					</div> -->
+						</span>
 					</li>
 				</ul>
 			<% else %>
@@ -45,7 +57,6 @@
 				<!-- contains: login and register -->
 				<ul class="nav pull-right login-menu">
 					<li><%= link_to "Register", signup_path %></li>
-					<li class="divider">|</li>
 					<li><%= link_to "Login", signin_path %></li>
 
 				</ul>

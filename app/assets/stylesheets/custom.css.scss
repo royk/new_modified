@@ -67,6 +67,55 @@ header {
   }
 }
 
+.login-menu {
+  li {
+    border-right: solid 1px white;
+    &:last-child {
+      border-right-style: none;
+    }
+  }
+}
+
+.header-notifications {
+  cursor: pointer;
+  line-height: 47px;
+  .notifications-img {
+    width: 20px;
+  }
+  .notifications-count {
+    padding-left: 5px;
+    color: white;
+  }
+}
+
+ul.notifications-flyout.dropdown-menu {
+  padding: 5px;
+  width: 250px;
+  a {
+    padding: 0;
+    display: inline;
+  }
+  li {
+     color :  black;
+     @include border(1px);
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-bottom-color: #E3E8F0;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      &:first-child {
+        padding-top: 0;
+      }
+      &:last-child {
+        border-bottom-style: none;
+        padding-bottom: 0;
+      }
+     a, a:visited {
+        color: $linkColor;
+      }
+    }
+}
+
 .center {
   text-align: center;
   h1 {
@@ -90,9 +139,6 @@ header {
 	color: $white;
   margin-top: 5px;
   margin-bottom: 0px;
-}
-.navbar .nav .divider {
-  padding-top: 9px;
 }
 .navbar .nav > li > a:hover {
 	color: $lightYellow;
@@ -328,6 +374,10 @@ input, textarea, select, .uneditable-input {
     border-style: solid;
     border-width: 1px;
     border-color: #000000;
+    #post-form {
+      padding-top: 5px;
+      padding-left: 50px;
+    }
     a:hover {
         text-decoration: none;
       }
@@ -399,44 +449,4 @@ input, textarea, select, .uneditable-input {
 
 .clickable {
   cursor: pointer;
-}
-
-.notifications-count {
-  color: red;
-  cursor: pointer;
-}
-.notification_item {
- color :  black;
- a, a:visited {
-    color: $linkColor;
-  }
-}
-.notifications-flyout {
-  display: block;
-  position: absolute;
-  background-color: white;
-  @include boxShadow(0px 1px 3px #999);
-  top: 30px;
-  display:none;
-}
-
-.notifications-count {
-  padding-left: 5px;
-  
-}
-
-.notification_item {
-
-  @include border(1px);
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: #E3E8F0;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #E3E8F0;
-  
-
-}
-.notification_separator {
-  border-bottom-top: 2px;
 }
