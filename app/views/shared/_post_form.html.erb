@@ -4,7 +4,7 @@
 </script>
 <div class="feed-item" id="feed-form">
 	<%= render '/shared/feed_info', user: current_user %>
-	<div class="content">
+	<div class="content input-form">
 		<div id="post-form">
 			<%= form_for(Post.create()) do |f| %>
 				<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
