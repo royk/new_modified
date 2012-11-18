@@ -24,6 +24,11 @@ NewModified::Application.routes.draw do
 
   resources :comments, only: [:new, :create, :destroy]
 
+  resources :likes, only: [:new, :create, :destroy]
+
+  match '/like', to: 'likes#create', via: :post
+  match '/unlike', to: 'likes#destroy', via: :delete
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

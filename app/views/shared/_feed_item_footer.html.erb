@@ -5,12 +5,12 @@
 	<ul class="nav post-footer-actions horizontal-menu">
 		<li><%= link_to_function "Comment", openCommentFunc %></li>
 		<li class="divider">|</li>
-		<li><%= link_to "Kudos", '#' %></li>
+		<li><%= link_to "Kudos", likes_path(parent_type: feed_item.class.to_s, parent_id: feed_item.id),  method: "create" %></li>
 	</ul>
 	<ul class="nav post-footer-info pull-right">
 		<li><%= time_ago_in_words(feed_item.created_at) %> ago</li>
-		<li><%= link_to '#' do %>
-				<img class="kudos-img" src="/assets/kudos.png"/>2
+		<li><%= link_to likes_path, method: "create" do %>
+				<img class="kudos-img" src="/assets/kudos.png"/><%= feed_item.likes.count %>
 			<% end %>
 		</li>
 		<li class="clickable" onclick="<%= openCommentFunc %>">
