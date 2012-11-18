@@ -1,9 +1,28 @@
+<script>
+	NM.registerToggleMenu([	'div#post-form',
+							'div#video-form']);
+</script>
 <div class="feed_item" id="feed-form">
-	<%= form_for(Post.create()) do |f| %>
-		<%= render '/shared/feed_info', user: current_user %>
-		<div class="content">
-			<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
-			<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+	<%= render '/shared/feed_info', user: current_user %>
+	<div class="content">
+		<div id="post-form">
+			<%= form_for(Post.create()) do |f| %>
+				<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
+				<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+			<% end %>
 		</div>
-	<% end %>
+		<div id="video-form" style="display:none;">
+			<%= form_for(Video.create()) do |f| %>
+				<%= f.text_area(:uid, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
+				<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+			<% end %>	
+		</div>
+		<ul class="nav horizontal-menu post-types">
+			<li class="clickable" onclick="NM.selectMenuItem(0)">Wall</li>
+			<li>|</li>
+			<li class="clickable" onclick="NM.selectMenuItem(1)">Video</li>
+			<li>|</li>
+			<li>Blog</li>
+		</ul>
+	</div>
 </div>

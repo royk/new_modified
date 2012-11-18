@@ -16,7 +16,11 @@
 //= require bootstrap
 
 NM = (function() {
+	var currentToggleMenu = null;
+
 	return {
+		
+
 		toggleVisibility: function toggleVisibility(elem) {
 			elem = $(elem);
 			if (elem) {
@@ -34,6 +38,32 @@ NM = (function() {
 			$.ajax({
 				url: "/clear_notifications"
 			});
+		},
+
+		registerToggleMenu: function registerToggleMenu(items) {
+			currentToggleMenu = items;
+		},
+
+		selectMenuItem: function selectMenuItem(itemIndex) {
+			currentToggleMenu.forEach(function(elem, index) {
+				elem = $(elem);
+				var mode = index==itemIndex ? "block" : "none";
+				elem.css('display', mode);
+				if (index==itemIndex) {
+					elem.addClass("toggle-selected");
+				} else {
+					if (elem.hasClass("toggle-selected")) {
+						elem.removeClass("toggle-selected");
+					}
+				}
+
+			});
+		},
+		clearToggleMenu: function clearToggleMenu() {
+			currentToggleMenu = null;
 		}
+
 	};
 }());
+
+$(window).unload( function () { NM.clearToggleMenu(); });

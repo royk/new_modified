@@ -141,6 +141,17 @@ header {
   background-color: transparent;
 }
 
+.horizontal-menu {
+  float: left;
+  li {
+    float: left;
+    padding-right: 10px;
+  }
+  .toggle-selected {
+    text-decoration: underline;
+  }
+}
+
 /* post footer */
 .post-footer {
   height: 20px;
@@ -161,12 +172,12 @@ header {
     }
   }
   .post-footer-actions {
-    float: left;
+    
     padding-left: 10px;
 
     li {
-      float: left;
-      padding-right: 10px;
+      
+      
       a {
         color: black;
       }
@@ -322,6 +333,12 @@ input, textarea, select, .uneditable-input {
 
     .delete-img {
       width: 15px;
+    }
+
+    .post-types {
+      margin-bottom: 0px;
+      font-size: 0.9em;
+      margin-top: -25px;
     }
 
   }
