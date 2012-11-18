@@ -1,4 +1,9 @@
 <div class="feed_item" id="item<%= feed_item.id %>">
+	<% 	@already_liked = false
+		if current_user && feed_item.likes.find_by_liker_id(current_user.id)
+			@already_liked = true
+		end
+	 %>
 	<%= render '/shared/feed_info', user: feed_item.user %>
 	<%= render '/shared/delete_icon', item: feed_item %>
 	<% if feed_item.class==Post %>
