@@ -12,14 +12,18 @@
 	</ul>
 	<ul class="nav post-footer-info pull-right">
 		<li><%= time_ago_in_words(feed_item.created_at) %> ago</li>
-		<% if @already_liked %>
-			<li><img class="kudos-img" src="/assets/kudos.png"/><%= feed_item.likes.count %></li>
-		<% else %>
-			<li>	<%= link_to likes_path, method: "create" do %>
-					<img class="kudos-img" src="/assets/kudos.png"/><%= feed_item.likes.count %>
-				<% end %>
-			</li>
-		<% end %>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+				<img class="kudos-img" src="/assets/kudos.png"/>
+				<%= feed_item.likes.count %>
+			</a>
+			<% if feed_item.likes.any? %>
+				<ul class="dropdown-menu likers-flyout">
+					<%= render partial: 'shared/kudos_givers', collection: feed_item.likes %>
+				</ul>
+			<% end %>
+		</li>
 		
 		<li class="clickable" onclick="<%= openCommentFunc %>">
 				<img class="comments-img" src="/assets/comments.png">

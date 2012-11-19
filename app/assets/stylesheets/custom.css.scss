@@ -213,6 +213,12 @@ ul.notifications-flyout.dropdown-menu {
   .post-footer-info {
     float: right;
     padding-right: 10px;
+    .dropdown .likers-flyout {
+      li {
+        float: left;
+        padding-left: 0;
+      }
+    }
     li {
       float: right;
       padding-left: 10px;
