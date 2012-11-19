@@ -67,16 +67,19 @@ header {
   }
 }
 
-.login-menu {
+.login-menu, .user-menu, .header-notifications {
+  padding-top: 5px;
+  .hDivider {
+    padding-top: 9px;
+  }
   li {
-    border-right: solid 1px white;
+
     &:last-child {
-      border-right-style: none;
     }
   }
 }
 
-.header-notifications {
+.notifications-toggle {
   cursor: pointer;
   line-height: 47px;
   .notifications-img {
@@ -137,8 +140,6 @@ ul.notifications-flyout.dropdown-menu {
 
 .navbar .nav > li > a, .navbar .nav .divider {
 	color: $white;
-  margin-top: 5px;
-  margin-bottom: 0px;
 }
 .navbar .nav > li > a:hover {
 	color: $lightYellow;
