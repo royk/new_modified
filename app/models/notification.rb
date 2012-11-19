@@ -27,8 +27,11 @@ class Notification < ActiveRecord::Base
 	end
 
 	def action_name
-		if action.class.to_s=="Comment"
+		case action.class.to_s
+		when "Comment"
 			"commented"
+		when "Like"
+			"gave kudos"
 		else
 			"reacted"
 		end
