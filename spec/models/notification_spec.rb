@@ -38,7 +38,7 @@ describe Notification do
 		it { should respond_to(:item) }
 		it { should respond_to(:user) }
 		it { should respond_to(:sender) }
-		it { should respond_to(:action_name) }
+		it { should respond_to(:action_verb) }
 		it { should respond_to(:public) }
 		it { should respond_to(:read) }
 
