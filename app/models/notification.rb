@@ -16,15 +16,16 @@
 #
 
 class Notification < ActiveRecord::Base
-	attr_accessible :sender_id, :public, :read
+	attr_accessible :sender, :public, :read
 	
+	belongs_to :sender, class_name: "User"
 	belongs_to :user
 
 	belongs_to :item, polymorphic: true
 	belongs_to :action, polymorphic: true
-	def sender
-		User.find(sender_id)
-	end
+
+	validates :sender, presence: true
+	validates :item, presence: true
 
 	def action_verb
 		case action.class.to_s

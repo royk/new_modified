@@ -17,7 +17,7 @@ describe Video do
 	before(:all)  { User.delete_all }
 
 	let!(:user) { FactoryGirl.create(:user) }
-	let!(:video) { user.videos.build(title: "title", uid: "svDPNjQV3ak", vendor: "youtube") }
+	let!(:video) { FactoryGirl.create(:video, user: user) }
 
 	subject { video }
 
@@ -55,10 +55,11 @@ describe Video do
 
 	describe "when uid is already taken" do
 		before do
-			vid_same_url = video.dup
-			vid_same_url.uid = video.uid
-			vid_same_url.save
+			@vid_same_url = video.dup
+			@vid_same_url.uid = video.uid
+			@vid_same_url.save
 		end
+		subject { @vid_same_url }
 		it {should_not be_valid}
 	end
 end

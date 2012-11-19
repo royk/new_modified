@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :comments, as: :commentable, order: 'created_at DESC'
   has_many :likes, as: :liked_item
-  has_many :notifications, as: :item
+  has_many :notifications, as: :item, dependent: :destroy
   
   validates :user_id, presence: true
   validates_length_of :content, :minimum => 1, maximum: 9999, presence: true

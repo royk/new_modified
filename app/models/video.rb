@@ -18,7 +18,7 @@ class Video < ActiveRecord::Base
 
   has_many :comments, as: :commentable, order: 'created_at DESC'
   has_many :likes, as: :liked_item
-  has_many :notifications, as: :item
+  has_many :notifications, as: :item, dependent: :destroy
 
   validates :user_id, presence: true
   validates :uid, presence: true, uniqueness: { case_sensitive: true }

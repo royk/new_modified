@@ -12,3 +12,13 @@
 
 require 'spec_helper'
 
+describe Like do
+	before(:all)  { User.delete_all }
+
+	let!(:liker) { FactoryGirl.create(:user) }
+	let!(:item) { FactoryGirl.create(:comment) }
+
+	let!(:notification) { FactoryGirl.create(:notification, sender: sender, item: item) }
+
+end
+
