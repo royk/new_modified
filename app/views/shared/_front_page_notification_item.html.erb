@@ -10,7 +10,12 @@
 		<span>
 			<%= sender.name %>
 	<% end %>
-			<%= notification_item.action_verb %> on <%= link_to receiver.name, receiver%>'s <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+			<%if notification_item.user %>
+				<%= notification_item.action_verb %> 
+				on <%= link_to receiver.name, receiver%>'s <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+			<% else %>
+			created a new <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+			<% end %>
 		</span>
 		<div class="timestamp">
 			<%= time_ago_in_words(notification_item.created_at) %> ago

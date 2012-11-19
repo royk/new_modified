@@ -15,6 +15,7 @@ class VideosController < ApplicationController
 		@video.user_id = current_user.id
 		if parse_video
 			if @video.save
+				notify_activity_on(@video, current_user, nil)
 				flash[:success] = "Video created"
 			else
 				flash[:error] = "Video not saved: Already exists"

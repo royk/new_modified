@@ -11,6 +11,7 @@ class PostsController < ApplicationController
 		@post = current_user.posts.build(params[:post])
 		@post.user_id = current_user.id
 		if @post.save
+			notify_activity_on(@post, current_user, nil)
 			flash[:success] = "Post created"
 		else
 			flash[:error] = "Post not saved."

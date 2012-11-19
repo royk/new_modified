@@ -17,7 +17,7 @@ class LikesController < ApplicationController
 			if parent.likes.find_by_liker_id(current_user.id).nil?
 				@like = parent.likes.build(params[:like])
 				@like.liker = current_user
-				notify_like_on(parent, @like)
+				notify_activity_on(parent, current_user, @like)
 			else
 				flash[:error] = "Kudos already given"
 			end
@@ -30,17 +30,6 @@ class LikesController < ApplicationController
 			end
 		end
 		redirect_to root_url
-	end
-
-	def notify_like_on(item, action)
-		if current_user!=item.user
-			notification = item.user.notifications.build(sender_id: current_user.id)
-			notification.user = item.user
-			notification.item = item
-			notification.action = action
-			notification.public = false
-			notification.save
-		end
 	end
 
 	def destroy

@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
 		if parent
 			@comment = parent.comments.build(params[:comment])
 			@comment.commenter = current_user
-			notify_comment_on(parent, @comment)
+			notify_activity_on(parent, current_user, @comment)
 		else
 			flash[:error] = params[:parent_type]
 		end
@@ -26,17 +26,6 @@ class CommentsController < ApplicationController
 			end
 		end
 		redirect_to root_url
-	end
-
-	def notify_comment_on(item, action)
-		if current_user!=item.user
-			notification = item.user.notifications.build(sender_id: current_user.id)
-			notification.user = item.user
-			notification.item = item
-			notification.action = action
-			notification.public = false
-			notification.save
-		end
 	end
 
 	def destroy
