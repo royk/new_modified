@@ -48,7 +48,7 @@
 						<% if current_user.notifications.any? %>
 							<ul class="dropdown-menu notifications-flyout">
 							<% @old_notifications = false %>
-							<%= render partial: 'shared/personal_notification_item', collection: current_user.notifications %>
+							<%= render partial: 'shared/personal_notification_item', collection: current_user.notifications.find(:all, limit: 10) %>
 							</ul>
 						<% end %>
 						</span>

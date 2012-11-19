@@ -1,7 +1,7 @@
 <% provide(:title, 'Home') %>
-<div class="row">
-	<!-- MAIN BAR: 7 grids -->
-	<div class="span7">
+<div class="row-fluid">
+	<!-- MAIN BAR -->
+	<div class="span8">
 		<div class="front-page-feed feed">
 			<% if signed_in? %>
 				<%= render 'shared/post_form' %>
@@ -12,9 +12,12 @@
 			<% end %>
 		</div>
 	</div>
-	<!-- RIGHT BAR: 4 grids -->
-	<div class="right-bar span4">
-		RIGHT BAR
+	<!-- RIGHT BAR -->
+	<div class="right-bar span4 pull-right">
+		<h3>Activity</h3>
+		<ul class="activities">
+			<%= render partial: 'shared/front_page_notification_item', collection: Notification.find(:all, order: "id desc", limit: 20) %>
+		</ul>
 	</div>
 	<div class="row">
 		<div class="span12" style="text-align:center;">

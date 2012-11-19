@@ -26,7 +26,7 @@ class Notification < ActiveRecord::Base
 		User.find(sender_id)
 	end
 
-	def action_name
+	def action_verb
 		case action.class.to_s
 		when "Comment"
 			"commented"
