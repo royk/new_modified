@@ -34,6 +34,7 @@ describe User do
 	it { should respond_to(:feed) }
 	it { should respond_to(:notifications) }
 	it { should respond_to(:blog) }
+	it { should respond_to(:blog_title) }
 
 	it {should be_valid}
 	it {should_not be_admin}
@@ -187,5 +188,33 @@ describe User do
 				its(:gravatar_email) { should== "test+suffix@email.com"}
 			end
 		end
+	end
+
+	context "Blog" do
+		context "when doesn't have one" do
+			describe "blog title is nil" do
+				its(:blog_title) { should be_nil }
+			end
+			describe "writing to blog title shouldn't fail" do
+				before do
+					@user.blog_title = "something"
+				end
+			end
+		end
+		context "when has one" do
+			before :each do
+				@user.build_blog(title: "something")
+			end
+			describe "its title should be what we set via constructor" do
+				its(:blog_title) { should eq("something") }
+			end
+			describe "writing to blog title should change title" do
+				before do
+					@user.blog_title = "something else"
+				end
+				its(:blog_title) { should eq("something else") }
+			end
+		end
+
 	end
 end
