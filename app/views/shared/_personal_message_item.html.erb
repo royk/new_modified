@@ -1,0 +1,7 @@
+<% message = personal_message_item %>
+<li>
+	From: <%= link_to message.sender.name, message_path(message) %>
+	<div class="timestamp">
+		<%= time_ago_in_words(message.created_at) %> ago.
+	</div>
+</li>

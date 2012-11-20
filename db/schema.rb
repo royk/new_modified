@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121119185622) do
+ActiveRecord::Schema.define(:version => 20121120122349) do
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -44,6 +44,11 @@ ActiveRecord::Schema.define(:version => 20121119185622) do
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["commenter_id"], :name => "index_comments_on_commenter_id"
 
+  create_table "conversations", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "likes", :force => true do |t|
     t.integer  "liker_id"
     t.integer  "liked_item_id"
@@ -54,6 +59,20 @@ ActiveRecord::Schema.define(:version => 20121119185622) do
 
   add_index "likes", ["liked_item_id", "liked_item_type"], :name => "index_likes_on_liked_item_id_and_liked_item_type"
   add_index "likes", ["liker_id"], :name => "index_likes_on_liker_id"
+
+  create_table "messages", :force => true do |t|
+    t.text     "content"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.boolean  "read"
+    t.integer  "conversation_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "messages", ["conversation_id"], :name => "index_messages_on_conversation_id"
+  add_index "messages", ["recipient_id"], :name => "index_messages_on_recipient_id"
+  add_index "messages", ["sender_id"], :name => "index_messages_on_sender_id"
 
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"

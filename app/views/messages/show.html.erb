@@ -1,0 +1,11 @@
+<% provide(:title, "Message") %>
+<h1>Message</h1>
+<div class="message-header">
+	From: 
+	<span class="message-sender">
+		<%= render '/shared/feed_info', user: @message.sender %>
+	</span>
+</div>
+<div class="message-content">
+	<%= @message.content %>
+</div>

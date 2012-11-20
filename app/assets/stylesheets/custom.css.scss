@@ -67,7 +67,7 @@ header {
   }
 }
 
-.login-menu, .user-menu, .header-notifications {
+.login-menu, .user-menu, .header-notifications, .header-messages {
   padding-top: 5px;
   .hDivider {
     padding-top: 9px;
@@ -91,7 +91,7 @@ header {
   }
 }
 
-ul.notifications-flyout.dropdown-menu {
+ul.notifications-flyout.dropdown-menu, .messages-flyout {
   padding: 5px;
   width: 250px;
   a {
@@ -344,7 +344,28 @@ input, textarea, select, .uneditable-input {
 .dropdown-menu li a {
   color: black;
 }
+.message-sender {
+  #user_name {
+    text-align: left;
+    display: inline;
+  }
+}
+.message-header {
+  padding: 10px;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.message-content {
+  padding: 10px;
+  margin-left: 40px;
+  font-size: 1.4em;
+  background-color: white;
+  @include border(4px, 4px, 4px, 4px);
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000000;
 
+}
 .feed {
   .feed-item#feed-form {
     padding-bottom: 0;

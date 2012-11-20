@@ -1,0 +1,10 @@
+<% provide(:title, 'Send message') %>
+<h1>Send message</h2>
+<%= form_for(@message) do |f| %>
+	<%= f.label :recipient %>
+	<%= text_field_tag :recipient, h(@recipient.name) %>
+	<%= f.label :content %>
+	<%= f.text_area :content %>
+
+	<%= f.submit "Send", class: "btn btn-large btn-primary" %>
+<% end %>

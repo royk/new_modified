@@ -35,7 +35,19 @@
 					
 					</li>
 				</ul>
-
+				<% unread_messages = current_user.received_messages.where(read: false) %>
+				<% if unread_messages.any? %>
+					<ul class="nav header-messages pull-right">
+						<li class="dropdown">
+							<a href="#" class="messages-toggle dropdown-toggle" data-toggle="dropdown">
+								<i class="icon-envelope icon-white"></i>
+							</a>
+							<ul class="dropdown-menu messages-flyout">
+								<%= render partial: 'shared/personal_message_item', collection: unread_messages %>
+							</ul>
+						</li>
+					</ul>
+				<% end %>
 				<% unread_notifications = current_user.notifications.where(read: false) %>
 				<ul class="nav pull-right header-notifications">
 					<li class="dropdown">

@@ -28,6 +28,10 @@ NewModified::Application.routes.draw do
 
   resources :comments, only: [:new, :create, :destroy]
 
+  resources :messages, only: [:new, :create, :index, :show]
+
+  resources :conversations, only: [:show]
+
   resources :likes, only: [:new, :create, :destroy]
 
   match '/like', to: 'likes#create', via: :post
