@@ -15,5 +15,9 @@ class Blog < ActiveRecord::Base
   has_many :blog_posts
   belongs_to :user
   validates :user, presence: true
+
+  def formatted_title
+  	user.name + ": " + title
+  end
   
 end

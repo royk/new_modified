@@ -1,0 +1,6 @@
+<li>
+	<%= link_to blog.formatted_title, blog %>
+	<% if correct_user?(blog.user) %> | 
+		<%= link_to "delete", blog, method: :delete, data: {confirm: "You sure?"} %>
+	<% end %>
+</li>

@@ -11,9 +11,10 @@
 #
 
 class BlogPost < ActiveRecord::Base
-  attr_accessible :content
+  attr_accessible :content, :public
 
   belongs_to :blog
+  has_one :user, through: :blog
 
   has_many :comments, as: :commentable, order: 'created_at DESC'
   has_many :likes, as: :liked_item
@@ -21,11 +22,4 @@ class BlogPost < ActiveRecord::Base
 
   validates :blog, presence: true
 
-  def public=(value)
-  	if correct_user?(current_user)
-  		self[:public] = value
-  	end
-  end
-
-  
 end

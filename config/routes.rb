@@ -22,6 +22,10 @@ NewModified::Application.routes.draw do
 
   resources :videos, only: [:index, :create, :destroy, :show]
 
+  resources :blog_posts, only: [:create, :destroy, :show]
+
+  resources :blogs, only: [:create, :destroy, :show, :index]
+
   resources :comments, only: [:new, :create, :destroy]
 
   resources :likes, only: [:new, :create, :destroy]
