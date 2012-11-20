@@ -1,9 +1,19 @@
 <li>
-	<%= link_to user.name, user %>
-		<% if user.admin? %>
-			| <span class="admin">Admin</span>
-		<% end %>
-		<% if current_user.admin? && !current_user?(user) %>
-			|	<%= link_to "delete", user, method: :delete, data: {confirm: "You sure?"} %>
-		<% end %>
+	<%= link_to user do%>
+		<%= render 'shared/feed_info', user: user, size: "tiny" %>
+	<% end %>
+	<% if user.admin? %>
+		| <span class="admin">Admin</span>
+	<% end %>
+	<% if current_user?(user) %>
+		| <%= link_to "edit", edit_user_path(current_user) %>
+	<% end %>
+		
+	
+	
+	<% if current_user.admin? && !current_user?(user) %>
+		|	<%= link_to "delete", user, method: :delete, data: {confirm: "You sure?"} %>
+	<% end %>
+	
+		
 </li>

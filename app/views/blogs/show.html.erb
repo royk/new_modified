@@ -1,7 +1,9 @@
 <% provide(:title, @blog.formatted_title) %>
 	
 <%= will_paginate @blog_posts %>
-<ul class="blog-posts">
+
+<h2><%= @blog.title %></h2>
+<div class="feed">
 	<%= render @blog_posts %>
-</ul>		
+</div>		
 	

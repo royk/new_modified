@@ -15,7 +15,21 @@
 			<%= content_tag(:div, value, class: "alert alert-#{key}") %>
 		<% end %>
 		<!-- dynamic part of every page is pasted here -->
-		<%= yield %>
+		<div class="row-fluid">
+			<!-- MAIN BAR -->
+			<div class="span8">
+				<%= yield %>
+			</div>
+			<!-- RIGHT BAR -->
+			<div class="right-bar span4 pull-right">
+				<h3>Activity</h3>
+				<ul class="activities">
+					<%= render partial: 'shared/front_page_notification_item', collection: Notification.find(:all, order: "id desc", limit: 20) %>
+				</ul>
+			</div>
+			
+		</div>
+				
 		<%= debug(params) if Rails.env.development? %>
 	</div>
 

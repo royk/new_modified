@@ -1,27 +1,14 @@
 <% provide(:title, 'Home') %>
-<div class="row-fluid">
-	<!-- MAIN BAR -->
-	<div class="span8">
-		<div class="front-page-feed feed">
-			<% if signed_in? %>
-				<%= render 'shared/post_form' %>
-			<% end %>
-			<% if @feed_items.any? %>
-				<%= render partial: 'shared/feed_item', collection: @feed_items %>
-
-			<% end %>
-		</div>
-	</div>
-	<!-- RIGHT BAR -->
-	<div class="right-bar span4 pull-right">
-		<h3>Activity</h3>
-		<ul class="activities">
-			<%= render partial: 'shared/front_page_notification_item', collection: Notification.find(:all, order: "id desc", limit: 20) %>
-		</ul>
-	</div>
-	<div class="row">
-		<div class="span12" style="text-align:center;">
-			<%= will_paginate @feed_items %>
-		</div>
-	</div>
+<div class="front-page-feed feed">
+	<% if signed_in? %>
+		<%= render 'shared/post_form' %>
+	<% end %>
+	<% if @feed_items.any? %>
+		<%= render partial: 'shared/feed_item', collection: @feed_items %>
+	<% end %>
 </div>
+<div style="text-align:center;">
+	<%= will_paginate @feed_items %>
+</div>
+
+

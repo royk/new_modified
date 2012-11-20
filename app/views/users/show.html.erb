@@ -1,5 +1,5 @@
 <% provide(:title, @user.name) %>
-<div class="row">
+<div class="row-fluid">
 	<aside class="span4">
 		<section>
 
@@ -22,7 +22,7 @@
 	<div class="span8">
 		<h2>Posts</h2>
 		<% if @user.posts.any? %>
-			<div class="posts">
+			<div class="feed">
 				<%= render @posts %>
 			</div>
 		<% else %>

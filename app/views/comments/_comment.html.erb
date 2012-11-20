@@ -1,5 +1,5 @@
 <div class="comment">
-	<%= render '/shared/feed_info_small', user: comment.commenter %>
+	<%= render '/shared/feed_info', user: comment.commenter, size: "small" %>
 	<%= render '/shared/delete_icon', item: comment, user: comment.commenter %>
 	<span class="content">
 		<%= comment.content %>

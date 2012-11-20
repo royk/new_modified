@@ -1,11 +1,10 @@
 <% provide(:title, 'Videos') %>
-<h1>Videos</h1>
-<div class="offset3">
-		<%= will_paginate @feed_items %>
-	</div>
-<div class="posts offset3">
+
+
+
+<h1>Freestyle Videos</h1>
+<div class="feed">
 	<%= render @videos %>
 </div>
-<div class="offset4">
-	<%= will_paginate @feed_items %>
-</div>
+
+<%= will_paginate @feed_items %>

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_filter :admin_user,  only: [:destroy]
 
   def destroy
-    User.find(params[:id]).destroy!
+    User.find(params[:id]).destroy
     flash[:success] = "User deleted."
     redirect_to users_url
   end
@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def clear_notifications
@@ -27,6 +28,7 @@ class UsersController < ApplicationController
 
   def update
     success = true
+    @user = User.find(params[:id])
     if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
       params[:user].each do |attr|
         if attr[0]!="pasword" && attr[0]!="password_confirmation"
