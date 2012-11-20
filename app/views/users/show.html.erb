@@ -15,12 +15,21 @@
 				</h2>
 			<% end %>
 		</section>
-		<% if @user==current_user %>
-			<%= link_to "Edit details", edit_user_path(current_user) %>
-		<% end %>
+		<ul class="user-actions-list">
+			<% if @user==current_user %>
+				
+					<li><%= link_to "Edit details", edit_user_path(current_user) %></li>
+					<li><%= link_to "My Messages", messages_path %></li>
+				
+			<% else %>
+				<li><%= link_to "Send Message", new_message_path( recipient: @user) %>
+				</li>
+			<% end %>
+		</ul>
+
 	</aside>
 	<div class="span8">
-		<h2>Posts</h2>
+		<h1>Posts</h1>
 		<% if @user.posts.any? %>
 			<div class="feed">
 				<%= render @posts %>

@@ -344,8 +344,9 @@ input, textarea, select, .uneditable-input {
 .dropdown-menu li a {
   color: black;
 }
-.message-sender {
-  #user_name {
+/* Show message page */
+.message-sender, .message-recipient {
+  .user_name {
     text-align: left;
     display: inline;
   }
@@ -354,18 +355,48 @@ input, textarea, select, .uneditable-input {
   padding: 10px;
   font-size: 1.4em;
   font-weight: bold;
+  h2 {
+    color: black;
+    font-weight: bold;
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    top: 10px;
+  }
 }
-.message-content {
-  padding: 10px;
+.message-body {
+  .content {
+    padding: 10px;
+    margin-left: 40px;
+    font-size: 1.4em;
+    background-color: white;
+    @include border(4px, 4px, 4px, 4px);
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+  }
+  .timestamp {
+    margin-top: 5px;
+    text-align: right;
+  }
+}
+.message-reply-btn {
+  margin-top: 20px;
   margin-left: 40px;
-  font-size: 1.4em;
-  background-color: white;
+}
+
+.message-feed-container {
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #eeeeee;
   @include border(4px, 4px, 4px, 4px);
   border-style: solid;
   border-width: 1px;
   border-color: #000000;
-
 }
+
+/* end show message */
 .feed {
   .feed-item#feed-form {
     padding-bottom: 0;
@@ -373,7 +404,7 @@ input, textarea, select, .uneditable-input {
     @include border(4px, 4px, 4px, 4px);
   }
   .feed-item, .comment{
-    #user_name {
+    .user_name {
       text-align: left;
       display: inline;
     }

@@ -7,6 +7,15 @@
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
 </head>
+<!-- CS Bar -->
+<script type="text/javascript">
+var script = document.createElement("script");
+script.type = "text/javascript";
+script.src = ((document.location.protocol == "https:") ? "https://" : "http://") +
+    "app.cdn-cs.com/b/KbrmDU/xFxZMp/l/cs_all.js";
+document.getElementsByTagName("head")[0].appendChild(script);
+</script>
+<!-- end CS -->
 <body>
 	<!-- static part of every page is the heade -->
 	<%= render 'layouts/header' %>

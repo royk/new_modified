@@ -1,0 +1,10 @@
+<% provide(:title, 'My Messages') %>
+
+
+
+<h1>My Messages</h1>
+<div class="feed">
+	<%= render @messages %>
+</div>
+
+<%= will_paginate @messages %>

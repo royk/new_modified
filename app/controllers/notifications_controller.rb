@@ -13,8 +13,8 @@ class NotificationsController < ApplicationController
 	private
 		def correct_user
 			if !current_user.admin?
-				@video = current_user.videos.find_by_id(params[:id])
-				redirect_to root_url if @video.nil?
+				@notifications = current_user.notifications.find_by_id(params[:id])
+				redirect_to root_url if @notifications.nil?
 			end
 		end
 end

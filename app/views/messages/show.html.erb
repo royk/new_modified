@@ -1,11 +1,6 @@
 <% provide(:title, "Message") %>
 <h1>Message</h1>
-<div class="message-header">
-	From: 
-	<span class="message-sender">
-		<%= render '/shared/feed_info', user: @message.sender %>
-	</span>
-</div>
-<div class="message-content">
-	<%= @message.content %>
-</div>
+<%= render 'message_item', message: @message %>
+<%= link_to new_message_path(recipient: @message.sender) do %>
+	<div class="message-reply-btn btn btn-large">Reply</div>
+<% end %>

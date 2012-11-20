@@ -1,0 +1,17 @@
+<div class="message-header">
+	<span class="message-sender">
+		<%= render '/shared/feed_info', user: message.sender %>
+	</span>
+	<h2>></h2>
+	<span class="message-recipient">
+		<%= render '/shared/feed_info', user: message.recipient %>
+	</span>
+</div>
+<div class="message-body">
+	<div class="content">
+		<%= message.content %>
+	</div>
+	<div class="timestamp">
+	Sent <%= time_ago_in_words(message.created_at) %> ago.
+	</div>
+</div>
