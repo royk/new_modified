@@ -7,6 +7,10 @@ module SessionsHelper
 	    self.current_user = user
 	end
 
+	def correct_user?(user)
+		signed_in? && (current_user.admin? || current_user==user)
+	end
+
 	def signed_in?
 		!current_user.nil?
 	end

@@ -22,7 +22,7 @@ class BlogPost < ActiveRecord::Base
   validates :blog, presence: true
 
   def public=(value)
-  	if correct_user?
+  	if correct_user?(current_user)
   		self[:public] = value
   	end
   end

@@ -35,4 +35,12 @@ FactoryGirl.define do
 	factory :like do
 	end
 
+	factory :blog do
+		user
+	end
+
+	factory :blog_post do
+		blog
+	end
+
 end

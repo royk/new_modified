@@ -41,7 +41,7 @@ class LikesController < ApplicationController
 		def correct_user
 			if !current_user.admin?
 				@like = current_user.likes.find_by_id(params[:id])
-				redirect_to root_url if @post.nil?
+				redirect_to root_url if @like.nil?
 			end
 		end
 end
