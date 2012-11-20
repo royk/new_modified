@@ -4,24 +4,36 @@
 	<div class="span6 offset3">
 		<%= form_for (@user) do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
-			<%= f.label :name %>
-		    <%= f.text_field :name %>
+			<h3>User info<h3>
+			<div class="form-horizontal">
+				<%= f.label :name %>
+			    <%= f.text_field :name %>
 
-		    <%= f.label :email %>
-		    <%= f.text_field :email %>
+			    <%= f.label :email %>
+			    <%= f.text_field :email %>
 
-		    <%= f.label :password %>
-		    <%= f.password_field :password, autocomplete: "off" %>
+			    <%= f.label :password, "New Password" %>
+			    <%= f.password_field :password, autocomplete: "off" %>
 
-		    <%= f.label :password_confirmation, "Confirm Password" %>
-		    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-		    <div class="container optional">
-
+			    <%= f.label :password_confirmation, "Confirm Password" %>
+			    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+			</div>
+			    
+		    
+		    <h3>Site info</h3>
+		    <div class="form-horizontal">
 		    	<%= f.label :gravatar_suffix, "Gravatar Email" %>
-		    	<span class="span6">
-		    		<%= @user.email_parts[0] %>+<%= f.text_field :gravatar_suffix, class: "short-input" %>@<%= @user.email_parts[1] %>
-		    	</span>
+		    		<%= @user.email_parts[0] %>+<%= f.text_field :gravatar_suffix, class: "short-input gravatar-input" %>@<%= @user.email_parts[1] %>
+		    	<div>
+			    	<% if !@user.blog.nil? %>
+			    		<%= f.label :blog_title, "Blog Title" %>
+			    		<%= f.text_field :blog_title %>
+			    	<% end %>
+			    </div>
+			    	
 		    </div>
+		    	
+		    
 		    <div class="container">
 		    	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
 		    </div>

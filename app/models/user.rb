@@ -35,6 +35,16 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: {minimum: 6}
   validates :password_confirmation, presence: true
 
+  def blog_title
+    blog.title if !blog.nil?
+  end
+  
+  def blog_title=(value)
+    if !blog.nil?
+      blog.title = value 
+      blog.save
+    end
+  end
   def gravatar_email
     if gravatar_suffix.nil? || gravatar_suffix.empty?
       email
