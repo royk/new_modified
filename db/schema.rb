@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118054728) do
+ActiveRecord::Schema.define(:version => 20121119185622) do
+
+  create_table "blog_posts", :force => true do |t|
+    t.integer  "blog_id"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "public"
+  end
+
+  add_index "blog_posts", ["blog_id", "created_at"], :name => "index_blog_posts_on_blog_id_and_created_at"
+
+  create_table "blogs", :force => true do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
 
   create_table "comments", :force => true do |t|
     t.integer  "commenter_id"

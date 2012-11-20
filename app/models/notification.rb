@@ -16,7 +16,7 @@
 #
 
 class Notification < ActiveRecord::Base
-	attr_accessible :sender, :public, :read
+	attr_accessible :sender, :read
 	
 	belongs_to :sender, class_name: "User"
 	belongs_to :user
@@ -26,6 +26,12 @@ class Notification < ActiveRecord::Base
 
 	validates :sender, presence: true
 	validates :item, presence: true
+
+	def public=(value)
+  		if correct_user?
+  			self[:public] = value
+  		end
+  	end
 
 	def action_verb
 		case action.class.to_s
