@@ -1,5 +1,13 @@
 class BlogPostsController < ApplicationController
 	before_filter	:signed_in_user,	only: [:create, :destroy]
+	before_filter	:correct_user,	only: [:edit, :update]
+
+	def edit
+		@blogPost = BlogPost.find(params[:id])
+	end
+
+	def update
+	end
 
 	def create
 		if current_user.blog.nil?
@@ -23,5 +31,12 @@ class BlogPostsController < ApplicationController
 		def create_blog
 			current_user.build_blog(title: "My new blog")
 			current_user.blog.save
+		end
+
+		def correct_user
+			if !current_user.admin?
+	        	@blogPost = BlogPost.find(params[:id])
+	        	redirect_to(root_path) unless current_user?(@blogPost.user)
+			end
 		end
 end

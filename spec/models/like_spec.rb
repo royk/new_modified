@@ -20,5 +20,7 @@ describe Like do
 
 	let!(:notification) { FactoryGirl.create(:notification, sender: sender, item: item) }
 
+	pending "add some examples to (or delete) #{__FILE__}"
+
 end
 

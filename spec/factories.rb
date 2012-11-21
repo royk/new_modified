@@ -1,7 +1,7 @@
 FactoryGirl.define do
 	sequence(:random_string) {|n| ('a'..'z').to_a.shuffle[0..9].join }
 
-	factory :user, aliases: [:commenter] do
+	factory :user, aliases: [:commenter, :sender, :recipient] do
 		sequence(:name)  { |n| "Person #{n}" }
 		sequence(:email) { |n| "person_#{n}@example.com"}   
 		password "fafafa"
@@ -41,6 +41,11 @@ FactoryGirl.define do
 
 	factory :blog_post do
 		blog
+	end
+
+	factory :message do
+		content "some message"
+		sender
 	end
 
 end
