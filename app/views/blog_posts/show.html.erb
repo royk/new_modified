@@ -1,4 +1,6 @@
-<div class="offset3 feed">
-	<%= render '/shared/blog_post_item', :feed_item => @blog_post %>
-	<%= render 'shared/feed_item_footer', :feed_item => @blog_post, comments_shown: true %>
+<div class="feed">
+	<div class="feed-item">
+		<%= render '/shared/blog_post_item', :feed_item => @blog_post %>
+		<%= render 'shared/feed_item_footer', :feed_item => @blog_post, comments_shown: true %>
+	</div>
 </div>

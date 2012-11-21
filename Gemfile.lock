@@ -32,6 +32,8 @@ GEM
     annotate (2.5.0)
       rake
     arel (3.0.2)
+    bb-ruby (0.9.5)
+    bbcodeizer (0.2.0)
     bcrypt-ruby (3.0.1-x86-mingw32)
     bootstrap-sass (2.0.4.0)
     bootstrap-will_paginate (0.0.6)
@@ -156,6 +158,8 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (= 2.5.0)
+  bb-ruby (= 0.9.5)
+  bbcodeizer (= 0.2.0)
   bcrypt-ruby (= 3.0.1)
   bootstrap-sass (= 2.0.4)
   bootstrap-will_paginate (= 0.0.6)
