@@ -16,7 +16,7 @@ require 'spec_helper'
 
 describe Message do
 	before(:all)  { User.delete_all }
-	let(:sender) { FactoryGirl.create(:user) }
+	
 	let(:message) { FactoryGirl.create(:message) }
 
 	subject { message }

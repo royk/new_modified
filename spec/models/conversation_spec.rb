@@ -10,5 +10,8 @@
 require 'spec_helper'
 
 describe Conversation do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "is not yet implemented" do
+  	pending "implementation"
+  	this_should_not_get_executed
+  end
 end

@@ -11,7 +11,7 @@
 #
 
 class Like < ActiveRecord::Base
-  attr_accessible :liker
+  attr_accessible :liker, :liked_item
 
   belongs_to :liked_item, polymorphic: true
   belongs_to :liker, class_name: "User"

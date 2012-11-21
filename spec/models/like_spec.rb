@@ -15,12 +15,32 @@ require 'spec_helper'
 describe Like do
 	before(:all)  { User.delete_all }
 
-	let!(:liker) { FactoryGirl.create(:user) }
-	let!(:item) { FactoryGirl.create(:comment) }
+	let!(:like) { FactoryGirl.create(:like) }
 
-	let!(:notification) { FactoryGirl.create(:notification, sender: sender, item: item) }
+	subject { like }
 
-	pending "add some examples to (or delete) #{__FILE__}"
+	context "Validations" do
+		it { should be_valid }
+		it { should respond_to(:liker) }
+		it { should respond_to(:liked_item) }
+		it { should respond_to(:video) }
+		it { should respond_to(:post) }
+	end
+
+	context "Liked item" do
+		it "can be video" do
+			video = FactoryGirl.create(:video)
+			like2 = video.likes.build()
+
+			like2.liked_item.should eq(video)
+		end
+		it "can be post" do
+			post = FactoryGirl.create(:post)
+			like2 = post.likes.build()
+
+			like2.liked_item.should eq(post)
+		end
+	end
 
 end
 
