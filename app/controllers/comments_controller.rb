@@ -1,5 +1,4 @@
-class CommentsController < ApplicationController
-	before_filter	:signed_in_user,	only: [:create, :destroy]
+class CommentsController < AuthenticatedController
 	before_filter	:correct_user, only: :destroy
 
 	def new

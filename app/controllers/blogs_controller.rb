@@ -1,5 +1,4 @@
-class BlogsController < ApplicationController
-	before_filter	:signed_in_user,	only: [:create, :destroy]
+class BlogsController < AuthenticatedController
 	
 	def index
 		@blogs = Blog.paginate(page: params[:page], per_page: 10)

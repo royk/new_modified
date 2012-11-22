@@ -1,5 +1,4 @@
-class BlogPostsController < ApplicationController
-	before_filter	:signed_in_user,	only: [:create, :destroy]
+class BlogPostsController < AuthenticatedController
 	before_filter	:correct_user,	only: [:edit, :update]
 
 	def edit

@@ -1,5 +1,4 @@
-class VideosController < ApplicationController
-	before_filter	:signed_in_user,	only: [:create, :destroy]
+class VideosController < AuthenticatedController
 	before_filter	:correct_user, only: :destroy
 
 	def show
@@ -28,6 +27,7 @@ class VideosController < ApplicationController
 
 	def destroy
 		Video.find(params[:id]).destroy
+		flash[:success] = "Video deleted"
 		redirect_to root_url
 	end
 

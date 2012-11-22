@@ -1,5 +1,4 @@
-class MessagesController < ApplicationController
-	before_filter	:signed_in_user,	only: [:create, :new, :show, :index]
+class MessagesController < AuthenticatedController
 	before_filter	:correct_user,	only: [:show]
 	
 	def index

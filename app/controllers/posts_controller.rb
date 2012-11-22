@@ -1,6 +1,5 @@
-class PostsController < ApplicationController
+class PostsController < AuthenticatedController
 	
-	before_filter	:signed_in_user,	only: [:create, :destroy]
 	before_filter	:correct_user, only: :destroy
 	
 	def show
@@ -22,6 +21,7 @@ class PostsController < ApplicationController
 	def destroy
 		Post.find(params[:id]).destroy
 		redirect_to root_url
+		flash[:success] = "Post deleted"
 	end
 
 	private

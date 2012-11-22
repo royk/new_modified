@@ -1,5 +1,4 @@
-class NotificationsController < ApplicationController
-	  before_filter :correct_user,  only: [:edit, :update, :destroy]
+class NotificationsController < AuthenticatedController
 
 	def create
 	end
