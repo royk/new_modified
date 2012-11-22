@@ -59,12 +59,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the New Modified!"
-      redirect_to @user
+    if !params[:challenge].nil? && params[:challenge]=="freestyle"
+      if verify_recaptcha(model: @user, message: "Wrong reCaptcha words, please try again.") && @user.save
+        sign_in @user
+        flash[:success] = "Welcome to the New Modified!"
+        redirect_to @user
+      else
+        flash[:error] = "Could not sign up"
+        render 'new'
+      end
     else
-      flash[:error] = "Could not sign up"
+      flash[:error] = "Wrong answer to Challenge Question"
       render 'new'
     end
   end

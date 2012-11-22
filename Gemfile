@@ -8,6 +8,7 @@ gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'bb-ruby', '0.9.5'
 gem 'bbcodeizer', '0.2.0'
+gem "recaptcha", :require => "recaptcha/rails"
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
