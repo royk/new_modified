@@ -17,7 +17,7 @@ class Blog < ActiveRecord::Base
   validates :user, presence: true
 
   def formatted_title
-  	user.name + ": " + title
+  	user.shown_name + ": " + title
   end
   
 end

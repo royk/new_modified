@@ -2,7 +2,7 @@
 <h1>Send message</h2>
 <%= form_for(@message) do |f| %>
 	<%= f.label :recipient %>
-	<%= text_field_tag :recipient, h(@recipient.name) %>
+	<%= text_field_tag :recipient, h(@recipient.shown_name) %>
 	<%= f.label :content %>
 	<%= f.text_area :content %>
 

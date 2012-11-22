@@ -11,6 +11,7 @@
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
 #  gravatar_suffix :string(255)
+#  nickname        :string(255)
 #
 
 require 'spec_helper'
@@ -35,11 +36,25 @@ describe User do
 	it { should respond_to(:notifications) }
 	it { should respond_to(:blog) }
 	it { should respond_to(:blog_title) }
+	it { should respond_to(:nickname) }
+	it { should respond_to(:shown_name) }
 
 	it {should be_valid}
 	it {should_not be_admin}
 
-	
+	context "Shown name" do
+		describe "when user doesn't have nickname" do
+			its(:shown_name) { should eq(@user.name) }
+		end
+		describe "when user has empty string nickname" do
+			before { @user.nickname = "" }
+			its(:shown_name) { should eq(@user.name) }
+		end
+		describe "when user has a nickname" do
+			before { @user.nickname = "nickname" }
+			its(:shown_name) { should eq(@user.nickname) }
+		end
+	end
 
 	describe "with admin attribute set to 'true'" do
 		before do
@@ -64,13 +79,33 @@ describe User do
 		it {should_not be_valid}
 	end
 
+	describe "when name is too short" do
+		before {@user.name = "aaa"}
+		it {should_not be_valid}
+	end
+
+	describe "when nick is set and is too short" do
+		before {@user.nickname = "aaa"}
+		it {should_not be_valid}
+	end
+
+	describe "when nick is set and is too long" do
+		before {@user.nickname = "a" * 51}
+		it {should_not be_valid}
+	end
+
 	describe "when mail is not present" do
 		before {@user.email = " "}
 		it {should_not be_valid}
 	end
 
 	describe "when password isn't present" do
-		before {@user.password = @user.password_confirmation = " "}
+		before {@user.password = " " }
+		it {should_not be_valid}
+	end
+
+	describe "when confirmation isn't present" do
+		before {@user.password_confirmation = " " }
 		it {should_not be_valid}
 	end
 

@@ -54,13 +54,13 @@ describe UsersController do
 		end
 
 		it "should update with correct password" do
-			@userWithPWD["name"] = "Roy"
+			@userWithPWD["name"] = "RoyK"
 			@userWithPWD["email"] = "Roy@la.com"
 			@userWithPWD["gravatar_suffix"] = "suff"
 			put :update, id: user, user: @userWithPWD
 			user.reload
 
-			user.name.should eq("Roy")
+			user.name.should eq("RoyK")
 			user.email.should eq("roy@la.com")
 			user.gravatar_suffix.should eq("suff")
 		end
@@ -115,7 +115,7 @@ describe UsersController do
 	describe "create" do
 		it "should create a user" do
 			expect do
-				post :create, user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
+				post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
 				@to_delete = assigns(:user)
 			end.to change(User, :count).by(1)
 		end

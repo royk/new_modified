@@ -27,19 +27,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    success = true
     @user = User.find(params[:id])
-    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
-      params[:user].each do |attr|
-        if attr[0]!="pasword" && attr[0]!="password_confirmation"
-          success = @user.update_attribute(attr[0], attr[1])
-          break if !success
-        end
-      end
-    else
-      success = @user.update_attributes(params[:user])
-    end
-    if success
+    params[:user].delete(:password) if params[:user][:password].blank?
+    params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+    if @user.update_attributes(params[:user])
       flash[:success]= "Profile updated"
       sign_in @user
       redirect_to @user

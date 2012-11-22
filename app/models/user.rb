@@ -11,10 +11,11 @@
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
 #  gravatar_suffix :string(255)
+#  nickname        :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix
+  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, :nickname
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -31,12 +32,17 @@ class User < ActiveRecord::Base
 
   has_one :blog
 
-  validates :name, presence: true, length: {maximum: 50}
+  validates :name, presence: true, length: {maximum: 50, minimum: 4}
+  validates :nickname, length: {maximum: 50, minimum: 4}, allow_blank: true, uniqueness: {case_sensitive: false}
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: {with: EMAIL_REGEX}, uniqueness: {case_sensitive: false}
 
-  validates :password, presence: true, length: {minimum: 6}
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, length: {minimum: 6}, :if => :validate_password?
+  validates :password_confirmation, presence: true, :if => :validate_password?
+
+  def shown_name
+    nickname.blank? ? name : nickname
+  end
 
   def blog_title
     blog.title if !blog.nil?
@@ -73,4 +79,8 @@ class User < ActiveRecord::Base
   	def create_remember_token
   		self.remember_token = SecureRandom.urlsafe_base64
   	end
+
+    def validate_password?
+      password.present? || password_confirmation.present?
+    end
 end

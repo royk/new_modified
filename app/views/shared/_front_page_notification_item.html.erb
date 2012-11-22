@@ -8,11 +8,11 @@
 			
 		</span>
 		<span>
-			<%= sender.name %>
+			<%= sender.shown_name %>
 	<% end %>
 			<%if notification_item.user %>
 				<%= notification_item.action_verb %> 
-				on <%= link_to receiver.name, receiver%>'s <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+				on <%= link_to receiver.shown_name, receiver%>'s <%= link_to notification_item.item_type.downcase, notification_item.item  %>
 			<% else %>
 			created a new <%= link_to notification_item.item_type.downcase, notification_item.item  %>
 			<% end %>

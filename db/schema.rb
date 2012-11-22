@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120122349) do
+ActiveRecord::Schema.define(:version => 20121122052053) do
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20121120122349) do
     t.datetime "updated_at",      :null => false
     t.string   "password_digest"
     t.string   "gravatar_suffix"
+    t.string   "nickname"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

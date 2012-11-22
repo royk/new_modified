@@ -19,7 +19,7 @@ describe "AuthenticationPages" do
 				click_button "Sign in"
 	      	end
 	      	it { should_not have_selector('div.alert.alert-error', :text => 'Invalid') }
-	      	it { should have_selector('title', text: user.name) }
+	      	it { should have_selector('title', text: user.shown_name) }
 	    end
 	end
 end
