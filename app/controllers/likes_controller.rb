@@ -1,4 +1,4 @@
-class LikesController < AuthenticatedController
+class LikesController < ResponseController
 	before_filter	:correct_user, only: :destroy
 
 	def new
@@ -6,29 +6,24 @@ class LikesController < AuthenticatedController
 	end
 
 	def create
-		if params[:parent_type]=="Video"
-			parent = Video.find(params[:parent_id])
-		end
-		if params[:parent_type]=="Post"
-			parent = Post.find(params[:parent_id])
-		end
-		if parent
-			if parent.likes.find_by_liker_id(current_user.id).nil?
-				@like = parent.likes.build(params[:like])
-				@like.liker = current_user
-				notify_activity_on(parent, current_user, @like)
-			else
-				flash[:error] = "Kudos already given"
-			end
+		if super
+			flash[:success] = "Kudos given!"
 		else
-			flash[:error] = params[:parent_type]
-		end
-		if @like
-			if @like.save
-				flash[:success] = "Kudos given!"
-			end
+			flash[:error] = "Kudos already given!"
 		end
 		redirect_to root_url
+	end
+
+	def response_object
+		"like"
+	end
+
+	def creator_object
+		"liker"
+	end
+
+	def test_uniqueness(collection)
+		collection.find_by_liker_id(current_user.id).nil?
 	end
 
 	def destroy

@@ -4,4 +4,7 @@
 		
 	</div>
 	<%= render 'shared/feed_item_footer', :feed_item => @blog_post, comments_shown: true %>
+	<% if current_user==@blog_post.user %>
+		<%= link_to "Edit", edit_blog_post_path(@blog_post) %>
+	<% end %>
 </div>

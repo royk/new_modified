@@ -7,7 +7,6 @@ class MessagesController < AuthenticatedController
 
 	def new
 		@message = Message.new
-		logger.debug params
 		@recipient = User.find(params[:recipient])
 	end
 

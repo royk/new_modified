@@ -1,38 +1,28 @@
-class CommentsController < AuthenticatedController
+class CommentsController < ResponseController
 	before_filter	:correct_user, only: :destroy
 
-	def new
-		@comment = @parent.comments.new
-	end
-
 	def create
-		if params[:parent_type]=="Video"
-			parent = Video.find(params[:parent_id])
-		end
-		if params[:parent_type]=="Post"
-			parent = Post.find(params[:parent_id])
-		end
-		if parent
-			@comment = parent.comments.build(params[:comment])
-			@comment.commenter = current_user
-			notify_activity_on(parent, current_user, @comment)
+		if super
+		flash[:success] = "Comment posted!"
 		else
-			flash[:error] = params[:parent_type]
-		end
-		if @comment
-			if @comment.save
-				flash[:success] = "Comment posted"
-			end
-		end
+			flash[:error] = "Error posting comment."
+		end	
 		redirect_to root_url
 	end
 
-	def destroy
-		Comment.find(params[:id]).destroy
-		flash[:success] = "Comment removed"
-		redirect_to root_url
+	def response_object
+		"comment"
 	end
+
+	def creator_object
+		"commenter"
+	end
+
 	private
+		def begin_of_association_chain
+			@parent
+		end
+
 		def correct_user
 			if !current_user.admin?
 				@comment = current_user.comments.find_by_id(params[:id])
