@@ -1,4 +1,3 @@
 <div class="feed">
-	<%= render '/shared/post_item', :feed_item => @post %>
-	<%= render 'shared/feed_item_footer', :feed_item => @post, comments_shown: true %>
+	<%= render 'shared/feed_item', feed_item: @post, comments_shown: true %>
 </div>

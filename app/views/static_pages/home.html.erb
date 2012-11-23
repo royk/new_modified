@@ -4,7 +4,7 @@
 		<%= render 'shared/post_form' %>
 	<% end %>
 	<% if @feed_items.any? %>
-		<%= render partial: 'shared/feed_item', collection: @feed_items %>
+		<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
 	<% end %>
 </div>
 <div style="text-align:center;">

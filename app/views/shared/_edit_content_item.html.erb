@@ -1,6 +1,6 @@
 <div class="blog-post-content">
 	<%= form_for (feed_item) do |f| %>
-	    <%= f.text_field :content %>
+	    <%= f.text_area :content, rows: 5%>
     	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
 </div>

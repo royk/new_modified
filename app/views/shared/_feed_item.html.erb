@@ -1,3 +1,4 @@
+<% comments_shown ||= false %>
 <div class="feed-item" id="item<%= feed_item.id %>">
 	<!-- create a variable that tells us if the user already liked a post -->
 	<% 	@already_liked = false
@@ -21,4 +22,4 @@
 	
 	
 </div>
-<%= render 'shared/feed_item_footer', :feed_item => feed_item %>
+<%= render 'shared/feed_item_footer', :feed_item => feed_item, comments_shown: comments_shown %>
