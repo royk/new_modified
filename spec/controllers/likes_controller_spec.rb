@@ -9,45 +9,71 @@ describe LikesController do
 	let(:like) { FactoryGirl.create(:like) }
 	let(:like2) { FactoryGirl.create(:like) }
 
-	before { sign_in user }
-
 	describe "create" do
-		context "on video" do
-			it "should create a new like and add it to the video object" do
+		context "when signed out" do
+			before { sign_out }
+			it "should not be allowed" do
 				expect do
 					post :create, parent_type: video_item.class, parent_id: video_item
-				end.to change(Like, :count).by(1)
-				assigns[:response].should_not be_nil
-				assigns[:response].should_not eq(like)
-				video_item.likes.find(assigns[:response]).should_not be_nil
+				end.to_not change(Like, :count).by(1)
 			end
 		end
-		context "on post" do
-			it "should create a new like and add it to the post object" do
-				expect do
-					post :create, parent_type: post_item.class, parent_id: post_item
-				end.to change(Like, :count).by(1)
+		context "when signed in" do
+			before { sign_in user }
+			context "video" do
+				it "should be liked" do
+					expect do
+						post :create, parent_type: video_item.class, parent_id: video_item
+					end.to change(Like, :count).by(1)
+					assigns[:response].should_not be_nil
+					assigns[:response].should_not eq(like)
+					video_item.likes.find(assigns[:response]).should_not be_nil
+				end
+				it "should not be liked twice" do
+					expect do
+						post :create, parent_type: video_item.class, parent_id: video_item
+						post :create, parent_type: video_item.class, parent_id: video_item
+					end.to_not change(Like, :count).by(2)
+				end
+			end
+			context "post" do
+				it "should be liked" do
+					expect do
+						post :create, parent_type: post_item.class, parent_id: post_item
+					end.to change(Like, :count).by(1)
 
-				assigns[:response].should_not be_nil
-				assigns[:response].should_not eq(like)
-				post_item.likes.find(assigns[:response]).should_not be_nil
+					assigns[:response].should_not be_nil
+					assigns[:response].should_not eq(like)
+					post_item.likes.find(assigns[:response]).should_not be_nil
+				end
 			end
 		end
 	end
 
 	describe "destroy" do
+		before :each do
+			@to_delete = Like.new
+			@to_delete.liker = user
+			@to_delete.save!
+		end
 		context "with wrong user" do
-			before :each do 
-				@to_delete = Like.new
-				@to_delete.liker = user
-				@to_delete.save!
-				sign_out_2
+			before do 
 				sign_in user2
 			end
-			it "should not allow to destory" do
+			it "should be not allowed" do
 				expect do
 					delete :destroy, id: @to_delete
 				end.to_not change(Like, :count).by(-1)
+			end
+		end
+		context "with right user" do
+			before do
+				sign_in user
+			end
+			it "should destroy" do
+				expect do
+					delete :destroy, id: @to_delete
+				end.to change(Like, :count).by(-1)
 			end
 		end
 	end

@@ -14,14 +14,12 @@ class ResponseController < AuthenticatedController
 		if parent
 			collection = parent.send(response_object.pluralize || response_collection)
 			if collection
-				if test_uniqueness(collection)
-					@response = collection.build(params[response_object.to_sym])
-					@response.send("#{creator_object}=", current_user)
-					@response.send("#{attached_item}=", parent)
-					notify_activity_on(parent, current_user, @response)
-					if @response.save
-						return true
-					end
+				@response = collection.build(params[response_object.to_sym])
+				@response.send("#{creator_object}=", current_user)
+				@response.send("#{attached_item}=", parent)
+				notify_activity_on(parent, current_user, @response)
+				if @response.save
+					return true
 				end
 			end
 		end

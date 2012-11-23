@@ -22,10 +22,6 @@ class LikesController < ResponseController
 		"liked_item"
 	end
 
-	def test_uniqueness(collection)
-		collection.find_by_liker_id(current_user.id).nil?
-	end
-
 	def destroy
 		Like.find(params[:id]).destroy
 		flash[:success] = "Unliked"

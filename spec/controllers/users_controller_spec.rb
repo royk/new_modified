@@ -127,8 +127,7 @@ describe UsersController do
 
 	describe "update when logged out" do
 		before do 
-			sign_in user
-			sign_out_2
+			sign_out
 			@userWithPWD = {password: "123456", password_confirmation: "123456"}
 		end
 
