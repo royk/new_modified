@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UsersController do 
 	let(:user) { FactoryGirl.create(:user) }
 
-	before { sign_in user }
+	
 
 	describe "show"  do
 		it "should assign the correct user" do
@@ -42,8 +42,21 @@ describe UsersController do
 		end
 	end
 
+	describe "create" do
+		it "should create a user" do
+			expect do
+				post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
+				@to_delete = assigns(:user)
+			end.to change(User, :count).by(1)
+		end
+	end
+
+	
+
 	describe "update" do
+		before { sign_in user }
 		before :each do
+			
 			@userWithPWD = {password: "123456", password_confirmation: "123456"}
 			@userWithInvalidPWD1 = {password: "123456", password_confirmation: "23456"}
 			@userWithInvalidPWD2 = {password: "1234", password_confirmation: "1234"}
@@ -112,12 +125,17 @@ describe UsersController do
 		end
 	end
 
-	describe "create" do
-		it "should create a user" do
-			expect do
-				post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
-				@to_delete = assigns(:user)
-			end.to change(User, :count).by(1)
+	describe "update when logged out" do
+		before do 
+			sign_in user
+			sign_out_2
+			@userWithPWD = {password: "123456", password_confirmation: "123456"}
 		end
+
+		it "should not respond" do
+			put :update, id: user, user: @userWithPWD
+			assigns(:user).should be_nil
+		end
+
 	end
 end

@@ -1,10 +1,6 @@
 class LikesController < ResponseController
 	before_filter	:correct_user, only: :destroy
 
-	def new
-		@like = @parent.likes.new
-	end
-
 	def create
 		if super
 			flash[:success] = "Kudos given!"

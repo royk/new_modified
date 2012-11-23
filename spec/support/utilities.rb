@@ -17,6 +17,8 @@ def sign_up(user)
 	cookies[:remember_token] = user.remember_token
 end
 
-def sign_out
-	click_button "signout"
+def sign_out_2
+	visit root_path
+	page.find(:xpath, "//a[@href='/signout']").click
+	cookies.permanent[:remember_token] = nil
 end
