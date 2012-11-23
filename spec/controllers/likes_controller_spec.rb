@@ -29,7 +29,7 @@ describe LikesController do
 					assigns[:response].should_not eq(like)
 					video_item.likes.find(assigns[:response]).should_not be_nil
 				end
-				it "should not be liked twice" do
+				it "should not be liked twice by same user" do
 					expect do
 						post :create, parent_type: video_item.class, parent_id: video_item
 						post :create, parent_type: video_item.class, parent_id: video_item
