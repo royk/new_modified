@@ -18,6 +18,10 @@ class LikesController < ResponseController
 		"liker"
 	end
 
+	def attached_item
+		"liked_item"
+	end
+
 	def test_uniqueness(collection)
 		collection.find_by_liker_id(current_user.id).nil?
 	end
