@@ -1,9 +1,0 @@
-<% if current_user %>
-	<% if current_user.admin? || current_user?(user) %>
-		<%= link_to item, id: item.id, method: :delete, data: {confirm: "Are you sure?" } do %>
-			<span class="pull-right">
-				<img class="delete-img" src="/assets/delete.png"/>
-			</span>
-		<% end %>
-	<% end %>
-<% end %>
