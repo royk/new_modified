@@ -28,6 +28,7 @@ describe Video do
 	it { should respond_to(:user) }
 	it { should respond_to(:user_id) }
 	it { should respond_to(:vendor) }
+	it { should respond_to(:url) }
 
 	its(:user) { should==user }
 

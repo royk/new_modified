@@ -40,9 +40,9 @@ class VideosController < AuthenticatedController
 		end
 
 		def parse_video
-			vimeoID = @video.uid.scan(/vimeo\.com\/(\d+)$/i)
-			youtubeIDLong = @video.uid.scan(/(?:youtube\.com\/watch[^\s]*[\?&]v=)([\w-]+)/i);
-			youtubeIdShort = @video.uid.scan(/(?:youtu\.be\/)([\w-]+)/i)
+			vimeoID = @video.url.scan(/vimeo\.com\/(\d+)$/i)
+			youtubeIDLong = @video.url.scan(/(?:youtube\.com\/watch[^\s]*[\?&]v=)([\w-]+)/i);
+			youtubeIdShort = @video.url.scan(/(?:youtu\.be\/)([\w-]+)/i)
 			ret = false
 			if vimeoID.any?
 				@video.uid = vimeoID[0][0]

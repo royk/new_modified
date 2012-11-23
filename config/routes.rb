@@ -20,7 +20,7 @@ NewModified::Application.routes.draw do
 
   resources :posts
 
-  resources :videos, only: [:index, :create, :destroy, :show]
+  resources :videos
 
   resources :blog_posts
 

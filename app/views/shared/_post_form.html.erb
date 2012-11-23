@@ -14,7 +14,7 @@
 		</div>
 		<div id="video-form" style="display:none;">
 			<%= form_for(Video.create()) do |f| %>
-				<%= f.text_area(:uid, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
+				<%= f.text_area(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
 				<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 			<% end %>	
 		</div>

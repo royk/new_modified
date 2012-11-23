@@ -12,7 +12,7 @@
 #
 
 class Video < ActiveRecord::Base
-  attr_accessible :title, :vendor, :uid
+  attr_accessible :title, :vendor, :uid, :url
 
   belongs_to :user
 
