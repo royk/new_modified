@@ -1,5 +1,4 @@
 class ResponseController < AuthenticatedController
-	before_filter	:correct_user, only: :destroy
 
 	def find_parent
 		if params[:parent_type]=="Video"

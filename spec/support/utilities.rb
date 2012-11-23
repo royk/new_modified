@@ -1,9 +1,9 @@
-def sign_in(user)
+def sign_in(_user)
 	visit signin_path
-	fill_in "Email",	with: user.email
-	fill_in "Password", with: user.password
+	fill_in "Email",	with: _user.email
+	fill_in "Password", with: _user.password
 	click_button "Sign in"
-	cookies[:remember_token] = user.remember_token
+	cookies[:remember_token] = _user.remember_token
 end
 
 def sign_up(user)
