@@ -62,7 +62,7 @@ describe LikesController do
 			end
 			it "should be not allowed" do
 				expect do
-					delete :destroy, id: @to_delete, parent_type: video_item.class, parent_id: video_item
+					delete :destroy, parent_type: video_item.class, parent_id: video_item
 				end.to_not change(Like, :count).by(-1)
 			end
 		end
@@ -73,14 +73,14 @@ describe LikesController do
 			context "with wrong object" do
 				it "should not destroy" do
 					expect do
-						delete :destroy, id: @to_delete, parent_type: post_item.class, parent_id: post_item
+						delete :destroy, parent_type: post_item.class, parent_id: post_item
 					end.to_not change(Like, :count).by(-1)
 				end
 			end
 
 			it "should destroy" do
 				expect do
-					delete :destroy, id: @to_delete, parent_type: video_item.class, parent_id: video_item
+					delete :destroy, parent_type: video_item.class, parent_id: video_item
 				end.to change(Like, :count).by(-1)
 			end
 		end
