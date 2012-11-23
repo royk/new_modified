@@ -26,6 +26,11 @@ class ResponseController < AuthenticatedController
 		false
 	end
 
+	def destroy
+		destroy! { root_url }
+	end
+
+
 	def response_object
 		""
 	end

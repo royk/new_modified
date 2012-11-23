@@ -7,7 +7,7 @@
 		<% if !@already_liked %>
 			<li><%= link_to "Kudos", likes_path(parent_type: feed_item.class.to_s, parent_id: feed_item.id),  method: "create" %></li>
 		<% else %>
-			<li>Kudos given</li>
+			<li><%= link_to "Remove Kudos", unlike_path(parent_type: feed_item.class.to_s, parent_id: feed_item.id), method: :delete %></li>
 		<% end %>
 	</ul>
 	<ul class="nav post-footer-info pull-right">

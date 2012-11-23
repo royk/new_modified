@@ -52,7 +52,7 @@ describe LikesController do
 
 	describe "destroy" do
 		before :each do
-			@to_delete = Like.new
+			@to_delete = video_item.likes.create
 			@to_delete.liker = user
 			@to_delete.save!
 		end
@@ -62,7 +62,7 @@ describe LikesController do
 			end
 			it "should be not allowed" do
 				expect do
-					delete :destroy, id: @to_delete
+					delete :destroy, id: @to_delete, parent_type: video_item.class, parent_id: video_item
 				end.to_not change(Like, :count).by(-1)
 			end
 		end
@@ -70,9 +70,17 @@ describe LikesController do
 			before do
 				sign_in user
 			end
+			context "with wrong object" do
+				it "should not destroy" do
+					expect do
+						delete :destroy, id: @to_delete, parent_type: post_item.class, parent_id: post_item
+					end.to_not change(Like, :count).by(-1)
+				end
+			end
+
 			it "should destroy" do
 				expect do
-					delete :destroy, id: @to_delete
+					delete :destroy, id: @to_delete, parent_type: video_item.class, parent_id: video_item
 				end.to change(Like, :count).by(-1)
 			end
 		end

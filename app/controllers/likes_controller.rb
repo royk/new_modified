@@ -23,10 +23,15 @@ class LikesController < ResponseController
 	end
 
 	def destroy
-		Like.find(params[:id]).destroy
-		flash[:success] = "Unliked"
+		parent = find_parent
+		if parent
+			res = parent.likes.where("liker_id = "+current_user.id.to_s)
+			res.first.destroy if res.any?
+			flash[:success] = "Kudos removed"
+		end
 		redirect_to root_url
 	end
+
 	private
 		def correct_user
 			if !current_user.admin?

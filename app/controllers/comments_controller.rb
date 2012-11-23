@@ -18,6 +18,10 @@ class CommentsController < ResponseController
 		"commenter"
 	end
 
+	def attached_item
+		"commentable"
+	end
+
 	private
 		def begin_of_association_chain
 			@parent
@@ -25,8 +29,10 @@ class CommentsController < ResponseController
 
 		def correct_user
 			if !current_user.admin?
-				@comment = current_user.comments.find_by_id(params[:id])
-				redirect_to root_url if @comment.nil?
+				comment = Comment.find(params[:id])
+				unless comment.commenter.id==current_user.id
+					redirect_to root_url
+				end
 			end
 		end
 end
