@@ -4,10 +4,11 @@
 	<div class="span6 offset3">
 		<%= form_for (@user) do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
-			<h3>User info<h3>
+			<h3>User info</h3>
 			<div class="form-horizontal">
 				<%= f.label :name %>
 			    <%= f.text_field :name %>
+			    <i class="icon-warning-sign"></i><p class="warning-text sub-text">Real name please. Only exposed to registered users.</p>
 
 			    <%= f.label :nickname %>
 			    <%= f.text_field :nickname %>

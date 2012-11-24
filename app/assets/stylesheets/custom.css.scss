@@ -271,6 +271,18 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
 
 /* typography */
 
+.sub-text {
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.warning-text {
+  display: inline;
+  padding-left: 2px;
+  position: absolute;
+  margin-bottom: 10px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
