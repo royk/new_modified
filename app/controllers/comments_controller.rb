@@ -1,4 +1,5 @@
 class CommentsController < ResponseController
+	before_filter	:correct_user, only: [:destroy, :update]
 
 	def create
 		if super
@@ -9,11 +10,8 @@ class CommentsController < ResponseController
 		redirect_to root_url
 	end
 
-	def destroy
-		res = Comment.find(params[:id])
-		res.destroy if !res.nil? && res.commenter.id==current_user.id
-		flash[:success] = "Comment removed"
-		redirect_to root_url
+	def update
+		update! { root_url }
 	end
 
 	def response_object
