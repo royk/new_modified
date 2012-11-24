@@ -12,7 +12,7 @@
 class Blog < ActiveRecord::Base
   attr_accessible :title
 
-  has_many :blog_posts
+  has_many :blog_posts, order: 'created_at DESC'
   belongs_to :user
   validates :user, presence: true
 
