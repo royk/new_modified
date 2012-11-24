@@ -33,6 +33,11 @@ $linkColor: #08C;
 
 }
 
+.navbar-static-top {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
 .navbar-inner {
   @include boxShadow(1);
 }

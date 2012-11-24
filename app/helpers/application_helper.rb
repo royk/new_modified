@@ -30,4 +30,12 @@ module ApplicationHelper
 		notification.public = true
 		notification.save
 	end
+
+	def privacy_query(collection)
+		if signed_in?
+			collection.all
+		else
+			collection.where(public: true)
+		end
+	end
 end

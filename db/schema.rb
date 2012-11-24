@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123164335) do
+ActiveRecord::Schema.define(:version => 20121124193003) do
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -35,10 +35,11 @@ ActiveRecord::Schema.define(:version => 20121123164335) do
   create_table "comments", :force => true do |t|
     t.integer  "commenter_id"
     t.integer  "commentable_id"
-    t.string   "commentable_type", :default => "", :null => false
+    t.string   "commentable_type", :default => "",   :null => false
     t.text     "content"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "public",           :default => true
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
@@ -93,8 +94,9 @@ ActiveRecord::Schema.define(:version => 20121123164335) do
   create_table "posts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "public",     :default => true
   end
 
   add_index "posts", ["created_at"], :name => "index_posts_on_created_at"
@@ -119,10 +121,11 @@ ActiveRecord::Schema.define(:version => 20121123164335) do
     t.integer  "user_id"
     t.string   "title"
     t.string   "vendor"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.string   "uid"
     t.string   "url"
+    t.boolean  "public",     :default => true
   end
 
   add_index "videos", ["uid"], :name => "index_videos_on_uid", :unique => true

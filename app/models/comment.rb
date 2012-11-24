@@ -9,10 +9,11 @@
 #  content          :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  public           :boolean          default(TRUE)
 #
 
 class Comment < ActiveRecord::Base
-  attr_accessible :content, :commenter
+  attr_accessible :content, :commenter, :public
 
   belongs_to :commentable, polymorphic: true
   belongs_to :commenter, 	class_name: "User"

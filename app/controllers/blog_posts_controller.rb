@@ -1,5 +1,10 @@
 class BlogPostsController < AuthenticatedController
 	before_filter	:correct_user,	only: [:edit, :update]
+	skip_before_filter :signed_in_user, only: [:index, :show]
+
+	def index
+		@blog_posts = privacy_query(BlogPost).paginate(page: params[:page], :per_page => 10)
+	end
 
 	def create
 		if current_user.blog.nil?

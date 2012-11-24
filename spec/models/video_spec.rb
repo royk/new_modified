@@ -9,6 +9,8 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  uid        :string(255)
+#  url        :string(255)
+#  public     :boolean          default(TRUE)
 #
 
 require 'spec_helper'

@@ -9,6 +9,7 @@
 #  content          :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  public           :boolean          default(TRUE)
 #
 
 require 'spec_helper'

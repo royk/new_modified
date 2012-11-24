@@ -9,10 +9,12 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  uid        :string(255)
+#  url        :string(255)
+#  public     :boolean          default(TRUE)
 #
 
 class Video < ActiveRecord::Base
-  attr_accessible :title, :vendor, :uid, :url
+  attr_accessible :title, :vendor, :uid, :url, :public
 
   belongs_to :user
 

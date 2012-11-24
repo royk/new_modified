@@ -7,10 +7,11 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  public     :boolean          default(TRUE)
 #
 
 class Post < ActiveRecord::Base
-  attr_accessible :content
+  attr_accessible :content, :public
 
   belongs_to :user
   has_many :comments, as: :commentable, order: 'created_at DESC'

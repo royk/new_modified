@@ -1,6 +1,7 @@
 class PostsController < AuthenticatedController
 	
 	before_filter	:correct_user, only: :destroy
+	skip_before_filter :signed_in_user, only: [:index, :show]
 	
 	def create
 		create! do |success, failure|
@@ -12,6 +13,14 @@ class PostsController < AuthenticatedController
 				redirect_to root_url
 			end
 		end
+	end
+
+	def index
+		@posts = privacy_query(Post).paginate(page: params[:page], :per_page => 10)
+	end
+
+	def update
+		update! { root_url }
 	end
 
 	def destroy

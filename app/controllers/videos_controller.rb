@@ -1,12 +1,17 @@
 class VideosController < AuthenticatedController
 	before_filter	:correct_user, only: [:destroy, :update]
+	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
     	@video = Video.find(params[:id])
+    	if !signed_in? && @video.public==false
+    		@video = null
+    		redirect_to root_url
+    	end
 	end
 
 	def index
-		@videos = Video.paginate(page: params[:page], :per_page => 10)
+		@videos = privacy_query(Video).paginate(page: params[:page], :per_page => 10)
 	end
 	
 	def create
@@ -22,14 +27,17 @@ class VideosController < AuthenticatedController
 
 	def update
 		@video = Video.find(params[:id])
-		uid_vendor = get_uid_vendor(params[:video][:url])
-		@video.url = params[:video][:url]
-		if save_video(uid_vendor)
-			flash[:success] = "Video modified"
-			redirect_to @video
+		if params[:video][:url].nil? && !params[:video][:public].nil?
+			success = @video.update_attribute(:public, params[:video][:public])
 		else
-			redirect_to root_url
+			uid_vendor = get_uid_vendor(params[:video][:url])
+			@video.url = params[:video][:url]
+			success = save_video(uid_vendor)
 		end
+		if success
+			flash[:success] = "Video modified"
+		end
+		redirect_to root_url
 	end
 
 	def destroy

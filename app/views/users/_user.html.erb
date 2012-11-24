@@ -1,3 +1,4 @@
+<% current_user ||= User.new %>
 <li>
 	<%= link_to user do%>
 		<%= render 'shared/feed_info', user: user, size: "tiny" %>
