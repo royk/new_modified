@@ -21,6 +21,7 @@ describe VideosController do
 
 	describe "index" do
 		it "should return a list of videos" do
+			video.save!
 			get :index
 			assigns(:videos).should eq([video])
 		end
@@ -113,7 +114,6 @@ describe VideosController do
 			it "should change the video's url" do
 				put :update, id: @to_edit, video: {url: "http://www.youtu.be/CoyEILQHJyc"}
 
-				response.should redirect_to @to_edit
 				assigns[:video].should eq(@to_edit)
 				assigns[:video][:uid].should eq("CoyEILQHJyc")
 				@to_edit.reload

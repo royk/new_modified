@@ -85,7 +85,7 @@ describe User do
 	end
 
 	describe "when nick is set and is too short" do
-		before {@user.nickname = "aaa"}
+		before {@user.nickname = "aa"}
 		it {should_not be_valid}
 	end
 

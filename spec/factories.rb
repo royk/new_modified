@@ -21,6 +21,7 @@ FactoryGirl.define do
 		title "some title"
 		uid  { generate(:random_string) }
 		vendor "youtube"
+		public {true}
 		user
 	end
 

@@ -38,4 +38,5 @@ module ApplicationHelper
 			collection.where(public: true)
 		end
 	end
+
 end

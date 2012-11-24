@@ -5,7 +5,7 @@ class CommentsController < ResponseController
 		if super
 		flash[:success] = "Comment posted!"
 		else
-			flash[:error] = "Error posting comment."
+			flash[:error] = params[:parent_type]
 		end	
 		redirect_to root_url
 	end

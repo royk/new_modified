@@ -7,6 +7,9 @@ class ResponseController < AuthenticatedController
 		if params[:parent_type]=="Post"
 			return Post.find(params[:parent_id])
 		end
+		if params[:parent_type]=="BlogPost"
+			return BlogPost.find(params[:parent_id])
+		end
 	end
 
 	def create

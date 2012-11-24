@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   has_one :blog
 
   validates :name, presence: true, length: {maximum: 50, minimum: 4}
-  validates :nickname, length: {maximum: 50, minimum: 4}, allow_blank: true, uniqueness: {case_sensitive: false}
+  validates :nickname, length: {maximum: 50, minimum: 3}, allow_blank: true, uniqueness: {case_sensitive: false}
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: {with: EMAIL_REGEX}, uniqueness: {case_sensitive: false}
 
@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def feed
-    (Post.all + Video.all).sort_by {|f| -f.created_at.to_i} # sort by descending by converting to int and negating
+    
   end
 
   def notifications

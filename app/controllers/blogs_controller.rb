@@ -7,10 +7,6 @@ class BlogsController < AuthenticatedController
 
 	def show
 		@blog = Blog.find(params[:id])
-		if signed_in?
-			@blog_posts = BlogPost.paginate(page: params[:page], :per_page => 10)
-		else
-			@blog_posts = BlogPost.where(public: true).paginate(page: params[:page], :per_page => 10)
-		end
+		@blog_posts = privacy_query(@blog.blog_posts).paginate(page: params[:page], :per_page => 10)
 	end
 end

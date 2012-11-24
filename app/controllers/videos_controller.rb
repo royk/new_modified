@@ -5,7 +5,7 @@ class VideosController < AuthenticatedController
 	def show
     	@video = Video.find(params[:id])
     	if !signed_in? && @video.public==false
-    		@video = null
+    		@video = nil
     		redirect_to root_url
     	end
 	end
