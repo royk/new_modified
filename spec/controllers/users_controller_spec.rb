@@ -78,6 +78,16 @@ describe UsersController do
 			user.gravatar_suffix.should eq("suff")
 		end
 
+		it "should allow blog title update" do
+			@userWithPWD[:blog_title] = "my old blog"
+			user.build_blog(title: "My new blog")
+			user.blog.save!
+			put :update, id: user, user: @userWithPWD
+			user.reload
+
+			user.blog_title.should eq("my old blog")
+		end
+
 		it "should update without password" do
 			someUser = {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu"}
 			put :update, id: user, user: someUser
