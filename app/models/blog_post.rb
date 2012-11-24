@@ -11,7 +11,6 @@
 #
 
 class BlogPost < ActiveRecord::Base
-  after_find :convert_bbcode_to_html
   attr_accessible :content, :public
 
   belongs_to :blog
@@ -23,9 +22,9 @@ class BlogPost < ActiveRecord::Base
 
   validates :blog, presence: true
 
-  def convert_bbcode_to_html
-  	self.content = self.content.bbcode_to_html!({}, true, :enable, :bold).html_safe
-  	self.content = BBCodeizer.bbcodeize(self.content).html_safe
+  def content_view
+    ret = self.content.bbcode_to_html!({}, true, :enable, :bold).html_safe
+    ret = BBCodeizer.bbcodeize(self.content).html_safe
   end
 
 end

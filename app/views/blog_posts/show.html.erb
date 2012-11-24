@@ -1,10 +1,8 @@
 <div class="feed">
 	<div class="feed-item">
+		<%= render '/shared/item_options', item: @blog_post, user: @blog_post.user %>
 		<%= render '/shared/blog_post_item', :feed_item => @blog_post %>
 		
 	</div>
 	<%= render 'shared/feed_item_footer', :feed_item => @blog_post, comments_shown: true %>
-	<% if current_user==@blog_post.user %>
-		<%= link_to "Edit", edit_blog_post_path(@blog_post) %>
-	<% end %>
 </div>
