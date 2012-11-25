@@ -1,4 +1,4 @@
-<% current_user ||= User.new %>
+<% cuser = current_user || User.new %>
 <li>
 	<%= link_to user do%>
 		<%= render 'shared/feed_info', user: user, size: "tiny" %>
@@ -6,16 +6,21 @@
 	<% if user.admin? %>
 		| <span class="admin">Admin</span>
 	<% end %>
-	<% if !current_user?(user) %>
+	<% if signed_in? && !current_user?(user) %>
 		| <%= link_to "Message", new_message_path( recipient: user) %>
 	<% end %>
 	<% if current_user?(user) %>
-		| <%= link_to "edit", edit_user_path(current_user) %>
+		| <%= link_to "edit", edit_user_path(cuser) %>
 	<% end %>
 		
 	
 	
-	<% if current_user.admin? && !current_user?(user) %>
+	<% if cuser.admin? && !current_user?(user) %>
+		<% if user.admin? %>
+			| <%= link_to "Revoke Admin status", "#" %>
+		<% else %>
+			| <%= link_to "Make Admin", "#" %>
+		<% end %>
 		|	<%= link_to "delete", user, method: :delete, data: {confirm: "You sure?"} %>
 	<% end %>
 	
