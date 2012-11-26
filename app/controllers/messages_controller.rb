@@ -17,6 +17,10 @@ class MessagesController < AuthenticatedController
 		@conversation = @message.conversation
 	end
 
+	def get_latest
+		render partial: 'shared/messages/header_indicator'
+	end
+
 
 
 	def create

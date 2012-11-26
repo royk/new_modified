@@ -15,6 +15,20 @@
 //= require_tree .
 //= require bootstrap
 
+// two minutes time idle
+$.idleTimer(120000);
+        
+        
+$(document).bind("idle.idleTimer", function(){
+ NM.freeze();
+});
+
+
+$(document).bind("active.idleTimer", function(){
+ NM.unfreeze();
+});
+
+
 NM = (function() {
 	var currentToggleMenu = null;
 	var currentPage = 1;
@@ -41,16 +55,33 @@ NM = (function() {
 	
 
 	return {
-		
+		freeze: function freeze() {
+			for (var o in periodify_intervals) {
+				clearInterval(periodify_intervals[o].id);
+			}
+		},
+
+		unfreeze: function unfreeze() {
+			for (var o in periodify_intervals) {
+				periodify_intervals[o].f();
+				periodify_intervals[o].id = setInterval(periodify_intervals[o].f, periodify_intervals[o].period);
+			}
+		},
 		// Call supported functions every *period* miliseconds. Default: every 10 seconds
 		every: function every(period) {
 			period = period || 10000;
+			
 			return {
 				ajaxify: function(params) {
-					setInterval(function() {this.ajaxify(params);}, period);
-				},
-				test: function(param) {
-					setInterval(function() {console.log(param);}, period);
+					if (periodify_intervals[params.container]) {
+						clearInterval(periodify_intervals[params.container].id);
+					}
+					var f = function() {NM.ajaxify(params);};
+					periodify_intervals[params.container] = {
+						period: period,
+						f: f,
+						id: setInterval(f, period)
+					};
 				}
 			};
 		},
@@ -69,7 +100,7 @@ NM = (function() {
 						window.location.href = response.redirect;
 					},
 					200: function(response) {
-						$(params.container).replaceWith(response);
+						$(params.container).html(response);
 					}
 				}
 				

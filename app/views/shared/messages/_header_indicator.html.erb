@@ -1,0 +1,13 @@
+<% if signed_in? %>
+	<% unread_messages = current_user.received_messages.where(read: false) %>
+	<% if unread_messages.any? %>
+		<li class="dropdown">
+			<a href="#" class="messages-toggle dropdown-toggle" data-toggle="dropdown">
+				<i class="icon-envelope icon-white"></i>
+			</a>
+			<ul class="dropdown-menu messages-flyout">
+				<%= render partial: 'shared/personal_message_item', collection: unread_messages %>
+			</ul>
+		</li>
+	<% end %>
+<% end %>

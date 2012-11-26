@@ -8,6 +8,14 @@ class NotificationsController < AuthenticatedController
 
 	def update
 	end
+
+	def index
+		render partial: 'shared/front_page_notification_item', collection: Notification.find(:all, order: "id desc", limit: 20)
+	end
+
+	def get_latest
+		render partial: 'shared/notifications/header_indicator'
+	end
 	
 	private
 		def correct_user

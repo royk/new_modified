@@ -30,12 +30,18 @@ NewModified::Application.routes.draw do
 
   resources :messages, only: [:new, :create, :index, :show]
 
+  match '/getmail', to: 'messages#get_latest'
+
   resources :conversations, only: [:show]
 
   resources :likes, only: [:new, :create, :destroy]
 
   match '/like', to: 'likes#create', via: :post
   match '/unlike', to: 'likes#destroy', via: :delete
+
+  resources :notifications, only: [:index]
+  match '/activities', to: 'notifications#index'
+  match '/getnotifications', to: 'notifications#get_latest'
 
 
   # The priority is based upon order of creation:
