@@ -1,0 +1,9 @@
+<script>
+	NM.endlessScroll({
+		maxPages: <%= collection.total_pages %>,
+		path: '<%= loadPath %>'
+	});
+</script>
+<div id="loading-indicator">
+	<img  src="/assets/ajax-loader.gif"/>
+</div>
