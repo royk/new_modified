@@ -21,26 +21,49 @@ NM = (function() {
 	var maxPages = 0;
 	var scrollPath = '';
 	var _loadingNextPage = false;
+	var periodify_intervals = {};
 
 	var _requestNextPage = function _requestNextPage() {
 		if (++currentPage<=maxPages) {
 			_loadingNextPage = true;
 			$("#loading-indicator").show().fadeTo('slow', 1);
 			$.ajax({
-			  url: scrollPath+'?page='+currentPage,
-			  type: 'get',
-
-			  success: function(response) {
-				_loadingNextPage = false;
-				$("#loading-indicator").fadeTo('fast', 0);
-			    $(".feed").append(response);
-			}
+				url: scrollPath+'?page='+currentPage,
+				type: 'get',
+				success: function(response) {
+					_loadingNextPage = false;
+					$("#loading-indicator").fadeTo('fast', 0);
+					$(".feed").append(response);
+				}
 			});
 		}
 	};
 	
 
 	return {
+		// periodically updates a container via ajax
+		// Takes:
+		// url:			name of the call
+		// type:		request type (get, post, delete...) default: get
+		// container:	jquery identifier for the html container where the results will be stored (e.g. "#item5")
+		// period:		time interval in which to request an update (default: every 10 seconds)
+		periodify: function periodify(params) {
+			params.period = params.period || 10000;
+			params.type = params.type || 'get';
+			if (periodify_intervals[params.container]) {
+				clearInterval(periodify_intervals[params.container]);
+			}
+			periodify_intervals[params.container] = setInterval(function() {
+														this.ajaxify(params);
+													}, params.period);
+
+
+		},
+		// updates a container via an ajax call.
+		// Takes:
+		// url:			name of the call
+		// type:		request type (get, post, delete...) default: get
+		// container:	jquery identifier for the html container where the results will be stored (e.g. "#item5")
 		ajaxify: function ajaxify(params) {
 			params.type = params.type || 'get';
 			$.ajax({

@@ -106,10 +106,10 @@ ActiveRecord::Schema.define(:version => 20121124193003) do
     t.string   "name"
     t.string   "email"
     t.string   "remember_token"
-    t.string   "password_digest"
     t.boolean  "admin"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "password_digest"
     t.string   "gravatar_suffix"
     t.string   "nickname"
   end
