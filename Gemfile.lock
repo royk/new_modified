@@ -80,6 +80,9 @@ GEM
     json (1.7.5)
     libwebsocket (0.1.5)
       addressable
+    lograge (0.1.0)
+      actionpack
+      activesupport
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -175,6 +178,7 @@ DEPENDENCIES
   faker (= 1.0.1)
   inherited_resources
   jquery-rails (= 2.0.2)
+  lograge
   pg (= 0.12.2)
   rails (= 3.2.8)
   recaptcha
