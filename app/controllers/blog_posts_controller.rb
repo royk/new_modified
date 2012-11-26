@@ -11,7 +11,8 @@ class BlogPostsController < AuthenticatedController
 	end
 
 	def index
-		@blog_posts = privacy_query(BlogPost).paginate(page: params[:page], :per_page => 10)
+		@blog_posts = privacy_query(BlogPost).paginate(page: params[:page], :per_page => 1)
+		
 	end
 
 	def create

@@ -23,9 +23,9 @@ NM = (function() {
 	var _loadingNextPage = false;
 
 	var _requestNextPage = function _requestNextPage() {
-		_loadingNextPage = true;
-		$("#loading-indicator").show().fadeTo('slow', 1);
 		if (++currentPage<=maxPages) {
+			_loadingNextPage = true;
+			$("#loading-indicator").show().fadeTo('slow', 1);
 			$.ajax({
 			  url: scrollPath+'?page='+currentPage,
 			  type: 'get',
