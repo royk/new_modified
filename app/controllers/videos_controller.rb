@@ -12,6 +12,9 @@ class VideosController < AuthenticatedController
 
 	def index
 		@videos = privacy_query(Video).paginate(page: params[:page], :per_page => 10)
+		if request.xhr?
+			render partial: 'shared/feed_item', collection: @videos, comments_shown: false
+		end
 	end
 	
 	def create

@@ -7,8 +7,6 @@
 		<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
 	<% end %>
 </div>
-<div style="text-align:center;">
-	<%= will_paginate @feed_items %>
-</div>
 
 
+<%= render 'shared/ajax_loading', collection: @feed_items, loadPath: '/' %>

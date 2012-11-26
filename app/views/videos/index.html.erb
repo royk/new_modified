@@ -7,4 +7,5 @@
 	<%= render @videos %>
 </div>
 
-<%= will_paginate @feed_items %>
+<%= render 'shared/ajax_loading', collection: @videos, loadPath: '/videos/' %>
+

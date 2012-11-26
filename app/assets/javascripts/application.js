@@ -17,9 +17,42 @@
 
 NM = (function() {
 	var currentToggleMenu = null;
+	var currentPage = 1;
+	var maxPages = 0;
+	var scrollPath = '';
+	var _loadingNextPage = false;
+
+	var _requestNextPage = function _requestNextPage() {
+		_loadingNextPage = true;
+		$("#loading-indicator").show().fadeTo('slow', 1);
+		if (++currentPage<=maxPages) {
+			$.ajax({
+			  url: scrollPath+'?page='+currentPage,
+			  type: 'get',
+			  success: function(response) {
+				_loadingNextPage = false;
+				$("#loading-indicator").fadeTo('fast', 0);
+			    $(".feed").append(response);
+			}
+			});
+		}
+	};
+	
 
 	return {
-		
+
+		endlessScroll: function endlessScroll(params){
+			maxPages = params.maxPages;
+			scrollPath = params.path;
+
+			$(window).scroll(function(){
+				if ($(window).scrollTop() + $(window).innerHeight()>=document.body.scrollHeight) {
+					if (!_loadingNextPage) {
+						_requestNextPage();
+					}
+				}
+			});
+		},
 
 		toggleVisibility: function toggleVisibility(elem) {
 			elem = $(elem);
@@ -65,5 +98,7 @@ NM = (function() {
 
 	};
 }());
+
+
 
 $(window).unload( function () { NM.clearToggleMenu(); });
