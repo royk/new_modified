@@ -3,7 +3,7 @@
 	<% @old_notifications = true %>
 	<li>Older notifications:</li>
 <% end %>
-<li id="item<%= notification_item.id %>">
+<li id="personal_notification_item<%= notification_item.id %>">
 	<%= link_to notification_item.sender.shown_name, notification_item.sender%> <%= notification_item.action_verb %> on your <%= link_to notification_item.item_type.downcase, notification_item.item  %>
 	<div class="timestamp">
 		<%= time_ago_in_words(notification_item.created_at) %> ago.

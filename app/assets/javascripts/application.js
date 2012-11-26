@@ -29,6 +29,7 @@ NM = (function() {
 			$.ajax({
 			  url: scrollPath+'?page='+currentPage,
 			  type: 'get',
+
 			  success: function(response) {
 				_loadingNextPage = false;
 				$("#loading-indicator").fadeTo('fast', 0);
@@ -45,9 +46,15 @@ NM = (function() {
 			$.ajax({
 				url: params.url,
 				type: params.type,
-				success: function(response) {
-					$(params.container).replaceWith(response);
+				statusCode: {
+					302: function(response) {
+						window.location.href = response.redirect;
+					},
+					200: function(response) {
+						$(params.container).replaceWith(response);
+					}
 				}
+				
 
 			});
 		},

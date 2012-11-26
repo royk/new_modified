@@ -2,16 +2,10 @@ class LikesController < ResponseController
 
 	def create
 		if super
-			if request.xhr?
-				render partial: 'shared/feed_item', locals: {feed_item: @parent}
-				return
-			else
-				flash[:success] = "Kudos given!"
-			end
+			render partial: 'shared/feed_item', locals: {feed_item: find_parent}
 		else
-			flash[:error] = "Kudos already given!"
+			render :status => 500
 		end
-		redirect_to root_url
 	end
 
 	def response_object
@@ -31,14 +25,10 @@ class LikesController < ResponseController
 		if parent
 			res = parent.likes.where("liker_id = "+current_user.id.to_s)
 			res.first.destroy if res.any? && res.first.liker.id==current_user.id
-			if request.xhr?
-				render partial: 'shared/feed_item', locals: {feed_item: parent}
-				return
-			else
-				flash[:success] = "Kudos removed"
-			end
+			render partial: 'shared/feed_item', locals: {feed_item: parent}
+		else
+			render :status => 500
 		end
-		redirect_to root_url
 	end
 
 end

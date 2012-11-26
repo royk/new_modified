@@ -19,5 +19,5 @@ class Like < ActiveRecord::Base
   belongs_to :post
   has_many :notifications, as: :action, dependent: :destroy
 
-  validates :liked_item_id, uniqueness: {scope: :liker_id}
+  validates :liked_item_id, uniqueness: {scope: [:liker_id, :liked_item_type]}
 end
