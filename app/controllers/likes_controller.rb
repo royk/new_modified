@@ -4,7 +4,7 @@ class LikesController < ResponseController
 		if super
 			render partial: 'shared/feed_item', locals: {feed_item: find_parent}
 		else
-			logger.error "LikesController.create: #{params.inspect}"
+			logger.error "ERROR: LikesController.create: #{params.inspect}"
 			render :status => 500
 		end
 	end
@@ -28,7 +28,7 @@ class LikesController < ResponseController
 			res.first.destroy if res.any? && res.first.liker.id==current_user.id
 			render partial: 'shared/feed_item', locals: {feed_item: parent}
 		else
-			logger.error "LikesController.delete: #{params.inspect}"
+			logger.error "ERROR: LikesController.delete: #{params.inspect}"
 			render :status => 500
 		end
 	end
