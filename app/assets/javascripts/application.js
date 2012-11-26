@@ -41,23 +41,18 @@ NM = (function() {
 	
 
 	return {
-		// periodically updates a container via ajax
-		// Takes:
-		// url:			name of the call
-		// type:		request type (get, post, delete...) default: get
-		// container:	jquery identifier for the html container where the results will be stored (e.g. "#item5")
-		// period:		time interval in which to request an update (default: every 10 seconds)
-		periodify: function periodify(params) {
-			params.period = params.period || 10000;
-			params.type = params.type || 'get';
-			if (periodify_intervals[params.container]) {
-				clearInterval(periodify_intervals[params.container]);
-			}
-			periodify_intervals[params.container] = setInterval(function() {
-														this.ajaxify(params);
-													}, params.period);
-
-
+		
+		// Call supported functions every *period* miliseconds. Default: every 10 seconds
+		every: function every(period) {
+			period = period || 10000;
+			return {
+				ajaxify: function(params) {
+					setInterval(function() {this.ajaxify(params);}, period);
+				},
+				test: function(param) {
+					setInterval(function() {console.log(param);}, period);
+				}
+			};
 		},
 		// updates a container via an ajax call.
 		// Takes:
