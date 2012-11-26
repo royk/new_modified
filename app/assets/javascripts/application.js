@@ -40,8 +40,19 @@ NM = (function() {
 	
 
 	return {
+		ajaxify: function ajaxify(params) {
+			params.type = params.type || 'get';
+			$.ajax({
+				url: params.url,
+				type: params.type,
+				success: function(response) {
+					$(params.container).replaceWith(response);
+				}
 
-		endlessScroll: function endlessScroll(params){
+			});
+		},
+
+		endlessScroll: function endlessScroll(params) {
 			maxPages = params.maxPages;
 			scrollPath = params.path;
 

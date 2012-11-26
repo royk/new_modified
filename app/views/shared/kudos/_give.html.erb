@@ -1,0 +1,6 @@
+<li><a href="javascript:NM.ajaxify({
+				url: '/like?parent_id=<%= feed_item.id%>&parent_type=<%=feed_item.class.to_s%>',
+				type: 'post',
+				container: '#item<%= feed_item.id%>'
+			});">Kudos</a>
+</li>			

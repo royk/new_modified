@@ -17,6 +17,7 @@ class Like < ActiveRecord::Base
   belongs_to :liker, class_name: "User"
   belongs_to :video
   belongs_to :post
+  has_many :notifications, as: :action, dependent: :destroy
 
   validates :liked_item_id, uniqueness: {scope: :liker_id}
 end

@@ -19,7 +19,11 @@ module ApplicationHelper
 
 	def notify_activity_on(item, sender, action)
 		recipient = item.user
-		if !recipient.nil? && sender!=recipient && current_user!=recipient
+		if sender==recipient || current_user==recipient
+			return
+		end
+
+		if !recipient.nil?
 			notification = recipient.notifications.build(sender: sender)
 			notification.user = recipient
 		else
