@@ -11,6 +11,7 @@ gem 'bbcodeizer', '0.2.0'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'inherited_resources'
 gem "lograge"
+gem "aws-ses", "~> 0.4.4", :require => 'aws/ses'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
