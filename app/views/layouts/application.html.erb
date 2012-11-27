@@ -7,10 +7,12 @@
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
 </head>
-<script>
-NM.every().ajaxify({url:"/activities",
-					container: ".activities"});
-</script>
+<% if signed_in? %>
+	<script>
+	NM.every().ajaxify({url:"/activities",
+						container: ".activities"});
+	</script>
+<% ene %>
 
 <body>
 	<!-- static part of every page is the heade -->
