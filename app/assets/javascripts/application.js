@@ -70,18 +70,22 @@ NM = (function() {
 		// Call supported functions every *period* miliseconds. Default: every 10 seconds
 		every: function every(period) {
 			period = period || 10000;
-			
-			return {
-				ajaxify: function(params) {
-					if (periodify_intervals[params.container]) {
-						clearInterval(periodify_intervals[params.container].id);
+			var init = function (f, id) {
+				if (periodify_intervals[id]) {
+						clearInterval(periodify_intervals[id].id);
 					}
-					var f = function() {NM.ajaxify(params);};
-					periodify_intervals[params.container] = {
+					periodify_intervals[id] = {
 						period: period,
 						f: f,
 						id: setInterval(f, period)
 					};
+			};
+			return {
+				ajaxify: function(params) {
+					init(function() {NM.ajaxify(params);}, params.container);
+				},
+				refreshFeedItems: function () {
+					init(function() {NM.refreshFeedItems();}, "feed");
 				}
 			};
 		},
@@ -117,6 +121,17 @@ NM = (function() {
 					if (!_loadingNextPage) {
 						_requestNextPage();
 					}
+				}
+			});
+		},
+
+		refreshFeedItems: function refreshFeedItems() {
+			$.ajax({
+				url: scrollPath+'?page=1+&items_count='+currentPage*10,
+				type: 'get',
+				success: function(response) {
+					_loadingNextPage = false;
+					$(".feed").html(response);
 				}
 			});
 		},

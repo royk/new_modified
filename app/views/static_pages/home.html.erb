@@ -8,5 +8,10 @@
 	<% end %>
 </div>
 
+<% if signed_in? %>
+	<script>
+		NM.every(20000).refreshFeedItems();
+	</script>
+<% end %>
 
 <%= render 'shared/ajax_loading', collection: @feed_items, loadPath: '/' %>
