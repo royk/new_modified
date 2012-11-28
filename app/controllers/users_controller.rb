@@ -61,7 +61,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if !params[:challenge].nil? && !params[:challenge].match(/^free\s?style.*/i).nil?
-      if verify_recaptcha(model: @user, message: "Wrong reCaptcha words, please try again.") && @user.save
+     # if verify_recaptcha(model: @user, message: "Wrong reCaptcha words, please try again.") && @user.save
+      if @user.save
         UserMailer.welcome_mail(@user).deliver
         sign_in @user
         flash[:success] = "Welcome to the New Modified!"
