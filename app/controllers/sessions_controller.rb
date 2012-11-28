@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       if !user.admin? && super_admins_email.include?(user.email)
         user.toggle!(:admin)
       end
-      redirect_back_or user
+      redirect_back_or root_url
     else
       flash.now[:error] = 'Invalid email/password combination'
       render 'new'
