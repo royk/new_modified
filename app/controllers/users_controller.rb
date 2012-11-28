@@ -65,7 +65,7 @@ class UsersController < ApplicationController
         UserMailer.welcome_mail(@user).deliver
         sign_in @user
         flash[:success] = "Welcome to the New Modified!"
-        redirect_to @user
+        redirect_to edit_user_path(@user)
       else
         flash[:error] = "Could not sign up"
         render 'new'
