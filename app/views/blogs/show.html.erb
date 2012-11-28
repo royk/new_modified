@@ -2,6 +2,9 @@
 	
 <h1><%= @blog.title %></h1>
 <div class="feed">
+	<% if current_user==@blog.user %>
+		<%= render partial: 'shared/post_form', locals: {show_blog: true} %>
+	<% end %>
 	<%= render @blog_posts %>
 </div>		
 <%= render 'shared/ajax_loading', collection: @blog_posts, loadPath: '/blogs/'+params[:id] %>	

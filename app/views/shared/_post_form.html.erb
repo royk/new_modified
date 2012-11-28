@@ -1,35 +1,57 @@
-<script>
-	NM.registerToggleMenu([	'div#post-form',
-							'div#video-form',
-							'div#blog-form']);
-</script>
-<div class="feed-item" id="feed-form">
-	<%= render '/shared/feed_info', user: current_user %>
-	<div class="content input-form">
-		<div id="post-form">
-			<%= form_for(Post.create()) do |f| %>
-				<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
-				<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% show_post ||= false %>
+<% show_video ||= false %>
+<% show_blog ||= false %>
+<% total = (show_post ? 1 : 0) + (show_video ? 1 : 0) + (show_blog ? 1 : 0) %>
+
+<% if signed_in? && total>0 %>
+	<script>
+		NM.registerToggleMenu([	'div#post-form',
+								'div#video-form',
+								'div#blog-form']);
+	</script>
+
+	<div class="feed-item" id="feed-form">
+		<%= render '/shared/feed_info', user: current_user %>
+		<div class="content input-form">
+			<% if show_post %>
+				<div id="post-form">
+					<%= form_for(Post.create()) do |f| %>
+						<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
+						<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+					<% end %>
+				</div>
+			<% end %>
+			<% if show_video %>
+				<div id="video-form" <% if total>1 %>style="display:none;"<% end %>>
+				<%= form_for(Video.create()) do |f| %>
+					<%= f.text_area(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
+					<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+				<% end %>	
+				</div>
+			<% end %>
+			<% if show_blog %>
+				<div id="blog-form" <% if total>1 %>style="display:none;"<% end %>>
+				<%= form_for(BlogPost.create()) do |f| %>
+					<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write to your blog...")%>
+					<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+				<% end %>
+				</div>
+			<% end %>
+			<% if total>1 %>
+				<ul class="nav horizontal-menu post-types">
+					<% if show_post %>
+						<li class="clickable" onclick="NM.selectMenuItem(0)">Wall</li>
+						<li>|</li>
+					<% end %>
+					<% if show_video %>
+						<li class="clickable" onclick="NM.selectMenuItem(1)">Video</li>
+						<li>|</li>
+					<% end %>
+					<% if show_blog %>
+						<li class="clickable" onclick="NM.selectMenuItem(2)">Blog</li>
+					<% end %>
+				</ul>
 			<% end %>
 		</div>
-		<div id="video-form" style="display:none;">
-			<%= form_for(Video.create()) do |f| %>
-				<%= f.text_area(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
-				<%= f.submit "Post", class: "btn btn-large btn-primary" %>
-			<% end %>	
-		</div>
-		<div id="blog-form" style="display:none;">
-			<%= form_for(BlogPost.create()) do |f| %>
-				<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write to your blog...")%>
-				<%= f.submit "Post", class: "btn btn-large btn-primary" %>
-			<% end %>
-		</div>
-		<ul class="nav horizontal-menu post-types">
-			<li class="clickable" onclick="NM.selectMenuItem(0)">Wall</li>
-			<li>|</li>
-			<li class="clickable" onclick="NM.selectMenuItem(1)">Video</li>
-			<li>|</li>
-			<li class="clickable" onclick="NM.selectMenuItem(2)">Blog</li>
-		</ul>
 	</div>
-</div>
+<% end %>

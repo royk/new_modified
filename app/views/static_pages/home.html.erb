@@ -1,8 +1,6 @@
 <% provide(:title, 'Home') %>
 <div class="front-page-feed feed">
-	<% if signed_in? %>
-		<%= render 'shared/post_form' %>
-	<% end %>
+	<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true, show_blog: true} %>
 	<% if @feed_items.any? %>
 		<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
 	<% end %>
