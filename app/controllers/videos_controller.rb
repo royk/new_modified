@@ -25,7 +25,7 @@ class VideosController < AuthenticatedController
 			flash[:success] = "Video created"
 			notify_activity_on(@video, current_user, nil)
 		end
-		redirect_to root_url
+		redirect_to request.referer
 	end
 
 	def update
@@ -40,13 +40,13 @@ class VideosController < AuthenticatedController
 		if success
 			flash[:success] = "Video modified"
 		end
-		redirect_to root_url
+		redirect_to request.referer
 	end
 
 	def destroy
 		Video.find(params[:id]).destroy
 		flash[:success] = "Video deleted"
-		redirect_to root_url
+		redirect_to request.referer
 	end
 
 	private

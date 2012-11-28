@@ -7,11 +7,11 @@ class CommentsController < ResponseController
 		else
 			flash[:error] = params[:parent_type]
 		end	
-		redirect_to root_url
+		redirect_to request.referer
 	end
 
 	def update
-		update! { root_url }
+		update! { request.referer }
 	end
 
 	def response_object

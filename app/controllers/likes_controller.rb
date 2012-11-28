@@ -5,7 +5,7 @@ class LikesController < ResponseController
 			render partial: 'shared/feed_item', locals: {feed_item: find_parent}
 		else
 			logger.error "ERROR: LikesController.create: #{params.inspect}"
-			redirect_to root_url
+			redirect_to request.referer
 		end
 	end
 

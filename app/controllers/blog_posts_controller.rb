@@ -22,10 +22,10 @@ class BlogPostsController < AuthenticatedController
 		create! do |success, failure|
 			success.html do 
 				notify_activity_on(@blog_post, current_user, nil)
-				redirect_to root_url
+				redirect_to request.referer
 			end
 			failure.html do
-				redirect_to root_url
+				redirect_to request.referer
 			end
 		end
 	end

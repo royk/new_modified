@@ -7,10 +7,10 @@ class PostsController < AuthenticatedController
 		create! do |success, failure|
 			success.html do 
 				notify_activity_on(@post, current_user, nil)
-				redirect_to root_url
+				redirect_to request.referer
 			end
 			failure.html do
-				redirect_to root_url
+				redirect_to request.referer
 			end
 		end
 	end
@@ -20,11 +20,11 @@ class PostsController < AuthenticatedController
 	end
 
 	def update
-		update! { root_url }
+		update! { request.referer }
 	end
 
 	def destroy
-		destroy! { root_url }
+		destroy! { request.referer }
 	end
 
 	private
