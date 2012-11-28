@@ -17,9 +17,9 @@
 	
 	<% if cuser.admin? && !current_user?(user) %>
 		<% if user.admin? %>
-			| <%= link_to "Revoke Admin status", "#" %>
+			| <%= link_to "Revoke Admin status", user_path(user, admin: false),method: :put  %>
 		<% else %>
-			| <%= link_to "Make Admin", "#" %>
+			| <%= link_to "Make Admin", user_path(user, admin: true),method: :put  %>
 		<% end %>
 		|	<%= link_to "delete", user, method: :delete, data: {confirm: "You sure?"} %>
 	<% end %>

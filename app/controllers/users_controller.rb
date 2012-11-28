@@ -27,14 +27,25 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    params[:user].delete(:password) if params[:user][:password].blank?
-    params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
-    if @user.update_attributes(params[:user])
-      flash[:success]= "Profile updated"
-      sign_in @user
-      redirect_to @user
+    if !@user.nil?
+      if params[:admin].nil?
+        params[:user].delete(:password) if params[:user][:password].blank?
+        params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+        if @user.update_attributes(params[:user])
+          flash[:success]= "Profile updated"
+          sign_in @user
+          redirect_to @user
+        else
+          render 'edit'
+        end
+      else
+        if current_user.admin?
+          @user.update_attribute(:admin, params[:admin])
+          redirect_to request.referer
+        end
+      end
     else
-      render 'edit'
+      redirect_to root_path
     end
   end
 
