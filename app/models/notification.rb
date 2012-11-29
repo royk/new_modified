@@ -37,4 +37,8 @@ class Notification < ActiveRecord::Base
 			"reacted"
 		end
 	end
+
+	def join_message
+		"joined the community"
+	end
 end

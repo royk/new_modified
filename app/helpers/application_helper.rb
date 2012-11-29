@@ -17,7 +17,7 @@ module ApplicationHelper
 	  end
 	end
 
-	def notify_activity_on(item, sender, action)
+	def notify_activity_on(item, sender, action=nil)
 		# refactor this
 		# the idea is: if the notificiation is on reaction (comment, like), don't notify if the sender is also the receiver.
 		if !action.nil?

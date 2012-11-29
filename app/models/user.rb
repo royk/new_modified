@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :videos
 
   has_many :notifications, dependent: :destroy
+  has_many :notifications, as: :item, dependent: :destroy
 
   has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
   has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
@@ -84,3 +85,4 @@ class User < ActiveRecord::Base
       password.present? || password_confirmation.present?
     end
 end
+
