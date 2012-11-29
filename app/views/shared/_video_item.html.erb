@@ -12,7 +12,7 @@
 	<% end %>
 	<div class="meta-bottom">
 		Players: 
-		<% players = feed_item.user_players +  feed_item.players %>
+		<% players = (feed_item.user_players||[]) +  (feed_item.players||[]) %>
 		<% players.each do |p| %>
 			<span class="player">
 				<% if p.class==String %>
