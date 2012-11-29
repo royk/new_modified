@@ -1,6 +1,7 @@
 <div class="feed">
-	<div class="feed-item">
-		<%= render '/shared/edit_video_item', :feed_item => @video %>
+	<div class="feed-item video-edit">
+		<h3>Edit Video</h3>
+		<%= render '/shared/edit_video_item', :video => @video %>
 	</div>
 	<%= render 'shared/feed_item_footer', :feed_item => @video, comments_shown: true %>
 </div>

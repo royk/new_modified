@@ -20,23 +20,9 @@ class VideosController < AuthenticatedController
 	def create
 		@video = current_user.videos.build(params[:video])
 		@video.user_id = current_user.id
-		i=0
-		arr = []
-		@video.players = ""
-		until params[("Player_"+i.to_s).to_sym].nil?
-			name = params[("Player_"+i.to_s).to_sym]
-			player = User.where('lower(name) = ?', name.downcase).first
-			unless player.nil?
-				player = player
-				@video.user_players << player
-				
-				player.appears_in_videos << @video
-			else
-				arr << name
-			end
-			i += 1
-		end
-		@video.players = arr
+		
+		update_players
+		
 		uid_vendor = get_uid_vendor(@video.url) if @video.url
 		if save_video(uid_vendor)
 			flash[:success] = "Video created"
@@ -47,6 +33,7 @@ class VideosController < AuthenticatedController
 
 	def update
 		@video = Video.find(params[:id])
+		update_players
 		if params[:video][:url].nil? && !params[:video][:public].nil?
 			success = @video.update_attribute(:public, params[:video][:public])
 		else
@@ -67,6 +54,40 @@ class VideosController < AuthenticatedController
 	end
 
 	private
+
+		def update_players
+			@video.players ||= []
+			merged_list = (@video.user_players||[]) +  (@video.players||[])
+			i=0
+			
+			until params[("Player_"+i.to_s).to_sym].nil?
+				name = params[("Player_"+i.to_s).to_sym]
+				i1 = 0
+				merged_list.each do |p|
+					if i==i1
+						if p.class==String
+							@video.players.delete(p)
+						else
+							@video.user_players.delete(p)
+							p.appears_in_videos.delete(@video)
+						end
+					end
+					i1 = i1 + 1
+				end
+				unless name.empty?
+					player = User.where('lower(name) = ?', name.downcase).first
+					unless player.nil?
+						player = player
+						@video.user_players << player
+						
+						player.appears_in_videos << @video
+					else
+						@video.players << name
+					end
+				end
+				i += 1
+			end
+		end
 
 		def save_video(uid_vendor)
 			if uid_vendor

@@ -501,6 +501,18 @@ input, textarea, select, .uneditable-input {
     }
   }
 
+  .video-edit {
+    h3 {
+      padding-bottom: 10px;
+    }
+  }
+
+  .multifield {
+    cursor: pointer;
+    padding: 5px;
+    display: block;
+  }
+
   .text-content {
     
     display: block;

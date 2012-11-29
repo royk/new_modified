@@ -1,6 +1,28 @@
-<div class="video-content">
-	<%= form_for (feed_item) do |f| %>
-	    <%= f.text_area :url, rows: 1%>
-    	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-    <% end %>
-</div>
+<% players = (video.user_players||[]) +  (video.players||[]) %>
+<% i=0 %>
+<%= form_for(video) do |f| %>
+	<%= f.text_field(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
+	<%= f.text_field(:title, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Title")%>
+	<div id="players-input">
+		<% if players.any? %>
+			<% players.each do |p| %>
+				<% name = p.class==String ? p : p.name %>
+				<%= text_field_tag("Player_#{i}", nil, class: "post-input", placeholder: name)%>
+				<% i = i+1 %>
+			<% end %>
+		<% else %>
+			<%= text_field_tag("Player_#{i}", nil, class: "post-input", placeholder: "Player name")%>
+				<% i = i+1 %>
+		<% end %>
+	</div>
+
+	<script>
+		NM.multiField({
+			container: "#players-input",
+			mold: "#Player_0",
+			moreText: "Another player...",
+			placeholder: "Player name"
+		});
+	</script>
+	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% end %>	
