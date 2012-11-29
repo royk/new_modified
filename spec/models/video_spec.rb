@@ -11,6 +11,9 @@
 #  uid        :string(255)
 #  url        :string(255)
 #  public     :boolean          default(TRUE)
+#  location   :string(255)
+#  maker      :string(255)
+#  players    :text
 #
 
 require 'spec_helper'

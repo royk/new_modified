@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121124193003) do
+ActiveRecord::Schema.define(:version => 20121129050145) do
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -126,6 +126,9 @@ ActiveRecord::Schema.define(:version => 20121124193003) do
     t.string   "uid"
     t.string   "url"
     t.boolean  "public",     :default => true
+    t.string   "location"
+    t.string   "maker"
+    t.text     "players"
   end
 
   add_index "videos", ["uid"], :name => "index_videos_on_uid", :unique => true

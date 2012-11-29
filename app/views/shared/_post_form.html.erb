@@ -24,7 +24,22 @@
 			<% if show_video %>
 				<div id="video-form" <% if total>1 %>style="display:none;"<% end %>>
 				<%= form_for(Video.create()) do |f| %>
-					<%= f.text_area(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
+					<%= f.text_field(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
+					<%= f.text_field(:title, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Title")%>
+					<%= f.text_field(:location, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Location")%>
+					<%= f.text_field(:location, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Location")%>
+					<%= f.text_field(:maker, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Film Maker")%>
+					<div id="players-input">
+						<%= text_field_tag("Player_0", "Player")%>
+					</div>
+
+					<script>
+						NM.multiField({
+							container: "#players-input",
+							mold: "#Player_0",
+							moreText: "Another player..."
+						});
+					</script>
 					<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 				<% end %>	
 				</div>

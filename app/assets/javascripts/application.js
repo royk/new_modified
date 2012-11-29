@@ -55,6 +55,17 @@ NM = (function() {
 	
 
 	return {
+		multiField: function multiField(params) {
+			var idParts = $(params.mold).attr('id').split('_');
+			idParts[1] = parseInt(idParts[1], 10);
+			$(params.container).append("<a id='moreButton' style='cursor:pointer'>"+params.moreText+"</a>");
+			var moreButton = $("#moreButton").click(function() {
+				idParts[1]++;
+				var _id = idParts[0]+'_'+idParts[1];
+				$(params.mold).clone().attr('id', _id).attr('name', _id).appendTo(params.container);
+				moreButton.detach().appendTo($(params.container));
+			});
+		},
 		freeze: function freeze() {
 			for (var o in periodify_intervals) {
 				clearInterval(periodify_intervals[o].id);
