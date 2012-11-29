@@ -1,2 +1,9 @@
-<%= render '/shared/video_item', :feed_item => @video %>
+<div class="feed">
+<div class="feed-item">
+	<%= render '/shared/item_options', item: @video, user: @video.user %>
+	<%= render '/shared/video_item', :feed_item => @video %>
+	
+</div>
 <%= render 'shared/feed_item_footer', :feed_item => @video, comments_shown: true %>
+
+</div>

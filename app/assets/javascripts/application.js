@@ -57,13 +57,13 @@ NM = (function() {
 	return {
 		multiField: function multiField(params) {
 			var idParts = $(params.mold).attr('id').split('_');
-			idParts[1] = parseInt(idParts[1], 10);
 			$(params.container).append("<a id='moreButton' class='multifield'>"+params.moreText+"</a>");
+			var index = params.startIndex;
 			var moreButton = $("#moreButton").click(function() {
-				idParts[1]++;
-				var _id = idParts[0]+'_'+idParts[1];
+				var _id = idParts[0]+'_'+index;
 				$(params.mold).clone().attr('id', _id).val("").attr('name', _id).attr('placeholder', params.placeholder).appendTo(params.container);
 				moreButton.detach().appendTo($(params.container));
+				index++;
 			});
 		},
 		freeze: function freeze() {

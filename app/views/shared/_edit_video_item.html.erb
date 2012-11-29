@@ -7,7 +7,7 @@
 		<% if players.any? %>
 			<% players.each do |p| %>
 				<% name = p.class==String ? p : p.name %>
-				<%= text_field_tag("Player_#{i}", nil, class: "post-input", placeholder: name)%>
+				<%= text_field_tag("Player_#{i}", nil, class: "post-input", value: name)%>
 				<% i = i+1 %>
 			<% end %>
 		<% else %>
@@ -20,6 +20,7 @@
 		NM.multiField({
 			container: "#players-input",
 			mold: "#Player_0",
+			startIndex: <%= i %>,
 			moreText: "Another player...",
 			placeholder: "Player name"
 		});
