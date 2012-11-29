@@ -17,9 +17,11 @@
 #
 
 class Video < ActiveRecord::Base
-  attr_accessible :title, :vendor, :uid, :url, :public
+  attr_accessible :title, :vendor, :uid, :url, :public, :location, :maker, :players
 
   belongs_to :user
+
+  serialize :players
 
   has_many :comments, as: :commentable, order: 'created_at ASC'
   has_many :likes, as: :liked_item

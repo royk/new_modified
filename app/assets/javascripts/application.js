@@ -62,7 +62,7 @@ NM = (function() {
 			var moreButton = $("#moreButton").click(function() {
 				idParts[1]++;
 				var _id = idParts[0]+'_'+idParts[1];
-				$(params.mold).clone().attr('id', _id).attr('name', _id).appendTo(params.container);
+				$(params.mold).clone().attr('id', _id).val("").attr('name', _id).appendTo(params.container);
 				moreButton.detach().appendTo($(params.container));
 			});
 		},

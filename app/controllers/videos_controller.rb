@@ -20,6 +20,14 @@ class VideosController < AuthenticatedController
 	def create
 		@video = current_user.videos.build(params[:video])
 		@video.user_id = current_user.id
+		i=0
+		arr = []
+		@video.players = ""
+		until params[("Player_"+i.to_s).to_sym].nil?
+			arr << params[("Player_"+i.to_s).to_sym]
+			i += 1
+		end
+		@video.players = arr
 		uid_vendor = get_uid_vendor(@video.url) if @video.url
 		if save_video(uid_vendor)
 			flash[:success] = "Video created"
