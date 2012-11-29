@@ -52,7 +52,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = privacy_query(@user.posts).paginate(page: params[:page])
+    @videos = privacy_query(@user.appears_in_videos).paginate(page: params[:page])
+    render layout: "no_activities"
   end
+
   
   def new
     @user = User.new

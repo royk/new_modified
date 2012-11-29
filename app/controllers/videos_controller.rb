@@ -24,7 +24,16 @@ class VideosController < AuthenticatedController
 		arr = []
 		@video.players = ""
 		until params[("Player_"+i.to_s).to_sym].nil?
-			arr << params[("Player_"+i.to_s).to_sym]
+			name = params[("Player_"+i.to_s).to_sym]
+			player = User.where('lower(name) = ?', name.downcase).first
+			unless player.nil?
+				player = player
+				@video.user_players << player
+				
+				player.appears_in_videos << @video
+			else
+				arr << name
+			end
 			i += 1
 		end
 		@video.players = arr

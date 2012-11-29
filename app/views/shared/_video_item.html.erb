@@ -1,8 +1,27 @@
 <div class="video-content">
+	<h3 class="video-title">
+		<%= feed_item.title %>
+	</h3>
+	<div class="meta-top">
+	</div>
 	<% if feed_item.vendor=="youtube" %>
 		<%= render 'shared/youtube_video', :uid => feed_item.uid %>
 	<% end %>
 	<% if feed_item.vendor=="vimeo" %>
 		<%= render 'shared/vimeo_video', :uid => feed_item.uid %>
 	<% end %>
+	<div class="meta-bottom">
+		Players: 
+		<% players = feed_item.user_players +  feed_item.players %>
+		<% players.each do |p| %>
+			<span class="player">
+				<% if p.class==String %>
+					<%= p %>
+				<% else %>
+					<%=	link_to p.name, user_path(p) %>
+				<% end %>
+			</span>
+		<% end %>
+	</div>
+
 </div>

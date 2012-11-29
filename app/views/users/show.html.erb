@@ -32,13 +32,17 @@
 
 	</aside>
 	<div class="span8">
-		<h1>Posts</h1>
 		<% if @user.posts.any? %>
+			<h1>Posts</h1>
 			<div class="feed">
-				<%= render @posts %>
+				<%= render @user.posts %>
 			</div>
-		<% else %>
-			<p class="pagination-centered">No posts by this user.</p>
+		<% end %>
+		<% if @videos.any? %>
+			<h1>Videos</h1>
+			<div class="feed">
+				<%= render @videos %>
+			</div>
 		<% end %>
 	</div>
 </div>

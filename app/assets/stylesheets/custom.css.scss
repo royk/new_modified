@@ -490,6 +490,15 @@ input, textarea, select, .uneditable-input {
   .video-content {
     padding-top: 10px;
     text-align: center;
+    .meta-top, .meta-bottom {
+      text-align: left;
+      padding-left: 50px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .player {
+      padding-right: 2px;
+    }
   }
 
   .text-content {
