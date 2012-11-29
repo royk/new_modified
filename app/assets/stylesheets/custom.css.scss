@@ -483,7 +483,13 @@ input, textarea, select, .uneditable-input {
     .post-types {
       margin-bottom: 0px;
       font-size: 0.9em;
-      margin-top: -25px;
+      display: block;
+      padding-left: 50px;
+      padding-bottom: 5px;
+      li {
+        display: inline;
+        padding: 0 5px;
+      }
     }
   }
 
