@@ -34,7 +34,11 @@ class Notification < ActiveRecord::Base
 		when "Like"
 			"gave kudos"
 		else
-			"reacted"
+			if action_type=="tag"
+				"tagged you"
+			else
+				"reacted"
+			end
 		end
 	end
 

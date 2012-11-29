@@ -79,8 +79,8 @@ class VideosController < AuthenticatedController
 					unless player.nil?
 						player = player
 						@video.user_players << player
-						
 						player.appears_in_videos << @video
+						notify_tag(@video, current_user, player)
 					else
 						@video.players << name
 					end

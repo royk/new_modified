@@ -39,6 +39,19 @@ module ApplicationHelper
 		notification.save
 	end
 
+	def notify_tag(item, tagger, taggee)
+		logger.debug "Notify Tag"
+		if tagger!=taggee
+			notification = taggee.notifications.build(sender: tagger)
+			notification.user = taggee
+			notification.item = item
+			notification.action_type = "tag"
+			notification.public = false;
+			notification.save
+			logger.debug "SAVING" + notification.inspect
+		end
+	end
+
 	def privacy_query(collection)
 		if signed_in?
 			collection.all
