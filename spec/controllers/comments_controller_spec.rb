@@ -7,6 +7,10 @@ describe CommentsController do
 	let(:video_item) { FactoryGirl.create(:video) }
 	let(:post_item) { FactoryGirl.create(:post) }
 	let(:comment) { FactoryGirl.create(:comment) }
+	
+	before do
+		request.env["HTTP_REFERER"] = "where_i_came_from"
+	end
 
 	describe "create" do
 		context "when signed out" do

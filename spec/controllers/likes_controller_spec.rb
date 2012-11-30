@@ -9,6 +9,10 @@ describe LikesController do
 	let(:like) { FactoryGirl.create(:like) }
 	let(:like2) { FactoryGirl.create(:like) }
 
+	before do
+		request.env["HTTP_REFERER"] = "where_i_came_from"
+	end
+
 	describe "create" do
 		context "when signed out" do
 			before { sign_out }
