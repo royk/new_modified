@@ -18,6 +18,7 @@
 
 class Video < ActiveRecord::Base
   attr_accessible :title, :vendor, :uid, :url, :public, :location, :maker, :players
+  acts_as_taggable
 
   belongs_to :user
 

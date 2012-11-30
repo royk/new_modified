@@ -28,6 +28,8 @@ GEM
     activesupport (3.2.8)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    acts-as-taggable-on (2.3.3)
+      rails (~> 3.0)
     addressable (2.3.2)
     annotate (2.5.0)
       rake
@@ -172,6 +174,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 2.3.1)
   annotate (= 2.5.0)
   aws-ses (~> 0.4.4)
   bb-ruby (= 0.9.5)

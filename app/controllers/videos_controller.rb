@@ -20,7 +20,7 @@ class VideosController < AuthenticatedController
 	def create
 		@video = current_user.videos.build(params[:video])
 		@video.user_id = current_user.id
-		
+		@video.tag_list << @video.title unless params[:video][:title].nil?
 		update_players
 		
 		uid_vendor = get_uid_vendor(@video.url) if @video.url
@@ -37,7 +37,11 @@ class VideosController < AuthenticatedController
 		if params[:video][:url].nil? && !params[:video][:public].nil?
 			success = @video.update_attribute(:public, params[:video][:public])
 		else
-			@video.title = params[:video][:title] unless params[:video][:title].nil?
+			unless params[:video][:title].nil?
+				@video.tag_list.remove(@video.title)
+				@video.title = params[:video][:title] 
+				@video.tag_list << @video.title
+			end
 			uid_vendor = get_uid_vendor(params[:video][:url])
 			@video.url = params[:video][:url]
 			success = save_video(uid_vendor)
@@ -55,13 +59,14 @@ class VideosController < AuthenticatedController
 	end
 
 	def search
-		@videos = Video.where("title LIKE ?", params[:search])
+		@videos = Video.tagged_with(params[:search])#.by_date.paginate(:page => params[:page], :per_page => 20)
 	end
 
 	private
 
 		def update_players
 			@video.players ||= []
+			@video.tag_list ||= []
 			merged_list = (@video.user_players||[]) +  (@video.players||[])
 			i=0
 			
@@ -72,10 +77,13 @@ class VideosController < AuthenticatedController
 					if i==i1
 						if p.class==String
 							@video.players.delete(p)
+							@video.tag_list = @video.tag_list - p.split
 						else
 							@video.user_players.delete(p)
 							p.appears_in_videos.delete(@video)
+							@video.tag_list = @video.tag_list - p.name.split
 						end
+
 					end
 					i1 = i1 + 1
 				end
@@ -88,9 +96,19 @@ class VideosController < AuthenticatedController
 						notify_tag(@video, current_user, player)
 					else
 						@video.players << name
+
 					end
 				end
 				i += 1
+			end
+			# re-tag to add all current names
+			merged_list = (@video.user_players||[]) +  (@video.players||[])
+			merged_list.each do |p|
+				if p.class==String
+					@video.tag_list = @video.tag_list + p.split
+				else
+					@video.tag_list = @video.tag_list + p.name.split
+				end
 			end
 		end
 
