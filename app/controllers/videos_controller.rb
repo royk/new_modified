@@ -37,6 +37,7 @@ class VideosController < AuthenticatedController
 		if params[:video][:url].nil? && !params[:video][:public].nil?
 			success = @video.update_attribute(:public, params[:video][:public])
 		else
+			@video.title = params[:video][:title] unless params[:video][:title].nil?
 			uid_vendor = get_uid_vendor(params[:video][:url])
 			@video.url = params[:video][:url]
 			success = save_video(uid_vendor)
@@ -51,6 +52,10 @@ class VideosController < AuthenticatedController
 		Video.find(params[:id]).destroy
 		flash[:success] = "Video deleted"
 		redirect_to request.referer
+	end
+
+	def search
+		@videos = Video.where("title LIKE ?", params[:search])
 	end
 
 	private

@@ -428,10 +428,10 @@ input, textarea, select, .uneditable-input {
 
 /* end show message */
 .feed {
-  .feed-item#feed-form {
-    padding-bottom: 0;
-    margin-bottom: 15px;
-    @include border(4px, 4px, 4px, 4px);
+  .head-element {
+      padding-bottom: 0;
+      margin-bottom: 15px;
+      @include border(4px, 4px, 4px, 4px);
   }
   .feed-item, .comment{
     .user_name {

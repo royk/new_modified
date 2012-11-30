@@ -20,7 +20,9 @@ NewModified::Application.routes.draw do
 
   resources :posts
 
-  resources :videos
+  resources :videos do
+    get 'search', on: :collection
+  end
 
   resources :blog_posts
 
