@@ -116,6 +116,7 @@ class VideosController < AuthenticatedController
 			if uid_vendor
 				@video.vendor = uid_vendor[:vendor]
 				@video.uid = uid_vendor[:uid]
+				@video.tag_list = [] if @video.tag_list.nil?
 				if @video.save
 					return true
 				else
