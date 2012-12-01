@@ -9,12 +9,22 @@
 				<ul class="dropdown-menu">
 					<li><%= link_to "Edit", edit_polymorphic_path(item) %></li>
 					<li><%= link_to "Delete", item, id: item.id, method: :delete, data: {confirm: "Are you sure?" } %></li>
-					<% if item.public %>
-						<li><%= link_to "Make private", polymorphic_path(item, className => {public: false}), method: :put %></li>
-					<% else %>
-						<li><%= link_to "Make public", polymorphic_path(item, className => {public: true}), method: :put %></li>
+					<li>
+						<% if item.public %>
+							<%= link_to "Make private", polymorphic_path(item, className => {public: false}), method: :put %>
+						<% else %>
+							<%= link_to "Make public", polymorphic_path(item, className => {public: true}), method: :put %>
+						<% end %>
+					</li>
+					<% if (defined? item.sticky) && current_user.admin? %>
+						<li>
+							<% if item.sticky %>
+								<%= link_to "Remove sticky", polymorphic_path(item, className => {sticky: false}), method: :put %>
+							<% else %>
+								<%= link_to "Make sticky", polymorphic_path(item, className => {sticky: true}), method: :put %>
+							<% end %>
+						</li>
 					<% end %>
-
 				</ul>
 			</li>
 		</span>

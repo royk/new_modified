@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121130062145) do
+ActiveRecord::Schema.define(:version => 20121201094046) do
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -75,6 +75,26 @@ ActiveRecord::Schema.define(:version => 20121130062145) do
   add_index "messages", ["recipient_id"], :name => "index_messages_on_recipient_id"
   add_index "messages", ["sender_id"], :name => "index_messages_on_sender_id"
 
+  create_table "messages2", :force => true do |t|
+    t.string   "topic"
+    t.text     "body"
+    t.integer  "received_messageable_id"
+    t.string   "received_messageable_type"
+    t.integer  "sent_messageable_id"
+    t.string   "sent_messageable_type"
+    t.boolean  "opened",                     :default => false
+    t.boolean  "recipient_delete",           :default => false
+    t.boolean  "sender_delete",              :default => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+    t.string   "ancestry"
+    t.boolean  "recipient_permanent_delete", :default => false
+    t.boolean  "sender_permanent_delete",    :default => false
+  end
+
+  add_index "messages2", ["ancestry"], :name => "index_messages2_on_ancestry"
+  add_index "messages2", ["sent_messageable_id", "received_messageable_id"], :name => "acts_as_messageable_ids"
+
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"
     t.integer  "sender_id"
@@ -94,12 +114,14 @@ ActiveRecord::Schema.define(:version => 20121130062145) do
   create_table "posts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.boolean  "public",     :default => true
+    t.boolean  "sticky",     :default => false
   end
 
   add_index "posts", ["created_at"], :name => "index_posts_on_created_at"
+  add_index "posts", ["sticky"], :name => "index_posts_on_sticky"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
   create_table "taggings", :force => true do |t|

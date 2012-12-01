@@ -8,10 +8,11 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  public     :boolean          default(TRUE)
+#  sticky     :boolean          default(FALSE)
 #
 
 class Post < ActiveRecord::Base
-  attr_accessible :content, :public
+  attr_accessible :content, :public, :sticky
 
   belongs_to :user
   has_many :comments, as: :commentable, order: 'created_at ASC'

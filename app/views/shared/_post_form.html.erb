@@ -17,6 +17,13 @@
 				<div id="post-form">
 					<%= form_for(Post.create()) do |f| %>
 						<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
+
+						<% if current_user.admin? %>
+							<div>
+								<span>Sticky:</span>
+								<%= f.check_box :sticky %>
+							</div>
+						<% end %>
 						<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 					<% end %>
 				</div>

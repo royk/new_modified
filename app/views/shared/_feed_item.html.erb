@@ -1,6 +1,6 @@
 <% comments_shown ||= false %>
 <div class="feed-item-container" id="item<%= feed_item.id %>">
-	<div class="feed-item" >
+	<div class="feed-item <%= "sticky" if (defined? feed_item.sticky) && feed_item.sticky==true%>">
 		<!-- create a variable that tells us if the user already liked a post -->
 		<% 	@already_liked = false
 			if current_user && feed_item.likes.find_by_liker_id(current_user.id)
