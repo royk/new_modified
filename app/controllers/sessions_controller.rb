@@ -26,4 +26,21 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_url
   end
+
+  def forgot_password
+    render '/sessions/forgot_password'
+  end
+
+  def reset_password
+    user = User.find_by_email(params[:session][:email].downcase)
+    unless user.nil?
+      flash[:success] = 'Reset password sent to your email.'
+      UserMailer.forgot_pwd_mail(user).deliver
+      redirect_to root_url
+    else
+      flash[:error] = 'No user located for this email'
+      redirect_to request.referer
+    end
+
+  end
 end

@@ -13,10 +13,15 @@ NewModified::Application.routes.draw do
 
   match '/clear_notifications', to: 'users#clear_notifications'
 
+  match '/reset/:reset_code', to:'users#reset_password'
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/forgotpassword', to: 'sessions#forgot_password'
+  match '/resetpassword', to: 'sessions#reset_password'
+
 
   resources :posts
 

@@ -6,16 +6,17 @@
 #  name            :string(255)
 #  email           :string(255)
 #  remember_token  :string(255)
+#  password_digest :string(255)
 #  admin           :boolean
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  password_digest :string(255)
 #  gravatar_suffix :string(255)
 #  nickname        :string(255)
+#  reset_code      :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, :nickname, :blog_title
+  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, :nickname, :blog_title, :reset_code
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -76,6 +77,12 @@ class User < ActiveRecord::Base
   def notifications
     Notification.where("user_id = ?", id).order("created_at DESC")
   end
+
+  def create_reset_code
+    self.attributes = {:reset_code => Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )}
+    self.save()
+    self.reset_code
+  end 
 
   private
   	def create_remember_token

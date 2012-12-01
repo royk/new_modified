@@ -10,8 +10,12 @@
 			<%= f.label :password  %>
 			<%= f.password_field  :password  %>
 
-			<div class="Container"></div> <!-- TBD: Remove this. without this container, the button mysteriously resids on the same line as password confirmation -->
-			<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+			<div>
+				<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+			</div>
 		<% end %>
+		<div class="forgot-password">
+			<%= link_to "Forgot your password?", '/forgotpassword' %>
+		</div>
 	</div>
 </div>

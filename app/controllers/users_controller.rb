@@ -25,6 +25,20 @@ class UsersController < ApplicationController
     render :text => ""
   end
 
+  def reset_password
+    @user = User.find_by_reset_code(params[:reset_code]) unless params[:reset_code].nil?
+    if @user
+      @user.reset_code = nil
+      @user.save
+      sign_in @user
+      redirect_to edit_user_path(@user)
+
+    else
+      redirect_to root_path
+    end
+  end
+
+
   def update
     @user = User.find(params[:id])
     if !@user.nil?
