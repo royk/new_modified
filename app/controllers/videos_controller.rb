@@ -40,10 +40,10 @@ class VideosController < AuthenticatedController
 			unless params[:video][:title].nil?
 				@video.tag_list.remove(@video.title)
 				@video.title = params[:video][:title] 
-				@video.tag_list << @video.title
+				@video.tag_list << @video.title unless @video.title.empty?
 			end
-			uid_vendor = get_uid_vendor(params[:video][:url])
 			@video.url = params[:video][:url]
+			uid_vendor = get_uid_vendor(params[:video][:url])
 			success = save_video(uid_vendor)
 		end
 		if success
@@ -117,7 +117,7 @@ class VideosController < AuthenticatedController
 				@video.vendor = uid_vendor[:vendor]
 				@video.uid = uid_vendor[:uid]
 				@video.tag_list = [] if @video.tag_list.nil?
-				if @video.save
+				if @video.save!
 					return true
 				else
 					flash[:error] = "Video not saved: Already exists"
