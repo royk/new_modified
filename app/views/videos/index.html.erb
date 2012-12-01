@@ -6,7 +6,7 @@
 <div class="feed">
 	<%= render 'shared/videos/search' %>
 	<%= render partial: 'shared/post_form', locals: {show_video: true} %>
-	<%= render @videos %>
+	<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
 </div>
 
 <%= render 'shared/ajax_loading', collection: @videos, loadPath: '/videos/' %>
