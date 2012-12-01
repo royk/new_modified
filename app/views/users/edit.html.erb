@@ -34,9 +34,19 @@
 			    		<%= f.text_field :blog_title %>
 			    	<% end %>
 			    </div>
-			    	
 		    </div>
-		    	
+		    <h3>Private info</h3>
+		    <i class="icon-warning-sign"></i>
+			    <p class="warning-text sub-text">
+			    This info is never exposed to unregistered users.	
+			    </p>
+		    <div class="form-horizontal">
+			    
+			    <%= f.label :country %>
+			    <%= f.text_field :country %>
+			    <%= f.label :city %>
+			    <%= f.text_field :city %>
+			</div>
 		    
 		    <div class="container">
 		    	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>

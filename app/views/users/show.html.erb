@@ -16,6 +16,9 @@
 			<% end %>
 			<% if current_user %>
 				<%= @user.name %>
+				<div class="location">
+					<%= @user.city %>, <%= @user.country %>
+				</div>
 			<% end %>
 		</section>
 		<ul class="user-actions-list">

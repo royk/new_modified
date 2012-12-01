@@ -13,10 +13,12 @@
 #  gravatar_suffix :string(255)
 #  nickname        :string(255)
 #  reset_code      :string(255)
+#  country         :string(255)
+#  city            :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, :nickname, :blog_title, :reset_code
+  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, :nickname, :blog_title, :reset_code, :country, :city
   has_secure_password
 
   before_save { |user| user.email = email.downcase }

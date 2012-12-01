@@ -13,6 +13,8 @@
 #  gravatar_suffix :string(255)
 #  nickname        :string(255)
 #  reset_code      :string(255)
+#  country         :string(255)
+#  city            :string(255)
 #
 
 require 'spec_helper'
