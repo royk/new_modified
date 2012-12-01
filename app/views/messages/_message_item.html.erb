@@ -1,16 +1,24 @@
 <div class="message-header">
-	<span class="message-sender">
-		<%= render '/shared/feed_info', user: message.sender %>
-	</span>
-	<h2>></h2>
-	<span class="message-recipient">
-		<%= render '/shared/feed_info', user: message.recipient %>
+	<% if message.sender==current_user %>
+		<h3>To:</h3>
+		<% user_info_to_show = message.recipient %>
+	<% else %>
+		<h3>From:</h3>
+		<% user_info_to_show = message.sender %>
+	<% end %>
+	<span class="message-target">
+		<%= render '/shared/feed_info_small', user: user_info_to_show %>
 	</span>
 </div>
 <div class="message-body">
 	<div class="content">
 		<%= message.content %>
 	</div>
+	<% if message.sender!=current_user %>
+		<%= link_to new_message_path(recipient: message.sender, replies_to: message) do %>
+			<div class="message-reply-btn btn btn-large">Reply</div>
+		<% end %>
+	<% end %>
 	<div class="timestamp">
 	Sent <%= time_ago_in_words(message.created_at) %> ago.
 	</div>

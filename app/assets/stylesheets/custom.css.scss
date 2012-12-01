@@ -375,7 +375,7 @@ input, textarea, select, .uneditable-input {
   color: black;
 }
 /* Show message page */
-.message-sender, .message-recipient {
+.message-target {
   .user_name {
     text-align: left;
     display: inline;
@@ -385,14 +385,13 @@ input, textarea, select, .uneditable-input {
   padding: 10px;
   font-size: 1.4em;
   font-weight: bold;
-  h2 {
+  h3 {
     color: black;
     font-weight: bold;
     display: inline;
     margin-left: 10px;
     margin-right: 10px;
     position: relative;
-    top: 10px;
   }
 }
 .message-body {

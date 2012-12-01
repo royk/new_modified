@@ -2,19 +2,19 @@ class MessagesController < AuthenticatedController
 	before_filter	:correct_user,	only: [:show]
 	
 	def index
-		@messages = (current_user.received_messages + current_user.sent_messages).sort_by {|f| -f.created_at.to_i}.paginate(page: params[:page])
+		@messages = (current_user.received_messages + current_user.sent_messages).paginate(page: params[:page])
 	end
 
 	def new
 		@message = Message.new
 		@recipient = User.find(params[:recipient])
+		@replies_to = Message.find(params[:replies_to]) unless params[:replies_to].nil?
 	end
 
 	def show
 		@message = Message.find(params[:id])
 		@message.read = true
 		@message.save
-		@conversation = @message.conversation
 	end
 
 	def get_latest
@@ -26,15 +26,20 @@ class MessagesController < AuthenticatedController
 	def create
 		recipient = User.find_by_name(params[:recipient])
 		if recipient!=current_user
-			conversation = Conversation.new
-
 			if !recipient.nil?
-				message = conversation.messages.build(params[:message])
+				unless params[:replies_to].nil?
+					replies_to = Message.find(params[:replies_to])
+					conversation = replies_to.conversation
+					message = conversation.messages.build(params[:message])
+				else
+					message = Message.create(params[:message])
+					conversation = message.create_conversation()
+				end
 				message.sender = current_user
 				message.recipient = recipient
 				message.read = false
 				if message.valid?
-					if conversation.save! && message.save!
+					if message.save
 						flash[:success] = "Message sent"
 					else
 						flash[:error] = "Can't send message"

@@ -1,10 +1,14 @@
 <% provide(:title, 'Send message') %>
 <h1>Send message</h2>
+<% reply_content = "[quote=#{@replies_to.sender.shown_name}]#{@replies_to.content}[/quote]\n" unless @replies_to.nil? %>
 <%= form_for(@message) do |f| %>
 	<%= f.label :recipient %>
 	<%= text_field_tag :recipient, h(@recipient.shown_name) %>
 	<%= f.label :content %>
-	<%= f.text_area :content %>
+	<%= f.text_area :content, value: reply_content%>
+	<% unless @replies_to.nil? %>
+		<%= hidden_field_tag 'replies_to', @replies_to.id  %>
+	<% end %>
 
 	<%= f.submit "Send", class: "btn btn-large btn-primary" %>
 <% end %>
