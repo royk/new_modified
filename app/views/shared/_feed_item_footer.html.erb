@@ -1,7 +1,7 @@
 <% comments_shown ||=false  %>
 <% commentDiv = "div#comment-container"+ feed_item.id.to_s; %>
 <% openCommentFunc = 'NM.toggleVisibility("'+commentDiv+'");' %>
-<div class="post-footer">
+<div class="post-footer <%= "sticky" if (defined? feed_item.sticky) && feed_item.sticky==true%>">
 	<ul class="nav post-footer-actions horizontal-menu">
 		<li><%= link_to_function "Comment", openCommentFunc %></li>
 		<% if !@already_liked %>
@@ -11,12 +11,13 @@
 			<%= render 'shared/kudos/take', :feed_item=> feed_item %>
 		<% end %>
 	</ul>
+	<span class="timestamp"><%= time_ago_in_words(feed_item.created_at) %> ago</span>
 	<ul class="nav post-footer-info pull-right">
-		<li><%= time_ago_in_words(feed_item.created_at) %> ago</li>
+		
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-				<img class="kudos-img" src="/assets/kudos.png"/>
+				<i class="icon-ok"></i>
 				<%= feed_item.likes.count %>
 			</a>
 			<% if feed_item.likes.any? %>
@@ -30,7 +31,8 @@
 				<img class="comments-img" src="/assets/comments.png">
 				<%= feed_item.comments.count %>
 		</li>
-		
+
+	</ul>
 	</span>
 </div>	
 <% commentDisplay = comments_shown ? "block" : "none" %>

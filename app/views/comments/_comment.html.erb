@@ -1,9 +1,9 @@
 <div class="comment">
 	<%= render '/shared/feed_info', user: comment.commenter, size: "small" %>
 	<%= render '/shared/item_options', item: comment, user: comment.commenter %>
-	<span class="content">
+	<div class="content">
 		<%= comment.content_view %>
-	</span>
+	</div>
 	<div class="timestamp">
 		<%= time_ago_in_words(comment.created_at) %> ago.
 	</div>

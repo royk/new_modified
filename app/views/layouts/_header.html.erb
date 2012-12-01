@@ -13,9 +13,9 @@
 		<div class="container">
 			<!-- Logo -->				
 			<span class="header-logo">
-				<a href="/#">
-					<p class="brand">MODIFIED</p>
-					<p class="brand brand2">IN</p>
+				<a class="brand" href="/#">
+					<p class="brand1">MODIFIED</p>
+					<p class="brand2">IN</p>
 				</a>
 			</span>
 			<% if signed_in? %>
@@ -70,13 +70,15 @@
 	</div>
 </header>
 <!-- Site top area (between the top bar and the content - place for navigation and big logo) -->
-<div class="container site-top">
-	<!-- Site main menu -->
-	<ul class="nav nav-bold main-menu">
-		<li><%= link_to "Home", root_path %></li>
-		<li><%= link_to "Videos", videos_path %></li>
-		<li><%= link_to "Blogs", blogs_path %></li>
-		<li><%= link_to "Users", users_path %></li>
-		<li><%= link_to "About",about_path %></li>
-	</ul>
+<div class="site-top">
+	<div class="container">
+		<!-- Site main menu -->
+		<ul class="nav-bold main-menu">
+			<li><%= link_to "Home", root_path %></li>
+			<li><%= link_to "Videos", videos_path %></li>
+			<li><%= link_to "Blogs", blogs_path %></li>
+			<li><%= link_to "Users", users_path %></li>
+			<li><%= link_to "About",about_path %></li>
+		</ul>
+	</div>
 </div>

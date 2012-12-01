@@ -39,7 +39,7 @@ $linkColor: #08C;
   width: 100%;
 }
 .navbar-inner {
-  @include boxShadow(1);
+  @include border(0px);
 }
 .headernav {
 	background-color: #666666;
@@ -61,7 +61,7 @@ html {
 
 body {
   padding-top: 60px;
-  background-color: #A2C9EA;
+  background-color: #EBEBEB;
 }
 
 section {
@@ -140,15 +140,24 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
 }
 
-.navbar .brand {
-  color: $black;
-  font-weight: bold;
-  margin-top: 5px;
+.navbar {
   margin-bottom: 0px;
+  .brand {
+    font-weight: bold;
+    margin-top: 5px;
+    margin-left: 135px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
 }
-.navbar .brand2{
+.brand1 {
+  color: $black;
+  display: inline;
+}
+.brand2{
   color: $white;
-  padding-left: 4px;
+  display: inline;
 
 }
 
@@ -194,14 +203,27 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   -moz-border-radius: 5px;
   border-radius: 5px;
   color: #dddddd;
-  font-size: 1.6em;
+  font-size: 1.2em;
 }
 
 .nav-bold > li > a:hover,  .nav-bold > li > .nav-active {
   color: $white;
   background-color: transparent;
+
 }
 
+.site-top {
+  position:relative;
+  top: -16px;
+  background-color: black;
+  @include boxShadow(0px 0px 12px)
+}
+.main-menu {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 0px;
+
+}
 .horizontal-menu {
   float: left;
   li {
@@ -210,20 +232,27 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
   .toggle-selected {
     text-decoration: underline;
+
   }
 }
 
 /* post footer */
+.post-footer.sticky {
+    background-color: antiquewhite;
+
+}
+
 .post-footer {
   height: 20px;
-  background-color: #bbbbbb;
+  background-color: $white;
   @include border(0, 0, 4px, 4px);
   border-style: solid;
   border-width: 1px;
-  border-color: #000000;
+  border-color: #AAAAAA;
   margin-bottom: 15px;
   padding-top: -1px;
   border-top-style: none;
+  text-align:center;
   .post-footer-info {
     float: right;
     padding-right: 10px;
@@ -235,7 +264,7 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
     }
     li {
       float: right;
-      padding-left: 10px;
+      padding-left: 15px;
     }
   }
   .post-footer-actions {
@@ -274,9 +303,6 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
       padding: 0 2px;
       padding-bottom: 2px;
     }
-  }
-  .timestamp {
-    padding-right: 10px;
   }
 }
 
@@ -426,29 +452,33 @@ input, textarea, select, .uneditable-input {
 }
 
 /* end show message */
+.comment-container {
+  margin-left: 15px;
+  position: relative;
+  top: -10px;
+}
 .feed {
   .head-element {
       padding-bottom: 0;
       margin-bottom: 15px;
       @include border(4px, 4px, 4px, 4px);
+      h3 {
+        padding-bottom: 5px;
+      }
   }
-  .feed-item, .comment{
-    .user_name {
-      text-align: left;
-      display: inline;
-    }
+  .feed-item {
+    padding: 10px;
   }
   .comment {
-    background-color: #eeeeee;
     margin-bottom: 2px;
-    padding: 10px;
+    padding: 5px;
     .timestamp {
       padding-left: 45px;
-      padding-top: 5px;
     }
     .content {
-      display: inline;
-      padding-left: 5px;
+      padding-left: 50px;
+      position: relative;
+      top: -16px;
     }
 
     .delete-img {
@@ -458,13 +488,19 @@ input, textarea, select, .uneditable-input {
   .feed-item.sticky {
     background-color: antiquewhite;
   }
-  .feed-item {
-    padding: 10px;
+  .feed-item, .comment {
     background-color: white;
     @include border(4px, 4px, 0, 0);
     border-style: solid;
     border-width: 1px;
-    border-color: #000000;
+    border-color: #AAAAAA;
+    .user_name {
+      text-align: left;
+      display: inline;
+      position: relative;
+      top: -10px;
+      padding-left: 5px;
+    }
     .input-form {
       padding-top: 5px;
       padding-left: 50px;
@@ -473,11 +509,6 @@ input, textarea, select, .uneditable-input {
         text-decoration: none;
       }
     
-    #content {
-      padding-top: 10px;
-      font-size: 1.4em;
-    }
-
     .delete-img {
       width: 15px;
     }
@@ -524,8 +555,9 @@ input, textarea, select, .uneditable-input {
   .text-content {
     
     display: block;
-    padding-left: 55px;
-    padding-top: 10px;
+    padding-left: 60px;
+    position: relative;
+    margin-top: -20px;
     font-size: 1.2em;
   }
   .timestamp {
@@ -541,6 +573,7 @@ input, textarea, select, .uneditable-input {
         color: #333;
         text-decoration: underline;
       }
+
     }
   }
   .post-input {
@@ -584,10 +617,15 @@ input, textarea, select, .uneditable-input {
   }
 }
 
+.gravatar {
+  @include border(4px);
+}
+
 
 /* front page right bar (activity bar) */
 .right-bar {
   height: auto;
+  @include border(4px);
   h3 {
     text-align: center;
     padding-top: 5px;
@@ -599,6 +637,7 @@ input, textarea, select, .uneditable-input {
     padding: 5px;
     list-style: none;
     margin: 0;
+
     li {
       padding-bottom: 5px;
       padding-top: 5px;
@@ -609,4 +648,7 @@ input, textarea, select, .uneditable-input {
 
     }
   }
+}
+.footer {
+  background-color:whiteSmoke
 }
