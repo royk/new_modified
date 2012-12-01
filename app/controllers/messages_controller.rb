@@ -2,7 +2,7 @@ class MessagesController < AuthenticatedController
 	before_filter	:correct_user,	only: [:show]
 	
 	def index
-		@messages = (current_user.received_messages + current_user.sent_messages).paginate(page: params[:page])
+		@messages = (current_user.received_messages + current_user.sent_messages).sort_by {|f| -f.created_at.to_i}.paginate(page: params[:page])
 	end
 
 	def new
@@ -21,6 +21,15 @@ class MessagesController < AuthenticatedController
 		render partial: 'shared/messages/header_indicator'
 	end
 
+	# mark the latest 10 unread messages as read
+	def mark_as_read
+		unread_messages = current_user.received_messages.where(read: false).order('id desc').limit(10)
+		unread_messages.each do |m|
+			m.read = true
+			m.save
+		end
+		redirect_to request.referer
+	end		
 
 
 	def create
@@ -53,7 +62,7 @@ class MessagesController < AuthenticatedController
 		else
 			flash[:error] = "Can't send a message to yourself!"
 		end
-		redirect_to root_url
+		redirect_to request.referer
 	end
 
 	private

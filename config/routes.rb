@@ -33,6 +33,7 @@ NewModified::Application.routes.draw do
   resources :messages, only: [:new, :create, :index, :show]
 
   match '/getmail', to: 'messages#get_latest'
+  match '/markread', to: 'messages#mark_as_read'
 
   resources :conversations, only: [:show]
 
