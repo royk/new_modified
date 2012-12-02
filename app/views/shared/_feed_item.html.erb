@@ -1,28 +1,5 @@
 <% comments_shown ||= false %>
 <div class="feed-item-container" id="item<%= feed_item_counter %>">
-	<div class="feed-item <%= "sticky" if (defined? feed_item.sticky) && feed_item.sticky==true%>">
-		<!-- create a variable that tells us if the user already liked a post -->
-		<% 	@already_liked = false
-			if current_user && feed_item.likes.find_by_liker_id(current_user.id)
-				@already_liked = true
-			end
-		 %>
-		<%= render '/shared/feed_info', user: feed_item.user %>
-		<%= render '/shared/item_options', item: feed_item, user: feed_item.user %>
-		<% if feed_item.class==Post %>
-			<%= render '/shared/post_item', :feed_item => feed_item%>
-		<% end %>
-
-		<% if feed_item.class==Video %>
-			<%= render '/shared/video_item', :feed_item => feed_item%>
-		<% end %>
-		<% if feed_item.class==BlogPost %>
-			<%= render '/shared/blog_post_item', :feed_item => feed_item %>
-		<% end %>
-			
-		
-	</div>
-
-	<%= render 'shared/feed_item_footer', :feed_item => feed_item, comments_shown: comments_shown %>
+	<%= render '/shared/feed_item_internal', feed_item: feed_item, feed_item_counter: feed_item_counter, comments_shown: comments_shown%>
 </div>
 

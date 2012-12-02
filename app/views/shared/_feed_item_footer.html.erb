@@ -5,10 +5,10 @@
 	<ul class="nav post-footer-actions horizontal-menu">
 		<li><%= link_to_function "Comment", openCommentFunc %></li>
 		<% if !@already_liked %>
-			<%= render 'shared/kudos/give', feed_item: feed_item %>
+			<%= render 'shared/kudos/give', feed_item: feed_item, feed_item_counter: feed_item_counter %>
 				
 		<% else %>
-			<%= render 'shared/kudos/take', :feed_item=> feed_item %>
+			<%= render 'shared/kudos/take', :feed_item=> feed_item, feed_item_counter: feed_item_counter %>
 		<% end %>
 	</ul>
 	<span class="timestamp"><%= time_ago_in_words(feed_item.created_at) %> ago</span>

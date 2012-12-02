@@ -1,6 +1,6 @@
 <li><a href="javascript:NM.ajaxify({
-				url: '/unlike?parent_id=<%= feed_item.id%>&parent_type=<%=feed_item.class.to_s%>',
+				url: '/unlike?parent_id=<%= feed_item.id%>&parent_type=<%=feed_item.class.to_s%>&index=<%=feed_item_counter%>',
 				type: 'delete',
-				container: '#item<%= feed_item.id%>'
+				container: '#item<%= feed_item_counter%>'
 			});">Remove kudos</a>
 </li>			
