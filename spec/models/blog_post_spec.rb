@@ -18,7 +18,9 @@ describe BlogPost do
 	let!(:blog) { FactoryGirl.create(:blog) }
 	let!(:blog_post) { FactoryGirl.create(:blog_post, blog: blog) }
 
+
 	subject { blog_post }
+
 
 	
 	context "Validations" do
@@ -28,5 +30,14 @@ describe BlogPost do
 		it { should respond_to(:comments) }
 		it { should respond_to(:likes) }
 		it { should respond_to(:notifications) }
+		it { should respond_to(:public) }
+		it { should respond_to(:notifications) }
+	end
+
+	context "invalidates" do
+		describe "when blog is empty" do
+			before { blog_post.blog = nil }
+			it {should_not be_valid}
+		end
 	end
 end

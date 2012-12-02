@@ -35,6 +35,7 @@ FactoryGirl.define do
 
 	factory :like do
 		liker
+		liked_item {create(:video)}
 	end
 
 	factory :blog do
