@@ -38,13 +38,13 @@
 		<% if @user.posts.any? %>
 			<h1>Posts</h1>
 			<div class="feed">
-				<%= render @user.posts %>
+				<%= render partial: 'shared/feed_item', collection: @user.posts, comments_shown: false %>
 			</div>
 		<% end %>
 		<% if @videos.any? %>
 			<h1>Videos</h1>
 			<div class="feed">
-				<%= render @videos %>
+				<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
 			</div>
 		<% end %>
 	</div>
