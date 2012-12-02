@@ -462,6 +462,7 @@ input, textarea, select, .uneditable-input {
   }
   .feed-item {
     padding: 10px;
+    @include border(4px, 4px, 0px, 0px);
   }
   .comment {
     margin-bottom: 2px;
