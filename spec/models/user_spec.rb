@@ -35,12 +35,14 @@ describe User do
 	it { should respond_to(:videos) }
 	it { should respond_to(:gravatar_suffix) }
 	it { should respond_to(:gravatar_email) }
-	it { should respond_to(:feed) }
 	it { should respond_to(:notifications) }
 	it { should respond_to(:blog) }
 	it { should respond_to(:blog_title) }
 	it { should respond_to(:nickname) }
 	it { should respond_to(:shown_name) }
+	it { should respond_to(:country) }
+	it { should respond_to(:city) }
+	it { should respond_to(:create_reset_code) }
 
 	it {should be_valid}
 	it {should_not be_admin}
@@ -72,54 +74,93 @@ describe User do
 		its(:remember_token) {should_not be_blank}
 	end
 
-	describe "when name is not present" do
-		before {@user.name = " "}
-		it {should_not be_valid}
-	end
+	context "invalidates" do
+		describe "when name is not present" do
+			before {@user.name = " "}
+			it {should_not be_valid}
+		end
 
-	describe "when name is too long" do
-		before {@user.name = "a" * 51}
-		it {should_not be_valid}
-	end
+		describe "when name is too long" do
+			before {@user.name = "a" * 51}
+			it {should_not be_valid}
+		end
 
-	describe "when name is too short" do
-		before {@user.name = "aaa"}
-		it {should_not be_valid}
-	end
+		describe "when name is too short" do
+			before {@user.name = "aaa"}
+			it {should_not be_valid}
+		end
 
-	describe "when nick is set and is too short" do
-		before {@user.nickname = "aa"}
-		it {should_not be_valid}
-	end
+		describe "when nick is set and is too short" do
+			before {@user.nickname = "aa"}
+			it {should_not be_valid}
+		end
 
-	describe "when nick is set and is too long" do
-		before {@user.nickname = "a" * 51}
-		it {should_not be_valid}
-	end
+		describe "when nick is set and is too long" do
+			before {@user.nickname = "a" * 51}
+			it {should_not be_valid}
+		end
 
-	describe "when mail is not present" do
-		before {@user.email = " "}
-		it {should_not be_valid}
-	end
+		describe "when mail is not present" do
+			before {@user.email = " "}
+			it {should_not be_valid}
+		end
 
-	describe "when password isn't present" do
-		before {@user.password = " " }
-		it {should_not be_valid}
-	end
+		describe "when password isn't present" do
+			before {@user.password = " " }
+			it {should_not be_valid}
+		end
 
-	describe "when confirmation isn't present" do
-		before {@user.password_confirmation = " " }
-		it {should_not be_valid}
-	end
+		describe "when confirmation isn't present" do
+			before {@user.password_confirmation = " " }
+			it {should_not be_valid}
+		end
 
-	describe "when password don't match" do
-		before {@user.password_confirmation = "mismatch"}
-		it {should_not be_valid}
-	end
+		describe "when password don't match" do
+			before {@user.password_confirmation = "mismatch"}
+			it {should_not be_valid}
+		end
 
-	describe "when password confirmation is nil" do
-	  before { @user.password_confirmation = nil }
-	  it { should_not be_valid }
+		describe "when password confirmation is nil" do
+		  before { @user.password_confirmation = nil }
+		  it { should_not be_valid }
+		end
+
+		describe "with a password that's too short" do
+		  before { @user.password = @user.password_confirmation = "a" * 5 }
+		  it { should be_invalid }
+		end
+
+		context "email" do
+			describe "when email format is invalid" do
+				it "should be invalid" do
+					addresses = %w[foo@bar foo@bar,com something.org lala.is@invalid. also@this@is.com way@bad+thing.com]
+					addresses.each do |addr|
+						@user.email = addr;
+						@user.should_not be_valid
+					end
+				end
+			end
+
+			describe "when email format is valid" do
+				it "should be valid" do
+					addresses = %w[user@foo.com a_us-er@f.o.org first.last@foo.jp a+b@baz.co.il]
+					addresses.each do |addr|
+						@user.email = addr;
+						@user.should be_valid
+					end
+				end
+			end
+
+			describe "when email is already taken" do
+				before do
+					user_same_mail = @user.dup
+					user_same_mail.email = @user.email.upcase
+					user_same_mail.save
+				end
+
+				it {should_not be_valid}
+			end
+		end
 	end
 
 	describe "return value of authenticate method" do
@@ -136,40 +177,7 @@ describe User do
 		end
 	end
 
-	describe "with a password that's too short" do
-	  before { @user.password = @user.password_confirmation = "a" * 5 }
-	  it { should be_invalid }
-	end
 
-	describe "when email format is invalid" do
-		it "should be invalid" do
-			addresses = %w[foo@bar foo@bar,com something.org lala.is@invalid. also@this@is.com way@bad+thing.com]
-			addresses.each do |addr|
-				@user.email = addr;
-				@user.should_not be_valid
-			end
-		end
-	end
-
-	describe "when email format is valid" do
-		it "should be valid" do
-			addresses = %w[user@foo.com a_us-er@f.o.org first.last@foo.jp a+b@baz.co.il]
-			addresses.each do |addr|
-				@user.email = addr;
-				@user.should be_valid
-			end
-		end
-	end
-
-	describe "when email is already taken" do
-		before do
-			user_same_mail = @user.dup
-			user_same_mail.email = @user.email.upcase
-			user_same_mail.save
-		end
-
-		it {should_not be_valid}
-	end
 
 	describe "posts" do
 		before { @user.save }
@@ -253,6 +261,14 @@ describe User do
 				its(:blog_title) { should eq("something else") }
 			end
 		end
-
 	end
+
+	context "reset code" do
+		it "should create a reset code" do
+			code = @user.create_reset_code
+			@user.reset_code.should_not be_nil
+			@user.reset_code.should eq code
+		end
+	end
+
 end

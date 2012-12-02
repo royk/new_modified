@@ -72,10 +72,6 @@ class User < ActiveRecord::Base
     email.split("@")
   end
 
-  def feed
-    
-  end
-
   def notifications
     Notification.where("user_id = ?", id).order("created_at DESC")
   end

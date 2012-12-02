@@ -34,6 +34,11 @@ describe Video do
 	it { should respond_to(:user_id) }
 	it { should respond_to(:vendor) }
 	it { should respond_to(:url) }
+	it { should respond_to(:public) }
+	it { should respond_to(:location) }
+	it { should respond_to(:maker) }
+	it { should respond_to(:players) }
+	it { should respond_to(:user_players) }
 
 	its(:user) { should==user }
 
@@ -54,6 +59,18 @@ describe Video do
 			before { video.vendor = nil }
 
 			it { should_not be_valid }
+		end
+
+		it { should have_and_belong_to_many(:user_players) }
+	end
+
+	context "user players" do
+		it "should not allow the same player twice" do
+			video.user_players.count.should eq 0
+			video.user_players << user
+			video.user_players.count.should eq 1
+			video.user_players << user
+			video.user_players.count.should eq 1
 		end
 	end
 

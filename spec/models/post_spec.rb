@@ -22,15 +22,15 @@ describe Post do
 
 	subject { post }
 
-	it { should be_valid }
-
-	it { should respond_to(:content) }
-
-	it { should respond_to(:user_id) }
-	it { should respond_to(:user) }
-	its(:user) { should==user } 
-
-	describe "Validations" do
+	context "Validations" do
+		it { should be_valid }
+		it { should respond_to(:content) }
+		it { should respond_to(:user_id) }
+		it { should respond_to(:user) }
+		it { should respond_to(:public) }
+		it { should respond_to(:sticky) }
+		
+		its(:user) { should==user } 
 		context "without user id" do
 			before { post.user_id = nil }
 			it { should_not be_valid }

@@ -42,6 +42,7 @@ describe Notification do
 		it { should respond_to(:action_verb) }
 		it { should respond_to(:public) }
 		it { should respond_to(:read) }
+		it { should respond_to(:join_message) }
 
 		its(:read) { should==false }
 		its(:sender) { should==sender }
@@ -75,6 +76,12 @@ describe Notification do
 				notification.action = FactoryGirl.create(:like)
 			end
 			its(:action_verb) { should=="gave kudos" }
+		end
+		describe "when action is tag" do
+			before :each do
+				notification.action_type = "tag"
+			end
+			its(:action_verb) { should=="tagged you" }
 		end
 		describe "when notifying on something else" do
 			before :each do
