@@ -62,7 +62,7 @@ class MessagesController < AuthenticatedController
 		else
 			flash[:error] = "Can't send a message to yourself!"
 		end
-		redirect_to request.referer
+		redirect_to messages_path
 	end
 
 	private
