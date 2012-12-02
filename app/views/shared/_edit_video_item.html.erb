@@ -1,3 +1,4 @@
+<%= render '/shared/feed_info', user: feed_item.user %>
 <% players = (video.user_players||[]) +  (video.players||[]) %>
 <% i=0 %>
 <%= form_for(video) do |f| %>

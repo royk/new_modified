@@ -1,3 +1,4 @@
+<%= render '/shared/feed_info', user: feed_item.user %>
 <div class="blog-post-content text-content">
 	<%= form_for (feed_item) do |f| %>
 	    <%= f.text_area :content, rows: 5%>
