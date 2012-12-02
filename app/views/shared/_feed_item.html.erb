@@ -1,5 +1,5 @@
 <% comments_shown ||= false %>
-<div class="feed-item-container" id="item<%= feed_item_counter %>">
+<div class="feed-item-container <%= "sticky" if (defined? feed_item.sticky) && feed_item.sticky==true%>" id="item<%= feed_item_counter %>">
 	<%= render '/shared/feed_item_internal', feed_item: feed_item, feed_item_counter: feed_item_counter, comments_shown: comments_shown%>
 </div>
 

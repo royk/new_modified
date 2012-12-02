@@ -236,12 +236,6 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
 }
 
-/* post footer */
-.post-footer.sticky {
-    background-color: antiquewhite;
-
-}
-
 .post-footer {
   height: 20px;
   background-color: $white;
@@ -485,12 +479,25 @@ input, textarea, select, .uneditable-input {
       width: 15px;
     }
   }
-  .feed-item.sticky {
-    background-color: antiquewhite;
+  // Sticky post: has glow around. No round edges since it looks bad with glow. 
+  // comments are shrunk so they don't touch the box borders which are visible on glow.
+  .feed-item-container.sticky {
+    //background-color: #BBF0FF;
+    @include boxShadow(0px 0px 12px 4px #AAA);
+    .feed-item, .post-footer {
+      @include border(0);
+      
+    }
+    .comment {
+      margin-right: 10px;
+    }
+
+  }
+  .comment {
+    @include border(4px, 4px, 4px, 4px);
   }
   .feed-item, .comment {
     background-color: white;
-    @include border(4px, 4px, 0, 0);
     border-style: solid;
     border-width: 1px;
     border-color: #AAAAAA;
