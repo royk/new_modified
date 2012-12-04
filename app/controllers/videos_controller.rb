@@ -46,6 +46,7 @@ class VideosController < AuthenticatedController
 				@video.uid = video[:src]
 				@video.location = video[:location]
 				@video.created_at = video[:date]
+				@video.updated_at = video[:date]
 				@video.maker = video[:maker]
 				@video.players = []
 				_players = video[:players].split(' ')

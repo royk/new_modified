@@ -3,7 +3,8 @@ class CommentsController < ResponseController
 
 	def create
 		if super
-		flash[:success] = "Comment posted!"
+			@parent.save # mark the parent component as updated
+			flash[:success] = "Comment posted!"
 		else
 			flash[:error] = params[:parent_type]
 		end	
