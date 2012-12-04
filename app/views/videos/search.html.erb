@@ -2,7 +2,9 @@
 
 <h1>Freestyle Videos</h1>
 <div class="feed">
-	<%= render @videos %>
+	<%= render 'shared/videos/search' %>
+	<%= render partial: 'shared/post_form', locals: {show_video: true} %>
+	<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
 </div>
 
 

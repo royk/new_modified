@@ -37,7 +37,13 @@ class VideosController < AuthenticatedController
 			video = v[1]
 			
 			if video[:deleted]=="0"
-				@video = current_user.videos.build()
+				@video = Video.find_by_uid(video[:src])
+				if @video.nil?
+					@video = current_user.videos.build()
+					logger.debug "CREATED"
+				else
+					logger.debug "UPDATING"
+				end
 				@video.title = video[:title]
 				@video.vendor = video[:type]
 				@video.uid = video[:src]
@@ -46,10 +52,11 @@ class VideosController < AuthenticatedController
 				@video.maker = video[:maker]
 				@video.players = []
 				_players = video[:players].split(' ')
-				
+				@video.tag_list = []
 				if _players.any?
 					index = 0
 					for player in _players
+						@video.tag_list << player
 						if index%2==0
 							p = player
 							p << " "
@@ -62,8 +69,7 @@ class VideosController < AuthenticatedController
 					
 				end
 				tags = video[:tags].split(' ')
-				@video.tag_list = []
-				@video.tag_list = @video.tag_list + @video.players + tags
+				@video.tag_list = @video.tag_list + tags
 				@video.save
 			end
 		end
