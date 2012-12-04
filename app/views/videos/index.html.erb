@@ -3,6 +3,20 @@
 
 
 <h1>Freestyle Videos</h1>
+<% if current_user.admin? %>
+	<div id="data-import" style="display:none;">
+		<p>Data import:</p>
+		<%= text_field_tag :data, nil, class: "post-input" %>
+		<button class="btn" id="importButton">Send</button>
+			<script>
+				$("#importButton").click(function() {
+					var elem = $("#data");
+					var data = JSON.parse(elem.val());
+					IM.videoImport(data);
+				});
+			</script>
+	</div>
+<% end %>
 <div class="feed">
 	<%= render 'shared/videos/search' %>
 	<%= render partial: 'shared/post_form', locals: {show_video: true} %>

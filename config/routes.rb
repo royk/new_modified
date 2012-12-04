@@ -29,6 +29,8 @@ NewModified::Application.routes.draw do
     get 'search', on: :collection
   end
 
+  match '/saveVideo', to: 'videos#import', via: :post
+
   resources :blog_posts
 
   resources :blogs, only: [:create, :destroy, :show, :index]

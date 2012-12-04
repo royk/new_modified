@@ -31,6 +31,45 @@ class VideosController < AuthenticatedController
 		redirect_to request.referer
 	end
 
+	def import
+		videos = params[:videos]
+		videos.each do |v|
+			video = v[1]
+			
+			if video[:deleted]=="0"
+				@video = current_user.videos.build()
+				@video.title = video[:title]
+				@video.vendor = video[:type]
+				@video.uid = video[:src]
+				@video.location = video[:location]
+				@video.created_at = video[:date]
+				@video.maker = video[:maker]
+				@video.players = []
+				_players = video[:players].split(' ')
+				
+				if _players.any?
+					index = 0
+					for player in _players
+						if index%2==0
+							p = player
+							p << " "
+						else
+							p << player
+							@video.players << p
+						end
+						index = index + 1
+					end
+					
+				end
+				tags = video[:tags].split(' ')
+				@video.tag_list = []
+				@video.tag_list = @video.tag_list + @video.players + tags
+				@video.save
+			end
+		end
+		redirect_to request.referer
+	end
+
 	def update
 		@video = Video.find(params[:id])
 		update_players
