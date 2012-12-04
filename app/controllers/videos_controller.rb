@@ -40,9 +40,6 @@ class VideosController < AuthenticatedController
 				@video = Video.find_by_uid(video[:src])
 				if @video.nil?
 					@video = current_user.videos.build()
-					logger.debug "CREATED"
-				else
-					logger.debug "UPDATING"
 				end
 				@video.title = video[:title]
 				@video.vendor = video[:type]
