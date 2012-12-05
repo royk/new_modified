@@ -3,7 +3,7 @@
 
 
 <h1>Freestyle Videos</h1>
-<% if current_user.admin? %>
+<% if signed_in? && current_user.admin? %>
 	<div id="data-import" style="display:none;">
 		<p>Data import:</p>
 		<%= text_field_tag :data, nil, class: "post-input" %>
