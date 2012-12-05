@@ -352,6 +352,9 @@ input, textarea, select, .uneditable-input {
 input.post-input {
   height: 40px;
 }
+input.form-input {
+  height: auto !important
+}
 #error_explanation {
   color: #f00;
   ul {
