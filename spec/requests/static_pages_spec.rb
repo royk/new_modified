@@ -25,11 +25,18 @@ describe "Static pages" do
 	shared_examples_for "signed-in header" do
 		it { should have_xpath('//ul[@id="header-notifications"]') }
 		it { should have_xpath('//ul[@id="header-messages"]') }
-		it { should have_xpath('//ul[@id="header-messages"]') }
 		it { should have_link(user.shown_name, href:'#') }
 		it { should have_link(I18n.t(:profile), href: user_path(user)) }
 		it { should have_link(I18n.t(:edit), href: edit_user_path(user)) }
 		it { should have_link(I18n.t(:log_out), href: signout_path) }
+	end
+
+	shared_examples_for "activity bar" do
+		it { should have_selector('h3', text: I18n.t(:activity)) }
+	end
+
+	shared_examples_for "footer" do
+		it { should have_link("RoyK", href:"https://github.com/royk/")}
 	end
 
 	describe "Home page" do
@@ -37,6 +44,8 @@ describe "Static pages" do
 		let(:page_title) {I18n.t(:home)}
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
+		it_has_behavior "activity bar"
+		it_has_behavior "footer"
 		
 		describe "signed in view" do
 			before do
@@ -45,6 +54,8 @@ describe "Static pages" do
 			end
 			it_should_behave_like "all static pages"
 			it_has_behavior "signed-in header"
+			it_has_behavior "activity bar"
+			it_has_behavior "footer"
 			
 		end
 	end
@@ -54,6 +65,8 @@ describe "Static pages" do
 		let(:page_title) { I18n.t(:login) }
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
+		it_has_behavior "activity bar"
+
 		it {should have_selector("input", :name =>"session[email]")}
 		it {should have_selector("input", :name =>"session[password]")}
 		it {should have_selector("input", :type =>"submit")}
@@ -64,6 +77,9 @@ describe "Static pages" do
 		let(:page_title) { I18n.t(:register) }
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
+		it_has_behavior "activity bar"
+		it_has_behavior "footer"
+
 		it {should have_selector("input", :name =>"user[name]")}
 		it {should have_selector("input", :name =>"user[email]")}
 		it {should have_selector("input", :name =>"user[password]")}

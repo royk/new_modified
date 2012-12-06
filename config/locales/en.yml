@@ -14,3 +14,14 @@ en:
     blogs: "Blogs"
     users: "Users"
     about: "About"
+
+# footer
+    footer_text1: "Built and maintained by"    
+
+# Activity
+    activity: "Activity"    
+    commented: "commented"
+    liked: "gave kudos"
+    tagged_you: "tagged you"
+    reacted: "reacted"
+    joined: "joined the community"

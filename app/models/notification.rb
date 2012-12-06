@@ -30,19 +30,19 @@ class Notification < ActiveRecord::Base
 	def action_verb
 		case action.class.to_s
 		when "Comment"
-			"commented"
+			I18n.t(:commented)
 		when "Like"
-			"gave kudos"
+			I18n.t(:liked)
 		else
 			if action_type=="tag"
-				"tagged you"
+				I18n.t(:tagged_you)
 			else
-				"reacted"
+				I18n.t(:reacted)
 			end
 		end
 	end
 
 	def join_message
-		"joined the community"
+		I18n.t(:joined)
 	end
 end

@@ -8,7 +8,7 @@
 			</div>
 			<!-- RIGHT BAR -->
 			<div class="right-bar span4 pull-right">
-				<h3>Activity</h3>
+				<h3><%=t(:activity)%></h3>
 				<ul class="activities">
 					<%= render partial: 'shared/front_page_notification_item', collection: Notification.where(public: true).limit(20).order('id desc') %>
 				</ul>
