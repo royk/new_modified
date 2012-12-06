@@ -8,11 +8,18 @@ describe "Static pages" do
 	shared_examples_for "all static pages" do
 		it { should have_xpath('//a[@href="/#" and @class="brand"]') }
 		it { should have_selector('title', :text => full_title(page_title))}
+
+		# Site menu
+		it { should have_link(I18n.t(:home)), href: root_path }
+		it { should have_link(I18n.t(:videos)), href: videos_path }
+		it { should have_link(I18n.t(:blogs)), href: blogs_path }
+		it { should have_link(I18n.t(:users)), href: users_path }
+		it { should have_link(I18n.t(:about)), href: about_path }
 	end
 	shared_examples_for "logged-out header" do
 		# Site top Header logged out
-		it { should have_link("Register", href: signup_path)}
-		it { should have_link("Login", href: signin_path)}
+		it { should have_link(I18n.t(:register), href: signup_path)}
+		it { should have_link(I18n.t(:login), href: signin_path)}
 	end
 
 	shared_examples_for "signed-in header" do
@@ -20,14 +27,14 @@ describe "Static pages" do
 		it { should have_xpath('//ul[@id="header-messages"]') }
 		it { should have_xpath('//ul[@id="header-messages"]') }
 		it { should have_link(user.shown_name, href:'#') }
-		it { should have_link("Profile", href: user_path(user)) }
-		it { should have_link("Edit", href: edit_user_path(user)) }
-		it { should have_link("Log out", href: signout_path) }
+		it { should have_link(I18n.t(:profile), href: user_path(user)) }
+		it { should have_link(I18n.t(:edit), href: edit_user_path(user)) }
+		it { should have_link(I18n.t(:log_out), href: signout_path) }
 	end
 
 	describe "Home page" do
 		before {visit root_path}
-		let(:page_title) {"Home"}
+		let(:page_title) {I18n.t(:home)}
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
 		
@@ -44,7 +51,7 @@ describe "Static pages" do
 
 	describe "Sign in" do
 		before {visit signin_path}
-		let(:page_title) {"Sign in"}
+		let(:page_title) { I18n.t(:login) }
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
 		it {should have_selector("input", :name =>"session[email]")}
@@ -54,7 +61,7 @@ describe "Static pages" do
 
 	describe "Sign up" do
 		before {visit signup_path}
-		let(:page_title) {"Sign up"}
+		let(:page_title) { I18n.t(:register) }
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
 		it {should have_selector("input", :name =>"user[name]")}

@@ -2,4 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+# Site Header
+    register: Register
+    login: "Login"
+    edit: "Edit"
+    profile: "Profile"
+    log_out: "Log out"
+# Site Menu    
+    home: "Home" 
+    videos: "Videos"
+    blogs: "Blogs"
+    users: "Users"
+    about: "About"

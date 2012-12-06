@@ -1,4 +1,4 @@
-<% provide(:title, 'Home') %>
+<% provide(:title, t(:home)) %>
 <div class="front-page-feed feed">
 	<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true, show_blog: true} %>
 	<% if @feed_items.any? %>

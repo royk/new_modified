@@ -29,11 +29,11 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.shown_name %>
 						<b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><%= link_to "Profile", user_path(current_user) %></li>
-							<li><%= link_to "Edit",
+							<li><%= link_to t(:profile), user_path(current_user) %></li>
+							<li><%= link_to t(:edit),
 								edit_user_path(current_user) %></li>
 							<li class="divider"></li>
-							<li><%= link_to "Log out", signout_path, method: "delete" %></li>
+							<li><%= link_to t(:log_out), signout_path, method: "delete" %></li>
 						</ul>
 						
 					
@@ -60,9 +60,9 @@
 				<!-- Signed out top bar option -->			
 				<!-- contains: login and register -->
 				<ul class="nav pull-right login-menu">
-					<li><%= link_to "Register", signup_path %></li>
+					<li><%= link_to t(:register), signup_path %></li>
 					<li class="hDivider">|</li>
-					<li><%= link_to "Login", signin_path %></li>
+					<li><%= link_to t(:login), signin_path %></li>
 
 				</ul>
 			<% end %>
@@ -74,11 +74,11 @@
 	<div class="container">
 		<!-- Site main menu -->
 		<ul class="nav-bold main-menu">
-			<li><%= link_to "Home", root_path %></li>
-			<li><%= link_to "Videos", videos_path %></li>
-			<li><%= link_to "Blogs", blogs_path %></li>
-			<li><%= link_to "Users", users_path %></li>
-			<li><%= link_to "About",about_path %></li>
+			<li><%= link_to t(:home), root_path %></li>
+			<li><%= link_to t(:videos), videos_path %></li>
+			<li><%= link_to t(:blogs), blogs_path %></li>
+			<li><%= link_to t(:users), users_path %></li>
+			<li><%= link_to t(:about),about_path %></li>
 		</ul>
 	</div>
 </div>
