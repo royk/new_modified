@@ -76,8 +76,8 @@ class VideosController < AuthenticatedController
 		@video = Video.find(params[:id])
 		update_players
 		@video.update_attribute(:public, params[:video][:public]) unless params[:video][:public].nil?
-		success = save_video(params[:video][:url]) unless params[:video][:url].nil?
-		flash[:success] = "Video modified" if success
+		save_video(params[:video][:url]) unless params[:video][:url].nil?
+		flash[:success] = "Video modified"
 		redirect_to request.referer
 	end
 
