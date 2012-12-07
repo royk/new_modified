@@ -102,6 +102,7 @@ class VideosController < AuthenticatedController
 			@video.players ||= []
 			@video.tag_list ||= []
 			merged_list = (@video.user_players||[]) +  (@video.players||[])
+			i=0
 			until params[("Player_"+i.to_s).to_sym].nil?
 				name = params[("Player_"+i.to_s).to_sym]
 				i1 = 0
