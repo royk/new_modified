@@ -73,7 +73,6 @@ class VideosController < AuthenticatedController
 =end
 
 	def update
-		@video = Video.find(params[:id])
 		update_players
 		@video.update_attribute(:public, params[:video][:public]) unless params[:video][:public].nil?
 		save_video(params[:video][:url]) unless params[:video][:url].nil?
@@ -82,7 +81,7 @@ class VideosController < AuthenticatedController
 	end
 
 	def destroy
-		Video.find(params[:id]).destroy
+		@video.destroy
 		flash[:success] = "Video deleted"
 		redirect_to request.referer
 	end
