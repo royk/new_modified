@@ -11,9 +11,13 @@ class VideosController < AuthenticatedController
 	end
 
 	def index
-		@videos = privacy_query(Video).paginate(page: params[:page], :per_page => 10)
-		if request.xhr?
-			render partial: 'shared/feed_item', collection: @videos, comments_shown: false
+		if /atom/.match(request.format)
+			@videos = privacy_query(Video)
+		else
+			@videos = privacy_query(Video).paginate(page: params[:page], :per_page => 10)
+			if request.xhr?
+				render partial: 'shared/feed_item', collection: @videos, comments_shown: false
+			end
 		end
 	end
 	
@@ -170,6 +174,8 @@ class VideosController < AuthenticatedController
 			unless current_user.admin?
 				@video = current_user.videos.find_by_id(params[:id])
 				redirect_to root_url if @video.nil?
+			else
+				@video = Video.find(params[:id])
 			end
 		end
 

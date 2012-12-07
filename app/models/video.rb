@@ -34,4 +34,16 @@ class Video < ActiveRecord::Base
   validates :vendor, presence: true
 
   default_scope order: 'videos.created_at DESC'
+
+  def players_names
+    names = []
+    ((user_players||[]) + (players||[])).each do |player|
+      if player.class==String
+        names << player
+      else
+        names << player.name
+      end
+    end
+    return names
+  end
 end
