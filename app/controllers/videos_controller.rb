@@ -20,8 +20,7 @@ class VideosController < AuthenticatedController
 	def create
 		@video = current_user.videos.build(params[:video])
 		update_players
-		uid_vendor = get_uid_vendor(@video.url) if @video.url
-		if save_video(uid_vendor)
+		if save_video(@video.url)
 			flash[:success] = "Video created"
 			notify_activity_on(@video, current_user, nil)
 		end
@@ -77,11 +76,7 @@ class VideosController < AuthenticatedController
 		@video = Video.find(params[:id])
 		update_players
 		success = @video.update_attribute(:public, params[:video][:public]) unless params[:video][:public].nil?
-		unless params[:video][:url].nil?
-			@video.url = params[:video][:url]
-			uid_vendor = get_uid_vendor(params[:video][:url])
-			success = save_video(uid_vendor)
-		end
+		success = save_video(params[:video][:url]) unless params[:video][:url].nil?
 		flash[:success] = "Video modified" if success
 		redirect_to request.referer
 	end
@@ -145,8 +140,10 @@ class VideosController < AuthenticatedController
 			end
 		end
 
-		def save_video(uid_vendor)
+		def save_video(url)
+			uid_vendor = get_uid_vendor(url)
 			if uid_vendor
+				@video.url = url
 				@video.vendor = uid_vendor[:vendor]
 				@video.uid = uid_vendor[:uid]
 				@video.tag_list = [] if @video.tag_list.nil?
