@@ -1,6 +1,7 @@
 xml.instruct! :xml, version: "1.0"
 xml.feed("xlmns"=>"http://www.w3.org/2005/Atom") do
 	xml.title "Modified.in Freestyle Footbag Videos"
+	xml.uri videos_url(:atom)
 	xml.id site_url
 	xml.updated @videos[0].created_at
 	xml.category(term: :sports)
