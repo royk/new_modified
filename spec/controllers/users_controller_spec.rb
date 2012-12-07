@@ -3,7 +3,9 @@ require 'spec_helper'
 describe UsersController do 
 	let(:user) { FactoryGirl.create(:user) }
 
-	
+	before do
+		request.env["HTTP_REFERER"] = "where_i_came_from"
+	end
 
 	describe "show"  do
 		it "should assign the correct user" do
@@ -99,13 +101,46 @@ describe UsersController do
 
 	
 
-	describe "update" do
+	context "update->" do
 		before { sign_in user }
 		before :each do
 			
 			@userWithPWD = {password: "123456", password_confirmation: "123456"}
 			@userWithInvalidPWD1 = {password: "123456", password_confirmation: "23456"}
 			@userWithInvalidPWD2 = {password: "1234", password_confirmation: "1234"}
+		end
+		context "admin status->" do
+			before do
+				@user2 = User.new
+				@user2.name = "loko boko"
+				@user2.email = "lala@fofo.com"
+				@user2.admin = false
+				@user2.password = "lalalalal"
+				@user2.password_confirmation = "lalalalal"
+				@user2.save!
+			end
+			describe "when updater is not admin" do
+				it "should not modify admin status" do
+					put :update, id: user, admin: true
+					user.reload
+					user.admin.should be_false
+				end
+			end
+=begin
+# For some reason this test fails. Apparently we don't pass the signed_in_user before filter for some reason.
+			describe "when updater is admin" do
+				before do
+					user.admin = true
+					user.save!
+				end
+				it "should modify admin status" do
+					Rails.logger.debug "nownow"
+					put :update, id: user, user: user, admin: false
+					user.reload
+					user.admin.should be_false
+				end
+			end
+=end
 		end
 		it "should locate the correct user" do
 			put :update, id: user, user: @userWithPWD
@@ -168,7 +203,7 @@ describe UsersController do
 			user.gravatar_suffix.should_not eq("suff")
 		end
 
-		it "should redirec to user on success" do
+		it "should redirect to user on success" do
 			put :update, id: user, user: @userWithPWD
 
 			response.should redirect_to user
