@@ -10,7 +10,7 @@ describe VideosController do
 	    request.env["HTTP_REFERER"] = "where_i_came_from"
   	end
 
-	describe "show" do
+	context "show->" do
 		it "should assign the correct video" do
 			get :show, id: video
 			assigns(:video).should eq(video)
@@ -18,6 +18,28 @@ describe VideosController do
 		it "should render the show view" do
 			get :show, id: video
 			response.should render_template :show
+		end
+		describe "when video is private" do
+			before do
+				video.public = false
+				video.save!
+			end
+			describe "and user is signed out" do
+				before { sign_out }
+				it "should not return for signed out user" do
+					get :show, id: video
+					assigns(:video).should be_nil
+					response.should_not render_template :show
+				end
+			end
+
+			describe "and user is logged in" do
+				it "should return a usual" do
+					get :show, id: video
+					assigns(:video).should eq(video)
+					response.should render_template :show
+				end
+			end
 		end
 	end
 
@@ -80,7 +102,7 @@ describe VideosController do
 		end
 	end
 
-	describe "Update" do
+	describe "Update->" do
 		before do
 			@to_edit = Video.create
 			@to_edit.url = "http://vimeo.com/53369314"
@@ -135,6 +157,18 @@ describe VideosController do
 				@to_edit.reload
 				@to_edit.url.should_not eq("http://www.youtu.be/CoyEILQHJyc")
 
+			end
+		end
+		context "public status" do
+			before do
+				@to_edit.public = false
+				@to_edit.user = user
+				@to_edit.save!
+			end
+			it "should change pubic attribute" do
+				put :update, id: @to_edit, video: {public: true}
+				@to_edit.reload
+				@to_edit.public.should be_true
 			end
 		end
 

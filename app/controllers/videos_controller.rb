@@ -4,7 +4,7 @@ class VideosController < AuthenticatedController
 
 	def show
     	@video = Video.find(params[:id])
-    	if !signed_in? && @video.public==false
+    	unless (signed_in? || @video.public)
     		@video = nil
     		redirect_to root_url
     	end
@@ -19,10 +19,7 @@ class VideosController < AuthenticatedController
 	
 	def create
 		@video = current_user.videos.build(params[:video])
-		@video.user_id = current_user.id
-		@video.tag_list << @video.title unless params[:video][:title].nil?
 		update_players
-		
 		uid_vendor = get_uid_vendor(@video.url) if @video.url
 		if save_video(uid_vendor)
 			flash[:success] = "Video created"
@@ -30,7 +27,8 @@ class VideosController < AuthenticatedController
 		end
 		redirect_to request.referer
 	end
-
+=begin	
+# imports videos from jsViewFeed
 	def import
 		videos = params[:videos]
 		videos.each do |v|
@@ -73,18 +71,13 @@ class VideosController < AuthenticatedController
 		end
 		redirect_to request.referer
 	end
+=end
 
 	def update
 		@video = Video.find(params[:id])
 		update_players
-		if params[:video][:url].nil? && !params[:video][:public].nil?
-			success = @video.update_attribute(:public, params[:video][:public])
-		else
-			unless params[:video][:title].nil?
-				@video.tag_list.remove(@video.title)
-				@video.title = params[:video][:title] 
-				@video.tag_list << @video.title unless @video.title.empty?
-			end
+		success = @video.update_attribute(:public, params[:video][:public]) unless params[:video][:public].nil?
+		unless params[:video][:url].nil?
 			@video.url = params[:video][:url]
 			uid_vendor = get_uid_vendor(params[:video][:url])
 			success = save_video(uid_vendor)
@@ -111,8 +104,6 @@ class VideosController < AuthenticatedController
 			@video.players ||= []
 			@video.tag_list ||= []
 			merged_list = (@video.user_players||[]) +  (@video.players||[])
-			i=0
-			
 			until params[("Player_"+i.to_s).to_sym].nil?
 				name = params[("Player_"+i.to_s).to_sym]
 				i1 = 0
@@ -160,6 +151,7 @@ class VideosController < AuthenticatedController
 				@video.vendor = uid_vendor[:vendor]
 				@video.uid = uid_vendor[:uid]
 				@video.tag_list = [] if @video.tag_list.nil?
+				update_video_title
 				if @video.save
 					return true
 				else
@@ -169,6 +161,14 @@ class VideosController < AuthenticatedController
 				flash[:error] = "Unrecognized Video URL"
 			end
 			return false
+		end
+
+		def update_video_title
+			unless params[:video][:title].nil?
+				@video.tag_list.remove(@video.title)
+				@video.title = params[:video][:title] 
+				@video.tag_list << @video.title unless @video.title.empty?
+			end
 		end
 
 		def correct_user
