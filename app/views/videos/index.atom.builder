@@ -14,7 +14,7 @@ xml.feed("xlmns"=>"http://www.w3.org/2005/Atom") do
 	for video in @videos 
 		xml.entry do
 			xml.title video.title
-			xml.link video_url(video)
+			xml.link(href: video_url(video))
 			xml.content video.players_names.join(",")
 			xml.updated video.created_at
 		end

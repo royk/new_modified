@@ -4,7 +4,7 @@ module ApplicationHelper
 	end
 
 	def site_url
-		"http://modified.poisontaffy.com"
+		"http://modified.poisontaffy.com/"
 	end
 	
 	def full_title(page_title)
