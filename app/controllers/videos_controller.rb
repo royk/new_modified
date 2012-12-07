@@ -82,9 +82,7 @@ class VideosController < AuthenticatedController
 			uid_vendor = get_uid_vendor(params[:video][:url])
 			success = save_video(uid_vendor)
 		end
-		if success
-			flash[:success] = "Video modified"
-		end
+		flash[:success] = "Video modified" if success
 		redirect_to request.referer
 	end
 
