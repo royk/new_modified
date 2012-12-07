@@ -172,7 +172,7 @@ class VideosController < AuthenticatedController
 		end
 
 		def correct_user
-			if !current_user.admin?
+			unless current_user.admin?
 				@video = current_user.videos.find_by_id(params[:id])
 				redirect_to root_url if @video.nil?
 			end
