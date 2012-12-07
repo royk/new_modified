@@ -77,25 +77,30 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if !params[:challenge].nil? && !params[:challenge].match(/^free\s?style.*/i).nil?
-     # if verify_recaptcha(model: @user, message: "Wrong reCaptcha words, please try again.") && @user.save
-      if @user.save
-        UserMailer.welcome_mail(@user).deliver
-        sign_in @user
-        flash[:success] = "Welcome to the New Modified!"
-        notify_activity_on(@user, current_user)
-        redirect_to edit_user_path(@user)
-      else
-        flash[:error] = "Could not sign up"
-        render 'new'
-      end
+    return unless anti_spam_verifications
+    if @user.save
+      UserMailer.welcome_mail(@user).deliver
+      sign_in @user
+      flash[:success] = "Welcome to the New Modified!"
+      notify_activity_on(@user, current_user)
+      redirect_to edit_user_path(@user)
     else
-      flash[:error] = "Wrong answer to Challenge Question"
+      flash[:error] = "Could not sign up"
       render 'new'
     end
   end
 
   private
+
+    def anti_spam_verifications
+      if params[:challenge].nil? || params[:challenge].match(/^free\s?style.*/i).nil?
+        flash[:error] = "Wrong answer to Challenge Question"
+        render 'new'
+        return false
+      end
+      return true
+      # if verify_recaptcha(model: @user, message: "Wrong reCaptcha words, please try again.") && @user.save
+    end
 
     def correct_user
       if !current_user.nil? && !current_user.admin?

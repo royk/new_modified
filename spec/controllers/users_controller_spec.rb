@@ -42,13 +42,59 @@ describe UsersController do
 		end
 	end
 
-	describe "create" do
-		it "should create a user" do
-			expect do
-				post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
-				@to_delete = assigns(:user)
-			end.to change(User, :count).by(1)
+	context "create->" do
+		context "successfully" do
+			it "should create a user" do
+				expect do
+					post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
+					@to_delete = assigns(:user)
+				end.to change(User, :count).by(1)
+			end
+
+			it "should create new user notification" do
+				expect do
+					post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
+					@to_delete = assigns(:user)
+				end.to change(Notification, :count).by(1)
+			end
 		end
+
+		describe "when sending wrong challenge answer" do
+			it "should not create a user" do
+				expect do
+					post :create, challenge: "shux", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
+					@to_delete = assigns(:user)
+				end.to_not change(User, :count).by(1)
+				response.should render_template :new
+			end
+		end
+
+		describe "with an already registered email" do
+			before do
+				user.email = "fifi@wix.com"
+				user.save!
+			end
+			it "should not create a user" do
+				expect do
+					post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456"}
+					@to_delete = assigns(:user)
+				end.to_not change(User, :count).by(1)
+				response.should render_template :new
+			end
+
+		end
+
+		describe "with mismatched password confirmation" do
+			it "should not create a user" do
+				expect do
+					post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "12345"}
+					@to_delete = assigns(:user)
+				end.to_not change(User, :count).by(1)
+				response.should render_template :new
+			end
+
+		end
+
 	end
 
 	
