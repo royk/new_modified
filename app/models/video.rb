@@ -37,7 +37,7 @@ class Video < ActiveRecord::Base
 
   def players_names
     names = []
-    ((user_players||[]) + (players||[])).each do |player|
+    players_list.each do |player|
       if player.class==String
         names << player
       else
@@ -45,5 +45,43 @@ class Video < ActiveRecord::Base
       end
     end
     return names
+  end
+
+  def players_list
+    ((user_players||[]) + (players||[]))
+  end
+
+  def remove_players
+    tag_list ||= []
+    players_list.each do |p|
+      if p.class==String
+        players.delete(p)
+        tag_list = tag_list - p.split
+      else
+        user_players.delete(p)
+        p.appears_in_videos.delete(self)
+        tag_list = tag_list - p.name.split
+      end
+    end
+  end
+
+  def add_player(name)
+    unless players_names.include? name
+      tag_list ||= []
+      tag_list = tag_list + name.split
+      player = User.where('lower(name) = ?', name.downcase).first
+      unless player.nil?
+        player = player
+        user_players << player
+        player.appears_in_videos << self
+        logger.debug "1Adding #{player.name}"
+        return player
+      else
+        self.players << name
+        logger.debug "2Adding #{name}"
+        return nil
+      end
+    end
+    
   end
 end
