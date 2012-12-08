@@ -1,25 +1,27 @@
 <% notification_item = front_page_notification_item %>
 <% sender = notification_item.sender %>
 <% receiver = notification_item.user %>
-<li id="front_page_notification_item<%= notification_item.id %>">
-	<%= link_to sender do %>
-		<span>
-			<%= gravatar_for sender, size: 25 %>
-			
-		</span>
-		<span>
-			<%= sender.shown_name %>
-	<% end %>
-			<%if notification_item.user %>
-				<%= notification_item.action_verb %> 
-				on <%= link_to receiver.shown_name, receiver%>'s <%= link_to notification_item.item_type.downcase, notification_item.item  %>
-			<% elsif notification_item.item_type.downcase=="user" %>
-				<%= notification_item.join_message %>
-			<% else %>
-				created a new <%= link_to notification_item.item_type.downcase, notification_item.item  %>
-			<% end %>
-		</span>
-		<div class="timestamp">
-			<%= time_ago_in_words(notification_item.created_at) %> ago
-		</div>
-</li>		
+<% if sender %>
+	<li id="front_page_notification_item<%= notification_item.id %>">
+		<%= link_to sender do %>
+			<span>
+				<%= gravatar_for sender, size: 25 %>
+				
+			</span>
+			<span>
+				<%= sender.shown_name %>
+		<% end %>
+				<%if notification_item.user %>
+					<%= notification_item.action_verb %> 
+					on <%= link_to receiver.shown_name, receiver%>'s <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+				<% elsif notification_item.item_type.downcase=="user" %>
+					<%= notification_item.join_message %>
+				<% else %>
+					created a new <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+				<% end %>
+			</span>
+			<div class="timestamp">
+				<%= time_ago_in_words(notification_item.created_at) %> ago
+			</div>
+	</li>		
+<% end %>
