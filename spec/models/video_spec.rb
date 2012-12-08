@@ -39,6 +39,10 @@ describe Video do
 	it { should respond_to(:maker) }
 	it { should respond_to(:players) }
 	it { should respond_to(:user_players) }
+	it { should respond_to(:players_names) }
+	it { should respond_to(:players_list) }
+	it { should respond_to(:remove_players) }
+	it { should respond_to(:add_player) }
 
 	its(:user) { should==user }
 
@@ -63,14 +67,86 @@ describe Video do
 
 		it { should have_and_belong_to_many(:user_players) }
 	end
+	describe "players->" do
+		describe "players_list" do
+			it "should start empty" do
+				video.players_list.should be_empty
+			end
+			it "should include user players" do
+				video.user_players << user
 
-	context "user players" do
-		it "should not allow the same player twice" do
-			video.user_players.count.should eq 0
-			video.user_players << user
-			video.user_players.count.should eq 1
-			video.user_players << user
-			video.user_players.count.should eq 1
+				video.players_list.count.should eq 1
+				video.players_list[0].should eq user
+			end
+			it "should include named players" do
+				name = "some guy"
+				video.players = []
+				video.players << name
+
+				video.players_list.count.should eq 1
+				video.players_list[0].should eq name
+			end
+			it "should combine both types of players" do
+				video.user_players << user
+				name = "some guy"
+				video.players = []
+				video.players << name
+
+				video.players_list.count.should eq 2
+			end
+		end
+		describe "remove_players" do
+			context "when there are no players" do
+				it "should not crash" do
+					video.remove_players
+					video.players_list.count.should eq 0
+				end
+			end
+			context "when there are players" do
+				it "should remove them all" do
+					video.user_players << user
+					name = "some guy"
+					video.players = []
+					video.players << name
+
+					video.remove_players
+					video.players_list.count.should eq 0
+				end
+			end
+		end
+		describe "add_player" do
+			context "when adding user player" do
+				it "should add it and it should appear in the video" do
+					video.add_player(user.name)
+
+					video.players_list.count.should eq 1
+					video.players_list[0].should eq user
+					video.user_players.count.should eq 1
+					video.user_players[0].should eq user
+
+					user.appears_in_videos[0].should eq video
+				end
+			end
+			context "when adding a named player" do
+				it "should appear in players list" do
+					name = "some guy"
+					video.add_player(name)
+
+					video.players_list.count.should eq 1
+					video.players_list[0].should eq name
+					video.players.count.should eq 1
+					video.user_players.count.should eq 0
+				end
+			end
+		end
+		context "user players" do
+			it "should not allow the same player twice" do
+				video.user_players.count.should eq 0
+				video.user_players << user
+				video.user_players.count.should eq 1
+				video.user_players << user
+				video.user_players.count.should eq 1
+			end
 		end
 	end
 

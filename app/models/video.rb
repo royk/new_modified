@@ -66,6 +66,7 @@ class Video < ActiveRecord::Base
   end
 
   def add_player(name)
+    self.players ||= []
     unless players_names.include? name
       tag_list ||= []
       tag_list = tag_list + name.split
