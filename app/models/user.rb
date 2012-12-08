@@ -30,7 +30,12 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :appears_in_videos, class_name: "Video", uniq: true
 
   has_many :notifications, dependent: :destroy
-  has_many :notifications, as: :item, dependent: :destroy
+  has_many :notifications, dependent: :destroy, foreign_key: "sender_id"
+  has_many :notifications, dependent: :destroy, foreign_key: "item_id"
+
+  has_many :comments, dependent: :destroy, foreign_key: "commenter_id"
+
+  has_many :likes, dependent: :destroy, foreign_key: "liker_id"
 
   has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
   has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
@@ -44,6 +49,8 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: {minimum: 6}, :if => :validate_password?
   validates :password_confirmation, presence: true, :if => :validate_password?
+
+  before_destroy :destroy_notifications, :destroy_comments
 
   def shown_name
     nickname.blank? ? name : nickname
@@ -89,6 +96,14 @@ class User < ActiveRecord::Base
 
     def validate_password?
       password.present? || password_confirmation.present?
+    end
+
+    def destroy_notifications
+      Notification.find_all_by_sender_id(self).each {|n| n.destroy}
+    end
+
+    def destroy_comments
+      Comment.find_all_by_commenter_id(self).each {|n| n.destroy}
     end
 end
 
