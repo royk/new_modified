@@ -25,3 +25,7 @@ en:
     tagged_you: "tagged you"
     reacted: "reacted"
     joined: "joined the community"
+
+# Videos page
+    videos_feed: "Videos feed"   
+    search: "search" 
