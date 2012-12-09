@@ -17,7 +17,7 @@ class BlogPostsController < AuthenticatedController
 
 	def create
 		if current_user.blog.nil?
-			create_blog
+			create_blog current_user
 		end
 		create! do |success, failure|
 			success.html do 
@@ -35,10 +35,7 @@ class BlogPostsController < AuthenticatedController
 			current_user.blog
 		end
 
-		def create_blog
-			current_user.build_blog(title: "My new blog")
-			current_user.blog.save
-		end
+		
 
 		def correct_user
 			if !current_user.admin?

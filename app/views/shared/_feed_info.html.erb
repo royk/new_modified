@@ -1,4 +1,4 @@
-<% if !user.nil? %>
+<% unless user.nil? %>
 	<% if defined?(size) && (size=="tiny" || size=="small") %>
 		<%= render "/shared/feed_info_#{size}", user: user %>
 	<% else %>
@@ -15,6 +15,17 @@
 			</span>
 		<% end %>
 	<% end %>
-<% end %>		
+<% else %>		
+	<% if defined?(user_name) %>
+		<span>
+			<%= gravatar_for nil, size: 40 %>
+		</span>
+		<span>
+			<h4 class="user_name">
+				<%= user_name %>
+			</h4>
+		</span>
+	<% end %>
+<% end %>
 	
 	

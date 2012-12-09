@@ -10,6 +10,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  public           :boolean          default(TRUE)
+#  commenter_name   :string(255)
 #
 
 require 'spec_helper'
@@ -32,6 +33,7 @@ describe Comment do
 		it { should respond_to(:commentable_id) }
 		it { should respond_to(:commentable_type) }
 		it { should respond_to(:commenter) }
+		it { should respond_to(:commenter_name) }
 		its(:commentable) { should==video }
 		its(:commenter) { should==video.user }
 	end
@@ -53,12 +55,6 @@ describe Comment do
 				it { should_not be_valid }
 			end
 		end
-
-		describe "when commenter is empty" do
-			before {comment.commenter = nil}
-			it {should_not be_valid}
-		end
-
 	end
 
 end

@@ -10,10 +10,11 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  public           :boolean          default(TRUE)
+#  commenter_name   :string(255)
 #
 
 class Comment < ActiveRecord::Base
-  attr_accessible :content, :commenter, :public
+  attr_accessible :content, :commenter, :public, :commenter_name
 
   belongs_to :commentable, polymorphic: true
   belongs_to :commenter, 	class_name: "User"
@@ -22,7 +23,7 @@ class Comment < ActiveRecord::Base
   has_many :notifications, as: :action, dependent: :destroy
 
   validates_length_of :content, presence: true, :minimum => 1, maximum: 9999
-  validates :commenter, presence:true
+  #validates :commenter, presence:true
   
   require 'shared/content_trait.rb'
   include ContentTrait

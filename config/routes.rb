@@ -35,6 +35,9 @@ NewModified::Application.routes.draw do
 
   resources :blogs, only: [:create, :destroy, :show, :index]
 
+  match '/importblog', to:"blogs#import"
+  match '/performimport', to:"blogs#perform_import"
+
   resources :comments
 
   resources :messages, only: [:new, :create, :index, :show]

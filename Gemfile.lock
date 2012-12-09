@@ -42,6 +42,10 @@ GEM
     bb-ruby (0.9.5)
     bbcodeizer (0.2.0)
     bcrypt-ruby (3.0.1-x86-mingw32)
+    better_errors (0.0.7)
+      coderay
+      erubis
+    binding_of_caller (0.6.8)
     bootstrap-sass (2.0.4.0)
     bootstrap-will_paginate (0.0.6)
       will_paginate
@@ -57,6 +61,7 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
+    coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -190,6 +195,8 @@ DEPENDENCIES
   bb-ruby (= 0.9.5)
   bbcodeizer (= 0.2.0)
   bcrypt-ruby (= 3.0.1)
+  better_errors
+  binding_of_caller
   bootstrap-sass (= 2.0.4)
   bootstrap-will_paginate (= 0.0.6)
   capybara (= 1.1.2)
