@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: {minimum: 6}, :if => :validate_password?
   validates :password_confirmation, presence: true, :if => :validate_password?
 
-  before_destroy :destroy_notifications, :destroy_comments
+  before_destroy :destroy_notifications, :destroy_comments, :destroy_video_assoc
 
   def shown_name
     nickname.blank? ? name : nickname
@@ -104,6 +104,12 @@ class User < ActiveRecord::Base
 
     def destroy_comments
       Comment.find_all_by_commenter_id(self).each {|n| n.destroy}
+    end
+
+    def destroy_video_assoc
+      appears_in_videos.each do |video|
+        video.move_to_named_players self
+      end      
     end
 end
 

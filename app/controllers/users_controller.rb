@@ -65,6 +65,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     return unless anti_spam_verifications
     if @user.save
+      Video.move_to_user_players(@user)
       UserMailer.welcome_mail(@user).deliver
       sign_in @user
       flash[:success] = "Welcome to the New Modified!"

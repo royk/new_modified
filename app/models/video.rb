@@ -17,6 +17,20 @@
 #
 
 class Video < ActiveRecord::Base
+
+  def Video.move_to_user_players(user)
+    Video.all.each do |video|
+      if video.players && video.players.include?(user.name)
+        video.record_timestamps = false
+        video.players.delete(user.name)
+        video.user_players ||= []
+        video.user_players << user
+        video.save
+        video.record_timestamps = true
+      end
+    end
+  end
+
   attr_accessible :title, :vendor, :uid, :url, :public, :location, :maker, :players
   acts_as_taggable
 
@@ -75,14 +89,23 @@ class Video < ActiveRecord::Base
         player = player
         user_players << player
         player.appears_in_videos << self
-        logger.debug "1Adding #{player.name}"
         return player
       else
         self.players << name
-        logger.debug "2Adding #{name}"
         return nil
       end
     end
-    
+  end
+
+  def move_to_named_players(user)
+
+    if self.user_players && self.user_players.include?(user)
+      self.record_timestamps = false
+      user_players.delete(user)
+      self.players ||= []
+      self.players << user.name
+      self.save
+      self.record_timestamps = true
+    end
   end
 end
