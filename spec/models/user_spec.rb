@@ -15,6 +15,7 @@
 #  reset_code      :string(255)
 #  country         :string(255)
 #  city            :string(255)
+#  modified_user   :string(255)
 #
 
 require 'spec_helper'
@@ -43,6 +44,7 @@ describe User do
 	it { should respond_to(:country) }
 	it { should respond_to(:city) }
 	it { should respond_to(:create_reset_code) }
+	it { should respond_to(:modified_user) }
 
 	it {should be_valid}
 	it {should_not be_admin}

@@ -34,6 +34,9 @@
 			    		<%= f.text_field :blog_title, class: "form-input" %>
 			    	<% end %>
 			    </div>
+			    <%= f.label :modified_user %>
+			    <%= f.text_field :modified_user, class: "form-input" %>
+			    <i class="icon-warning-sign"></i><p class="warning-text sub-text">Case sensitive. Allows us to connect your user with the content you created on the original modified forum.</p>
 		    </div>
 		    <h3>Private info</h3>
 		    <i class="icon-warning-sign"></i>

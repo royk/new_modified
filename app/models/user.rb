@@ -15,10 +15,12 @@
 #  reset_code      :string(255)
 #  country         :string(255)
 #  city            :string(255)
+#  modified_user   :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, :nickname, :blog_title, :reset_code, :country, :city
+  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, 
+                  :nickname, :blog_title, :reset_code, :country, :city, :modified_user
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -46,6 +48,8 @@ class User < ActiveRecord::Base
   validates :nickname, length: {maximum: 50, minimum: 3}, allow_blank: true, uniqueness: {case_sensitive: false}
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: {with: EMAIL_REGEX}, uniqueness: {case_sensitive: false}
+
+  validates :modified_user, uniqueness: {case_sensitive: true}
 
   validates :password, presence: true, length: {minimum: 6}, :if => :validate_password?
   validates :password_confirmation, presence: true, :if => :validate_password?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121209161729) do
+ActiveRecord::Schema.define(:version => 20121210210602) do
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20121209161729) do
     t.string   "reset_code"
     t.string   "country"
     t.string   "city"
+    t.string   "modified_user"
   end
 
   add_index "users", ["country"], :name => "index_users_on_country"
