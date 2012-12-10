@@ -15,6 +15,10 @@ class BlogPostsController < AuthenticatedController
 		
 	end
 
+	def destroy
+		destroy! { request.referer }
+	end
+
 	def create
 		if current_user.blog.nil?
 			create_blog current_user
