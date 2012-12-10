@@ -6,7 +6,7 @@
 		<%= render partial: 'shared/post_form', locals: {show_blog: true} %>
 	<% end %>
 	<div style="text-align:center;">
-		<%= will_paginate @blog_posts%>
+		<%= will_paginate @blog_posts, inner_window: 1, outer_window: 1 %>
 	</div>
 	<%= render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false %>
 </div>		
