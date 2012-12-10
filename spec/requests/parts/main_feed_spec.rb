@@ -7,12 +7,12 @@ describe "main feed" do
 	subject { find("div.front-page-feed") }
 	before { visit root_path }
 
-	context "posting form->" do
-		describe "when logged out" do
+	describe "posting form->" do
+		context "when logged out" do
 			it { should_not have_css("div#feed-form") }
 		end
 
-		describe "when signed in" do
+		context "when signed in" do
 			before do
 				sign_in user
 				visit root_path
@@ -21,19 +21,25 @@ describe "main feed" do
 		end
 	end
 
-	context "posts->" do
-		describe "when there aren't any" do
+	describe "posts->" do
+		context "when there aren't any" do
 			it { should_not have_css("div.feed-item-container") }
 		end
 
-		describe "when there is at least one (non sticky)" do
+		context "when there is at least one (non sticky)" do
 			before do
 				post_item.public = true
+				post_item.content = "yay!"
 				post_item.save!
 				visit root_path
 			end
 			it { should have_css("div.feed-item-container") }
 			it { should_not have_css("div.feed-item-container.sticky") }
+
+			describe "content appears correctly" do
+				it { should have_selector("div.text-content", text: post_item.content.html_safe) }
+			end
+
 		end
 
 		context "sticky->" do
