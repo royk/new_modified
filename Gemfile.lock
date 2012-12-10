@@ -207,6 +207,7 @@ DEPENDENCIES
   jquery-rails (= 2.0.2)
   lograge
   mysql2
+  nokogiri
   rails (= 3.2.8)
   rails-i18n
   recaptcha

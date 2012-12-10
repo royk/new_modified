@@ -14,6 +14,7 @@ gem "lograge"
 gem "aws-ses", "~> 0.4.4", :require => 'aws/ses'
 gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'rails-i18n'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
