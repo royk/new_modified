@@ -3,6 +3,7 @@ FactoryGirl.define do
 
 	factory :user, aliases: [:commenter, :liker, :sender, :recipient] do
 		sequence(:name)  { |n| "Person #{n}" }
+		sequence(:modified_user)  { |n| "Person #{n}" }
 		sequence(:email) { |n| "person_#{n}@example.com"}   
 		password "fafafa"
 		password_confirmation "fafafa"
