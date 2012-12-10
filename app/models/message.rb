@@ -22,7 +22,4 @@ class Message < ActiveRecord::Base
 
   validates :content, presence: true, length: {minimum: 1}
 
-  require 'shared/content_trait.rb'
-  include ContentTrait
-
 end

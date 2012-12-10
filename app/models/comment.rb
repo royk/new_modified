@@ -25,7 +25,5 @@ class Comment < ActiveRecord::Base
   validates_length_of :content, presence: true, :minimum => 1, maximum: 9999
   #validates :commenter, presence:true
   
-  require 'shared/content_trait.rb'
-  include ContentTrait
   
 end

@@ -23,8 +23,6 @@ class BlogPost < ActiveRecord::Base
 
   validates :blog, presence: true
 
-  require 'shared/content_trait.rb'
-  include ContentTrait
 
  
 

@@ -1,6 +1,6 @@
 <% provide(:title, 'Send message') %>
 <h1>Send message</h2>
-<% reply_content = "[quote=#{@replies_to.sender.shown_name}]#{@replies_to.content}[/quote]\n" unless @replies_to.nil? %>
+<% reply_content = "[quote=#{@replies_to.sender.shown_name}]#{@replies_to.content.html_safe}[/quote]\n" unless @replies_to.nil? %>
 <%= form_for(@message) do |f| %>
 	<%= f.label :recipient %>
 	<%= text_field_tag :recipient, h(@recipient.shown_name) %>
