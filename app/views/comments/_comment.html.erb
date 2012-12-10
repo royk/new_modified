@@ -2,7 +2,7 @@
 	<%= render '/shared/feed_info', user: comment.commenter, user_name: comment.commenter_name,size: "small" %>
 	<%= render '/shared/item_options', item: comment, user: comment.commenter %>
 	<div class="content">
-		<%= comment.content_view %>
+		<%= comment.content.html_safe %>
 	</div>
 	<div class="timestamp">
 		<%= time_ago_in_words(comment.created_at) %> ago.

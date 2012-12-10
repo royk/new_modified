@@ -34,7 +34,9 @@ module BlogScraping
 		posts.each do |post|
 			# get date
 			date = Date.parse(post.css(".author")[0].children[3].text)
-			content = post.css(".content")[0].text
+			# get content
+			content = post.css(".content")[0].inner_html
+			content = content.gsub(/\.\/images\/smilies\//i, "/assets/smilies/") # reroute smilies url to our own
 			# get author
 			author = post.css(".author > strong").children[0].text
 			@result_post = {}

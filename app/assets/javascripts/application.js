@@ -126,6 +126,7 @@ NM = (function() {
 		endlessScroll: function endlessScroll(params) {
 			maxPages = params.maxPages;
 			scrollPath = params.path;
+			currentPage = params.currentPage || 1;
 
 			$(window).scroll(function(){
 				if ($(window).scrollTop() + $(window).innerHeight()>=document.body.scrollHeight) {

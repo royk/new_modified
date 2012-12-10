@@ -2,6 +2,9 @@
 	NM.endlessScroll({
 		maxPages: <%= collection.total_pages %>,
 		path: '<%= loadPath %>'
+		<% if defined?(params[:page]) %>
+			,currentPage: <%= params[:page] %>
+		<% end %>
 	});
 </script>
 <div id="loading-indicator">

@@ -5,6 +5,10 @@
 	<% if current_user==@blog.user %>
 		<%= render partial: 'shared/post_form', locals: {show_blog: true} %>
 	<% end %>
+	<div style="text-align:center;">
+		<%= will_paginate @blog_posts%>
+	</div>
 	<%= render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false %>
 </div>		
+
 <%= render 'shared/ajax_loading', collection: @blog_posts, loadPath: '/blogs/'+params[:id] %>	
