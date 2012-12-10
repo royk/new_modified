@@ -12,7 +12,7 @@
 </div>
 <div class="message-body">
 	<div class="content">
-		<%= message.content_view %>
+		<%= message.content.html_safe %>
 	</div>
 	<% if message.sender!=current_user %>
 		<%= link_to new_message_path(recipient: message.sender, replies_to: message) do %>
