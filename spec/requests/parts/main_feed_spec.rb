@@ -8,6 +8,13 @@ describe "main feed" do
 	subject { find("div.front-page-feed") }
 	before { visit root_path }
 
+	shared_examples "feed post" do
+		it { should have_selector(".feed-item-container > .feed-item")}
+		it { should have_selector(".feed-item-container > .post-footer")}
+		it { should have_selector(".feed-item-container > .comment-container")}
+	end
+
+
 	describe "posting form->" do
 		context "when logged out" do
 			it { should_not have_css("div#feed-form") }
@@ -36,6 +43,7 @@ describe "main feed" do
 				post_item.save!
 				visit root_path
 			end
+			it_should_behave_like "feed post"
 			it { should have_css("div.feed-item-container") }
 			it { should_not have_css("div.feed-item-container.sticky") }
 
@@ -77,6 +85,7 @@ describe "main feed" do
 				video_item.save!
 				visit root_path
 			end
+			it_should_behave_like "feed post"
 			it { should have_selector("div.video-content > iframe") }
 			it { should have_selector("div.video-content > h3", text: video_item.title) }
 		end
