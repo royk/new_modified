@@ -39,7 +39,8 @@ module ApplicationHelper
 		end
 		notification.item = item
 		notification.action = action
-		notification.public = item.public
+
+		notification.public = defined?(item.public) ? item.public : true
 		notification.save
 	end
 
