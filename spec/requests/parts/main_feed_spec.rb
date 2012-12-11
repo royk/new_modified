@@ -2,6 +2,7 @@ require 'spec_helper'
 describe "main feed" do 
 	let(:user) { FactoryGirl.create(:user) }
 	let(:post_item) { FactoryGirl.create(:post) }
+	let(:video_item) { FactoryGirl.create(:video) }
 	let(:comment) { FactoryGirl.create(:comment) }
 
 	subject { find("div.front-page-feed") }
@@ -20,6 +21,8 @@ describe "main feed" do
 			it { should have_css("div#feed-form") }
 		end
 	end
+
+
 
 	describe "posts->" do
 		context "when there aren't any" do
@@ -63,6 +66,19 @@ describe "main feed" do
 				it { should have_css("div.feed-item-container", count: 2) }
 				it { should have_css("div.feed-item-container.sticky:first-child") }
 			end
+		end
+	end
+
+	describe "videos->" do
+		describe "should appear with content on feed" do
+			before do
+				video_item.public = true
+				video_item.title = "i am title of video"
+				video_item.save!
+				visit root_path
+			end
+			it { should have_selector("div.video-content > iframe") }
+			it { should have_selector("div.video-content > h3", text: video_item.title) }
 		end
 	end
 end	
