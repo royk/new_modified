@@ -14,5 +14,6 @@ module UsersHelper
   	def create_blog(user)
 		user.build_blog(title: "My new blog")
 		user.blog.save
-	end
+    end
+
 end

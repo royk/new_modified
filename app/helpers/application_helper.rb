@@ -39,7 +39,7 @@ module ApplicationHelper
 		end
 		notification.item = item
 		notification.action = action
-		notification.public = true
+		notification.public = item.public
 		notification.save
 	end
 

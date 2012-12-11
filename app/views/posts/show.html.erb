@@ -1,3 +1,5 @@
-<div class="feed">
-	<%= render 'shared/feed_item', feed_item: @post, comments_shown: true, feed_item_counter: 0 %>
-</div>
+<% if can_see? @post %>
+    <div class="feed">
+        <%= render 'shared/feed_item', feed_item: @post, comments_shown: true, feed_item_counter: 0 %>
+    </div>
+<% end  %>

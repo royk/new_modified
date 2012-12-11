@@ -35,7 +35,15 @@ module SessionsHelper
 	def redirect_back_or(default)
 		redirect_to(session[:return_to] || default)
 		session.delete(:return_to)
-	end
+  end
+
+  def can_see?(item)
+    can_see = true
+    if !signed_in? && item.public==false
+      can_see = false
+    end
+  	return can_see
+  end
 
 	def store_location
 		session[:return_to] = request.referer
