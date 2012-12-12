@@ -16,4 +16,12 @@ module UsersHelper
 		user.blog.save
 	end
 
+	def privacy_name(user)
+		if signed_in?
+			user.name
+		else
+			user.nickname
+		end
+	end
+
 end
