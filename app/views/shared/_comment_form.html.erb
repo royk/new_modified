@@ -5,5 +5,9 @@
 	<%= hidden_field_tag 'parent_type', parent.class.to_s  %>
 	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 </div>
-
+<script>
+$(function(){
+    $("#comment_content").htmlarea();
+});
+</script>
 <% end %>
