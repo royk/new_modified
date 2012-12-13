@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
+//= require tinymce-jquery
 
 // two minutes time idle
 $.idleTimer(120000);
