@@ -1,8 +1,14 @@
 class PostsController < AuthenticatedController
-	
+	include ContentControls
+
 	before_filter	:correct_user, only: :destroy
 	skip_before_filter :signed_in_user, only: [:index, :show]
-	
+
+	def show
+    	@post = get_item(Post, params)
+    	redirect_to request.referer if @post.nil?
+	end
+
 	def create
 		create! do |success, failure|
 			success.html do 
@@ -20,10 +26,12 @@ class PostsController < AuthenticatedController
 	end
 
 	def update
+		@post = Post.find(params[:id])
 		update! { request.referer }
 	end
 
 	def destroy
+		@post = Post.find(params[:id])
 		destroy! { request.referer }
 	end
 

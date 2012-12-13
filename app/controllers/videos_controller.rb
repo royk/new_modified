@@ -1,13 +1,12 @@
 class VideosController < AuthenticatedController
+	include ContentControls
+	
 	before_filter	:correct_user, only: [:destroy, :update]
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
-    	@video = Video.find(params[:id])
-    	unless (signed_in? || @video.public)
-    		@video = nil
-    		redirect_to root_url
-    	end
+    	@video = get_item(Video, params)
+    	redirect_to request.referer if @video.nil?
 	end
 
 	def index
