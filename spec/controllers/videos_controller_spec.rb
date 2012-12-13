@@ -183,9 +183,7 @@ describe VideosController do
 			expect do
 				delete :destroy, id: vid_id
 			end.to change(Video, :count).by(-1)
-			assert_raises(ActiveRecord::RecordNotFound) do
-				Video.find(vid_id)
-			end
+			lambda { Video.find(vid_id) }.should raise_error(ActiveRecord::RecordNotFound)
 		end
 	end
 
