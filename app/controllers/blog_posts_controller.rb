@@ -1,4 +1,7 @@
 class BlogPostsController < AuthenticatedController
+	
+	include UsersHelper
+
 	before_filter	:correct_user,	only: [:edit, :update]
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
