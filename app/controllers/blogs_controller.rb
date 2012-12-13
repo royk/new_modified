@@ -1,5 +1,6 @@
 class BlogsController < AuthenticatedController
 	include BlogScraping
+	include UsersHelper
 
 	skip_before_filter :signed_in_user, only: [:index, :show]
 	
@@ -23,9 +24,21 @@ class BlogsController < AuthenticatedController
 	end
 
 	def perform_import
-		posts = scrape(params[:blog_url], params[:name]) unless (params[:blog_url].nil? ||  params[:name].nil?)
-		create_posts(posts) unless posts.nil?		
-		redirect_to root_url
+		unless current_user.modified_user.nil?
+			posts = scrape(params[:blog_url], current_user.modified_user) unless params[:blog_url].empty?
+			unless posts.nil?
+				create_posts(posts)
+				redirect_to root_url
+			else
+				flash[:errors] = "Couldn't import blog. Please make sure that your Modified user name is correct and that the url you entered directs to the first page of your blog."
+				redirect_to request.referer
+			end
+
+			
+		else
+			flash[:errors] = "You must set your Modified user name in order to import your blog"
+			redirect_to edit_user_url(current_user)
+		end
 	end
 
 	private

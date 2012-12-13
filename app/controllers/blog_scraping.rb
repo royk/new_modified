@@ -3,13 +3,16 @@ module BlogScraping
 	require 'nokogiri'
 
 	def scrape(url, name)
-		my_url = url.dup
+		# remove any page indication from url
+		my_url = url.dup.gsub(/&start=\d*/, "")
 		@name = name
 		@result_posts = []
 		@result_post = nil		
 		@active_post = nil
+		@validated = false
 		curr_page = 0
-		page = Nokogiri::HTML(open(url))
+
+		page = Nokogiri::HTML(open(my_url))
 		# collect all pages needed to be scraped
 		pages = page.css("div.pagination").css("a")
 		pages = pages[pages.count-1]	# last link contains the last blog page
@@ -21,17 +24,19 @@ module BlogScraping
 				new_url = "#{my_url}&start=#{curr_page.to_s}"
 				page = Nokogiri::HTML(open(new_url))
 			end
-			scrape_page(page)		
+			scrape_page(page, curr_page)
+			return nil unless @validated
 			curr_page += 20
 		end
 		return @result_posts
 	end
 
-	def scrape_page(page)
+	def scrape_page(page, index)
 
 		# scrape posts
 		posts = page.css("div.post")
-		posts.each do |post|
+		posts.each_with_index do |post, i|
+
 			# get date
 			date = Date.parse(post.css(".author")[0].children[3].text)
 			# get content
@@ -39,6 +44,14 @@ module BlogScraping
 			content = content.gsub(/\.\/images\/smilies\//i, "/assets/smilies/") # reroute smilies url to our own
 			# get author
 			author = post.css(".author > strong").children[0].text
+			# When reading the first post of the blog, make sure it is posted by the user requesting the import. Otherwise, abort.
+			if index==0 && i==0
+				if author==@name
+					@validated = true
+				else
+					return false
+				end
+			end
 			@result_post = {}
 			@result_post[:date] = date
 			@result_post[:content] = content
