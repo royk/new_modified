@@ -179,9 +179,13 @@ describe VideosController do
 			post :create, video: { url: "http://vimeo.com/53369314" }
 		end
 		it "should delete video" do
+			vid_id = assigns[:video][:id]
 			expect do
-				delete :destroy, id: assigns[:video][:id]
+				delete :destroy, id: vid_id
 			end.to change(Video, :count).by(-1)
+			assert_raises(ActiveRecord::RecordNotFound) do
+				Video.find(vid_id)
+			end
 		end
 	end
 
