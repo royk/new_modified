@@ -20,7 +20,7 @@ module UsersHelper
 		if signed_in?
 			user.name
 		else
-			user.nickname
+			user.shown_name
 		end
 	end
 
