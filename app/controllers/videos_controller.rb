@@ -1,5 +1,6 @@
 class VideosController < AuthenticatedController
 	include ContentControls
+	include VideoScrapers
 	
 	before_filter	:correct_user, only: [:destroy, :update]
 	skip_before_filter :signed_in_user, only: [:index, :show]
@@ -152,14 +153,17 @@ class VideosController < AuthenticatedController
 			youtubeIDLong = url.scan(/(?:youtube\.com\/watch[^\s]*[\?&]v=)([\w-]+)/i);
 			youtubeIdShort = url.scan(/(?:youtu\.be\/)([\w-]+)/i)
 			ret = false
-			if vimeoID.any?
-				ret = {uid: vimeoID[0][0], vendor: "vimeo"}
-			end
-			if youtubeIDLong.any?
-				ret = {uid: youtubeIDLong[0][0], vendor: "youtube"}
-			end
-			if youtubeIdShort.any?
-				ret = {uid: youtubeIdShort[0][0], vendor: "youtube"}
+			ret = {uid: vimeoID[0][0], vendor: "vimeo"} if vimeoID.any?
+			ret = {uid: youtubeIDLong[0][0], vendor: "youtube"} if youtubeIDLong.any?
+			ret = {uid: youtubeIdShort[0][0], vendor: "youtube"} if youtubeIdShort.any?
+			unless ret==true
+				if url.match(/footbag.org/i)
+					footbagorg = footbagorg_scrape(url)
+					if footbagorg
+						footbagorg = footbagorg.scan(/v.footbag.org\/media\/(\d+)\/(.+)/i);
+						ret = {uid: "#{footbagorg[0][0]}/#{footbagorg[0][1]}", vendor: "footbagorg"} if footbagorg.any?
+					end
+				end
 			end
 			return ret
 		end
