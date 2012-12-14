@@ -35,4 +35,11 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.extend VCR::RSpec::Macros
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir     = 'spec/cassettes'
+  c.hook_into                :fakeweb
 end

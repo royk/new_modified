@@ -93,6 +93,18 @@ describe VideosController do
 				
 			end
 		end
+		context "with footbag.org url" do
+			it "should create a new footbagorg video" do
+				uid = "1938/Utterfailure.MOV"
+				VCR.use_cassette 'controller/video_scrape' do
+					expect do
+						post :create, video: {url:"http://www.footbag.org/gallery/show/18168"}
+					end.to change(Video, :count).by(1)
+				assigns[:video][:uid].should eq(uid)
+				assigns[:video][:vendor].should eq("footbagorg")
+				end
+			end
+		end
 		context "with a non-video url" do
 			it "should not create a new video" do
 				expect do
@@ -100,6 +112,7 @@ describe VideosController do
 				end.not_to change(Video, :count)
 			end
 		end
+
 	end
 
 	describe "Update->" do

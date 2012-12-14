@@ -21,6 +21,8 @@ gem 'tinymce-rails'
 group :development, :test do
   gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.11.0'
+  gem "vcr"
+  gem "fakeweb"
 end
 
 group :development do
