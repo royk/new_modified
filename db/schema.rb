@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214060836) do
+ActiveRecord::Schema.define(:version => 20121214185322) do
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(:version => 20121214060836) do
 
   add_index "notifications", ["read"], :name => "index_notifications_on_read"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
+
+  create_table "pages", :force => true do |t|
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "name"
+  end
 
   create_table "posts", :force => true do |t|
     t.text     "content"

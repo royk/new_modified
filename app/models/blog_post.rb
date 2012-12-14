@@ -7,7 +7,7 @@
 #  content    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  public     :boolean
+#  public     :boolean          default(FALSE)
 #
 
 class BlogPost < ActiveRecord::Base

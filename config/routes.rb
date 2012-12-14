@@ -58,6 +58,10 @@ NewModified::Application.routes.draw do
   match '/activities', to: 'notifications#index'
   match '/getnotifications', to: 'notifications#get_latest'
 
+  match 'static/:name', controller: 'pages', action: 'show'
+
+  match 'static/:name/edit', controller: 'pages', action: 'edit'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
