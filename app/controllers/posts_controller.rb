@@ -6,7 +6,6 @@ class PostsController < AuthenticatedController
 
 	def show
     	@post = get_item(Post, params)
-    	redirect_to request.referer if @post.nil?
 	end
 
 	def create

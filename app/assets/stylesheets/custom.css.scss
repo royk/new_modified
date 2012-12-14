@@ -140,6 +140,18 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
 }
 
+.unauthorized {
+  text-align: center;
+  position: relative;
+  top: 50px;
+  h2 {
+    margin-bottom: 0;
+  }
+  img {
+    margin-bottom: 20px;
+  }
+}
+
 .navbar {
   margin-bottom: 0px;
   .brand {

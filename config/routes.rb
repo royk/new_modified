@@ -5,6 +5,8 @@ NewModified::Application.routes.draw do
 
   match '/about', to: 'static_pages#about'
 
+  match '/unauthorized', to: 'static_pages#unauthorized'
+
   match '/contact', to: 'static_pages#contact'
 
   resources :users

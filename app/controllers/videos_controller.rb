@@ -6,7 +6,6 @@ class VideosController < AuthenticatedController
 
 	def show
     	@video = get_item(Video, params)
-    	redirect_to request.referer if @video.nil?
 	end
 
 	def index
