@@ -181,7 +181,7 @@ describe Video do
 					Video.move_to_user_players(@new_user)
 					video.reload
 
-					prev_updated_at.should eq video.updated_at
+					prev_updated_at.to_s.should eq video.updated_at.to_s
 				end
 			end
 		end
@@ -207,7 +207,7 @@ describe Video do
 					video.move_to_named_players(user)
 					video.reload
 
-					prev_updated_at.should eq video.updated_at
+					prev_updated_at.to_s.should eq video.updated_at.to_s
 				end
 			end
 		end
