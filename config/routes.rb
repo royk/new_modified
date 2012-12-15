@@ -60,7 +60,9 @@ NewModified::Application.routes.draw do
 
   match 'static/:name', controller: 'pages', action: 'show', as: "page"
 
-  match 'static/:name/edit', controller: 'pages', action: 'edit', as: "edit_page"
+  match 'static/edit/:name', controller: 'pages', action: 'edit', as: "edit_page"
+
+  match 'static/update/:name', controller: 'pages', action: 'update', via: :put
 
 
   # The priority is based upon order of creation:
