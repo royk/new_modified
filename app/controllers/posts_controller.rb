@@ -1,7 +1,7 @@
 class PostsController < AuthenticatedController
 	include ContentControls
 
-	before_filter	:correct_user, only: :destroy
+	before_filter	:correct_user, only: [:destroy, :edit]
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
