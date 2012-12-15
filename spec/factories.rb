@@ -20,6 +20,7 @@ FactoryGirl.define do
 
 	factory :video do
 		title "some title"
+		url  "http://vimeo.com/53369314"
 		uid  { generate(:random_string) }
 		vendor "youtube"
 		public {true}

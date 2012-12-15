@@ -148,6 +148,70 @@ describe Video do
 				video.user_players.count.should eq 1
 			end
 		end
+		context "named players" do
+			before do
+				@name = "Some Guy"
+				video.add_player(@name)
+				video.save!
+			end
+			context "becoming user players" do
+				before do
+					@new_user = User.new
+					@new_user.name = @name
+					@new_user.email = "lala@fofo.com"
+					@new_user.admin = false
+					@new_user.password = "lalalalal"
+					@new_user.password_confirmation = "lalalalal"
+					@new_user.save!
+				end
+				it "should replace named player with the appropriate user player" do
+					video.players.count.should eq 1 # precondition
+					video.user_players.should be_empty
+
+					Video.move_to_user_players(@new_user)
+					video.reload
+
+					video.players.should be_empty
+					video.user_players.count.should eq 1
+					video.user_players[0].should eq @new_user
+				end
+				it "should not modify the video's timestamp" do
+					prev_updated_at = video.updated_at.dup
+
+					Video.move_to_user_players(@new_user)
+					video.reload
+
+					prev_updated_at.should eq video.updated_at
+				end
+			end
+		end
+		context "user players" do
+			before do
+				video.add_player(user.name)
+				video.save!
+			end
+			context "becoming a named player" do
+				it "should replace user player with named player" do
+					video.user_players.count.should eq 1 # precondition
+					video.players.should be_empty
+
+					video.move_to_named_players(user)
+					video.reload
+
+					video.players.count.should eq 1
+					video.user_players.should be_empty
+				end
+				it "should not modify the video's timestamp" do
+					prev_updated_at = video.updated_at.dup
+
+					video.move_to_named_players(user)
+					video.reload
+
+					prev_updated_at.should eq video.updated_at
+				end
+			end
+		end
+				
 	end
 
 

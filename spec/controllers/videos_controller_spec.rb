@@ -3,7 +3,7 @@ require 'spec_helper'
 describe VideosController do 
 	let(:user) { FactoryGirl.create(:user) }
 	let(:user2) { FactoryGirl.create(:user) }
-	let(:video) { FactoryGirl.create(:video) }
+	let(:video) { FactoryGirl.create(:video, user: user) }
 
 	before do
 		sign_in user
@@ -182,6 +182,54 @@ describe VideosController do
 				put :update, id: @to_edit, video: {public: true}
 				@to_edit.reload
 				@to_edit.public.should be_true
+			end
+		end
+		context "players:" do
+			context "adding" do
+				context "a named player" do
+					it "should add the player to the players list" do
+						put :update, id: video, video: {url: video.url}, Player_0: "Some Guy"
+						video.reload
+						video.players_names.count.should eq 1
+						video.players.count.should eq 1
+					end
+				end
+				context "a user player" do
+					it "should add the player to the players list" do
+						put :update, id: video, video: {url: video.url}, Player_0: user.name
+						video.reload
+						video.players_names.count.should eq 1
+						video.user_players.count.should eq 1
+					end
+				end
+			end
+			context "removing" do
+				context "a named player" do
+					before do
+						video.add_player("Some guy")
+						video.save!
+					end
+					it "should remove the player" do
+						video.players_names.count.should eq 1 # precondition for the test
+						put :update, id: video, video: {url: video.url}, Player_0: ""
+						video.reload
+						video.players_names.should be_empty
+						video.players.should be_empty
+					end
+				end
+				context "a user player" do
+					before do
+						video.add_player(user.name)
+						video.save!
+					end
+					it "should remove the player" do
+						video.players_names.count.should eq 1 # precondition for the test
+						put :update, id: video, video: {url: video.url}, Player_0: ""
+						video.reload
+						video.players_names.should be_empty
+						video.user_players.should be_empty
+					end
+				end
 			end
 		end
 
