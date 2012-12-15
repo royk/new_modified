@@ -10,6 +10,11 @@ class BlogPostsController < AuthenticatedController
 		@blog_post = get_item(BlogPost, params)
 	end
 
+	def edit
+		@blog_post = BlogPost.find(params[:id])
+		edit! { request.referer }
+	end
+
 	def index
 		@blog_posts = privacy_query(BlogPost).paginate(page: params[:page], :per_page => 1)
 		

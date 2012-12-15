@@ -8,6 +8,11 @@ class PostsController < AuthenticatedController
     	@post = get_item(Post, params)
 	end
 
+	def edit
+		@post = Post.find(params[:id])
+		edit! { request.referer }
+	end
+
 	def create
 		create! do |success, failure|
 			success.html do 
