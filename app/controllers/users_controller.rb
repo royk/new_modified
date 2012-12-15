@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       sign_in @user
       flash[:success] = "Welcome to the New Modified!"
       notify_activity_on(@user, current_user)
-      redirect_to edit_user_path(@user)
+      redirect_to "/static/welcome"
     else
       flash[:error] = "Could not sign up"
       render 'new'
