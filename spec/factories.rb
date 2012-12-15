@@ -52,4 +52,9 @@ FactoryGirl.define do
 		sender
 	end
 
+	factory :page do
+		content "i am a page"
+		name "hello"
+	end
+
 end

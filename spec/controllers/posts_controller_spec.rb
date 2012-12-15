@@ -92,7 +92,7 @@ describe PostsController do
 					@non_owner.save!
 					sign_in @non_owner
 				end
-				it "should not allow editing" do
+				it "should allow editing" do
 					get :edit, id:post
 					response.should render_template :edit
 				end
