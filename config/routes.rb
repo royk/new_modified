@@ -27,6 +27,8 @@ NewModified::Application.routes.draw do
 
   resources :posts
 
+  resources :articles
+
   resources :videos do
     get 'search', on: :collection
   end

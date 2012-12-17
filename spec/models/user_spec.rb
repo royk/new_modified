@@ -16,6 +16,7 @@
 #  country         :string(255)
 #  city            :string(255)
 #  modified_user   :string(255)
+#  author          :boolean          default(FALSE)
 #
 
 require 'spec_helper'

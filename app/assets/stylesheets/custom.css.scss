@@ -313,7 +313,33 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
 }
 
 
-  
+/* articles */
+.articles {
+  .article *{
+    display: inline;
+    text-align: left;
+    padding-bottom: 5px;
+  }
+}
+.write_article {
+  display: block;
+  margin-bottom: 10px;
+}
+.article-form {
+  .spacer {
+    padding: 4px;
+  }
+  .post-input {
+    display: block;
+  }
+  label {
+    display: inline;
+  }
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+}
+
 
 /* typography */
 

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214185322) do
+ActiveRecord::Schema.define(:version => 20121217100446) do
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "user_id"
+    t.boolean  "public",     :default => true
+    t.boolean  "published"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -135,14 +145,15 @@ ActiveRecord::Schema.define(:version => 20121214185322) do
     t.string   "remember_token"
     t.string   "password_digest"
     t.boolean  "admin"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "gravatar_suffix"
     t.string   "nickname"
     t.string   "reset_code"
     t.string   "country"
     t.string   "city"
     t.string   "modified_user"
+    t.boolean  "author",          :default => false
   end
 
   add_index "users", ["country"], :name => "index_users_on_country"
