@@ -2,6 +2,7 @@ class ArticlesController < AuthenticatedController
 	include ContentControls
 
 	before_filter	:correct_user, only: [:destroy, :edit]
+	before_filter   :author, only: [:create]
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
@@ -49,6 +50,13 @@ class ArticlesController < AuthenticatedController
 	end
 
 	private
+
+		def author
+			unless current_user.admin? || current_user.author?
+				redirect_to root_url
+			end
+		end
+		
 		def begin_of_association_chain
 			current_user
 		end

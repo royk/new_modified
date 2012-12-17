@@ -58,4 +58,10 @@ FactoryGirl.define do
 		name "hello"
 	end
 
+	factory :article do
+		content "i am an article"
+		title "Title"
+		user
+	end
+
 end
