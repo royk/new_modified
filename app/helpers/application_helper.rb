@@ -65,4 +65,17 @@ module ApplicationHelper
 		end
 	end
 
+	def first_time_visitor?
+		last_visit = cookies[:NM]
+		if last_visit.nil?
+			create_visit_cookie
+		else
+			return false
+		end
+	end
+
+	def create_visit_cookie
+		cookies.permanent[:NM] = Time.now
+	end
+
 end
