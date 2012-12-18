@@ -76,10 +76,12 @@ class VideosController < AuthenticatedController
 =end
 
 	def update
+		@video.record_timestamps = false if current_user.admin? && @video.user!=current_user
 		update_players
 		@video.update_attribute(:public, params[:video][:public]) unless params[:video][:public].nil?
 		save_video(params[:video][:url]) unless params[:video][:url].nil?
 		flash[:success] = "Video modified"
+		@video.record_timestamps = true
 		redirect_to request.referer
 	end
 

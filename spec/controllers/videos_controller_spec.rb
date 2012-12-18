@@ -122,6 +122,9 @@ describe VideosController do
 			@to_edit.uid = "53369314"
 			@to_edit.vendor = "vimeo"
 		end
+		context "with admin" do
+			pending "check that timestamps aren't affected by admin change"
+		end
 		context "with wrong user" do
 			before do
 				@to_edit.user = user2

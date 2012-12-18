@@ -31,7 +31,9 @@ class PostsController < AuthenticatedController
 
 	def update
 		@post = Post.find(params[:id])
+		@post.record_timestamps = false if current_user.admin? && @post.user!=current_user
 		update! { request.referer }
+		@post.record_timestamps = true
 	end
 
 	def destroy
