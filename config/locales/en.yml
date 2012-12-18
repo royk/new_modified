@@ -50,3 +50,5 @@ en:
     make_public: "Make Public"
     make_private: "Make Private"
 
+# Blog related
+    post: "Post"
