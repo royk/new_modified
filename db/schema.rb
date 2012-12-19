@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121217100446) do
+ActiveRecord::Schema.define(:version => 20121219050508) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -21,7 +21,10 @@ ActiveRecord::Schema.define(:version => 20121217100446) do
     t.boolean  "published"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.string   "permalink"
   end
+
+  add_index "articles", ["permalink"], :name => "index_articles_on_permalink"
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -154,6 +157,13 @@ ActiveRecord::Schema.define(:version => 20121217100446) do
     t.string   "city"
     t.string   "modified_user"
     t.boolean  "author",          :default => false
+    t.datetime "birthday"
+    t.datetime "started_playing"
+    t.boolean  "bap",             :default => false
+    t.string   "bap_name"
+    t.datetime "bap_induction"
+    t.string   "motto"
+    t.text     "hobbies"
   end
 
   add_index "users", ["country"], :name => "index_users_on_country"

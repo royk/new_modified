@@ -6,7 +6,7 @@ class ArticlesController < AuthenticatedController
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
-		@article = get_item(Article, params)
+		@article = get_item_permalink(Article, params)
 	end
 
 	def edit
@@ -21,6 +21,7 @@ class ArticlesController < AuthenticatedController
 				redirect_to request.referer
 			end
 			failure.html do
+				flash[:error] = "Could not create article. It must have a unique title and some content."
 				redirect_to request.referer
 			end
 		end
@@ -40,12 +41,12 @@ class ArticlesController < AuthenticatedController
 	end
 
 	def update
-		@article = Article.find(params[:id])
+		@article = Article.find_by_permalink(params[:id])
 		update! { request.referer }
 	end
 
 	def destroy
-		@article = Article.find(params[:id])
+		@article = Article.find_by_permalink(params[:id])
 		destroy! { request.referer }
 	end
 

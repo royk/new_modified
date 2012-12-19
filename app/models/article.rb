@@ -13,15 +13,18 @@
 #
 
 class Article < ActiveRecord::Base
-  attr_accessible :content, :public, :published, :title
+	has_permalink 
 
-  belongs_to :user
+	attr_accessible :content, :public, :published, :title
 
-  has_many :comments, as: :commentable, order: 'created_at ASC'
-  has_many :likes, as: :liked_item
+	belongs_to :user
+
+	has_many :comments, as: :commentable, order: 'created_at ASC'
+	has_many :likes, as: :liked_item
   
-  has_many :notifications, as: :item, dependent: :destroy
+	has_many :notifications, as: :item, dependent: :destroy
 
-  validates :user_id, presence: true
-  validates_length_of :content, :minimum => 1, maximum: 9999, presence: true
+	validates :user_id, presence: true
+	validates_length_of :content, :minimum => 1, maximum: 9999, presence: true
+	validates :title, allow_blank: false, uniqueness: {case_sensitive: true}
 end

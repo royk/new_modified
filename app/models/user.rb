@@ -17,6 +17,13 @@
 #  city            :string(255)
 #  modified_user   :string(255)
 #  author          :boolean          default(FALSE)
+#  birthday        :datetime
+#  started_playing :datetime
+#  bap             :boolean          default(FALSE)
+#  bap_name        :string(255)
+#  bap_induction   :datetime
+#  motto           :string(255)
+#  hobbies         :text
 #
 
 class User < ActiveRecord::Base

@@ -16,6 +16,7 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'rails-i18n'
 gem 'nokogiri'
 gem 'tinymce-rails'
+gem 'has_permalink'
 
 
 group :development, :test do
