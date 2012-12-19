@@ -1,6 +1,10 @@
 
 require 'simplecov'
-
+require 'coveralls'
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
 SimpleCov.start 'rails'
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
@@ -46,5 +50,6 @@ end
 
 VCR.configure do |c|
   c.cassette_library_dir     = 'spec/cassettes'
+  c.allow_http_connections_when_no_cassette = true
   c.hook_into                :fakeweb
 end

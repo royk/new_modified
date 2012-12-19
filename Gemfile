@@ -18,6 +18,7 @@ gem 'nokogiri'
 gem 'tinymce-rails'
 gem 'has_permalink'
 gem 'carrierwave'
+gem 'coveralls', require: false
 
 
 group :development, :test do
