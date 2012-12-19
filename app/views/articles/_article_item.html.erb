@@ -2,7 +2,7 @@
 	<% begin %>
 		<h2><%= link_to article_item.title, article_path(article_item) %></h2>
 	<% rescue %>
-		<% article.generate_permalink! %>
+		<% article_item.generate_permalink! %>
 	<% end %>
 	- <h4><%= "#{t(:by_author)} #{article_item.user.shown_name}" %></h4>
 	<% if signed_in? && (current_user.admin? || current_user==article_item.user) %>
