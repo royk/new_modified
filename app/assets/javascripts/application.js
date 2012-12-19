@@ -56,6 +56,16 @@ NM = (function() {
 	
 
 	return {
+		tooltip: function tooltip(elem_name, content, params) {
+			if (!params) {
+				params = {style:{tip:true, border:{width:3}}};
+			}
+			params.content = content;
+			$(document).ready(function() {
+				$(elem_name).qtip(params);
+			});
+		},
+
 		multiField: function multiField(params) {
 			var idParts = $(params.mold).attr('id').split('_');
 			$(params.container).append("<a id='moreButton' class='multifield'>"+params.moreText+"</a>");

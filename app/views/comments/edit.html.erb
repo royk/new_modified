@@ -1,5 +1,5 @@
 <div class="feed">
 	<div class="feed-item">
-		<%= render '/shared/edit_content_item', :feed_item => @comment %>
+		<%= render '/shared/edit_content_item', :feed_item => @comment, user: @comment.commenter %>
 	</div>
 </div>

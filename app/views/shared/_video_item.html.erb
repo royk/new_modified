@@ -10,6 +10,9 @@
 	<% if feed_item.vendor=="vimeo" %>
 		<%= render 'shared/vimeo_video', :uid => feed_item.uid %>
 	<% end %>
+	<% if feed_item.vendor=="footbagorg" %>
+		<%= render 'shared/videos/footbagorg_video', :uid => feed_item.uid %>
+	<% end %>
 	<div class="meta-bottom">
 		<% players = (feed_item.user_players||[]) +  (feed_item.players||[]) %>
 		<% if players.any? %>

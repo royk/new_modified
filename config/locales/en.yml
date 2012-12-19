@@ -14,6 +14,7 @@ en:
     blogs: "Blogs"
     users: "Users"
     about: "About"
+    articles: "Articles"
 
 # footer
     footer_text1: "Built and maintained by"    
@@ -29,3 +30,25 @@ en:
 # Videos page
     videos_feed: "Videos feed"   
     search: "search" 
+
+# Articles
+    write_an_article: "Write an article..."  
+    unpublish: "Unpublish"  
+    publish: "Publish"
+    published: "Published"
+    by_author: "By"
+    publish_input: "Publish:"
+    public_input_tooltip: "Public articles are visible to non site members. You can always change this later."
+    publish_input_tooltip: "Unpublished articles are visible only to you and to admins. You can always publish the article later."
+
+
+# General controls
+    delete: "Delete"  
+    delete_confirmation: "Are you sure?"  
+    public: "Public"
+    public_input: "Public:"
+    make_public: "Make Public"
+    make_private: "Make Private"
+
+# Blog related
+    post: "Post"

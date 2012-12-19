@@ -11,14 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210210602) do
+ActiveRecord::Schema.define(:version => 20121219050508) do
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "user_id"
+    t.boolean  "public",     :default => true
+    t.boolean  "published"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.string   "permalink"
+  end
+
+  add_index "articles", ["permalink"], :name => "index_articles_on_permalink"
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.boolean  "public"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "public",     :default => false
   end
 
   add_index "blog_posts", ["blog_id", "created_at"], :name => "index_blog_posts_on_blog_id_and_created_at"
@@ -92,6 +105,13 @@ ActiveRecord::Schema.define(:version => 20121210210602) do
   add_index "notifications", ["read"], :name => "index_notifications_on_read"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
 
+  create_table "pages", :force => true do |t|
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "name"
+  end
+
   create_table "posts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -126,16 +146,24 @@ ActiveRecord::Schema.define(:version => 20121210210602) do
     t.string   "name"
     t.string   "email"
     t.string   "remember_token"
-    t.boolean  "admin"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
     t.string   "password_digest"
+    t.boolean  "admin"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "gravatar_suffix"
     t.string   "nickname"
     t.string   "reset_code"
     t.string   "country"
     t.string   "city"
     t.string   "modified_user"
+    t.boolean  "author",          :default => false
+    t.datetime "birthday"
+    t.datetime "started_playing"
+    t.boolean  "bap",             :default => false
+    t.string   "bap_name"
+    t.datetime "bap_induction"
+    t.string   "motto"
+    t.text     "hobbies"
   end
 
   add_index "users", ["country"], :name => "index_users_on_country"

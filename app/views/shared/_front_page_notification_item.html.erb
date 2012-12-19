@@ -17,7 +17,11 @@
 				<% elsif notification_item.item_type.downcase=="user" %>
 					<%= notification_item.join_message %>
 				<% else %>
-					created a new <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+					<% begin %>
+						created a new <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+					<% rescue %>
+						created a new <%= notification_item.item_type.downcase %>
+					<% end %>
 				<% end %>
 			</span>
 			<div class="timestamp">

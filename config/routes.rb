@@ -5,6 +5,8 @@ NewModified::Application.routes.draw do
 
   match '/about', to: 'static_pages#about'
 
+  match '/unauthorized', to: 'static_pages#unauthorized'
+
   match '/contact', to: 'static_pages#contact'
 
   resources :users
@@ -24,6 +26,8 @@ NewModified::Application.routes.draw do
 
 
   resources :posts
+
+  resources :articles
 
   resources :videos do
     get 'search', on: :collection
@@ -55,6 +59,12 @@ NewModified::Application.routes.draw do
   resources :notifications, only: [:index]
   match '/activities', to: 'notifications#index'
   match '/getnotifications', to: 'notifications#get_latest'
+
+  match 'static/:name', controller: 'pages', action: 'show', as: "page"
+
+  match 'static/edit/:name', controller: 'pages', action: 'edit', as: "edit_page"
+
+  match 'static/update/:name', controller: 'pages', action: 'update', via: :put
 
 
   # The priority is based upon order of creation:

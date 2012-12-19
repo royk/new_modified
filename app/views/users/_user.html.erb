@@ -21,6 +21,11 @@
 		<% else %>
 			| <%= link_to "Make Admin", user_path(user, admin: true),method: :put  %>
 		<% end %>
+		<% if user.author? %>
+			| <%= link_to "Revoke Author status", user_path(user, author: false),method: :put  %>
+		<% else %>
+			| <%= link_to "Make Author", user_path(user, author: true),method: :put  %>
+		<% end %>
 		|	<%= link_to "delete", user, method: :delete, data: {confirm: "You sure?"} %>
 	<% end %>
 	

@@ -16,6 +16,14 @@
 #  country         :string(255)
 #  city            :string(255)
 #  modified_user   :string(255)
+#  author          :boolean          default(FALSE)
+#  birthday        :datetime
+#  started_playing :datetime
+#  bap             :boolean          default(FALSE)
+#  bap_name        :string(255)
+#  bap_induction   :datetime
+#  motto           :string(255)
+#  hobbies         :text
 #
 
 class User < ActiveRecord::Base
@@ -27,6 +35,8 @@ class User < ActiveRecord::Base
   before_save :create_remember_token
 
   has_many :posts, dependent: :destroy
+
+  has_many :articles
 
   has_many :videos
   has_and_belongs_to_many :appears_in_videos, class_name: "Video", uniq: true

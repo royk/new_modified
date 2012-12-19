@@ -1,0 +1,28 @@
+<div class="feed" id="article_form" style="display:none;">
+	<div class="feed-item head-element" id="feed-form">
+		<%= render '/shared/feed_info', user: current_user %>
+		<div class="content input-form article-form">
+			<div id="post-form">
+				<%= form_for(Article.create()) do |f| %>
+					<%= f.text_field(:title, class: "post-input", placeholder: "Title") %>
+					
+					<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"tinymce")%>
+					<%= tinymce %>
+					<div class="spacer"></div>
+					<%= f.label t(:public_input), id:"public_input_label" %>
+					<script>
+						NM.tooltip("#public_input_label","<%= t(:public_input_tooltip) %>");
+					</script>
+					<%= f.check_box :public %>
+					<%= f.label t(:publish_input), id:"publish_input_label" %>
+					<script>
+						NM.tooltip("#publish_input_label","<%= t(:publish_input_tooltip) %>");
+					</script>
+					<%= f.check_box :published %>
+					<div class="spacer"></div>
+					<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

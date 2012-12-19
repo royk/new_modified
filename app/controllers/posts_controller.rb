@@ -1,8 +1,18 @@
 class PostsController < AuthenticatedController
-	
-	before_filter	:correct_user, only: :destroy
+	include ContentControls
+
+	before_filter	:correct_user, only: [:destroy, :edit]
 	skip_before_filter :signed_in_user, only: [:index, :show]
-	
+
+	def show
+    	@post = get_item(Post, params)
+	end
+
+	def edit
+		@post = Post.find(params[:id])
+		edit! { request.referer }
+	end
+
 	def create
 		create! do |success, failure|
 			success.html do 
@@ -20,10 +30,14 @@ class PostsController < AuthenticatedController
 	end
 
 	def update
+		@post = Post.find(params[:id])
+		@post.record_timestamps = false if current_user.admin? && @post.user!=current_user
 		update! { request.referer }
+		@post.record_timestamps = true
 	end
 
 	def destroy
+		@post = Post.find(params[:id])
 		destroy! { request.referer }
 	end
 

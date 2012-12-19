@@ -1,13 +1,18 @@
 class BlogPostsController < AuthenticatedController
+
+	include UsersHelper
+	include ContentControls
+
 	before_filter	:correct_user,	only: [:edit, :update]
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
+		@blog_post = get_item(BlogPost, params)
+	end
+
+	def edit
 		@blog_post = BlogPost.find(params[:id])
-		if !signed_in? && @blog_post.public==false
-    		@blog_post = nil
-    		redirect_to root_url
-		end
+		edit! { request.referer }
 	end
 
 	def index

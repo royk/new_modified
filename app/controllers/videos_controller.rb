@@ -1,13 +1,12 @@
 class VideosController < AuthenticatedController
+	include ContentControls
+	include VideoMatchers
+	
 	before_filter	:correct_user, only: [:destroy, :update]
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
-    	@video = Video.find(params[:id])
-    	unless (signed_in? || @video.public)
-    		@video = nil
-    		redirect_to root_url
-    	end
+    	@video = get_item(Video, params)
 	end
 
 	def index
@@ -77,10 +76,12 @@ class VideosController < AuthenticatedController
 =end
 
 	def update
+		@video.record_timestamps = false if current_user.admin? && @video.user!=current_user
 		update_players
 		@video.update_attribute(:public, params[:video][:public]) unless params[:video][:public].nil?
 		save_video(params[:video][:url]) unless params[:video][:url].nil?
 		flash[:success] = "Video modified"
+		@video.record_timestamps = true
 		redirect_to request.referer
 	end
 
@@ -150,19 +151,6 @@ class VideosController < AuthenticatedController
 		end
 
 		def get_uid_vendor(url)
-			vimeoID = url.scan(/vimeo\.com\/(\d+)$/i)
-			youtubeIDLong = url.scan(/(?:youtube\.com\/watch[^\s]*[\?&]v=)([\w-]+)/i);
-			youtubeIdShort = url.scan(/(?:youtu\.be\/)([\w-]+)/i)
-			ret = false
-			if vimeoID.any?
-				ret = {uid: vimeoID[0][0], vendor: "vimeo"}
-			end
-			if youtubeIDLong.any?
-				ret = {uid: youtubeIDLong[0][0], vendor: "youtube"}
-			end
-			if youtubeIdShort.any?
-				ret = {uid: youtubeIdShort[0][0], vendor: "youtube"}
-			end
-			return ret
+			match_youtube(url) || match_vimeo(url) || match_footbag_org(url)
 		end
 end

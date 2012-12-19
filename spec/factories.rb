@@ -20,6 +20,7 @@ FactoryGirl.define do
 
 	factory :video do
 		title "some title"
+		url  "http://vimeo.com/53369314"
 		uid  { generate(:random_string) }
 		vendor "youtube"
 		public {true}
@@ -50,6 +51,17 @@ FactoryGirl.define do
 	factory :message do
 		content "some message"
 		sender
+	end
+
+	factory :page do
+		content "i am a page"
+		name "hello"
+	end
+
+	factory :article do
+		content "i am an article"
+		title "Title"
+		user
 	end
 
 end

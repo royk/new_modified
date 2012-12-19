@@ -40,7 +40,7 @@ module ApplicationHelper
 		notification.item = item
 		notification.action = action
 
-		notification.public = defined?(item.public) ? item.public : true
+		notification.public = true
 		notification.save
 	end
 
@@ -63,6 +63,19 @@ module ApplicationHelper
 		else
 			collection.where(public: true)
 		end
+	end
+
+	def first_time_visitor?
+		last_visit = cookies[:NM]
+		if last_visit.nil?
+			create_visit_cookie
+		else
+			return false
+		end
+	end
+
+	def create_visit_cookie
+		cookies.permanent[:NM] = Time.now
 	end
 
 end

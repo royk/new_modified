@@ -3,7 +3,7 @@ require 'spec_helper'
 describe VideosController do 
 	let(:user) { FactoryGirl.create(:user) }
 	let(:user2) { FactoryGirl.create(:user) }
-	let(:video) { FactoryGirl.create(:video) }
+	let(:video) { FactoryGirl.create(:video, user: user) }
 
 	before do
 		sign_in user
@@ -93,6 +93,18 @@ describe VideosController do
 				
 			end
 		end
+		context "with footbag.org url" do
+			it "should create a new footbagorg video" do
+				uid = "1938/Utterfailure.MOV"
+				VCR.use_cassette 'controller/video_scrape' do
+					expect do
+						post :create, video: {url:"http://www.footbag.org/gallery/show/18168"}
+					end.to change(Video, :count).by(1)
+				assigns[:video][:uid].should eq(uid)
+				assigns[:video][:vendor].should eq("footbagorg")
+				end
+			end
+		end
 		context "with a non-video url" do
 			it "should not create a new video" do
 				expect do
@@ -100,6 +112,7 @@ describe VideosController do
 				end.not_to change(Video, :count)
 			end
 		end
+
 	end
 
 	describe "Update->" do
@@ -108,6 +121,9 @@ describe VideosController do
 			@to_edit.url = "http://vimeo.com/53369314"
 			@to_edit.uid = "53369314"
 			@to_edit.vendor = "vimeo"
+		end
+		context "with admin" do
+			pending "check that timestamps aren't affected by admin change"
 		end
 		context "with wrong user" do
 			before do
@@ -171,6 +187,54 @@ describe VideosController do
 				@to_edit.public.should be_true
 			end
 		end
+		context "players:" do
+			context "adding" do
+				context "a named player" do
+					it "should add the player to the players list" do
+						put :update, id: video, video: {url: video.url}, Player_0: "Some Guy"
+						video.reload
+						video.players_names.count.should eq 1
+						video.players.count.should eq 1
+					end
+				end
+				context "a user player" do
+					it "should add the player to the players list" do
+						put :update, id: video, video: {url: video.url}, Player_0: user.name
+						video.reload
+						video.players_names.count.should eq 1
+						video.user_players.count.should eq 1
+					end
+				end
+			end
+			context "removing" do
+				context "a named player" do
+					before do
+						video.add_player("Some guy")
+						video.save!
+					end
+					it "should remove the player" do
+						video.players_names.count.should eq 1 # precondition for the test
+						put :update, id: video, video: {url: video.url}, Player_0: ""
+						video.reload
+						video.players_names.should be_empty
+						video.players.should be_empty
+					end
+				end
+				context "a user player" do
+					before do
+						video.add_player(user.name)
+						video.save!
+					end
+					it "should remove the player" do
+						video.players_names.count.should eq 1 # precondition for the test
+						put :update, id: video, video: {url: video.url}, Player_0: ""
+						video.reload
+						video.players_names.should be_empty
+						video.user_players.should be_empty
+					end
+				end
+			end
+		end
 
 	end
 
@@ -179,9 +243,11 @@ describe VideosController do
 			post :create, video: { url: "http://vimeo.com/53369314" }
 		end
 		it "should delete video" do
+			vid_id = assigns[:video][:id]
 			expect do
-				delete :destroy, id: assigns[:video][:id]
+				delete :destroy, id: vid_id
 			end.to change(Video, :count).by(-1)
+			lambda { Video.find(vid_id) }.should raise_error(ActiveRecord::RecordNotFound)
 		end
 	end
 

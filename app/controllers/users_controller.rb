@@ -43,6 +43,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     unless @user.nil?
       update_user_admin unless params[:admin].nil?
+      update_user_author unless params[:author].nil?
       update_user_normal unless params[:user].nil?
     else
       redirect_to request.referer
@@ -70,7 +71,7 @@ class UsersController < ApplicationController
       sign_in @user
       flash[:success] = "Welcome to the New Modified!"
       notify_activity_on(@user, current_user)
-      redirect_to edit_user_path(@user)
+      redirect_to "/static/welcome"
     else
       flash[:error] = "Could not sign up"
       render 'new'
@@ -81,6 +82,11 @@ class UsersController < ApplicationController
 
     def update_user_admin
       @user.update_attribute(:admin, params[:admin]) if current_user.admin?
+      redirect_to request.referer
+    end
+
+    def update_user_author
+      @user.update_attribute(:author, params[:author]) if current_user.admin?
       redirect_to request.referer
     end
 

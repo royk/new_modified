@@ -16,10 +16,14 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'rails-i18n'
 gem 'nokogiri'
 gem 'tinymce-rails'
+gem 'has_permalink'
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.11.0'
+  gem "vcr"
+  gem "fakeweb"
 end
 
 group :development do
@@ -42,6 +46,7 @@ group :test do
   gem 'capybara', '1.1.2'
   gem 'factory_girl_rails', '4.1.0'
   gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :production do
