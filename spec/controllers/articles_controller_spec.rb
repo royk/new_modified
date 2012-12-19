@@ -59,6 +59,7 @@ describe ArticlesController do
 	describe "destroy->" do
 		before do
 			article.save!
+			article.generate_permalink!
 		end
 		context "when signed out" do
 			it "should not be allowed" do

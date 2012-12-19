@@ -64,7 +64,7 @@ class ArticlesController < AuthenticatedController
 
 		def correct_user
 			if !current_user.admin?
-				@article = current_user.articles.find_by_id(params[:id])
+				@article = current_user.articles.find_by_permalink(params[:id])
 				redirect_to root_url if @article.nil?
 			end
 		end
