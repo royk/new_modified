@@ -1,5 +1,7 @@
 @import "bootstrap";
 
+/* fonts */
+@import url(http://fonts.googleapis.com/css?family=Arvo);
 /* vars */
 $lightYellow: #f9ed9d;
 $linkColor: #08C;
@@ -340,6 +342,59 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
 }
 
+/* profile */
+.overlay {
+    position:fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    z-index: -9999;
+  }
+.profile {
+
+  
+  h1 {
+    color: white;
+    font-family: 'Arvo', serif;
+    font-weight: normal;
+    text-align: left;
+    font-size: 2.8em;
+    margin-bottom: 25px;
+    margin-top: 10px;
+  }
+  .user-avatar {
+    img {
+      position: absolute;
+      @include boxShadow(-3px 3px 7px #000);
+    }
+  }
+  .feed-item-container {
+    @include boxShadow(-3px 3px 7px #000);
+  }
+}
+body.body-profile {
+ // background:url(/assets/roy_demo.jpg) no-repeat center center fixed;
+}
+
+.profile-nav {
+  margin-bottom: 70px;
+  margin-top: 20px;
+  li {
+    color: #DDD;
+    font-family: 'Arvo', serif;
+    float: left;
+    padding-right:20px;
+    font-size: 2em;
+    cursor: pointer;
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+}
 
 /* typography */
 

@@ -17,6 +17,7 @@ gem 'rails-i18n'
 gem 'nokogiri'
 gem 'tinymce-rails'
 gem 'has_permalink'
+gem 'carrierwave'
 
 
 group :development, :test do
