@@ -53,10 +53,7 @@ describe PagesController do
 				end
 				context "but is also an admin" do
 					before do
-						sign_out
-						user.admin = true
-						user.save!
-						sign_in user
+						make_signed_in_admin(user)
 					end
 					it "should create a page" do
 						expect do
@@ -68,6 +65,42 @@ describe PagesController do
 						response.should render_template :show
 					end
 				end
+			end
+		end
+	end
+
+	describe "update->" do
+		before do
+			@new_content = "I am the new content"
+		end
+		context "when user is signed out" do
+			it "should redirect to unauthorized" do
+				post :update, name: mypage.name, content: @new_content
+				response.should redirect_to unauthorized_url
+			end
+		end
+		context "when user is signed in" do
+			before do
+				sign_in user
+			end
+			it "should redirect to unauthorized" do
+				post :update, name: mypage.name, content: @new_content
+				response.should redirect_to unauthorized_url
+			end
+			context "but is an admin" do
+				before do
+					make_signed_in_admin(user)
+				end
+				it "should change content" do
+					post :update, name: mypage.name, content: @new_content
+					mypage.reload
+					mypage.content.should eq @new_content
+				end
+				it "should redirect to the page" do
+					post :update, name: mypage.name, content: @new_content
+					response.should redirect_to page_path(mypage.name)
+				end
+
 			end
 		end
 	end

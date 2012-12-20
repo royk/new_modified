@@ -1,3 +1,11 @@
+def make_signed_in_admin(_user)
+	sign_out
+	_user.admin = true
+	_user.save!
+	sign_in _user
+end
+
+
 def sign_in(_user)
 	if @signed_in
 		sign_out
