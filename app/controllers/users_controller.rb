@@ -18,9 +18,11 @@ class UsersController < ApplicationController
   end
 
   def clear_notifications
-    current_user.notifications.where(read: false).each do |n|
-      n.read = true;
-      n.save
+    unless current_user.nil?
+      current_user.notifications.where(read: false).each do |n|
+        n.read = true;
+        n.save
+      end
     end
     render :text => ""
   end
