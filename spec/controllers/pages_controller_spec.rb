@@ -8,6 +8,71 @@ describe PagesController do
 		request.env["HTTP_REFERER"] = "where_i_came_from"
 	end
 
+	describe "show->" do
+		context "when page exists" do
+			context "and user is signed out" do
+				it "should show" do
+					get :show, name: mypage.name
+					response.should render_template :show
+				end
+			end
+			context "and user is signed in" do
+				before do
+					sign_in user
+				end
+				it "should show" do
+					get :show, name: mypage.name
+					response.should render_template :show
+				end
+			end
+		end
+		context "when page doesn't exist" do
+			before do
+				@new_page_name = "new page"
+			end
+			context "and user is signed out" do
+				it "shouldn't create a page" do
+					expect do
+						get :show, name: @new_page_name
+					end.to_not change(Page, :count)
+				end
+				it "should redirect to unauthorized" do
+					get :show, name: @new_page_name
+					response.should redirect_to unauthorized_url
+				end
+			end
+			context "and user is signed in" do
+				it "shouldn't create a page" do
+					expect do
+						get :show, name: @new_page_name
+					end.to_not change(Page, :count)
+				end
+				it "should redirect to unauthorized" do
+					get :show, name: @new_page_name
+					response.should redirect_to unauthorized_url
+				end
+				context "but is also an admin" do
+					before do
+						sign_out
+						user.admin = true
+						user.save!
+						sign_in user
+					end
+					it "should create a page" do
+						expect do
+							get :show, name: @new_page_name
+						end.to change(Page, :count).by 1
+					end
+					it "should show" do
+						get :show, name: mypage.name
+						response.should render_template :show
+					end
+				end
+			end
+		end
+	end
+
+
 	describe "edit->" do
 		context "when logged out" do
 			it "should not allow editing" do

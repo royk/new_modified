@@ -2,11 +2,13 @@ class PagesController < ApplicationController
 	before_filter :admin_only, only: [:edit, :update]
 	def show
 		@page = Page.find_by_name(params[:name])
-		if @page.nil?
-			@page = Page.new
-			@page.name = params[:name]
-			@page.content = ""
-			@page.save
+		if @page.nil? 
+			unless admin_only
+				@page = Page.new
+				@page.name = params[:name]
+				@page.content = ""
+				@page.save
+			end
 		end
 	end
 
@@ -25,7 +27,7 @@ class PagesController < ApplicationController
 
 	private
 		def admin_only
-			unless signed_in? && current_user.admin?
+			unless admin?
 				redirect_to unauthorized_url
 			end
 		end
