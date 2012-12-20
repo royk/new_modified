@@ -27,7 +27,7 @@ class MessagesController < AuthenticatedController
 	def mark_as_read
 		unread_messages = current_user.received_messages.where(read: false).order('id desc').limit(10)
 		unread_messages.each do |m|
-			m.read = true
+			m.update_attribute(:read, true)
 			m.save
 		end
 		redirect_to request.referer
