@@ -28,6 +28,18 @@ describe MessagesController do
 						get :show, id: @message
 						response.should_not render_template :show
 					end
+					context "but is an admin" do
+						before { make_signed_in_admin user}
+						it "should show" do
+							get :show, id: @message
+							response.should render_template :show
+						end
+						it "should remain unread" do
+							get :show, id: @message
+							@message.reload
+							@message.read.should be_false
+						end
+					end
 				end
 				context "and is sender" do
 					before do
