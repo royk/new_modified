@@ -11,6 +11,48 @@ describe BlogsController do
 		user.reload
 	end
 
+	describe "show->" do
+		before do
+			@public_post = blog.blog_posts.new
+			@public_post.public = true
+			@public_post.content = "I'm public"
+			@public_post.save!
+
+			@private_post = blog.blog_posts.new
+			@private_post.public = false
+			@private_post.content = "I'm public"
+			@private_post.save!
+		end
+		context "when signed out" do
+			it "should render show" do
+				get :show, id:blog
+				response.should render_template :show
+			end
+			it "should get blog" do
+				get :show, id:blog
+				assigns(:blog).should_not be_nil
+			end
+			it "should get public blog posts" do
+				get :show, id:blog
+				assigns(:blog_posts).should_not be_nil
+				assigns(:blog_posts).should include @public_post
+				assigns(:blog_posts).should_not include @private_post
+			end
+		end
+		context "when signed in" do
+			it "should render show" do
+				get :show, id:blog
+				response.should render_template :show
+			end
+			it "should get blog" do
+				get :show, id:blog
+				assigns(:blog).should_not be_nil
+			end
+			it "should get public&private blog posts" do
+			end
+		end
+	end
+
 	describe "scrape from modified->" do
 		before do
 			@blog_url = "http://modified.in/footbag/viewtopic.php?f=14&t=22868"
