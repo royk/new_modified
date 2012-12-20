@@ -5,7 +5,62 @@ describe MessagesController do
 
 	before do
 		request.env["HTTP_REFERER"] = "where_i_came_from"
-		
+	end
+
+	describe "show->" do
+		context "with an existing message" do
+			before do
+				@message = Message.new
+				@message.content = "message body"
+				@message.read = false
+				@message.save!
+			end
+			context "when signed out" do
+				it "shouldn't show" do
+					get :show, id: @message
+					response.should_not render_template :show
+				end
+			end
+			context "when signed in" do
+				before { sign_in user }
+				context "and neither sender or recipient" do
+					it "shouldn't show" do
+						get :show, id: @message
+						response.should_not render_template :show
+					end
+				end
+				context "and is sender" do
+					before do
+						@message.sender = user
+						@message.save!
+					end
+					it "should show" do
+						get :show, id: @message
+						response.should render_template :show
+					end
+					it "should remain unread" do
+						get :show, id: @message
+						@message.reload
+						@message.read.should be_false
+					end
+				end
+				context "and is recipient" do
+					before do
+						@message.recipient = user
+						@message.save!
+					end
+					it "should show" do
+						get :show, id: @message
+						response.should render_template :show
+					end
+					it "should mark as read" do
+						get :show, id: @message
+						@message.reload
+						@message.read.should be_true
+					end
+				end
+			end
+		end
 	end
 
 	describe "create->" do

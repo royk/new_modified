@@ -13,8 +13,10 @@ class MessagesController < AuthenticatedController
 
 	def show
 		@message = Message.find(params[:id])
-		@message.read = true
-		@message.save
+		if current_user==@message.recipient
+			@message.update_attribute(:read, true)
+			@message.save
+		end
 	end
 
 	def get_latest
