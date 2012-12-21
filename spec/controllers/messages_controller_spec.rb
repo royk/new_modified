@@ -84,6 +84,7 @@ describe MessagesController do
 				before do
 					@recipient = User.new
 					@recipient.name = "loko boko"
+					@recipient.nickname = "lobo"
 					@recipient.email = "lala@fofo.com"
 					@recipient.admin = false
 					@recipient.password = "lalalalal"
@@ -101,6 +102,13 @@ describe MessagesController do
 							expect do
 								post :create, recipient: @recipient.name, message: {content: "yayo"}
 							end.to change(Conversation, :count).by(1)
+						end
+					end
+					context "using the recipient's nickname" do
+						it "should create a message" do
+							expect do
+								post :create, recipient: @recipient.nickname, message: {content: "yayo"}
+							end.to change(Message, :count).by(1)
 						end
 					end
 				end
