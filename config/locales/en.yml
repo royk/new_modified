@@ -52,3 +52,6 @@ en:
 
 # Blog related
     post: "Post"
+
+# Profile
+    personal: "Personal"    

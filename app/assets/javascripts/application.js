@@ -196,6 +196,7 @@ NM = (function() {
 				}
 
 			});
+		    $("#footer").pinFooter("relative");
 		},
 		clearToggleMenu: function clearToggleMenu() {
 			currentToggleMenu = null;

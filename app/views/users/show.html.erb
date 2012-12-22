@@ -16,16 +16,83 @@
 	</aside>
 	<div class="span8">
 		<ul class="profile-nav nav">
-			<li>About</li>
+			<li class="clickable" onclick="NM.selectMenuItem(0)">About</li>
 			<li>Wall</li>
-			<li>Videos</li>
+			<li  class="clickable" onclick="NM.selectMenuItem(1)">Videos</li>
 			<li>Posts</li>
 			<li>Articles</li>
 		</ul>
-		<% if @videos.any? %>
-			<div class="feed">
-				<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
+		<script>
+			$(document).ready(function() {
+				NM.registerToggleMenu([	'div#about',
+										'div#videos']);
+				NM.selectMenuItem(0);
+				// add zebra bg for every odd row
+				$("tr:odd").addClass("zebra");
+				// make label cells shorter.
+				$("td:even").addClass("short");
+			});
+		</script>
+		<div id="about" class="span9">
+			<div class="table-box">
+				<div class="table-head">
+					<%= t(:personal) %>
+				</div>
+					<table>
+						<tbody>
+							<tr>
+								<td>Name:</td>
+								<td><%=@user.shown_name%></td>
+							</tr>
+							<tr>
+								<td>From:</td>
+								<td><%=@user.location%></td>
+							</tr>
+							<% if @user.age %>
+								<tr>
+									<td>Age:</td>
+									<td><%=@user.age%></td>
+								</tr>
+							<% end %>
+							<% if @user.years_playing %>
+								<tr>
+									<td>Years playing:</td>
+									<td><%= @user.years_playing %></td>
+								</tr>
+							<% end %>
+							<% if @user.bap %>
+								<tr>
+									<td>BAP name:</td>
+									<td><%= @user.bap_name %></td>
+								</tr>
+								<tr>
+									<td>Bap induction:</td>
+									<td><%= @user.bap_induction.year%></td>
+								</tr>
+							<% end %>
+							<% unless @user.motto.nil? %>
+								<tr>
+									<td>Motto:</td>
+									<td> <%= @user.motto %></td>
+								</tr>
+							<% end %>
+							<% unless @user.hobbies.nil? %>
+								<tr>
+									<td>Activities:</td>
+									<td> <%= @user.hobbies %></td>
+								</tr>
+							<% end %>
+						<tbody>
+					</table>
+				</div>
 			</div>
-		<% end %>
+			<div id="videos">
+				<% if @videos.any? %>
+					<div class="feed">
+						<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
+					</div>
+				<% end %>
+			</div>
+		</div>
 	</div>
 </div>

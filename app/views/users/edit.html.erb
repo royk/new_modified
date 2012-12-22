@@ -49,6 +49,27 @@
 			    <%= f.text_field :country, class: "form-input" %>
 			    <%= f.label :city %>
 			    <%= f.text_field :city, class: "form-input" %>
+				<div class="date-selector">
+					<%= f.label :birthday %>
+					<%= f.date_select(:birthday, start_year: 1940, end_year: Time.now.year, prompt: true, order: [:day, :month, :year]) %>
+				</div>
+				<div class="date-selector">
+					<%= f.label :started_playing %>
+					<%= f.date_select(:started_playing, start_year: 1940, end_year: Time.now.year, discard_day: true, discard_month: true) %>
+				</div>
+
+				<%= f.label "BAP member?" %>
+				<%= f.check_box :bap %>
+				<%= f.label :bap_name %>
+				<%= f.text_field :bap_name, class: "form-input" %>
+				<div class="date-selector">
+					<%= f.label :bap_induction %>
+					<%= f.date_select(:bap_induction, start_year: 1940, end_year: Time.now.year, discard_day: true, discard_month: true) %>
+				</div>
+				<%= f.label :motto %>
+				<%= f.text_field :motto, class: "form-input" %>
+				<%= f.label :hobbies %>
+				<%= f.text_field :hobbies, class: "form-input" %>
 			</div>
 		    
 		    <div class="container">

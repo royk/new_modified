@@ -28,7 +28,9 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, 
-                  :nickname, :blog_title, :reset_code, :country, :city, :modified_user
+                  :nickname, :blog_title, :reset_code, :country, :city, :modified_user, 
+                  :birthday, :started_playing, :bap, :bap_name, :bap_induction,
+                  :motto, :hobbies
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -103,7 +105,27 @@ class User < ActiveRecord::Base
     self.reset_code
   end 
 
+  def location
+    "#{city}, #{country}"
+  end
+
+  def age
+    unless birthday.nil?
+      years_diff birthday
+    end
+  end
+
+  def years_playing
+    unless started_playing.nil?
+      years_diff started_playing
+    end
+  end
+
   private
+    def years_diff(date)
+      now = Time.now.utc.to_date
+      now.year - date.year - ((now.month > date.month || (now.month == date.month && now.day >= date.day)) ? 0 : 1)
+    end
   	def create_remember_token
   		self.remember_token = SecureRandom.urlsafe_base64
   	end

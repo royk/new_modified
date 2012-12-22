@@ -2,6 +2,7 @@
 
 /* fonts */
 @import url(http://fonts.googleapis.com/css?family=Arvo);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
 /* vars */
 $lightYellow: #f9ed9d;
 $linkColor: #08C;
@@ -366,6 +367,9 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
     margin-top: 10px;
     letter-spacing: -1px;
   }
+  div, p, td {
+    font-family: 'PT Sans', sans-serif;
+  }
   .user-avatar {
     img {
       position: absolute;
@@ -374,6 +378,31 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
   .feed-item-container {
     @include boxShadow(-3px 3px 7px #000);
+  }
+  #about {
+    .table-box {
+
+      border: 1px solid $black;
+      @include boxShadow(-3px 3px 7px #000);
+      background-color: $white;
+      .table-head {
+        padding: 8px;
+        background-color: $black;
+        color: $white;
+      }
+      table {
+        width: 100%;
+        }
+        td {
+          padding: 8px;
+        }
+        .short {
+          width: 30%;
+        }
+        .zebra {
+          background-color: #efefef;
+        }
+    }
   }
 }
 body.body-profile {
@@ -728,6 +757,14 @@ input.form-input {
   }
 }
 
+.date-selector {
+  padding-bottom: 5px;
+  select {
+    padding: 0;
+    width: auto;
+  }
+}
+
 .gravatar {
   @include border(4px);
 }
@@ -761,5 +798,6 @@ input.form-input {
   }
 }
 .footer {
-  background-color:whiteSmoke
+  background-color:whiteSmoke;
 }
+
