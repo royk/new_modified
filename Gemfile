@@ -18,7 +18,7 @@ gem 'nokogiri'
 gem 'tinymce-rails'
 gem 'has_permalink'
 gem 'carrierwave'
-gem 'coveralls', require: false
+gem 'bitmask_attributes'
 
 
 group :development, :test do
@@ -26,6 +26,7 @@ group :development, :test do
   gem 'rspec-rails', '2.11.0'
   gem "vcr"
   gem "fakeweb"
+  gem 'coveralls', require: false
 end
 
 group :development do

@@ -10,6 +10,7 @@
 #  published  :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  permalink  :string(255)
 #
 
 class Article < ActiveRecord::Base

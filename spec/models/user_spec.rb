@@ -2,28 +2,29 @@
 #
 # Table name: users
 #
-#  id              :integer          not null, primary key
-#  name            :string(255)
-#  email           :string(255)
-#  remember_token  :string(255)
-#  password_digest :string(255)
-#  admin           :boolean
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  gravatar_suffix :string(255)
-#  nickname        :string(255)
-#  reset_code      :string(255)
-#  country         :string(255)
-#  city            :string(255)
-#  modified_user   :string(255)
-#  author          :boolean          default(FALSE)
-#  birthday        :datetime
-#  started_playing :datetime
-#  bap             :boolean          default(FALSE)
-#  bap_name        :string(255)
-#  bap_induction   :datetime
-#  motto           :string(255)
-#  hobbies         :text
+#  id               :integer          not null, primary key
+#  name             :string(255)
+#  email            :string(255)
+#  remember_token   :string(255)
+#  admin            :boolean
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  password_digest  :string(255)
+#  gravatar_suffix  :string(255)
+#  nickname         :string(255)
+#  reset_code       :string(255)
+#  country          :string(255)
+#  city             :string(255)
+#  modified_user    :string(255)
+#  author           :boolean          default(FALSE)
+#  birthday         :datetime
+#  started_playing  :datetime
+#  bap              :boolean          default(FALSE)
+#  bap_name         :string(255)
+#  bap_induction    :datetime
+#  motto            :string(255)
+#  hobbies          :text
+#  privacy_settings :integer          default(0)
 #
 
 require 'spec_helper'

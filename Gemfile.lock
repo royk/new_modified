@@ -46,6 +46,8 @@ GEM
       coderay
       erubis
     binding_of_caller (0.6.8)
+    bitmask_attributes (0.4.0)
+      activerecord (~> 3.0)
     bootstrap-sass (2.0.4.0)
     bootstrap-will_paginate (0.0.6)
       will_paginate
@@ -218,6 +220,7 @@ DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
   better_errors
   binding_of_caller
+  bitmask_attributes
   bootstrap-sass (= 2.0.4)
   bootstrap-will_paginate (= 0.0.6)
   capybara (= 1.1.2)

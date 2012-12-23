@@ -7,7 +7,7 @@
 	<aside class="span4 profile-left">
 		<section>
 			<h1>
-				<%= privacy_name(@user) %>
+				<%= @user.shown_name %>
 			</h1>
 			<div class="user-avatar">
 				<%= gravatar_for @user, size: 200 %>
@@ -43,7 +43,7 @@
 						<tbody>
 							<tr>
 								<td>Name:</td>
-								<td><%=@user.shown_name%></td>
+								<td><%=real_name(@user)%></td>
 							</tr>
 							<tr>
 								<td>From:</td>
