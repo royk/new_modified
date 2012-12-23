@@ -2,7 +2,6 @@
 <script>
 	$("body").addClass("body-profile")
 </script>
-<% show_blog = !@user.blog.nil? && @user.blog.blog_posts.any? %>
 <div class="overlay"></div>
 <div class="row-fluid profile">
 	<aside class="span4 profile-left">
@@ -44,7 +43,7 @@
 			<% if @articles.any? %>
 				<li id="articles"><%= t(:articles) %></li>
 			<% end %>
-			<% if show_blog %>
+			<% if @blog_posts.any? %>
 				<li id="blog"><%= t(:blog) %></li>
 			<% end %>
 
@@ -143,10 +142,10 @@
 				</div>
 			<% end %>
 			
-			<% if show_blog %>
+			<% if @blog_posts.any? %>
 				<div id="blog">
 					<div class="feed">
-						<%= render partial: 'shared/feed_item', collection: @user.blog.blog_posts, comments_shown: false %>
+						<%= render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false %>
 					</div>
 				</div>
 			<% end %>
