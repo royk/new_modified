@@ -65,6 +65,18 @@ module ApplicationHelper
 		end
 	end
 
+	def publishing_query(collection)
+		if signed_in?
+			if (current_user.admin? || current_user.author?)
+				collection.all
+			else
+				collection.where(published: true)
+			end
+		else
+			collection.where("public = ? AND published = ?", true, true)
+		end
+	end
+
 	def first_time_visitor?
 		last_visit = cookies[:NM]
 		if last_visit.nil?

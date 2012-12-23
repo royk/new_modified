@@ -28,16 +28,7 @@ class ArticlesController < AuthenticatedController
 	end
 
 	def index
-		if signed_in?
-			if (current_user.admin? || current_user.author?)
-				@articles = Article.all
-			else
-				@articles = Article.where(published: true)
-			end
-		else
-			@articles = Article.where("public = ? AND published = ?", true, true)
-		end
-		@articles = @articles.paginate(page: params[:page], :per_page => 10)
+		@articles = publishing_query(Article).paginate(page: params[:page], :per_page => 10)
 	end
 
 	def update

@@ -11,12 +11,14 @@
 	<% if feed_item.class==Post %>
 		<%= render '/shared/post_item', :feed_item => feed_item%>
 	<% end %>
-
 	<% if feed_item.class==Video %>
 		<%= render '/shared/video_item', :feed_item => feed_item%>
 	<% end %>
 	<% if feed_item.class==BlogPost %>
 		<%= render '/shared/blog_post_item', :feed_item => feed_item %>
+	<% end %>
+	<% if feed_item.class==Article %>
+		<%= render '/shared/article_item', :feed_item => feed_item %>
 	<% end %>
 		
 	

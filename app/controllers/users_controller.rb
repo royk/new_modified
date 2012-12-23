@@ -56,6 +56,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @posts = privacy_query(@user.posts).paginate(page: params[:page])
     @videos = privacy_query(@user.appears_in_videos).paginate(page: params[:page])
+    @articles = publishing_query(@user.articles).paginate(page: params[:page], :per_page => 10)
     render layout: "no_activities"
   end
 
