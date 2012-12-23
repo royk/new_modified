@@ -132,6 +132,7 @@
 				<div id="posts">
 					<div class="feed">
 						<%= render partial: 'shared/feed_item', collection: @posts, comments_shown: false %>
+					</div>
 				</div>
 			<% end %>
 			<% if @articles.any? %>
