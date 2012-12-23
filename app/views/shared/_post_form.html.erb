@@ -5,9 +5,15 @@
 
 <% if signed_in? && total>0 %>
 	<script>
-		NM.registerToggleMenu([	'div#post-form',
-								'div#video-form',
-								'div#blog-form']);
+		$(document).ready(function(){
+			NM.registerToggleMenu([	'div#post-form',
+									'div#video-form',
+									'div#blog-form'],
+									['li#wall',
+									 'li#videos',
+									 'li#blog'
+									]);
+		});
 	</script>
 
 	<div class="feed-item head-element" id="feed-form">
@@ -50,15 +56,15 @@
 		<% if total>1 %>
 			<ul class="nav post-types">
 				<% if show_post %>
-					<li class="clickable" onclick="NM.selectMenuItem(0)">Wall</li>
+					<li id="wall">Wall</li>
 					<li>|</li>
 				<% end %>
 				<% if show_video %>
-					<li class="clickable" onclick="NM.selectMenuItem(1)">Video</li>
+					<li id="videos">Video</li>
 					<li>|</li>
 				<% end %>
 				<% if show_blog %>
-					<li class="clickable" onclick="NM.selectMenuItem(2)">Blog</li>
+					<li id="blog">Blog</li>
 				<% end %>
 			</ul>
 		<% end %>
