@@ -178,8 +178,16 @@ NM = (function() {
 			});
 		},
 
-		registerToggleMenu: function registerToggleMenu(items) {
+		registerToggleMenu: function registerToggleMenu(items, buttons) {
 			currentToggleMenu = items;
+			buttons = buttons || [];
+			buttons.forEach(function(button, index) {
+				elem = $(button);
+				elem.addClass("clickable");
+				elem.click(function() {
+					NM.selectMenuItem(index);
+				});
+			});
 		},
 
 		selectMenuItem: function selectMenuItem(itemIndex) {
@@ -196,7 +204,7 @@ NM = (function() {
 				}
 
 			});
-		    $("#footer").pinFooter("relative");
+			$("#footer").pinFooter("relative");
 		},
 		clearToggleMenu: function clearToggleMenu() {
 			currentToggleMenu = null;
