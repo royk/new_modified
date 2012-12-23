@@ -2,6 +2,7 @@
 <script>
 	$("body").addClass("body-profile")
 </script>
+<% show_blog = !@user.blog.nil? && @user.blog.blog_posts.any? %>
 <div class="overlay"></div>
 <div class="row-fluid profile">
 	<aside class="span4 profile-left">
@@ -35,25 +36,31 @@
 		<ul class="profile-nav nav">
 			<li id="about">About</li>
 			<% if @videos.any? %>
-				<li id="videos">Videos</li>	
+				<li id="videos"><%= t(:videos) %></li>	
 			<% end %>
 			<% if @posts.any? %>
-				<li id="posts">Posts</li>
+				<li id="posts"><%= t(:posts) %></li>
 			<% end %>
 			<% if @articles.any? %>
-				<li id="articles">Articles</li>
+				<li id="articles"><%= t(:articles) %></li>
 			<% end %>
+			<% if show_blog %>
+				<li id="blog"><%= t(:blog) %></li>
+			<% end %>
+
 		</ul>
 		<script>
 			$(document).ready(function() {
 				NM.registerToggleMenu([	'div#about',
 										'div#videos',
 										'div#posts',
-										'div#articles'],
+										'div#articles',
+										'div#blog'],
 										['li#about',
 										'li#videos',
 										'li#posts',
-										'li#articles'
+										'li#articles',
+										'li#blog'
 										]);
 				NM.selectMenuItem(0);
 				// add zebra bg for every odd row
@@ -132,6 +139,15 @@
 				<div id="articles">
 					<div class="feed">
 						<%= render partial: 'shared/feed_item', collection: @articles, comments_shown: false %>
+					</div>
+				</div>
+			<% end %>
+			
+			<% if show_blog %>
+				<div id="blog">
+						<div class="feed">
+							<%= render partial: 'shared/feed_item', collection: @user.blog.blog_posts, comments_shown: false %>
+						</div>
 					</div>
 				</div>
 			<% end %>

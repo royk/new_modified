@@ -28,10 +28,12 @@ en:
     joined: "joined the community"
 
 # Videos page
+    videos: "Videos"
     videos_feed: "Videos feed"   
     search: "search" 
 
 # Articles
+    articles: "Articles"
     write_an_article: "Write an article..."  
     unpublish: "Unpublish"  
     publish: "Publish"
@@ -49,8 +51,12 @@ en:
     public_input: "Public:"
     make_public: "Make Public"
     make_private: "Make Private"
+    
+# Posts
+    posts: "Posts"    
 
 # Blog related
+    blog: "Blog"
     post: "Post"
 
 # Profile
