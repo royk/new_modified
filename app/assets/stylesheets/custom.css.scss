@@ -355,7 +355,12 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
     z-index: -9999;
   }
 .profile {
-
+  #about {
+    margin-left: 0px;
+  }
+  section {
+    overflow: visible;
+  }
   
   h1 {
     color: white;
@@ -369,41 +374,57 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
   div, p, td {
     font-family: 'PT Sans', sans-serif;
+    a {
+      color: #333;
+      &:hover {
+        color: $black;
+      }
+    }
   }
   .user-avatar {
+    width: 200px;
     img {
-      position: absolute;
       @include boxShadow(-3px 3px 7px #000);
     }
   }
   .feed-item-container {
     @include boxShadow(-3px 3px 7px #000);
   }
-  #about {
-    .table-box {
+  .table-box {
 
-      border: 1px solid $black;
-      @include boxShadow(-3px 3px 7px #000);
-      background-color: $white;
-      .table-head {
-        padding: 8px;
-        background-color: $black;
-        color: $white;
+    border: 1px solid $black;
+    @include boxShadow(-3px 3px 7px #000);
+    background-color: $white;
+    .table-head {
+      padding: 8px;
+      background-color: $black;
+      color: $white;
+    }
+    table {
+      width: 100%;
       }
-      table {
-        width: 100%;
-        }
-        td {
-          padding: 8px;
-        }
-        .short {
-          width: 30%;
-        }
-        .zebra {
-          background-color: #efefef;
-        }
+      td {
+        padding: 8px;
+      }
+      .short {
+        width: 30%;
+      }
+      .zebra {
+        background-color: #efefef;
+      }
+  }
+  .contact {
+    width: 200px;
+    margin-top: 20px;
+    margin-left: -1px;
+    @include boxShadow(-3px 3px 7px #000);
+    i {
+      position: relative;
+      top: 1px;
+      padding-right: 2px;
     }
   }
+
 }
 body.body-profile {
  // background:url(/assets/roy_demo.jpg) no-repeat center center fixed;

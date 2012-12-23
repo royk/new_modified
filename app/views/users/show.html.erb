@@ -12,6 +12,23 @@
 			<div class="user-avatar">
 				<%= gravatar_for @user, size: 200 %>
 			</div>
+			<div class="table-box contact">
+				<div class="table-head">
+					<%= t(:contact)	%>
+				</div>
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<%= link_to  new_message_path( recipient: @user) do %>
+									<i class="icon-envelope"></i>
+										<%= t(:private_message) %>
+								<% end %>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</section>
 	</aside>
 	<div class="span8">
@@ -40,9 +57,9 @@
 										]);
 				NM.selectMenuItem(0);
 				// add zebra bg for every odd row
-				$("tr:odd").addClass("zebra");
+				$("tr:even").addClass("zebra");
 				// make label cells shorter.
-				$("td:even").addClass("short");
+				$("td:odd").addClass("short");
 			});
 		</script>
 		<div id="about" class="span9">
