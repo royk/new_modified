@@ -145,9 +145,8 @@
 			
 			<% if show_blog %>
 				<div id="blog">
-						<div class="feed">
-							<%= render partial: 'shared/feed_item', collection: @user.blog.blog_posts, comments_shown: false %>
-						</div>
+					<div class="feed">
+						<%= render partial: 'shared/feed_item', collection: @user.blog.blog_posts, comments_shown: false %>
 					</div>
 				</div>
 			<% end %>
