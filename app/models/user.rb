@@ -106,18 +106,28 @@ class User < ActiveRecord::Base
   end 
 
   def location
-    "#{city}, #{country}"
+    if city.empty?
+      country
+    elsif country.empty?
+      city
+    else
+      "#{city}, #{country}"
+    end
   end
 
   def age
     unless birthday.nil?
       years_diff birthday
+    else
+      0
     end
   end
 
   def years_playing
     unless started_playing.nil?
       years_diff started_playing
+    else
+      0
     end
   end
 

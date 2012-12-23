@@ -49,13 +49,13 @@
 								<td>From:</td>
 								<td><%=@user.location%></td>
 							</tr>
-							<% if @user.age %>
+							<% if @user.age>0 %>
 								<tr>
 									<td>Age:</td>
 									<td><%=@user.age%></td>
 								</tr>
 							<% end %>
-							<% if @user.years_playing %>
+							<% if @user.years_playing>0 %>
 								<tr>
 									<td>Years playing:</td>
 									<td><%= @user.years_playing %></td>
@@ -71,13 +71,13 @@
 									<td><%= @user.bap_induction.year%></td>
 								</tr>
 							<% end %>
-							<% unless @user.motto.nil? %>
+							<% unless @user.motto.nil? || @user.motto.empty? %>
 								<tr>
 									<td>Motto:</td>
 									<td> <%= @user.motto %></td>
 								</tr>
 							<% end %>
-							<% unless @user.hobbies.nil? %>
+							<% unless @user.hobbies.nil? || @user.hobbies.empty? %>
 								<tr>
 									<td>Activities:</td>
 									<td> <%= @user.hobbies %></td>
