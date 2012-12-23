@@ -53,11 +53,55 @@ describe User do
 	it { should respond_to(:city) }
 	it { should respond_to(:create_reset_code) }
 	it { should respond_to(:modified_user) }
+	it { should respond_to(:age) }
+	it { should respond_to(:years_playing) }
+	it { should respond_to(:location) }
 
 	it {should be_valid}
 	it {should_not be_admin}
 
-	context "Shown name" do
+	describe "age:" do
+		context "when birthday isn't set," do
+			its(:age) { should eq 0 }
+		end
+		context "when birthday is set," do
+			before { @user.birthday = "24/02/1982" }
+			its(:age) { should_not eq 0 }
+		end
+	end
+ 	
+ 	describe "years_playing:" do
+ 		context "when started_playing isn't set," do
+ 			its(:years_playing) { should eq 0 }
+ 		end
+ 		context "when started_playing is set," do
+ 			before { @user.started_playing = "24/02/1892" }
+ 			its(:years_playing) { should_not eq 0 }
+ 		end
+ 	end
+
+ 	describe "location:" do
+ 		context "when city & country are empty," do
+ 			its(:location) { should be_empty }
+ 		end
+ 		context "when city is set," do
+ 			before { @user.city = "Tel Aviv" }
+ 			its(:location) { should eq @user.city}
+ 		end
+ 		context "when country is set," do
+ 			before { @user.country = "Israel" }
+ 			its(:location) { should eq @user.country }
+ 			context "and city is set," do
+	 			before { @user.city = "Tel Aviv" }
+	 			its(:location) { should include @user.city }
+	 			its(:location) { should include @user.country }
+	 		end
+
+ 		end
+ 	end
+
+
+	describe "Shown name" do
 		describe "when user doesn't have nickname" do
 			its(:shown_name) { should eq(@user.name) }
 		end

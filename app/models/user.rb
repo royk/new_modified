@@ -106,9 +106,11 @@ class User < ActiveRecord::Base
   end 
 
   def location
-    if city.empty?
+    if city.nil? && country.nil?
+      ""
+    elsif city.nil? || city.empty?
       country
-    elsif country.empty?
+    elsif country.nil? || country.empty?
       city
     else
       "#{city}, #{country}"
@@ -136,6 +138,7 @@ class User < ActiveRecord::Base
       now = Time.now.utc.to_date
       now.year - date.year - ((now.month > date.month || (now.month == date.month && now.day >= date.day)) ? 0 : 1)
     end
+
   	def create_remember_token
   		self.remember_token = SecureRandom.urlsafe_base64
   	end
