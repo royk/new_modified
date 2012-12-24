@@ -3,22 +3,29 @@
 <% if !counter_odd %>
  <tr>
 <% end %>
-<td class=" <%= "zebra" if (counter_base%4)==0 %>">
+<td class="user <%= "zebra" if (counter_base%4)==0 %>">
+	<table style="width:100%">
 	<%= link_to user do %>
-		<%= gravatar_for user, size: 50 %>
-		<h4 class="user_name">
-			<%= user.shown_name %>
-		</h4>
-		<div class="user_location"> 
-			<%= user.location %> 
-		</div>
-		<% if user.highest_role %>
-			<div class="role">
-				<%= user.highest_role %>
+		<tr>
+			<td class="image_cell">
+				<%= gravatar_for user, size: 50 %>
+			</td>
+			<td>
+			<div>
+				<div class="name">
+					<%= user.shown_name %>
+				</div>
+				<div class="user_location"> 
+					<%= user.location %> 
+				</div>
+				<div class="role">
+					<%= user.highest_role %> 
+				</div>
 			</div>
-		<% end %>
+		</td>
+		</tr>
 	<% end %>
-
+	</table>
 </td>
 <% if counter_odd %>
  	</tr>
