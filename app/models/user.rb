@@ -102,8 +102,11 @@ class User < ActiveRecord::Base
   end
 
   def highest_role
-    "Author" if author
-    "Admin" if admin
+    if admin 
+      "Admin"
+    elsif author
+      "Author" 
+    end
   end
 
   def email_parts

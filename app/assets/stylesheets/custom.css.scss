@@ -345,6 +345,9 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
 /* users index */
 .members {
   .members-list {
+    .controls {
+      float: right;
+    }
     .user_info {
       display: inline-block;
     }

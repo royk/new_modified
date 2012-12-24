@@ -5,15 +5,43 @@
 <% end %>
 <td class="user <%= "zebra" if (counter_base%4)==0 %>">
 	<table style="width:100%">
+	
 	<%= link_to user do %>
 		<tr>
 			<td class="image_cell">
 				<%= gravatar_for user, size: 50 %>
+
 			</td>
 			<td>
 			<div>
 				<div class="name">
 					<%= user.shown_name %>
+					<% if admin? %>
+						<span class="controls">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="icon-cog"></i>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<% if user.author? %>
+											<%= link_to "Revoke Author status", user_path(user, author: false),method: :put  %>
+										<% else %>
+											<%= link_to "Make Author", user_path(user, author: true),method: :put  %>
+										<% end %>
+									</li>
+									<li>
+										<% if user.admin? %>
+											<%= link_to "Revoke Admin status", user_path(user, admin: false),method: :put  %>
+										<% else %>
+											<%= link_to "Make Admin", user_path(user, admin: true),method: :put  %>
+										<% end %>
+									</li>
+									<li><%= link_to "delete", user, method: :delete, data: {confirm: "You sure?"} %></li>
+								</ul>
+							</li>
+						</span>
+					<% end %>
 				</div>
 				<div class="user_location"> 
 					<%= user.location %> 
@@ -22,11 +50,15 @@
 					<%= user.highest_role %> 
 				</div>
 			</div>
+			
 		</td>
 		</tr>
 	<% end %>
 	</table>
+
 </td>
+
 <% if counter_odd %>
  	</tr>
+
  <% end %>
