@@ -1,6 +1,6 @@
 xml.instruct! :xml, version: "1.0"
 xml.feed("xmlns"=>"http://www.w3.org/2005/Atom") do
-	xml.title "Modified.in Freestyle Footbag Videos"
+	xml.title "#{site_name} Freestyle Footbag Videos"
 	xml.link(href: videos_url(:atom), rel: "self")
 	xml.link(href: site_url)
 	xml.updated @videos[0].created_at.xmlschema
@@ -18,7 +18,7 @@ xml.feed("xmlns"=>"http://www.w3.org/2005/Atom") do
 			xml.link(href: video_url(video))
 			xml.content video.players_names.join(",")
 			xml.updated video.created_at.xmlschema
-			xml.id "tag:modified.in,2012-12-07:videos,?id="+video.id.to_s
+			xml.id "tag:footbagfront.com,2012-12-07:videos,?id="+video.id.to_s
 		end
 	end
 

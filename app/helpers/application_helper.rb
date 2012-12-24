@@ -1,10 +1,10 @@
 module ApplicationHelper
 	def site_name
-		"New Modified"
+		"Footbag Front"
 	end
 
 	def site_url
-		"http://modified.poisontaffy.com/"
+		"http://footbagfront.com/"
 	end
 	
 	def full_title(page_title)

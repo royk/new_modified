@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include ApplicationHelper
+  
   before_filter :signed_in_user, only: [:edit, :update, :destroy]
   before_filter :correct_user,  only: [:edit, :update]
   before_filter :admin_user,  only: [:destroy]
@@ -77,7 +79,7 @@ class UsersController < ApplicationController
       Video.move_to_user_players(@user)
       UserMailer.welcome_mail(@user).deliver
       sign_in @user
-      flash[:success] = "Welcome to the New Modified!"
+      flash[:success] = "Welcome to the #{site_name}!"
       notify_activity_on(@user, current_user)
       redirect_to "/static/welcome"
     else
