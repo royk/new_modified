@@ -25,6 +25,8 @@
 #  motto            :string(255)
 #  hobbies          :text
 #  privacy_settings :integer          default(0)
+#  latitude         :float
+#  longitude        :float
 #
 
 require 'spec_helper'

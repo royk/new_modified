@@ -25,6 +25,8 @@
 #  motto            :string(255)
 #  hobbies          :text
 #  privacy_settings :integer          default(0)
+#  latitude         :float
+#  longitude        :float
 #
 
 class User < ActiveRecord::Base
@@ -34,6 +36,9 @@ class User < ActiveRecord::Base
                   :motto, :hobbies
 
   bitmask :privacy_settings, as: [:expose_name, :expose_location]
+
+  geocoded_by :location
+
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -70,6 +75,8 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, :if => :validate_password?
 
   before_destroy :destroy_notifications, :destroy_comments, :destroy_video_assoc
+
+  after_validation :geocode  # fill in longitude and latitude
 
   def shown_name
     nickname.blank? ? name : nickname
@@ -109,15 +116,7 @@ class User < ActiveRecord::Base
   end 
 
   def location
-    if city.nil? && country.nil?
-      ""
-    elsif city.nil? || city.empty?
-      country
-    elsif country.nil? || country.empty?
-      city
-    else
-      "#{city}, #{country}"
-    end
+    [city, country].compact.join(", ")
   end
 
   def age

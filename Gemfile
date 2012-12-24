@@ -19,6 +19,7 @@ gem 'tinymce-rails'
 gem 'has_permalink'
 gem 'carrierwave'
 gem 'bitmask_attributes'
+gem "geocoder"
 
 
 group :development, :test do
