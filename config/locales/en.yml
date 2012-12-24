@@ -63,3 +63,8 @@ en:
     personal: "Personal"    
     contact: "Contact"
     private_message: "Private message"
+# Members list    
+    members: "Members"
+    all: "All"
+    latest: "Latest"
+    nearby: "Nearby"

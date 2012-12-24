@@ -1,33 +1,25 @@
-<% cuser = current_user || User.new %>
-<li>
-	<%= link_to user do%>
-		<%= render 'shared/feed_info', user: user, size: "tiny" %>
-	<% end %>
-	<% if user.admin? %>
-		| <span class="admin">Admin</span>
-	<% end %>
-	<% if signed_in? && !current_user?(user) %>
-		| <%= link_to "Message", new_message_path( recipient: user) %>
-	<% end %>
-	<% if current_user?(user) %>
-		| <%= link_to "edit", edit_user_path(cuser) %>
-	<% end %>
-		
-	
-	
-	<% if cuser.admin? && !current_user?(user) %>
-		<% if user.admin? %>
-			| <%= link_to "Revoke Admin status", user_path(user, admin: false),method: :put  %>
-		<% else %>
-			| <%= link_to "Make Admin", user_path(user, admin: true),method: :put  %>
+<% counter_odd = (user_counter%2)>0 %>
+<% counter_base =  counter_odd ? user_counter-1 : user_counter %> 
+<% if !counter_odd %>
+ <tr>
+<% end %>
+<td class=" <%= "zebra" if (counter_base%4)==0 %>">
+	<%= link_to user do %>
+		<%= gravatar_for user, size: 50 %>
+		<h4 class="user_name">
+			<%= user.shown_name %>
+		</h4>
+		<div class="user_location"> 
+			<%= user.location %> 
+		</div>
+		<% if user.highest_role %>
+			<div class="role">
+				<%= user.highest_role %>
+			</div>
 		<% end %>
-		<% if user.author? %>
-			| <%= link_to "Revoke Author status", user_path(user, author: false),method: :put  %>
-		<% else %>
-			| <%= link_to "Make Author", user_path(user, author: true),method: :put  %>
-		<% end %>
-		|	<%= link_to "delete", user, method: :delete, data: {confirm: "You sure?"} %>
 	<% end %>
-	
-		
-</li>
+
+</td>
+<% if counter_odd %>
+ 	</tr>
+ <% end %>

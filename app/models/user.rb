@@ -101,6 +101,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def highest_role
+    "Author" if author
+    "Admin" if admin
+  end
+
   def email_parts
     email.split("@")
   end

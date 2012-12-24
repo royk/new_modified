@@ -1,7 +1,17 @@
-<% provide(:title, 'Members') %>
-<h1>Members</h1>
-<%= will_paginate %>
-<ul class="users">
-  <%= render @users %>
-</ul>
-<%= will_paginate %>
+<% provide(:title, t(:members)) %>
+<div class="members">
+	<div class="header">
+		<h1><%= t(:members) %></h1>
+			<div>
+				<ul class="nav order-nav">
+					<li><%= t(:all) %></li>
+					<li><%= t(:latest) %></li>
+					<li><%= t(:nearby) %></li>
+				</ul>
+			</div>
+	</div>
+	<table class="members-list">
+		<%= render @users %>
+	 </table>
+	<%= will_paginate %>
+</div>
