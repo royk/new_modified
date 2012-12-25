@@ -1,0 +1,31 @@
+<div id="first-time" class="modal fade hide first-time">
+	<img class="bg-pic" src="/assets/first-time.jpg" usemap="#map"/>
+	<div class="dark-overlay"></div>
+	<div class="dialog">
+		<div class="title">
+			Footbag Front
+		</div>
+		<div class="subtitle">
+			Everything Freestyle Footbag
+		</div>
+		<%= link_to signup_path do %>
+			<button class="btn btn-large btn-primary">
+				JOIN NOW!
+			</button>
+		<% end %>
+			<div id="close-btn">
+				X
+			</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function() {
+		setTimeout(function() {
+			$("#first-time").modal();
+		}, 2500);
+		$("#close-btn").click(function() {
+			$('#first-time').modal('hide');
+		});
+	});
+
+</script>
