@@ -49,6 +49,7 @@ NM = (function() {
 					_loadingNextPage = false;
 					$("#loading-indicator").fadeTo('fast', 0);
 					$(".feed").append(response);
+					$("#footer").pinFooter("relative");
 				}
 			});
 		}
