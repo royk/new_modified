@@ -29,7 +29,6 @@ class VideosController < AuthenticatedController
 		end
 		redirect_to request.referer
 	end
-=begin	
 # imports videos from jsViewFeed
 	def import
 		videos = params[:videos]
@@ -73,7 +72,6 @@ class VideosController < AuthenticatedController
 		end
 		redirect_to request.referer
 	end
-=end
 
 	def update
 		@video.record_timestamps = false if current_user.admin? && @video.user!=current_user
