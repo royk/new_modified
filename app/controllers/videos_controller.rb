@@ -21,11 +21,16 @@ class VideosController < AuthenticatedController
 	end
 	
 	def create
-		@video = current_user.videos.build(params[:video])
+		if params[:anonymous]
+			@video = Video.new
+			@video.update_attributes(params[:video])
+		else
+			@video = current_user.videos.build(params[:video])
+		end
 		update_players
 		if save_video(@video.url)
 			flash[:success] = "Video created"
-			notify_activity_on(@video, current_user, nil)
+			notify_activity_on(@video, current_user, nil) unless params[:anonymous]
 		end
 		redirect_to request.referer
 	end
@@ -38,7 +43,7 @@ class VideosController < AuthenticatedController
 			if video[:deleted]=="0"
 				@video = Video.find_by_uid(video[:src])
 				if @video.nil?
-					@video = current_user.videos.build()
+					@video = Video.new
 				end
 				@video.title = video[:title]
 				@video.vendor = video[:type]

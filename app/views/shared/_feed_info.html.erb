@@ -25,6 +25,15 @@
 				<%= user_name %>
 			</h4>
 		</span>
+	<% else %>
+		<span style="visibility:hidden;">
+			<%= gravatar_for nil, size: 40 %>
+		</span>
+		<span  style="visibility:hidden;">
+			<h4 class="user_name">
+				system
+			</h4>
+		</span>
 	<% end %>
 <% end %>
 	

@@ -20,6 +20,12 @@
 		<% end %>
 	</div>
 
+	<% if signed_in? && super_admins_email.include?(		current_user.email) %>
+		<div>
+			<%= label_tag "anonymous post" %>
+			<%= check_box_tag :anonymous %>
+		</div>
+	<% end %>
 	<script>
 		NM.multiField({
 			container: "#players-input",

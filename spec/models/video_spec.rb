@@ -47,10 +47,10 @@ describe Video do
 	its(:user) { should==user }
 
 	describe "validation" do
-		describe "should not be valid without user_id" do
+		describe "should be valid without user_id" do
 			before { video.user_id = nil }
 
-			it { should_not be_valid }
+			it { should be_valid }
 		end
 
 		describe "should not be valid without uid" do

@@ -43,7 +43,6 @@ class Video < ActiveRecord::Base
   has_many :notifications, as: :item, dependent: :destroy
   has_and_belongs_to_many :user_players, class_name: "User", uniq: true
 
-  validates :user_id, presence: true
   validates :uid, presence: true, uniqueness: { case_sensitive: true }
   validates :vendor, presence: true
 
