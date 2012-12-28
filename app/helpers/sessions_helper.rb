@@ -3,8 +3,21 @@ module SessionsHelper
 		["roeiklein@gmail.com"]
 	end
 	def sign_in(user)
+		if signed_in? || current_user!=user
+			session[:last_visit] = user.last_visit || 1.week.ago
+			user.last_visit = Time.now
+			user.save
+		end
 	    cookies.permanent[:remember_token] = user.remember_token
 	    self.current_user = user
+	end
+
+	def last_visit
+		if session[:last_visit].nil?
+			1.week.ago
+		else
+			session[:last_visit]
+		end
 	end
 
 	def correct_user?(user)
@@ -41,6 +54,10 @@ module SessionsHelper
 		session.delete(:return_to)
 	end
 
+	def site_activities
+		Notification.where("public= ? AND created_at > ? ", true, last_visit).limit(20).order('id desc')
+	end
+
   def can_see?(item)
     can_see = true
     if !signed_in? && item.public==false
@@ -51,7 +68,6 @@ module SessionsHelper
 
 	def store_location
 		session[:return_to] = request.referer
-		
 	end
 
 	def signed_in_user

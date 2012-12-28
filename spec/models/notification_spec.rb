@@ -42,7 +42,6 @@ describe Notification do
 		it { should respond_to(:action_verb) }
 		it { should respond_to(:public) }
 		it { should respond_to(:read) }
-		it { should respond_to(:join_message) }
 
 		its(:read) { should==false }
 		its(:sender) { should==sender }

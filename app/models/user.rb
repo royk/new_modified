@@ -6,10 +6,10 @@
 #  name             :string(255)
 #  email            :string(255)
 #  remember_token   :string(255)
+#  password_digest  :string(255)
 #  admin            :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  password_digest  :string(255)
 #  gravatar_suffix  :string(255)
 #  nickname         :string(255)
 #  reset_code       :string(255)
@@ -27,13 +27,14 @@
 #  privacy_settings :integer          default(0)
 #  latitude         :float
 #  longitude        :float
+#  last_visit       :datetime
 #
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, 
                   :nickname, :blog_title, :reset_code, :country, :city, :modified_user, 
                   :birthday, :started_playing, :bap, :bap_name, :bap_induction,
-                  :motto, :hobbies
+                  :motto, :hobbies, :last_visit
 
   bitmask :privacy_settings, as: [:expose_name, :expose_location]
 

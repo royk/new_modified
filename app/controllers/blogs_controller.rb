@@ -25,7 +25,7 @@ class BlogsController < AuthenticatedController
 
 	def perform_import
 		unless current_user.modified_user.nil?
-			posts = scrape(params[:blog_url], current_user.modified_user) unless params[:blog_url].empty?
+			posts = scrape_modified(params[:blog_url], current_user.modified_user) unless params[:blog_url].empty?
 			unless posts.nil?
 				create_posts(posts)
 				redirect_to root_url

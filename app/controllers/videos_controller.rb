@@ -1,6 +1,7 @@
 class VideosController < AuthenticatedController
 	include ContentControls
 	include VideoMatchers
+	include VideoImporters
 	
 	before_filter	:correct_user, only: [:destroy, :update]
 	skip_before_filter :signed_in_user, only: [:index, :show]
@@ -34,47 +35,9 @@ class VideosController < AuthenticatedController
 		end
 		redirect_to request.referer
 	end
-# imports videos from jsViewFeed
+
 	def import
-		videos = params[:videos]
-		videos.each do |v|
-			video = v[1]
-			
-			if video[:deleted]=="0"
-				@video = Video.find_by_uid(video[:src])
-				if @video.nil?
-					@video = Video.new
-				end
-				@video.title = video[:title]
-				@video.vendor = video[:type]
-				@video.uid = video[:src]
-				@video.location = video[:location]
-				@video.created_at = video[:date]
-				@video.updated_at = video[:date]
-				@video.maker = video[:maker]
-				@video.players = []
-				_players = video[:players].split(' ')
-				@video.tag_list = []
-				if _players.any?
-					index = 0
-					for player in _players
-						@video.tag_list << player
-						if index%2==0
-							p = player
-							p << " "
-						else
-							p << player
-							@video.players << p
-						end
-						index = index + 1
-					end
-					
-				end
-				tags = video[:tags].split(' ')
-				@video.tag_list = @video.tag_list + tags
-				@video.save
-			end
-		end
+		import_footbagIsrael(params[:videos])
 		redirect_to request.referer
 	end
 

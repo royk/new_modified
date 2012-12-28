@@ -26,6 +26,7 @@ en:
     tagged_you: "tagged you"
     reacted: "reacted"
     joined: "joined the community"
+    no_activities_since_last_visit: "No new activity since your last visit"
 
 # Videos page
     videos: "Videos"

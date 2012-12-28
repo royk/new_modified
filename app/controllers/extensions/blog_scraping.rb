@@ -2,7 +2,7 @@ module BlogScraping
 	require 'open-uri'
 	require 'nokogiri'
 
-	def scrape(url, name)
+	def scrape_modified(url, name)
 		# remove any page indication from url
 		my_url = url.dup.gsub(/&start=\d*/, "")
 		@name = name
@@ -24,14 +24,14 @@ module BlogScraping
 				new_url = "#{my_url}&start=#{curr_page.to_s}"
 				page = Nokogiri::HTML(open(new_url))
 			end
-			scrape_page(page, curr_page)
+			scrape_modified_page(page, curr_page)
 			return nil unless @validated
 			curr_page += 20
 		end
 		return @result_posts
 	end
 
-	def scrape_page(page, index)
+	def scrape_modified_page(page, index)
 
 		# scrape posts
 		posts = page.css("div.post")

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121224090149) do
+ActiveRecord::Schema.define(:version => 20121228114851) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -146,10 +146,10 @@ ActiveRecord::Schema.define(:version => 20121224090149) do
     t.string   "name"
     t.string   "email"
     t.string   "remember_token"
+    t.string   "password_digest"
     t.boolean  "admin"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
-    t.string   "password_digest"
     t.string   "gravatar_suffix"
     t.string   "nickname"
     t.string   "reset_code"
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(:version => 20121224090149) do
     t.integer  "privacy_settings", :default => 0
     t.float    "latitude"
     t.float    "longitude"
+    t.datetime "last_visit"
   end
 
   add_index "users", ["country"], :name => "index_users_on_country"

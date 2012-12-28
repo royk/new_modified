@@ -10,8 +10,7 @@
 			<div class="right-bar span4 pull-right">
 				<h3><%=t(:activity)%></h3>
 				<ul class="activities">
-                  <% col =                                Notification.where(public: true).limit(20).order('id desc') %>
-					<%= render partial: 'shared/front_page_notification_item', collection: col %>
+					<%= render(partial: 'shared/front_page_notification_item', collection: site_activities) || t(:no_activities_since_last_visit) %>
 				</ul>
 			</div>
 			

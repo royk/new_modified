@@ -41,8 +41,4 @@ class Notification < ActiveRecord::Base
 			end
 		end
 	end
-
-	def join_message
-		I18n.t(:joined)
-	end
 end
