@@ -10,7 +10,8 @@ class NotificationsController < AuthenticatedController
 	end
 
 	def index
-		render partial: 'shared/front_page_notification_item', collection: Notification.where(public: true).limit(20).order('id desc')
+		col = Notification.where(public: true).limit(20).order('id desc')
+		render partial: 'shared/front_page_notification_item', collection: col
 	end
 
 	def get_latest

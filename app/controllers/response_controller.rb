@@ -20,7 +20,7 @@ class ResponseController < AuthenticatedController
 				@response = collection.build(params[response_object.to_sym])
 				@response.send("#{creator_object}=", current_user)
 				@response.send("#{attached_item}=", @parent)
-				notify_activity_on(@parent, current_user, @response)
+				register_new_content(@response, @parent)
 				if @response.save
 					return true
 				end

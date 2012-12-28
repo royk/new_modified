@@ -30,7 +30,7 @@ class VideosController < AuthenticatedController
 		update_players
 		if save_video(@video.url)
 			flash[:success] = "Video created"
-			notify_activity_on(@video, current_user, nil) unless params[:anonymous]
+			register_new_content(@video)
 		end
 		redirect_to request.referer
 	end

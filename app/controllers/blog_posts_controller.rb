@@ -30,7 +30,7 @@ class BlogPostsController < AuthenticatedController
 		end
 		create! do |success, failure|
 			success.html do 
-				notify_activity_on(@blog_post, current_user, nil)
+				register_new_content(@blog_post)
 				redirect_to request.referer
 			end
 			failure.html do

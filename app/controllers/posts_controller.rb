@@ -16,7 +16,7 @@ class PostsController < AuthenticatedController
 	def create
 		create! do |success, failure|
 			success.html do 
-				notify_activity_on(@post, current_user, nil)
+				register_new_content(@post)
 				redirect_to request.referer
 			end
 			failure.html do

@@ -49,12 +49,6 @@ describe Notification do
 	end
 
 	context "invalidates" do
-		describe "when there is no sender" do
-			before do
-				notification.sender = nil
-			end
-			it { should_not be_valid }
-		end
 		describe "when there is no item" do
 			before do
 				notification.item = nil
@@ -67,13 +61,13 @@ describe Notification do
 	context "action verb" do
 		describe "when notifying on comment" do
 			before :each do
-				notification.action = FactoryGirl.create(:comment)
+				notification.item = FactoryGirl.create(:comment)
 			end
 			its(:action_verb) { should== "commented" }
 		end
 		describe "when notifying on like" do
 			before :each do
-				notification.action = FactoryGirl.create(:like)
+				notification.item = FactoryGirl.create(:like)
 			end
 			its(:action_verb) { should=="gave kudos" }
 		end

@@ -15,6 +15,7 @@ class Like < ActiveRecord::Base
 
   belongs_to :liked_item, polymorphic: true
   belongs_to :liker, class_name: "User"
+  alias_attribute :user, :liker
   belongs_to :video
   belongs_to :post
   has_many :notifications, as: :action, dependent: :destroy

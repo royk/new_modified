@@ -17,7 +17,7 @@ class ArticlesController < AuthenticatedController
 	def create
 		create! do |success, failure|
 			success.html do 
-				notify_activity_on(@article, current_user, nil)
+				register_new_content(@article)
 				redirect_to request.referer
 			end
 			failure.html do

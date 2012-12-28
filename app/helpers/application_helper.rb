@@ -16,32 +16,38 @@ module ApplicationHelper
 	end
 
 	def active_if(options)
-	  if params.merge(options) == params
-	    'nav-active'
-	  end
+		if params.merge(options) == params
+			 'nav-active'
+	  	end
 	end
 
-	def notify_activity_on(item, sender, action=nil)
-		# refactor this
-		# the idea is: if the notificiation is on reaction (comment, like), don't notify if the sender is also the receiver.
-		if !action.nil?
-			recipient = item.user
-			if (sender==recipient || current_user==recipient)
-				return
+	def register_new_user(new_user)
+		notification = Notification.new
+		notification.item = new_user
+		notification.public = true
+		notification.save!
+	end
+
+	def register_new_content(new_item, parent_item=nil)
+		notification = Notification.new
+		notification.item = new_item
+		unless parent_item.nil?
+			notification.action = parent_item
+			if !parent_item.user.nil? && parent_item.user!=new_item.user
+				notify_user_on_item_activity(new_item, parent_item)
 			end
 		end
-
-		if !recipient.nil?
-			notification = recipient.notifications.build(sender: sender)
-			notification.user = recipient
-		else
-			notification = item.notifications.build(sender: sender)
-		end
-		notification.item = item
-		notification.action = action
-
+		notification.sender = new_item.user
 		notification.public = true
 		notification.save
+	end
+
+	def notify_user_on_item_activity(new_item, parent_item)
+		notification = parent_item.user.notifications.build(sender: new_item.user, item: new_item, action: parent_item)
+		notification.user = parent_item.user
+		notification.public = false
+		notification.read = false
+		notification.save!
 	end
 
 	def notify_tag(item, tagger, taggee)

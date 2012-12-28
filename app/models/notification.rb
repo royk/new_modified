@@ -16,19 +16,19 @@
 #
 
 class Notification < ActiveRecord::Base
-	attr_accessible :sender, :read, :public
+	attr_accessible :sender, :read, :public, :item, :action
 	
 	belongs_to :sender, class_name: "User"
 	belongs_to :user
 
 	belongs_to :item, polymorphic: true
 	belongs_to :action, polymorphic: true
+	alias_attribute :parent_item, :action
 
-	validates :sender, presence: true
 	validates :item, presence: true
 
 	def action_verb
-		case action.class.to_s
+		case item.class.to_s
 		when "Comment"
 			I18n.t(:commented)
 		when "Like"

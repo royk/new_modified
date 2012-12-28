@@ -80,7 +80,7 @@ class UsersController < ApplicationController
       UserMailer.welcome_mail(@user).deliver
       sign_in @user
       flash[:success] = "Welcome to the #{site_name}!"
-      notify_activity_on(@user, current_user)
+      register_new_user(@user)
       redirect_to "/static/welcome"
     else
       flash[:error] = "Could not sign up"

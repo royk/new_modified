@@ -18,6 +18,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :commentable, polymorphic: true
   belongs_to :commenter, 	class_name: "User"
+  alias_attribute :user, :commenter
   belongs_to :video
   belongs_to :post
   has_many :notifications, as: :action, dependent: :destroy

@@ -14,9 +14,9 @@ describe "activity bar" do
 	describe "when there's an activity notification" do
 		before :each do
 			notification = Notification.new
-			notification.item = post_item
+			notification.item = comment
 			notification.sender = user
-			notification.action = comment
+			notification.parent_item = post_item
 			notification.public = true
 			notification.save!
 			visit root_path
