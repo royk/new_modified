@@ -18,9 +18,6 @@ class BlogsController < AuthenticatedController
 	end
 
 	def import
-		unless current_user.admin?
-			redirect_to root_url
-		end
 	end
 
 	def perform_import

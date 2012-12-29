@@ -1,7 +1,8 @@
 <% provide(:title, "Modified phpbb blog importer") %>
+<h1>Modified.in Blog Importer</h1>
 <%= form_tag(performimport_path, method: 'get') %>
-<%= text_field_tag("blog_url", nil, class: "post-input", placeholder: "Blog URL") %>
-<%= submit_tag("Post", class: "btn")%>
+<%= text_field_tag("blog_url", nil, class: "post-input", placeholder: "Your blog's first page URL") %>
+<%= submit_tag("Import", class: "btn")%>
 <div>
 	<i class="icon-warning-sign"></i><p class="warning-text sub-text">Note: The operation may take several minutes, especially with prolific blogs. Please wait patiently.</p>
 </div>

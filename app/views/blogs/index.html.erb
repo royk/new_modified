@@ -3,6 +3,11 @@
 
 <%= will_paginate %>
 <ul class="blogs">
+	<% if signed_in? && !current_user.modified_user.empty? %>
+		<div class="import_blog">
+			<%= link_to t(:import_your_blog), importblog_path %>
+		</div>
+	<% end %>
 	<%= render @blogs %>
 </ul>		
 	

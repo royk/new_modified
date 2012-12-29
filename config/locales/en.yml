@@ -59,6 +59,7 @@ en:
 # Blog related
     blog: "Blog"
     post: "Post"
+    import_your_blog: "Import your blog from Modified.in"
 
 # Profile
     personal: "Personal"    
