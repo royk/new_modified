@@ -10,7 +10,7 @@ class ArticlesController < AuthenticatedController
 	end
 
 	def edit
-		@article = Article.find(params[:id])
+		@article = get_item_permalink(Article, params)
 		edit! { request.referer }
 	end
 
@@ -33,7 +33,7 @@ class ArticlesController < AuthenticatedController
 
 	def update
 		@article = Article.find_by_permalink(params[:id])
-		update! { request.referer }
+		update! { articles_path }
 	end
 
 	def destroy

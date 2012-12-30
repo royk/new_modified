@@ -7,7 +7,7 @@
 	<% end %>
 	- <h4><%= "#{t(:by_author)} #{article_item.user.shown_name}" %></h4>
 	<% if signed_in? && (current_user.admin? || current_user==article_item.user) %>
-		| 
+		<%= link_to t(:edit), edit_article_path(article_item) %> | 
 		<% if article_item.public %>
 			<%= link_to t(:make_private), article_path(article_item, "article"=>{public: false}), method: :put %> 
 		<% else %>

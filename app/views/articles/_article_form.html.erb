@@ -1,9 +1,9 @@
-<div class="feed" id="article_form" style="display:none;">
+<div class="feed">
 	<div class="feed-item head-element" id="feed-form">
 		<%= render '/shared/feed_info', user: current_user %>
 		<div class="content input-form article-form">
 			<div id="post-form">
-				<%= form_for(Article.create()) do |f| %>
+				<%= form_for(article) do |f| %>
 					<%= f.text_field(:title, class: "post-input", placeholder: "Title") %>
 					
 					<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"tinymce")%>

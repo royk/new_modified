@@ -4,7 +4,9 @@
 <% if signed_in? && (current_user.admin? || current_user.author?)%>
 	<% write_article_func = 'NM.toggleVisibility("#article_form");' %>
 	<%= link_to_function t(:write_an_article), write_article_func, class: :write_article %>
-	<%= render "article_form" %>
+	<div id="article_form" style="display:none;">
+		<%= render "article_form", article: Article.create %>
+</div>
 <% end %>
 <ul class="articles">
 	<%= render partial: 'article_item', collection: @articles %>
