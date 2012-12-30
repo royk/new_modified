@@ -2,21 +2,22 @@
 #
 # Table name: articles
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)
-#  content    :text
-#  user_id    :integer
-#  public     :boolean          default(TRUE)
-#  published  :boolean
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  permalink  :string(255)
+#  id          :integer          not null, primary key
+#  title       :string(255)
+#  content     :text
+#  user_id     :integer
+#  public      :boolean          default(TRUE)
+#  published   :boolean
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  permalink   :string(255)
+#  category_id :integer
 #
 
 class Article < ActiveRecord::Base
 	has_permalink 
 
-	attr_accessible :content, :public, :published, :title
+	attr_accessible :content, :public, :published, :title, :category, :category_id
 
 	belongs_to :user
 

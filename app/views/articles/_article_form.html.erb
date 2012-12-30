@@ -20,6 +20,9 @@
 					</script>
 					<%= f.check_box :published %>
 					<div class="spacer"></div>
+					<%= f.label :category_id %>
+					<%= f.select(:category_id, options_from_collection_for_select(Category.all, "id", "name", article.category_id), include_blank: true) %>
+					<div class="spacer"></div>
 					<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 				<% end %>
 			</div>

@@ -380,6 +380,9 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
 }
 
 /* articles */
+select {
+  height: auto
+}
 .articles {
   .article *{
     display: inline;

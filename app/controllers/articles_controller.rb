@@ -33,7 +33,13 @@ class ArticlesController < AuthenticatedController
 
 	def update
 		@article = Article.find_by_permalink(params[:id])
-		update! { articles_path }
+		if @article.update_attributes(params[:article])
+			redirect_to articles_path 
+		else
+			flash[:error] = "Could not create article. It must have a unique title and some content."
+			redirect_to request.referer
+		end
+
 	end
 
 	def destroy
@@ -42,7 +48,6 @@ class ArticlesController < AuthenticatedController
 	end
 
 	private
-
 		def author
 			unless current_user.admin? || current_user.author?
 				redirect_to root_url
