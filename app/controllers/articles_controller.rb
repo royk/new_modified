@@ -28,7 +28,10 @@ class ArticlesController < AuthenticatedController
 	end
 
 	def index
-		@articles = publishing_query(Article).paginate(page: params[:page], :per_page => 10)
+		@categories = Category.all
+		@empty_category = Category.new
+		@empty_category.name = t(:unsorted)
+		@empty_category.articles = Article.where("category_id = ?", nil)
 	end
 
 	def update

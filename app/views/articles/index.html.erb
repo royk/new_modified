@@ -1,13 +1,11 @@
 <% provide(:title, t(:articles)) %>
 
-<h1>Articles</h1>
 <% if signed_in? && (current_user.admin? || current_user.author?)%>
 	<% write_article_func = 'NM.toggleVisibility("#article_form");' %>
 	<%= link_to_function t(:write_an_article), write_article_func, class: :write_article %>
 	<div id="article_form" style="display:none;">
 		<%= render "article_form", article: Article.create %>
-</div>
+	</div>
 <% end %>
-<ul class="articles">
-	<%= render partial: 'article_item', collection: @articles %>
-</li>
+<%= render partial: 'category_item', collection: @categories %>
+<%= render partial: 'category_item', locals: {category_item: @empty_category} %>

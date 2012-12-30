@@ -1,0 +1,7 @@
+<% articles = publishing_query(category_item.articles) %>
+<% if articles.any? %>
+	<h2 class="category_title"><%= category_item.name %></h2>
+	<ul class="articles">
+		<%= render partial: 'article_item', collection: articles %>
+	</ul>
+<% end %>

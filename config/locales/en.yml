@@ -44,6 +44,7 @@ en:
     public_input_tooltip: "Public articles are visible to non site members. You can always change this later."
     publish_input_tooltip: "Unpublished articles are visible only to you and to admins. You can always publish the article later."
     select_a_category: "Select a category"
+    unsorted: "Unsorted"
 
 
 # General controls

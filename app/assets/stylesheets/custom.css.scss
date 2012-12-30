@@ -383,7 +383,12 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
 select {
   height: auto
 }
+.category_title {
+  text-align: left;
+  margin-bottom: 0px;
+}
 .articles {
+  padding-left: 10px;
   .article *{
     display: inline;
     text-align: left;
