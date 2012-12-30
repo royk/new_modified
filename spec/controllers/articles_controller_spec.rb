@@ -103,9 +103,13 @@ describe ArticlesController do
 	end
 
 	describe "index->" do
-		it "should return a list of articles" do
+		it "should return a list of categories" do
 			get :index
-			assigns(:articles).should_not be_nil
+			assigns(:categories).should_not be_nil
+		end
+		it "should return a category of non-categorized articles" do
+			get :index
+			assigns(:empty_category).should_not be_nil
 		end
 		it "should render the the appropriate view" do
 			get :index
@@ -115,7 +119,7 @@ describe ArticlesController do
 			before do
 				sign_in user
 			end
-			context "when admin" do
+			context "as admin" do
 				before do
 					sign_out
 					user.admin = true
@@ -130,7 +134,7 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 				context "public but not published" do
@@ -141,7 +145,7 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 				context "private and published" do
@@ -152,7 +156,7 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 				context "private and unpublished" do
@@ -163,11 +167,11 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 			end
-			context "when author" do
+			context "as author" do
 				before do
 					sign_out
 					user.author = true
@@ -182,7 +186,7 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 				context "public but not published" do
@@ -193,7 +197,7 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 				context "private and published" do
@@ -204,7 +208,7 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 				context "private and unpublished" do
@@ -215,11 +219,11 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 			end
-			context "when normal user" do
+			context "as normal user" do
 				context "published and public" do
 					before do
 						article.public = true
@@ -228,7 +232,7 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 				context "public but not published" do
@@ -239,7 +243,7 @@ describe ArticlesController do
 					end
 					it "should be not be shown" do
 						get :index
-						assigns(:articles).should be_empty
+						assigns(:empty_category).articles.should be_empty
 					end
 				end
 				context "private and published" do
@@ -250,7 +254,7 @@ describe ArticlesController do
 					end
 					it "should be shown" do
 						get :index
-						assigns(:articles).count.should eq 1
+						assigns(:empty_category).articles.count.should eq 1
 					end
 				end
 				context "private and unpublished" do
@@ -261,7 +265,7 @@ describe ArticlesController do
 					end
 					it "should be not be shown" do
 						get :index
-						assigns(:articles).should be_empty
+						assigns(:empty_category).articles.should be_empty
 					end
 				end
 			end
@@ -275,7 +279,7 @@ describe ArticlesController do
 				end
 				it "should be shown" do
 					get :index
-					assigns(:articles).count.should eq 1
+					assigns(:empty_category).articles.count.should eq 1
 				end
 			end
 			context "public but not published" do
@@ -286,7 +290,7 @@ describe ArticlesController do
 				end
 				it "should be not be shown" do
 					get :index
-					assigns(:articles).should be_empty
+					assigns(:empty_category).articles.should be_empty
 				end
 			end
 			context "private and published" do
@@ -297,7 +301,7 @@ describe ArticlesController do
 				end
 				it "should be not be shown" do
 					get :index
-					assigns(:articles).should be_empty
+					assigns(:empty_category).articles.should be_empty
 				end
 			end
 			context "private and unpublished" do
@@ -308,7 +312,7 @@ describe ArticlesController do
 				end
 				it "should be not be shown" do
 					get :index
-					assigns(:articles).should be_empty
+					assigns(:empty_category).articles.should be_empty
 				end
 			end
 		end
