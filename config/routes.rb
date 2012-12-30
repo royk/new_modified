@@ -66,6 +66,7 @@ NewModified::Application.routes.draw do
 
   match 'static/update/:name', controller: 'pages', action: 'update', via: :put
 
+  resources :categories
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

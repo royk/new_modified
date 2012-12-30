@@ -64,4 +64,8 @@ FactoryGirl.define do
 		user
 	end
 
+	factory :category do
+		name "Some Category"
+	end
+
 end

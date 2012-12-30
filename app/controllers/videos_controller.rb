@@ -58,7 +58,7 @@ class VideosController < AuthenticatedController
 	end
 
 	def search
-		@videos = Video.tagged_with(params[:search])#.by_date.paginate(:page => params[:page], :per_page => 20)
+		@videos = Video.tagged_with(params[:search])
 	end
 
 	private
