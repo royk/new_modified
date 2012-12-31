@@ -51,6 +51,7 @@ group :test do
   gem 'factory_girl_rails', '4.1.0'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'timecop'
 end
 
 group :production do

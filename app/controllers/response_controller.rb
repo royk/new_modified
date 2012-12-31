@@ -21,7 +21,9 @@ class ResponseController < AuthenticatedController
 				@response.send("#{creator_object}=", current_user)
 				@response.send("#{attached_item}=", @parent)
 				register_new_content(@response, @parent)
+				@parent.touch
 				if @response.save
+
 					return true
 				end
 			end
