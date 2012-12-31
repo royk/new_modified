@@ -1,23 +1,31 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <html>
-<head>
-  <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <%= render 'layouts/shim' %>
-</head>
-<% if signed_in? %>
-	<script>
-	NM.every().ajaxify({url:"/activities",
-						container: ".activities"});
-	</script>
-<% end %>
-<body>
-	<!-- static part of every page is the heade -->
-	<%= render 'layouts/header' %>
-	<div class="container">
-		<% flash.each do |key, value| %>
-			<%= content_tag(:div, value, class: "alert alert-#{key}") %>
-		<% end %>
-		<!-- dynamic part of every page is pasted here -->
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title><%= full_title(yield(:title)) %></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+		<%= render 'layouts/shim' %>
+	</head>
+	<% if signed_in? %>
+		<script>
+		NM.every().ajaxify({url:"/activities",
+							container: ".activities"});
+		</script>
+	<% end %>
+	<body>
+		<!-- static part of every page is the heade -->
+		<%= render 'layouts/header' %>
+		<div class="container">
+			<% flash.each do |key, value| %>
+				<%= content_tag(:div, value, class: "alert alert-#{key}") %>
+			<% end %>
+			<!-- dynamic part of every page is pasted here -->
