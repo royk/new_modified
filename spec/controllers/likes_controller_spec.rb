@@ -51,6 +51,44 @@ describe LikesController do
 					post_item.likes.find(assigns[:response]).should_not be_nil
 				end
 			end
+			context "notifications:" do
+				context "when liking my own post" do
+					before do 
+						post_item.user = user
+						post_item.save!
+					end
+					it "should create a public notification" do
+						post_item.user.should eq user # sanity
+						expect do
+							post :create, parent_type: post_item.class, parent_id: post_item
+						end.to change(Notification, :count).by 1
+					end
+					it "should change the updated timestamp of the post" do
+						post_item.user.should eq user # sanity
+						beforeStamp = post_item.updated_at.to_s
+						Timecop.travel(Time.now + 1.year) do
+							post :create, parent_type: post_item.class, parent_id: post_item
+							post_item.reload
+							afterStamp = post_item.updated_at.to_s
+							beforeStamp.should_not eq afterStamp
+						end
+					end
+				end
+				context "when liking someone else's post" do
+					it "should create public and private notifications" do
+					end
+					it "should change the updated timestamp of the post" do
+						post_item.user.should_not eq user # sanity
+						beforeStamp = post_item.updated_at.to_s
+						Timecop.travel(Time.now + 1.year) do
+							post :create, parent_type: post_item.class, parent_id: post_item
+							post_item.reload
+							afterStamp = post_item.updated_at.to_s
+							beforeStamp.should_not eq afterStamp
+						end
+					end
+				end
+			end
 		end
 	end
 
