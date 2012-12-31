@@ -1,0 +1,13 @@
+<div class="post-footer" id="comment<%=comment.id%>">
+	<ul class="nav post-footer-actions horizontal-menu">
+		<% 	already_liked = signed_in? && comment.likes.find_by_liker_id(current_user.id)	 %>
+		<% if already_liked %>
+		<%= render 'shared/kudos/take', feed_item: comment, feed_item_counter: comment_counter, container_id: "#comment#{comment.id}" %>
+		<% else %>
+			<%= render 'shared/kudos/give', feed_item: comment, feed_item_counter: comment_counter, container_id: "#comment#{comment.id}" %>
+		<% end %>
+	</ul>
+	<span class="timestamp">
+		<%= time_ago_in_words(comment.created_at) %> ago
+	</span>
+</div>

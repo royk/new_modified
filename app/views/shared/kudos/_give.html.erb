@@ -1,6 +1,9 @@
+<% unless defined? container_id %>
+	<% container_id = "#item#{feed_item_counter}" %>
+<% end %>
 <li><a href="javascript:NM.ajaxify({
 				url: '/like?parent_id=<%= feed_item.id%>&parent_type=<%=feed_item.class.to_s%>&index=<%=feed_item_counter%>',
 				type: 'post',
-				container: '#item<%= feed_item_counter%>'
+				container: '<%= container_id %>'
 			});">Kudos</a>
 </li>			

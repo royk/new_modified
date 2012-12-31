@@ -778,7 +778,6 @@ input.form-input {
     @include border(4px, 4px, 0px, 0px);
   }
   .comment {
-    margin-bottom: 2px;
     padding: 5px;
     .timestamp {
       padding-left: 45px;
@@ -808,7 +807,8 @@ input.form-input {
 
   }
   .comment {
-    @include border(4px, 4px, 4px, 4px);
+    @include border(4px, 4px, 0px, 0px);
+    padding-bottom: 0px;
   }
   .feed-item, .comment {
     background-color: white;

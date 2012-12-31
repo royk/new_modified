@@ -22,6 +22,7 @@ class Comment < ActiveRecord::Base
   belongs_to :video
   belongs_to :post
   has_many :notifications, as: :action, dependent: :destroy
+  has_many :likes, as: :liked_item
 
   validates_length_of :content, presence: true, :minimum => 1, maximum: 9999
   #validates :commenter, presence:true

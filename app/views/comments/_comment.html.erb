@@ -4,7 +4,6 @@
 	<div class="content">
 		<%= comment.content.html_safe %>
 	</div>
-	<div class="timestamp">
-		<%= time_ago_in_words(comment.created_at) %> ago.
-	</div>
+	
 </div>
+<%= render 'comments/comment_footer', comment: comment, comment_counter: comment_counter %>
