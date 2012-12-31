@@ -38,7 +38,7 @@ module BlogScraping
 		posts.each_with_index do |post, i|
 
 			# get date
-			date = Date.parse(post.css(".author")[0].children[3].text)
+			date = Time.parse(post.css(".author")[0].children[3].text)
 			# get content
 			content = post.css(".content")[0].inner_html
 			content = content.gsub(/\.\/images\/smilies\//i, "/assets/smilies/") # reroute smilies url to our own
