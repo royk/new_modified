@@ -28,7 +28,6 @@ class UsersController < ApplicationController
             @users = current_user.nearbys(9999).order("distance")
           end
       end
-      @users = @users.paginate(page: params[:page])
     end
     if request.xhr?
       render partial: '/users/user', collection: @users
