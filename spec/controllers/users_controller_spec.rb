@@ -123,7 +123,10 @@ describe UsersController do
 		end
 	end
 
-	describe "index" do
+	describe "index->" do
+		before do
+			user.save!
+		end
 		it "should return a list of users" do
 			get :index
 			assigns(:users).should eq([user])
