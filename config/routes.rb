@@ -17,6 +17,8 @@ NewModified::Application.routes.draw do
 
   match '/reset/:reset_code', to:'users#reset_password'
 
+  match '/sorted_users', to:'users#sorted_index'
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signin',  to: 'sessions#new'

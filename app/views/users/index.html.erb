@@ -1,13 +1,27 @@
 <% provide(:title, t(:members)) %>
+
 <div class="members">
 	<div class="header">
 		<h1><%= t(:members) %></h1>
 			<div>
-				<ul class="nav order-nav">
-					<li><%= t(:all) %></li>
-					<li><%= t(:latest) %></li>
-					<li><%= t(:nearby) %></li>
+				<ul class="nav order-nav" id="sort-methods">
+					<li class="clickable active" data-method="all"><%= t(:all) %></li>
+					<li class="clickable" data-method="latest"><%= t(:latest) %></li>
+					<li class="clickable" data-method="nearby"><%= t(:nearby) %></li>
 				</ul>
+				<script>
+					$(document).ready(function() {
+						debugger;
+						$("#sort-methods").children().click(function() {
+								NM.ajaxify({
+									url: '/sorted_users?sort_method='+this.dataset.method,
+									container: '.members-list'
+								});
+								$(this).addClass("active");
+								$(this).siblings().removeClass("active");
+						});
+					});
+				</script>
 			</div>
 	</div>
 	<table class="members-list">

@@ -415,6 +415,9 @@ select {
 }
 /* users index */
 .members {
+  .clickable.active {
+    text-decoration: underline;
+  }
   .members-list {
     .controls {
       float: right;
@@ -929,7 +932,6 @@ input.form-input {
 .clickable {
   cursor: pointer;
 }
-
 /* user editing page */
 .form-horizontal {
   padding: 15px;

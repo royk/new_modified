@@ -12,7 +12,27 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    params[:sort_method] = "all"
+    sorted_index
+  end
+
+  def sorted_index
+    if defined? params[:sort_method]
+      case(params[:sort_method].downcase)
+        when "all"
+          @users = User.all
+        when "latest"
+          @users = User.order('id desc')
+        when "nearby"
+          if signed_in? && current_user.geocoded?
+            @users = current_user.nearbys(9999).order("distance")
+          end
+      end
+      @users = @users.paginate(page: params[:page])
+    end
+    if request.xhr?
+      render partial: '/users/user', collection: @users
+    end
   end
 
   def edit
