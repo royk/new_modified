@@ -32,6 +32,9 @@ en:
     videos: "Videos"
     videos_feed: "Videos feed"   
     search: "search" 
+# Feedbacks page
+    videos_for_feedback: "Videos for Feedback"
+    videos_for_feedback_description: "Post your tricks and runs to get tips and constructive feedback on your game."
 
 # Articles
     articles: "Articles"

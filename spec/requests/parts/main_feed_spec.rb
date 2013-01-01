@@ -65,10 +65,10 @@ describe "main feed" do
 			end
 			describe "should be on top" do
 				before do
-					video = FactoryGirl.create(:video)
-					video.public = true
-					video.uid = "abc"
-					video.save!
+					post_item2 = FactoryGirl.create(:post)
+					post_item2.public = true
+					post_item2.content = "whatevs"
+					post_item2.save!
 					visit root_path
 				end
 				it { should have_css("div.feed-item-container", count: 2) }
@@ -82,9 +82,11 @@ describe "main feed" do
 			before do
 				video_item.public = true
 				video_item.title = "i am title of video"
+				video_item.for_feedback = false
 				video_item.save!
 				visit root_path
 			end
+			it { video_item.for_feedback.should eq false }# sanity 
 			it_should_behave_like "feed post"
 			it { should have_selector("div.video-content > iframe") }
 			it { should have_selector("div.video-content > h3", text: video_item.title) }

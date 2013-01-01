@@ -35,6 +35,8 @@ NewModified::Application.routes.draw do
     get 'search', on: :collection
   end
 
+  match '/feedbacks', to: 'videos#feedback_index'
+
   match '/saveVideo', to: 'videos#import', via: :post
 
   resources :blog_posts

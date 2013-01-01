@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230122339) do
+ActiveRecord::Schema.define(:version => 20130101133445) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -190,14 +190,15 @@ ActiveRecord::Schema.define(:version => 20121230122339) do
     t.integer  "user_id"
     t.string   "title"
     t.string   "vendor"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "uid"
     t.string   "url"
-    t.boolean  "public",     :default => true
+    t.boolean  "public",       :default => true
     t.string   "location"
     t.string   "maker"
     t.text     "players"
+    t.boolean  "for_feedback", :default => false
   end
 
   add_index "videos", ["uid"], :name => "index_videos_on_uid", :unique => true

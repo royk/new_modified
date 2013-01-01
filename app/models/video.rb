@@ -2,18 +2,19 @@
 #
 # Table name: videos
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  title      :string(255)
-#  vendor     :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  uid        :string(255)
-#  url        :string(255)
-#  public     :boolean          default(TRUE)
-#  location   :string(255)
-#  maker      :string(255)
-#  players    :text
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  title        :string(255)
+#  vendor       :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  uid          :string(255)
+#  url          :string(255)
+#  public       :boolean          default(TRUE)
+#  location     :string(255)
+#  maker        :string(255)
+#  players      :text
+#  for_feedback :boolean          default(FALSE)
 #
 
 class Video < ActiveRecord::Base
@@ -31,7 +32,7 @@ class Video < ActiveRecord::Base
     end
   end
 
-  attr_accessible :title, :vendor, :uid, :url, :public, :location, :maker, :players
+  attr_accessible :title, :vendor, :uid, :url, :public, :location, :maker, :players, :for_feedback
   acts_as_taggable
 
   belongs_to :user

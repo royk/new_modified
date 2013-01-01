@@ -4,7 +4,7 @@ class VideosController < AuthenticatedController
 	include VideoImporters
 	
 	before_filter	:correct_user, only: [:destroy, :update]
-	skip_before_filter :signed_in_user, only: [:index, :show]
+	skip_before_filter :signed_in_user, only: [:index, :show, :feedback_index]
 
 	def show
     	@video = get_item(Video, params)
@@ -12,13 +12,17 @@ class VideosController < AuthenticatedController
 
 	def index
 		if /atom/.match(request.format)
-			@videos = privacy_query(Video)
+			@videos = Video.where("public = ? for_feedback = ? ", true, false)
 		else
-			@videos = privacy_query(Video).paginate(page: params[:page], :per_page => 10)
+			@videos = Video.where("#{compound_privacy_query} for_feedback = ? ", false).paginate(page: params[:page], :per_page => 10)
 			if request.xhr?
 				render partial: 'shared/feed_item', collection: @videos, comments_shown: false
 			end
 		end
+	end
+
+	def feedback_index
+		@videos = Video.where("#{compound_privacy_query} for_feedback = ? ", true).paginate(page: params[:page], :per_page => 10)
 	end
 	
 	def create

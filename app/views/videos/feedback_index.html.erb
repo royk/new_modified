@@ -1,0 +1,9 @@
+<% provide(:title, t(:feedback)) %>
+<h1><%= t(:videos_for_feedback) %></h1>
+<p><%= t(:videos_for_feedback_description) %></p>
+<div class="feed">
+	<% if signed_in? %>
+		<%= render partial: 'shared/post_form', locals: {show_post: false, show_video: {feedback: true}, show_blog: false} %>
+	<% end %>
+	<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: true %>
+</div>

@@ -36,7 +36,7 @@
 			<% end %>
 			<% if show_video %>
 				<div id="video-form" <% if total>1 %>style="display:none;"<% end %>>
-					<%= render '/shared/edit_video_item', :video => Video.create() %>
+					<%= render '/shared/edit_video_item', video:Video.create(), feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
 				</div>
 			<% end %>
 			<% if show_blog %>

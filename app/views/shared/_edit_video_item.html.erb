@@ -6,6 +6,7 @@
 <%= form_for(video) do |f| %>
 	<%= f.text_field(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
 	<%= f.text_field(:title, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Title")%>
+	<%= f.hidden_field :for_feedback, value: feedback %>
 	<p>Players:</p>
 	<div id="players-input">
 		<% if players.any? %>
@@ -20,7 +21,7 @@
 		<% end %>
 	</div>
 
-	<% if signed_in? && super_admins_email.include?(		current_user.email) %>
+	<% if signed_in? && super_admins_email.include?(		current_user.email) && !feedback %>
 		<div>
 			<%= label_tag "anonymous post" %>
 			<%= check_box_tag :anonymous %>
