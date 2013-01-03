@@ -22,7 +22,7 @@ function FeedEntity(__params) {
 	var _requestNextPage = function _requestNextPage() {
 		if (++_currentPage<=_params.maxPages) {
 			_loadingNextPage = true;
-			$("#loading-indicator").show().fadeTo('slow', 1);
+			$(".loading-indicator").show().fadeTo('slow', 1);
 			var delimiter = '?';
 			if (_params.path.indexOf(delimiter)>-1) {
 				delimiter = '&';
@@ -32,7 +32,7 @@ function FeedEntity(__params) {
 				type: 'get',
 				success: function(response) {
 					_loadingNextPage = false;
-					$("#loading-indicator").fadeTo('fast', 0);
+					$(".loading-indicator").fadeTo('fast', 0);
 					_container.append(response);
 					$("#footer").pinFooter("relative");
 				}

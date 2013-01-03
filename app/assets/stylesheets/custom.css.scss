@@ -49,7 +49,7 @@ $linkColor: #08C;
 	@include gradient(right, #666666, #666666);
 }
 
-#loading-indicator {
+.loading-indicator {
   img {
     position: relative;
     left: 45%;
