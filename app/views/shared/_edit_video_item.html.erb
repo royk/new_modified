@@ -1,3 +1,4 @@
+<% feedback = false unless defined? feedback %>
 <% if defined? feed_item %>
 	<%= render '/shared/feed_info', user: feed_item.user %>
 <% end %>

@@ -11,6 +11,10 @@ NewModified::Application.routes.draw do
 
   resources :users
 
+  match '/user_videos', to: 'users#user_videos'
+  match '/user_posts', to: 'users#user_posts'
+  match '/user_articles', to: 'users#user_articles'
+
   match '/signup', to: 'users#new'
 
   match '/clear_notifications', to: 'users#clear_notifications'

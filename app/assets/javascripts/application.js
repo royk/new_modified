@@ -31,30 +31,9 @@ $(document).bind("active.idleTimer", function(){
 
 
 NM = (function() {
-	var currentToggleMenu = null;
-	var currentPage = 1;
-	var maxPages = 0;
-	var scrollPath = '';
-	var _loadingNextPage = false;
-	var periodify_intervals = {};
-
-	var _requestNextPage = function _requestNextPage() {
-		if (++currentPage<=maxPages) {
-			_loadingNextPage = true;
-			$("#loading-indicator").show().fadeTo('slow', 1);
-			$.ajax({
-				url: scrollPath+'?page='+currentPage,
-				type: 'get',
-				success: function(response) {
-					_loadingNextPage = false;
-					$("#loading-indicator").fadeTo('fast', 0);
-					$(".feed").append(response);
-					$("#footer").pinFooter("relative");
-				}
-			});
-		}
-	};
-	
+	var _currentToggleMenu = null;
+	var _periodify_intervals = {};
+	var _feeds = [];
 
 	return {
 		tooltip: function tooltip(elem_name, content, params) {
@@ -79,25 +58,25 @@ NM = (function() {
 			});
 		},
 		freeze: function freeze() {
-			for (var o in periodify_intervals) {
-				clearInterval(periodify_intervals[o].id);
+			for (var o in _periodify_intervals) {
+				clearInterval(_periodify_intervals[o].id);
 			}
 		},
 
 		unfreeze: function unfreeze() {
-			for (var o in periodify_intervals) {
-				periodify_intervals[o].f();
-				periodify_intervals[o].id = setInterval(periodify_intervals[o].f, periodify_intervals[o].period);
+			for (var o in _periodify_intervals) {
+				_periodify_intervals[o].f();
+				_periodify_intervals[o].id = setInterval(_periodify_intervals[o].f, _periodify_intervals[o].period);
 			}
 		},
 		// Call supported functions every *period* miliseconds. Default: every 10 seconds
 		every: function every(period) {
 			period = period || 10000;
 			var init = function (f, id) {
-				if (periodify_intervals[id]) {
-						clearInterval(periodify_intervals[id].id);
+				if (_periodify_intervals[id]) {
+						clearInterval(_periodify_intervals[id].id);
 					}
-					periodify_intervals[id] = {
+					_periodify_intervals[id] = {
 						period: period,
 						f: f,
 						id: setInterval(f, period)
@@ -111,6 +90,12 @@ NM = (function() {
 					init(function() {NM.refreshFeedItems();}, "feed");
 				}
 			};
+		},
+
+		refreshFeedItems: function refreshFeedItems() {
+			_feeds.forEach(function(feed) {
+				feed.refresh();
+			});
 		},
 		// updates a container via an ajax call.
 		// Takes:
@@ -135,31 +120,6 @@ NM = (function() {
 			});
 		},
 
-		endlessScroll: function endlessScroll(params) {
-			maxPages = params.maxPages;
-			scrollPath = params.path;
-			currentPage = params.currentPage || 1;
-
-			$(window).scroll(function(){
-				if ($(window).scrollTop() + $(window).innerHeight()>=document.body.scrollHeight) {
-					if (!_loadingNextPage) {
-						_requestNextPage();
-					}
-				}
-			});
-		},
-
-		refreshFeedItems: function refreshFeedItems() {
-			$.ajax({
-				url: scrollPath+'?page=1+&items_count='+currentPage*10,
-				type: 'get',
-				success: function(response) {
-					_loadingNextPage = false;
-					$(".feed").html(response);
-				}
-			});
-		},
-
 		toggleVisibility: function toggleVisibility(elem) {
 			elem = $(elem);
 			if (elem) {
@@ -180,7 +140,7 @@ NM = (function() {
 		},
 
 		registerToggleMenu: function registerToggleMenu(items, buttons) {
-			currentToggleMenu = items;
+			_currentToggleMenu = items;
 			buttons = buttons || [];
 			buttons.forEach(function(button, index) {
 				elem = $(button);
@@ -192,7 +152,7 @@ NM = (function() {
 		},
 
 		selectMenuItem: function selectMenuItem(itemIndex) {
-			currentToggleMenu.forEach(function(elem, index) {
+			_currentToggleMenu.forEach(function(elem, index) {
 				elem = $(elem);
 				var mode = index==itemIndex ? "block" : "none";
 				elem.css('display', mode);
@@ -208,7 +168,11 @@ NM = (function() {
 			$("#footer").pinFooter("relative");
 		},
 		clearToggleMenu: function clearToggleMenu() {
-			currentToggleMenu = null;
+			_currentToggleMenu = null;
+		},
+
+		registerFeed: function registerFeed(params) {
+			_feeds.push(new FeedEntity(params));
 		}
 
 	};

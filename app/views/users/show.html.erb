@@ -123,31 +123,35 @@
 			</div>
 			<% if @videos.any? %>
 				<div id="videos">
-					<div class="feed">
+					<div class="feed" id="video_feed">
 						<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
 					</div>
+					<%= render 'shared/ajax_loading', collection: @videos, loadPath: '/user_videos?id='+params[:id], container: '#video_feed' %>	
 				</div>
 			<% end %>
 			<% if @posts.any? %>
 				<div id="posts">
-					<div class="feed">
+					<div class="feed" id="posts_feed">
 						<%= render partial: 'shared/feed_item', collection: @posts, comments_shown: false %>
 					</div>
+					<%= render 'shared/ajax_loading', collection: @posts, loadPath: '/user_posts?id='+params[:id], container: '#posts_feed' %>	
 				</div>
 			<% end %>
 			<% if @articles.any? %>
 				<div id="articles">
-					<div class="feed">
+					<div class="feed" id="articles_feed">
 						<%= render partial: 'shared/feed_item', collection: @articles, comments_shown: false %>
 					</div>
+					<%= render 'shared/ajax_loading', collection: @articles, loadPath: '/user_articles?id='+params[:id], container: '#articles_feed' %>	
 				</div>
 			<% end %>
 			
 			<% if @blog_posts.any? %>
 				<div id="blog">
-					<div class="feed">
+					<div class="feed" id="blog_feed">
 						<%= render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false %>
 					</div>
+					<%= render 'shared/ajax_loading', collection: @blog_posts, loadPath: '/blogs/'+@blog_id.to_s, container: "#blog_feed" %>	
 				</div>
 			<% end %>
 			</div>

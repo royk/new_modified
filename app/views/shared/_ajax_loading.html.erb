@@ -1,8 +1,11 @@
+<% container = ".feed" if container.nil? %>
 <script>
-	NM.endlessScroll({
+	NM.registerFeed({
 		maxPages: <%= collection.total_pages %>,
-		path: '<%= loadPath %>'
-		,currentPage: <%= params[:page] || 1 %>
+		path: '<%= loadPath %>',
+		currentPage: <%= params[:page] || 1 %>,
+		container: '<%= container %>',
+		scrollable: true
 	});
 </script>
 <div id="loading-indicator">

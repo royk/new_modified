@@ -75,17 +75,35 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = privacy_query(@user.posts).paginate(page: params[:page])
-    @videos = privacy_query(@user.appears_in_videos).paginate(page: params[:page])
+    @posts = privacy_query(@user.posts).paginate(page: params[:page], per_page: 10)
+    @videos = privacy_query(@user.appears_in_videos).paginate(page: params[:page], per_page: 10)
     @articles = publishing_query(@user.articles).paginate(page: params[:page], :per_page => 10)
     unless @user.blog.nil?
-      @blog_posts = privacy_query(@user.blog.blog_posts).paginate(page: params[:page]) 
+      @blog_posts = privacy_query(@user.blog.blog_posts).paginate(page: params[:page], per_page: 10) 
+      @blog_id = @user.blog.id
     else
       @blog_posts = []
     end
     render layout: "no_activities"
   end
 
+  def user_videos
+    @user = User.find(params[:id])
+    @videos = privacy_query(@user.appears_in_videos).paginate(page: params[:page], per_page: 10)
+    render partial: 'shared/feed_item', collection: @videos, comments_shown: false
+  end
+
+  def user_posts
+    @user = User.find(params[:id])
+    @posts = privacy_query(@user.posts).paginate(page: params[:page], per_page: 10)
+    render partial: 'shared/feed_item', collection: @posts, comments_shown: false
+  end
+
+  def user_articles
+    @user = User.find(params[:id])
+    @articles = privacy_query(@user.articles).paginate(page: params[:page], per_page: 10)
+    render partial: 'shared/feed_item', collection: @articles, comments_shown: false
+  end
   
   def new
     @user = User.new
