@@ -49,6 +49,14 @@ class Video < ActiveRecord::Base
 
   default_scope order: 'videos.created_at DESC'
 
+  def name_for_notification
+    if for_feedback
+      "feedback video"
+    else
+      "video"
+    end
+  end
+
   def players_names
     names = []
     players_list.each do |player|

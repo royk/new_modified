@@ -3,7 +3,8 @@
 <% if notification_item.parent_item %>
 	<% receiver = notification_item.parent_item.user %>
 <% end %>
-<% if notification_item.item_type.downcase=="user" %>
+<% item_name = notification_item.item.class.method_defined?(:name_for_notification) ? notification_item.item.name_for_notification : notification_item.item.class.to_s.downcase %>
+<% if item_name=="user" %>
 	<% sender = notification_item.item %>
 <% end %>
 <% if sender %>
@@ -25,13 +26,13 @@
 			<% end %>
 			<%= link_to notification_item.action_type.downcase, notification_item.parent_item  %>
 		<% else %>
-			<% if notification_item.item_type.downcase=="user" %>
+			<% if item_name=="user" %>
 				<%= I18n.t(:joined) %>
 			<% else %>
 				<% begin %>
-					created a new <%= link_to notification_item.item_type.downcase, notification_item.item  %>
+					created a new <%= link_to item_name, notification_item.item  %>
 				<% rescue %>
-					created a new <%= notification_item.item_type.downcase %>
+					created a new <%= item_name %>
 				<% end %>
 			<% end %>
 		<% end %>
