@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
 	def home
 	  	@first_timer = first_time_visitor?
 	  	per_page = params[:items_count] || 10
-	  	@feed = Feed.find_by_name("Main Feed")
+	  	@feed = Feed.find_by_store_name("main feed")
 		@feed_items = @feed.feed_items do |collection|
 			privacy_query(collection)
 		end

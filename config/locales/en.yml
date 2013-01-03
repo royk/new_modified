@@ -75,3 +75,7 @@ en:
     all: "All"
     latest: "Latest"
     nearby: "Nearby"
+
+# Communities (feeds)    
+    communities: "Communities"
+    start_your_own: "Start your own!"

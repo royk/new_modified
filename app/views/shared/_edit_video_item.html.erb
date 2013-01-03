@@ -8,7 +8,7 @@
 	<%= f.text_field(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
 	<%= f.text_field(:title, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Title")%>
 	<%= f.hidden_field :for_feedback, value: feedback %>
-	<% if defined? feed %>
+	<% if defined?(feed) && !feed.nil?%>
 		<%= f.hidden_field :feed_id, value: feed.id %>
 	<% end %>
 	<p>Players:</p>

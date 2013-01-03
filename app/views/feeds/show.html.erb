@@ -1,0 +1,8 @@
+<div class="feed">
+	<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true} %>
+	<% if @feed_items.any? %>
+		<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
+	<% end %>
+</div>	
+
+<%= render 'shared/ajax_loading', collection: @feed_items, loadPath: feed_path(@feed.store_name) %>

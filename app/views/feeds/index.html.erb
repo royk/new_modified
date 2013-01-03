@@ -1,0 +1,6 @@
+<% provide(:title, t(:communities)) %>
+<h1>Community Feeds</h1>
+<% if signed_in? %>
+	<p>Can't find the one you want? <%= link_to t(:start_your_own), '#' %></p>
+<% end %>
+<%= render @feeds %>

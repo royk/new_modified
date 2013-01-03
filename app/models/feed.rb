@@ -14,6 +14,9 @@ class Feed < ActiveRecord::Base
   has_many :posts
   has_many :videos
 
+  validates :name, presence:true, uniqueness: {case_sensitive: false}, length: {maximum: 50, minimum: 2}
+  before_save {|feeds| self.store_name = self.name.downcase }
+
   def feed_items
   	self.posts.where(sticky:true).order("updated_at DESC") + ((yield(self.posts.where(sticky: false)) + yield(self.videos)).sort_by {|f| -f.updated_at.to_i})
   end
