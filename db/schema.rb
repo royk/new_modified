@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130101133445) do
+ActiveRecord::Schema.define(:version => 20130103133411) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -71,6 +71,12 @@ ActiveRecord::Schema.define(:version => 20130101133445) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "feeds", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "likes", :force => true do |t|
     t.integer  "liker_id"
     t.integer  "liked_item_id"
@@ -126,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20130101133445) do
     t.datetime "updated_at",                    :null => false
     t.boolean  "public",     :default => true
     t.boolean  "sticky",     :default => false
+    t.integer  "feed_id"
   end
 
   add_index "posts", ["created_at"], :name => "index_posts_on_created_at"
@@ -199,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20130101133445) do
     t.string   "maker"
     t.text     "players"
     t.boolean  "for_feedback", :default => false
+    t.integer  "feed_id"
   end
 
   add_index "videos", ["uid"], :name => "index_videos_on_uid", :unique => true

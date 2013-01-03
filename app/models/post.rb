@@ -9,12 +9,14 @@
 #  updated_at :datetime         not null
 #  public     :boolean          default(TRUE)
 #  sticky     :boolean          default(FALSE)
+#  feed_id    :integer
 #
 
 class Post < ActiveRecord::Base
-  attr_accessible :content, :public, :sticky
+  attr_accessible :content, :public, :sticky, :feed_id
 
   belongs_to :user
+  belongs_to :feed
   has_many :comments, as: :commentable, order: 'created_at ASC'
   has_many :likes, as: :liked_item
   has_many :notifications, as: :item, dependent: :destroy

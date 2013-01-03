@@ -23,7 +23,7 @@
 				<div id="post-form">
 					<%= form_for(Post.create()) do |f| %>
 						<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
-
+						<%= f.hidden_field :feed_id, value: @feed.id %>
 						<% if current_user.admin? %>
 							<div>
 								<span>Sticky:</span>
@@ -36,7 +36,7 @@
 			<% end %>
 			<% if show_video %>
 				<div id="video-form" <% if total>1 %>style="display:none;"<% end %>>
-					<%= render '/shared/edit_video_item', video:Video.create(), feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
+					<%= render '/shared/edit_video_item', video:Video.create(), feed: @feed, feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
 				</div>
 			<% end %>
 			<% if show_blog %>

@@ -53,3 +53,5 @@ VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = true
   c.hook_into                :fakeweb
 end
+
+@@main_feed = Feed.create!(name: "Main Feed")

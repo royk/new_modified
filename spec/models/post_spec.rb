@@ -9,6 +9,7 @@
 #  updated_at :datetime         not null
 #  public     :boolean          default(TRUE)
 #  sticky     :boolean          default(FALSE)
+#  feed_id    :integer
 #
 
 require 'spec_helper'

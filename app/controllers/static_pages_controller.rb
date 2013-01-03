@@ -4,8 +4,11 @@ class StaticPagesController < ApplicationController
 	def home
 	  	@first_timer = first_time_visitor?
 	  	per_page = params[:items_count] || 10
-		@feed_items = Post.where(sticky: true).order("updated_at DESC") + ((privacy_query(Post.where(sticky: false)) + Video.where("#{compound_privacy_query}for_feedback=?", false)).sort_by {|f| -f.updated_at.to_i}) # sort by descending by converting to int and negating
-		@feed_items = @feed_items.paginate(page: params[:page], :per_page=> per_page)	
+	  	@feed = Feed.find_by_name("Main Feed")
+		@feed_items = @feed.feed_items do |collection|
+			privacy_query(collection)
+		end
+		@feed_items = @feed_items.paginate(page: params[:page], :per_page=> per_page)
 		if request.xhr?
 			render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false
 		end

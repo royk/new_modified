@@ -15,6 +15,7 @@
 #  maker        :string(255)
 #  players      :text
 #  for_feedback :boolean          default(FALSE)
+#  feed_id      :integer
 #
 
 class Video < ActiveRecord::Base
@@ -32,10 +33,11 @@ class Video < ActiveRecord::Base
     end
   end
 
-  attr_accessible :title, :vendor, :uid, :url, :public, :location, :maker, :players, :for_feedback
+  attr_accessible :title, :vendor, :uid, :url, :public, :location, :maker, :players, :for_feedback, :feed_id
   acts_as_taggable
 
   belongs_to :user
+  belongs_to :feed
 
   serialize :players
 

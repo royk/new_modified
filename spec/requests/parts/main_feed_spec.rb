@@ -4,6 +4,7 @@ describe "main feed" do
 	let(:post_item) { FactoryGirl.create(:post) }
 	let(:video_item) { FactoryGirl.create(:video) }
 	let(:comment) { FactoryGirl.create(:comment) }
+	let(:main_feed) { Feed.find_by_name("Main Feed") }
 
 	subject { find("div.front-page-feed") }
 	before { visit root_path }
@@ -40,6 +41,7 @@ describe "main feed" do
 			before do
 				post_item.public = true
 				post_item.content = "yay!"
+				post_item.feed = main_feed
 				post_item.save!
 				visit root_path
 			end
@@ -57,6 +59,7 @@ describe "main feed" do
 			before do
 					post_item.public = true
 					post_item.sticky = true
+					post_item.feed = main_feed
 					post_item.save!
 					visit root_path
 			end	
@@ -68,6 +71,7 @@ describe "main feed" do
 					post_item2 = FactoryGirl.create(:post)
 					post_item2.public = true
 					post_item2.content = "whatevs"
+					post_item2.feed = main_feed
 					post_item2.save!
 					visit root_path
 				end
@@ -83,6 +87,8 @@ describe "main feed" do
 				video_item.public = true
 				video_item.title = "i am title of video"
 				video_item.for_feedback = false
+				video_item.feed_id = main_feed.id
+				video_item.public = true
 				video_item.save!
 				visit root_path
 			end
