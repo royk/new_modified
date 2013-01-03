@@ -24,5 +24,32 @@ describe "activity bar" do
 		it { should have_css("li", count: 1) }
 		it { should have_link(user.shown_name, href: user_path(user)) }
 		it { should have_link(post_item.class.to_s.downcase, href: post_path(post_item)) }
+		context "and it's about a video" do
+			before do
+				@video = FactoryGirl.create(:video)
+				@video.save!
+				notification = Notification.new
+				notification.item = @video
+				notification.sender = user
+				notification.public = true
+				notification.save!
+				visit root_path
+			end
+			it { should have_link("video", href: video_path(@video)) }
+			context "for feedback" do
+				before do
+					@video.for_feedback = true
+					@video.save!
+					notification = Notification.new
+					notification.item = @video
+					notification.sender = user
+					notification.public = true
+					notification.save!
+					visit root_path
+				end
+				it { should have_link("feedback video", href: video_path(@video)) }
+			end
+		end
+
 	end
 end
