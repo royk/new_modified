@@ -104,4 +104,13 @@ module ApplicationHelper
 		cookies.permanent[:NM] = Time.now
 	end
 
+	def seed_main_feed
+		feed = Feed.create!(name:"Main Feed")
+	  	(Post.all + Video.where("for_feedback=?", false)).each do |item|
+	  		item.feed = feed
+	  		item.save!
+	  	end
+	  	return feed
+	end
+
 end
