@@ -30,7 +30,7 @@ NewModified::Application.routes.draw do
   match '/forgotpassword', to: 'sessions#forgot_password'
   match '/resetpassword', to: 'sessions#reset_password'
 
-  resources :feeds, only: [:index]
+  resources :feeds, only: [:index, :create, :update, :edit]
 
   match 'feeds/:name', controller: 'feeds', action: 'show', as: "feed"
   

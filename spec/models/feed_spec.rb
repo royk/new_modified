@@ -6,6 +6,9 @@
 #  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  store_name :string(255)
+#  hidden     :boolean          default(FALSE)
+#  user_id    :integer
 #
 
 require 'spec_helper'

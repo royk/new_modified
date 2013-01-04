@@ -54,4 +54,4 @@ VCR.configure do |c|
   c.hook_into                :fakeweb
 end
 
-@@main_feed = Feed.create!(name: "Main Feed")
+@@main_feed = Feed.create(name: "Main Feed")

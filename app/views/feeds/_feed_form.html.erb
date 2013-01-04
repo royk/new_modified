@@ -1,0 +1,5 @@
+<%= form_for(feed) do |f| %>
+	<%= f.text_field(:name, class: "post-input", placeholder: "Name") %>
+	<div class="spacer"></div>
+	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% end %>	

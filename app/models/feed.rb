@@ -6,11 +6,15 @@
 #  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  store_name :string(255)
+#  hidden     :boolean          default(FALSE)
+#  user_id    :integer
 #
 
 class Feed < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :hidden
 
+  belongs_to :user
   has_many :posts
   has_many :videos
 

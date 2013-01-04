@@ -379,6 +379,15 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   padding-bottom: 20px;
 }
 
+/* communities */
+.community-name {
+  display: inline;
+
+}
+.community-name.hidden {
+  text-decoration: line-through;
+}
+
 /* articles */
 select {
   height: auto

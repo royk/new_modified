@@ -1,6 +1,10 @@
 <% provide(:title, t(:communities)) %>
 <h1>Community Feeds</h1>
 <% if signed_in? %>
-	<p>Can't find the one you want? <%= link_to t(:start_your_own), '#' %></p>
+	<% start_community_func = 'NM.toggleVisibility("#feed_form");' %>
+	<p>Can't find the one you want? <%= link_to_function t(:start_your_own), start_community_func %></p>
+	<div id="feed_form" style="display:none">
+		<%= render "feed_form", feed: Feed.create %>
+	</div>
 <% end %>
 <%= render @feeds %>

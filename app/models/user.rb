@@ -47,6 +47,8 @@ class User < ActiveRecord::Base
 
   has_many :posts, dependent: :destroy
 
+  has_many :feeds
+  
   has_many :articles
 
   has_many :videos
