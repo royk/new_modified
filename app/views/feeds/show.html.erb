@@ -6,15 +6,18 @@
 			</span>
 		<% end %>
 	<% end %>
-
-	<div class="community-description">
-		<%= @feed.description.html_safe %>
-	</div>
-	<%= link_to feed_path(@feed.permalink, :atom) do %>
-		<div>
-			<%= image_tag("/assets/feed-icon-14x14.png", alt: "Community feed", class: "video-feed-icon", width: 14, height: 14)%>
-			<%= t(:community_feed) %>
+	<% unless @feed.description.nil? %>
+		<div class="community-description">
+			<%= @feed.description.html_safe %>
 		</div>
+	<% end %>
+	<% unless @feed.permalink.nil? %>
+		<%= link_to feed_path(@feed.permalink, :atom) do %>
+			<div>
+				<%= image_tag("/assets/feed-icon-14x14.png", alt: "Community feed", class: "video-feed-icon", width: 14, height: 14)%>
+				<%= t(:community_feed) %>
+			</div>
+		<% end %>
 	<% end %>
 	<div class="feed">
 		<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true} %>
