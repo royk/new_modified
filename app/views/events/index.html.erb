@@ -1,0 +1,8 @@
+<% provide(:title, t(:events)) %>
+<% unless signed_in? && current_user.admin? %>
+	Coming soon!
+<% else %>
+	<% if signed_in? %>
+		<%= link_to t(:add_an_event), '#' %>
+	<% end %>
+<% end %>

@@ -56,6 +56,8 @@ class User < ActiveRecord::Base
   has_many :videos
   has_and_belongs_to_many :appears_in_videos, class_name: "Video", uniq: true
 
+  has_and_belongs_to_many :events_attended, class_name: "Event", uniq: true
+
   has_many :notifications, dependent: :destroy
   has_many :notifications, dependent: :destroy, foreign_key: "sender_id"
   has_many :notifications, dependent: :destroy, foreign_key: "item_id"

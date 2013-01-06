@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106124317) do
+ActiveRecord::Schema.define(:version => 20130106135701) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -69,6 +69,23 @@ ActiveRecord::Schema.define(:version => 20130106124317) do
   create_table "conversations", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.string   "city"
+    t.string   "country"
+    t.string   "state"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "events_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "event_id"
   end
 
   create_table "feeds", :force => true do |t|

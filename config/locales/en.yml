@@ -80,3 +80,6 @@ en:
 # Communities (feeds)    
     communities: "Communities"
     start_your_own: "Start your own!"
+# Events
+    events: "Events"    
+    add_an_event: "Add an event..."

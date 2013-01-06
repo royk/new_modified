@@ -71,6 +71,8 @@ NewModified::Application.routes.draw do
   match '/activities', to: 'notifications#index'
   match '/getnotifications', to: 'notifications#get_latest'
 
+  resources :events
+
   match 'static/:name', controller: 'pages', action: 'show', as: "page"
 
   match 'static/edit/:name', controller: 'pages', action: 'edit', as: "edit_page"
