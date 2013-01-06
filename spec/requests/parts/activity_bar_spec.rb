@@ -3,6 +3,7 @@ describe "activity bar" do
 	let(:user) { FactoryGirl.create(:user) }
 	let(:post_item) { FactoryGirl.create(:post) }
 	let(:comment) { FactoryGirl.create(:comment) }
+	let(:like) { FactoryGirl.create(:like) }
 
 	subject { find("ul.activities") }
 
@@ -24,6 +25,22 @@ describe "activity bar" do
 		it { should have_css("li", count: 1) }
 		it { should have_link(user.shown_name, href: user_path(user)) }
 		it { should have_link(post_item.class.to_s.downcase, href: post_path(post_item)) }
+
+		context "and it's about a comment that got a like" do
+			before do
+				comment.commentable = post_item
+				comment.save!
+				notification = Notification.new
+				notification.item = like
+				notification.sender = user
+				notification.parent_item = comment
+				notification.public = true
+				notification.save!
+				visit root_path
+			end
+
+			it { should have_link("comment", href: post_path(comment.commentable)) }
+		end
 		context "and it's about a video" do
 			before do
 				@video = FactoryGirl.create(:video)

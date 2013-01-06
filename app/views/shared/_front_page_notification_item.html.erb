@@ -24,7 +24,11 @@
 			<% else %>
 				a
 			<% end %>
-			<%= link_to notification_item.action_type.downcase, notification_item.parent_item  %>
+			<% if notification_item.action_type.downcase=="comment" %>
+				<%= link_to notification_item.action_type.downcase, notification_item.parent_item.commentable%>
+			<% else %>
+				<%= link_to notification_item.action_type.downcase, notification_item.parent_item  %>
+			<% end %>
 		<% else %>
 			<% if item_name=="user" %>
 				<%= I18n.t(:joined) %>
