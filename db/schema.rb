@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106081819) do
+ActiveRecord::Schema.define(:version => 20130106124317) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -187,6 +187,8 @@ ActiveRecord::Schema.define(:version => 20130106081819) do
     t.float    "latitude"
     t.float    "longitude"
     t.datetime "last_visit"
+    t.string   "about_title"
+    t.text     "about_content"
   end
 
   add_index "users", ["country"], :name => "index_users_on_country"

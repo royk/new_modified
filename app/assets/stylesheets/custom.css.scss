@@ -526,8 +526,9 @@ select {
     z-index: -9999;
   }
 .profile {
-  #about {
+  .span9 {
     margin-left: 0px;
+    padding-bottom: 10px;
   }
   section {
     overflow: visible;

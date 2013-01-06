@@ -70,6 +70,7 @@ en:
     personal: "Personal"    
     contact: "Contact"
     private_message: "Private message"
+    about_me: "About Me" # default text for about me box title
 # Members list    
     members: "Members"
     all: "All"

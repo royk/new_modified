@@ -70,6 +70,13 @@
 				<%= f.text_field :motto, class: "form-input" %>
 				<%= f.label :hobbies %>
 				<%= f.text_field :hobbies, class: "form-input" %>
+				<div class="about-me">
+					<%= f.label :about_title, "'About me' Title" %>
+					<%= f.text_field :about_title, id: "about-title", class: "form-input" %>
+					<%= f.label :about_content, "'About Me' Content" %>
+					<%= f.text_area :about_content, class: "tinymce" %>
+					<%= tinymce %>
+				</div>
 			</div>
 		    
 		    <div class="container">
