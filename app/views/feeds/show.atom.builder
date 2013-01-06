@@ -4,7 +4,11 @@ xml.feed("xmlns"=>"http://www.w3.org/2005/Atom") do
 	xml.title "Freestyle Footbag Community Feed: #{@feed.name}"
 	xml.link(href: base_url+feed_path(@feed.permalink, :atom), rel: "self")
 	xml.link(href: site_url)
-	xml.updated @feed_items[0].created_at.xmlschema
+	if @feed_items.any?
+		xml.updated @feed_items[0].created_at.xmlschema
+	else
+		xml.updated @feed.created_at.xmlschema
+	end
 	xml.category(term: :sports)
 	xml.id site_url
 	xml.author do

@@ -68,4 +68,9 @@ FactoryGirl.define do
 		name "Some Category"
 	end
 
+	factory :feed do
+		name "Some feed"
+		permalink "my_permalink"
+	end
+
 end
