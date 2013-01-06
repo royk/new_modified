@@ -32,7 +32,7 @@ NewModified::Application.routes.draw do
 
   resources :feeds, only: [:index, :create, :update, :edit]
 
-  match 'feeds/:name', controller: 'feeds', action: 'show', as: "feed"
+  match 'feeds/:permalink', controller: 'feeds', action: 'show', as: "feed"
   
   resources :posts
 

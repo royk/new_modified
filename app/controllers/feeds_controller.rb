@@ -1,5 +1,5 @@
 class FeedsController < AuthenticatedController
-	
+	require 'will_paginate/array' 
 	before_filter	:correct_user, only: [:destroy, :edit]
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
@@ -8,7 +8,7 @@ class FeedsController < AuthenticatedController
 	end
 
 	def show
-		@feed = Feed.find_by_store_name(params[:name].downcase)
+		@feed = Feed.find_by_permalink(params[:permalink].downcase)
 		unless @feed.nil?
 			@feed_items = @feed.feed_items do |collection|
 				privacy_query(collection)

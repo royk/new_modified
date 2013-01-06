@@ -1,8 +1,22 @@
-<div class="feed">
-	<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true} %>
-	<% if @feed_items.any? %>
-		<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
+<% unless @feed.nil? %>
+	<% if @feed.user==current_user || admin? %>
+		<%= link_to edit_feed_path(@feed) do %>
+			<span class="pull-right">
+				<i class="icon-cog"></i>
+			</span>
+		<% end %>
 	<% end %>
-</div>	
+	<div class="community-description">
+		<%= @feed.description.html_safe %>
+	</div>
+	<div class="feed">
+		<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true} %>
+		<% if @feed_items.any? %>
+			<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
+		<% end %>
+	</div>	
 
-<%= render 'shared/ajax_loading', collection: @feed_items, loadPath: feed_path(@feed.store_name) %>
+	<%= render 'shared/ajax_loading', collection: @feed_items, loadPath: feed_path(@feed.store_name) %>
+<% else %>
+	<p>Community not found</p>
+<% end %>
