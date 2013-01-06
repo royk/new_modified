@@ -45,14 +45,36 @@ describe VideosController do
 
 
 	describe "index" do
-		it "should return a list of videos" do
+		before do
 			video.save!
+		end
+		it "should return a list of videos" do
+			
 			get :index
 			assigns(:videos).should eq([video])
 		end
 		it "should render the video list view" do
 			get :index
 			response.should render_template :index
+		end
+		context "in ATOM format" do
+			before do
+				get :index, format: "atom"
+			end
+			it "should return a list of videos" do
+				assigns(:videos).should eq([video])
+			end
+		end
+		context "when requested via AJAX" do
+			before do
+				xhr :get, :index
+			end
+			it "should return a list of videos" do
+				assigns(:videos).should eq([video])
+			end
+			it "should not render the entire template" do
+				response.should_not render_template :index
+			end
 		end
 
 	end
