@@ -5,17 +5,16 @@
 <% end %>
 <td class="user <%= "zebra" if (counter_base%4)==0 %>">
 	<table style="width:100%">
-	
-	<%= link_to user do %>
 		<tr>
 			<td class="image_cell">
-				<%= gravatar_for user, size: 50 %>
-
+				<%= link_to user do %>
+					<%= gravatar_for user, size: 50 %>
+				<% end %>
 			</td>
 			<td>
 			<div>
 				<div class="name">
-					<%= user.shown_name %>
+					<%= link_to user.shown_name, user  %>
 					<% if admin? %>
 						<span class="controls">
 							<li class="dropdown">
@@ -53,7 +52,6 @@
 			
 		</td>
 		</tr>
-	<% end %>
 	</table>
 
 </td>
