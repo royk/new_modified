@@ -9,6 +9,9 @@ class FeedsController < AuthenticatedController
 
 	def show
 		@feed = Feed.find_by_permalink(params[:permalink].downcase)
+		if @feed.nil?
+			@feed = Feed.find_by_store_name(params[:permalink].downcase)
+		end
 		unless @feed.nil?
 			@feed_items = @feed.feed_items do |collection|
 				privacy_query(collection)
