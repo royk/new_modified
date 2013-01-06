@@ -1,0 +1,14 @@
+<% provide(:title, @event.name) %>
+<h1><%= @event.name %></h1>
+<% if signed_in? %>
+	<% if @event.attendants.where(current_user.id).empty? %>
+		<% participate_label= "I will participate" %>
+		<% if @event.start_date.past? %>
+			<% participate_label = "I participated" %>
+		<% end %>
+		<%= link_to participate_label, event_path(@event, attendant: current_user.id), method: :put %>
+	<% else %>
+		I participated.
+	<% end %>
+
+<% end %>

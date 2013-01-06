@@ -69,114 +69,131 @@
 			});
 		</script>
 		<div id="about">
-		<div class="span9">
+			
+			<div class="span9">
 				<div class="table-box">
 					<div class="table-head">
 						<%= t(:personal) %>
 					</div>
+					<table>
+						<tbody>
+							<tr>
+								<td>Name:</td>
+								<td><%=real_name(@user)%></td>
+							</tr>
+							<tr>
+								<td>From:</td>
+								<td><%=@user.location%></td>
+							</tr>
+							<% if @user.age>0 %>
+								<tr>
+									<td>Age:</td>
+									<td><%=@user.age%></td>
+								</tr>
+							<% end %>
+							<% if @user.years_playing>0 %>
+								<tr>
+									<td>Years playing:</td>
+									<td><%= @user.years_playing %></td>
+								</tr>
+							<% end %>
+							<% if @user.bap %>
+								<tr>
+									<td>BAP name:</td>
+									<td><%= @user.bap_name %></td>
+								</tr>
+								<tr>
+									<td>Bap induction:</td>
+									<td><%= @user.bap_induction.year%></td>
+								</tr>
+							<% end %>
+							<% unless @user.motto.nil? || @user.motto.empty? %>
+								<tr>
+									<td>Motto:</td>
+									<td> <%= @user.motto %></td>
+								</tr>
+							<% end %>
+							<% unless @user.hobbies.nil? || @user.hobbies.empty? %>
+								<tr>
+									<td>Activities:</td>
+									<td> <%= @user.hobbies %></td>
+								</tr>
+							<% end %>
+						<tbody>
+					</table>
+				</div>
+			</div>
+			<% unless @user.about_content.nil? || @user.about_content.empty? %>
+				<div class="span9">
+					<div class="table-box">
+						<div class="table-head">
+							<% if @user.about_title.empty? %>
+								<%= t(:about_me) %>
+							<% else %>
+								<%= @user.about_title %>
+							<% end %>
+						</div>
 						<table>
 							<tbody>
 								<tr>
-									<td>Name:</td>
-									<td><%=real_name(@user)%></td>
+									<td><%= @user.about_content.html_safe %></td>
 								</tr>
-								<tr>
-									<td>From:</td>
-									<td><%=@user.location%></td>
-								</tr>
-								<% if @user.age>0 %>
-									<tr>
-										<td>Age:</td>
-										<td><%=@user.age%></td>
-									</tr>
-								<% end %>
-								<% if @user.years_playing>0 %>
-									<tr>
-										<td>Years playing:</td>
-										<td><%= @user.years_playing %></td>
-									</tr>
-								<% end %>
-								<% if @user.bap %>
-									<tr>
-										<td>BAP name:</td>
-										<td><%= @user.bap_name %></td>
-									</tr>
-									<tr>
-										<td>Bap induction:</td>
-										<td><%= @user.bap_induction.year%></td>
-									</tr>
-								<% end %>
-								<% unless @user.motto.nil? || @user.motto.empty? %>
-									<tr>
-										<td>Motto:</td>
-										<td> <%= @user.motto %></td>
-									</tr>
-								<% end %>
-								<% unless @user.hobbies.nil? || @user.hobbies.empty? %>
-									<tr>
-										<td>Activities:</td>
-										<td> <%= @user.hobbies %></td>
-									</tr>
-								<% end %>
-							<tbody>
+							</tbody>
 						</table>
 					</div>
 				</div>
-				<% unless @user.about_content.nil? || @user.about_content.empty? %>
-					<div class="span9">
-						<div class="table-box">
-							<div class="table-head">
-								<% if @user.about_title.empty? %>
-									<%= t(:about_me) %>
-								<% else %>
-									<%= @user.about_title %>
-								<% end %>
-							</div>
-							<table>
-								<tbody>
-									<tr>
-										<td><%= @user.about_content.html_safe %></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				<% end %>
-			</div>
-			<% if @videos.any? %>
-				<div id="videos">
-					<div class="feed" id="video_feed">
-						<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
-					</div>
-					<%= render 'shared/ajax_loading', collection: @videos, loadPath: '/user_videos?id='+params[:id], container: '#video_feed' %>	
-				</div>
 			<% end %>
-			<% if @posts.any? %>
-				<div id="posts">
-					<div class="feed" id="posts_feed">
-						<%= render partial: 'shared/feed_item', collection: @posts, comments_shown: false %>
+			<div class="span9">
+				<div class="table-box">
+					<div class="table-head">
+						<%= t(:events) %>
 					</div>
-					<%= render 'shared/ajax_loading', collection: @posts, loadPath: '/user_posts?id='+params[:id], container: '#posts_feed' %>	
+					<table>
+						<tbody>
+							<% @user.events_attended.each do |e| %>
+								<tr>
+									<td><%= e.name %></td>
+									<td>Attended</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
 				</div>
-			<% end %>
-			<% if @articles.any? %>
-				<div id="articles">
-					<div class="feed" id="articles_feed">
-						<%= render partial: 'shared/feed_item', collection: @articles, comments_shown: false %>
-					</div>
-					<%= render 'shared/ajax_loading', collection: @articles, loadPath: '/user_articles?id='+params[:id], container: '#articles_feed' %>	
-				</div>
-			<% end %>
-			
-			<% if @blog_posts.any? %>
-				<div id="blog">
-					<div class="feed" id="blog_feed">
-						<%= render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false %>
-					</div>
-					<%= render 'shared/ajax_loading', collection: @blog_posts, loadPath: '/blogs/'+@blog_id.to_s, container: "#blog_feed" %>	
-				</div>
-			<% end %>
 			</div>
 		</div>
+		<% if @videos.any? %>
+			<div id="videos">
+				<div class="feed" id="video_feed">
+					<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
+				</div>
+				<%= render 'shared/ajax_loading', collection: @videos, loadPath: '/user_videos?id='+params[:id], container: '#video_feed' %>	
+			</div>
+		<% end %>
+		<% if @posts.any? %>
+			<div id="posts">
+				<div class="feed" id="posts_feed">
+					<%= render partial: 'shared/feed_item', collection: @posts, comments_shown: false %>
+				</div>
+				<%= render 'shared/ajax_loading', collection: @posts, loadPath: '/user_posts?id='+params[:id], container: '#posts_feed' %>	
+			</div>
+		<% end %>
+		<% if @articles.any? %>
+			<div id="articles">
+				<div class="feed" id="articles_feed">
+					<%= render partial: 'shared/feed_item', collection: @articles, comments_shown: false %>
+				</div>
+				<%= render 'shared/ajax_loading', collection: @articles, loadPath: '/user_articles?id='+params[:id], container: '#articles_feed' %>	
+			</div>
+		<% end %>
+		
+		<% if @blog_posts.any? %>
+			<div id="blog">
+				<div class="feed" id="blog_feed">
+					<%= render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false %>
+				</div>
+				<%= render 'shared/ajax_loading', collection: @blog_posts, loadPath: '/blogs/'+@blog_id.to_s, container: "#blog_feed" %>	
+			</div>
+		<% end %>
 	</div>
 </div>
+

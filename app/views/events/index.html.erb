@@ -1,8 +1,13 @@
 <% provide(:title, t(:events)) %>
-<% unless signed_in? && current_user.admin? %>
+<% unless super_admin? %>
 	Coming soon!
 <% else %>
 	<% if signed_in? %>
-		<%= link_to t(:add_an_event), '#' %>
+		<% add_event_func = 'NM.toggleVisibility("#event_form");' %>
+		<%= link_to_function t(:add_an_event), add_event_func %>
+		<div id="event_form" style="display:none;">
+			<%= render "event_form", event: Event.create %>
+		</div>
 	<% end %>
+	<%= render @events %>
 <% end %>

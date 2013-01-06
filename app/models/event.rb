@@ -19,4 +19,5 @@ class Event < ActiveRecord::Base
 
   belongs_to :user
   has_and_belongs_to_many :attendants, class_name: "User", uniq: true
+  validates :start_date, presence: true
 end
