@@ -84,6 +84,8 @@ class UsersController < ApplicationController
     else
       @blog_posts = []
     end
+    @competition_entries = get_sorted_competition_entries
+    @event_ids = @competition_entries.map {|a| a[:event].id }
     render layout: "no_activities"
   end
 
@@ -126,6 +128,18 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def get_sorted_competition_entries
+      competition_entries = []
+      @user.results.each do |r|
+        competition = Competition.find_by_id(r.competition_id)
+        event = Event.find_by_id(competition.event_id)
+        competition_entries << {id: event.id, event: event, competition: competition, result: r}
+      end
+      competition_entries.sort_by! do |x|
+        x[:event].start_date
+      end.reverse!
+    end
 
     def update_user_admin
       @user.update_attribute(:admin, params[:admin]) if current_user.admin?
