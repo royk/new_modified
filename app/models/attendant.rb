@@ -11,7 +11,7 @@
 #
 
 class Attendant < ActiveRecord::Base
-  attr_accessible :event_id, :role, :user_id
+  attr_accessible :event_id, :role, :user_id, :user, :event
 
   belongs_to :user
   belongs_to :event

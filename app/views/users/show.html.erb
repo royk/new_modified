@@ -152,7 +152,7 @@
 						<table>
 							<tbody>
 								<% @user.attendances.each do |a| %>
-									<%= event = Event.find_by_id(a.event_id) %>
+									<% event = Event.find_by_id(a.event_id) %>
 									<tr>
 										<td><%= event.name %></td>
 										<td>Attended</td>

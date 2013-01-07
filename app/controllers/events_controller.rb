@@ -16,7 +16,7 @@ class EventsController < AuthenticatedController
 						attendant = @event.attendants.build(user: @user, event: @event)
 					end
 					attendant.save
-					user.save
+					@user.save
 				end
 			end
 			@event.save
