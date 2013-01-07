@@ -1,10 +1,11 @@
 <% i=0 %>
 <%= form_for(event) do |f| %>
+	<%= f.label :name %>
 	<%= f.text_field(:name, class: "post-input", placeholder: "Event Name") %>
 	<div class="date-selector">
 		<%= f.label :start_date %>
 		<%= f.date_select(:start_date, start_year: 1980, end_year: 2050, prompt: true, order: [:day, :month, :year]) %>
-		
+		<%= label_tag "Competitions:", nil %>
 		<div id="competitions-input">
 			<% if event.competitions.any? %>
 				<% event.competitions.each do |c| %>
@@ -25,7 +26,7 @@
 		container: "#competitions-input",
 		mold: "#Competition_0",
 		startIndex: <%= i %>,
-		moreText: "Another compeitition...",
+		moreText: "Another competition...",
 		placeholder: "Competition name"
 	});
 </script>
