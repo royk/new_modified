@@ -16,6 +16,7 @@ class EventsController < AuthenticatedController
 	def update
 		@event = Event.find(params[:id])
 		unless @event.nil?
+			@event.update_attributes(params[:event])
 			register_attendant if params[:attendant]
 			register_competitions
 			@event.save

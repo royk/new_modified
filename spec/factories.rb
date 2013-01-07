@@ -73,4 +73,9 @@ FactoryGirl.define do
 		permalink "my_permalink"
 	end
 
+	factory :event do
+		name "Some Event"
+		start_date Time.now
+	end
+
 end
