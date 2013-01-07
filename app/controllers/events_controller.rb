@@ -11,7 +11,12 @@ class EventsController < AuthenticatedController
 			if params[:attendant]
 				@user = User.find(params[:attendant])
 				unless @user.nil?
-					@event.attendants << @user
+					attendant = @event.attendants.find_by_user_id(@user.id)
+					if attendant.nil?
+						attendant = @event.attendants.build(user: @user, event: @event)
+					end
+					attendant.save
+					user.save
 				end
 			end
 			@event.save

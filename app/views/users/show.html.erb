@@ -143,23 +143,26 @@
 					</div>
 				</div>
 			<% end %>
-			<div class="span9">
-				<div class="table-box">
-					<div class="table-head">
-						<%= t(:events) %>
+			<% unless @user.attendances.empty? %>
+				<div class="span9">
+					<div class="table-box">
+						<div class="table-head">
+							<%= t(:events) %>
+						</div>
+						<table>
+							<tbody>
+								<% @user.attendances.each do |a| %>
+									<%= event = Event.find_by_id(a.event_id) %>
+									<tr>
+										<td><%= event.name %></td>
+										<td>Attended</td>
+									</tr>
+								<% end %>
+							</tbody>
+						</table>
 					</div>
-					<table>
-						<tbody>
-							<% @user.events_attended.each do |e| %>
-								<tr>
-									<td><%= e.name %></td>
-									<td>Attended</td>
-								</tr>
-							<% end %>
-						</tbody>
-					</table>
 				</div>
-			</div>
+			<% end %>
 		</div>
 		<% if @videos.any? %>
 			<div id="videos">

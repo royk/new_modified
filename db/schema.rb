@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106135701) do
+ActiveRecord::Schema.define(:version => 20130107092101) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(:version => 20130106135701) do
   end
 
   add_index "articles", ["permalink"], :name => "index_articles_on_permalink"
+
+  create_table "attendants", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "role"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -81,11 +89,6 @@ ActiveRecord::Schema.define(:version => 20130106135701) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "events_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "event_id"
   end
 
   create_table "feeds", :force => true do |t|
@@ -182,10 +185,10 @@ ActiveRecord::Schema.define(:version => 20130106135701) do
     t.string   "name"
     t.string   "email"
     t.string   "remember_token"
-    t.string   "password_digest"
     t.boolean  "admin"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.string   "password_digest"
     t.string   "gravatar_suffix"
     t.string   "nickname"
     t.string   "reset_code"
