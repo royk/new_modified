@@ -1,24 +1,37 @@
 <% provide(:title, @event.name) %>
 <h1><%= @event.name %></h1>
+<% if @event.competitions.any? %>
+	<h3>Competitions:</h3>
+	<ul class="event-competitions">
+		<% @event.competitions.each do |c| %>
+			<li><%= link_to c.name, competition_path(c) %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+<% if @event.attendants.any? %>
+	<h3>Attendants:</h3>
+	<ul class="event-attendants">
+		<% @event.attendants.each do |a| %>
+			<li>
+				<%= link_to a.user.shown_name, user_path(a.user) %>
+				<% if a.user==current_user %>
+					| <%= link_to "Remove my attendnace", event_path(@event, attendant: current_user.id), method: :put %>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
 <% if signed_in? %>
-	<% if @event.attendants.where(current_user.id).empty? %>
-		<% participate_label= "I will participate" %>
+	<% if @event.attendants.where("user_id = ? ", current_user.id).empty? %>
+		<% participate_label= "I will attend" %>
 		<% if @event.start_date.past? %>
-			<% participate_label = "I participated" %>
+			<% participate_label = "I attended" %>
 		<% end %>
 		<%= link_to participate_label, event_path(@event, attendant: current_user.id), method: :put %>
-	<% else %>
-		I participated.
-	<% end %>
-	<% if @event.competitions.any? %>
-		<ul class="event-competitions">
-			<% @event.competitions.each do |c| %>
-				<li><%= link_to c.name, competition_path(c) %>
-				</li>
-			<% end %>
-		</ul>
 	<% end %>
 	<% if admin? || @event.user==current_user %>
+		<h3>Event Admin</h3>
 		<div id="event_form">
 			<%= render "event_form", event: @event %>
 		</div>

@@ -25,13 +25,14 @@ class EventsController < AuthenticatedController
 
 	private 
 		def register_attendant
-			@user = User.find(params[:attendant])
-			unless @user.nil?
-				attendant = @event.attendants.find_by_user_id(@user.id)
+			user = User.find(params[:attendant])
+			unless user.nil?
+				attendant = @event.attendants.find_by_user_id(user.id)
 				if attendant.nil?
-					attendant = @event.attendants.build(user: @user, event: @event)
+					attendant = @event.attendants.build(user: user, event: @event)
 					attendant.save
-					@user.save
+				else
+					Attendant.destroy(attendant.id)
 				end
 			end
 		end
