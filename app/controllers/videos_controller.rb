@@ -72,7 +72,6 @@ class VideosController < AuthenticatedController
 			@video.remove_players
 			i=0
 			until params[("Player_"+i.to_s).to_sym].nil?
-				logger.debug "Index #{i}"
 				name = params[("Player_"+i.to_s).to_sym]
 				unless name.empty?
 					player = @video.add_player name 

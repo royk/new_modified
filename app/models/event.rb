@@ -18,7 +18,9 @@ class Event < ActiveRecord::Base
   attr_accessible :city, :country, :end_date, :name, :start_date, :state, :user_id
 
   belongs_to :user
-  has_and_belongs_to_many :attendants, class_name: "User", uniq: true
+  has_many :attendants
+  has_many :competitions
+  
   validates :start_date, presence: true
   validates :name, presence: true
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106135701) do
+ActiveRecord::Schema.define(:version => 20130107102246) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(:version => 20130106135701) do
   end
 
   add_index "articles", ["permalink"], :name => "index_articles_on_permalink"
+
+  create_table "attendants", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "role"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -66,6 +74,14 @@ ActiveRecord::Schema.define(:version => 20130106135701) do
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["commenter_id"], :name => "index_comments_on_commenter_id"
 
+  create_table "competitions", :force => true do |t|
+    t.string   "name"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "index"
+  end
+
   create_table "conversations", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -81,11 +97,6 @@ ActiveRecord::Schema.define(:version => 20130106135701) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "events_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "event_id"
   end
 
   create_table "feeds", :force => true do |t|
@@ -161,6 +172,16 @@ ActiveRecord::Schema.define(:version => 20130106135701) do
   add_index "posts", ["sticky"], :name => "index_posts_on_sticky"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
+  create_table "results", :force => true do |t|
+    t.integer  "competition_id"
+    t.integer  "user_id"
+    t.integer  "position"
+    t.string   "description"
+    t.integer  "video_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -182,10 +203,10 @@ ActiveRecord::Schema.define(:version => 20130106135701) do
     t.string   "name"
     t.string   "email"
     t.string   "remember_token"
-    t.string   "password_digest"
     t.boolean  "admin"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.string   "password_digest"
     t.string   "gravatar_suffix"
     t.string   "nickname"
     t.string   "reset_code"

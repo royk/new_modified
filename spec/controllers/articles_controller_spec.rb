@@ -23,16 +23,15 @@ describe ArticlesController do
 			end
 		end
 		context "when signed in" do
-			 pending("Article editing")
-=begin					
+			before do
+				sign_in user
+			end
 			describe "as the owner" do
-
 				it "should be allowed" do
 					get :edit, id: article
 					response.should render_template :edit
 				end
 			end
-=end		
 		end
 	end
 

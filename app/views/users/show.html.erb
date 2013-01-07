@@ -143,23 +143,35 @@
 					</div>
 				</div>
 			<% end %>
-			<div class="span9">
-				<div class="table-box">
-					<div class="table-head">
-						<%= t(:events) %>
+			<% unless @user.attendances.empty? && @competition_entries.empty?%>
+				<div class="span9">
+					<div class="table-box">
+						<div class="table-head">
+							<%= t(:events) %>
+						</div>
+						<table>
+							<tbody>
+								<% @competition_entries.each do |e| %>
+									<tr>
+										<td><%= "#{e[:event].name}: #{e[:competition].name}" %></td>
+										<td><%="#{e[:result].position.ordinalize} place" %>
+									</td>
+								<% end %>
+								<% @user.attendances.each do |a| %>
+									<% # only show participation if we didn't show results for this event %>
+									<% unless @event_ids.include? a.event_id %>
+										<% event = Event.find_by_id(a.event_id) %>
+										<tr>
+											<td><%= event.name %></td>
+											<td>Attended</td>
+										</tr>
+									<% end %>
+								<% end %>
+							</tbody>
+						</table>
 					</div>
-					<table>
-						<tbody>
-							<% @user.events_attended.each do |e| %>
-								<tr>
-									<td><%= e.name %></td>
-									<td>Attended</td>
-								</tr>
-							<% end %>
-						</tbody>
-					</table>
 				</div>
-			</div>
+			<% end %>
 		</div>
 		<% if @videos.any? %>
 			<div id="videos">

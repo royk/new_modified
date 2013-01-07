@@ -1,0 +1,17 @@
+<h2><%= "#{@competition.event.name} - #{@competition.name}" %></h2>
+<% if @competition.results.any? %>
+	<h3>Results:</h3>
+	<ul>
+		<% @competition.results.sort_by {|r| r.position}.each do |r| %>
+			<li>
+				<%= "#{r.position.ordinalize} place: "%>
+				<%= link_to real_name(r.user), user_path(r.user) %>
+				<%= "- #{r.description}" %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>	
+<% if signed_in? %>
+	<p>My ranking:</p>
+	<%= render '/results/result_form', competition: @competition, result: @result %>
+<% end %>
