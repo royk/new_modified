@@ -388,6 +388,17 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   text-decoration: line-through;
 }
 
+/* events */
+.events-list {
+  h2 {
+    text-align: left;
+    margin-bottom: 0px;
+  }
+  .events-group {
+    margin-bottom: 10px;
+  }
+}
+
 /* articles */
 select {
   height: auto

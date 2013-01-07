@@ -9,5 +9,18 @@
 			<%= render "event_form", event: Event.create %>
 		</div>
 	<% end %>
-	<%= render @events %>
+	<div class="events-list">
+		<% if @upcoming_events.any? %>
+			<div class="events-group">
+				<h2>Upcoming Events</h2>
+				<%= render @upcoming_events %>
+			</div>
+		<% end %>
+		<% if @past_events.any? %>
+			<div>
+				<h2>Past Events</h2>
+				<%= render @past_events %>
+			</div>
+		<% end %>
+	</div>
 <% end %>
