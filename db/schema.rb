@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107092101) do
+ActiveRecord::Schema.define(:version => 20130107102246) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -73,6 +73,14 @@ ActiveRecord::Schema.define(:version => 20130107092101) do
 
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["commenter_id"], :name => "index_comments_on_commenter_id"
+
+  create_table "competitions", :force => true do |t|
+    t.string   "name"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "index"
+  end
 
   create_table "conversations", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -163,6 +171,16 @@ ActiveRecord::Schema.define(:version => 20130107092101) do
   add_index "posts", ["created_at"], :name => "index_posts_on_created_at"
   add_index "posts", ["sticky"], :name => "index_posts_on_sticky"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
+
+  create_table "results", :force => true do |t|
+    t.integer  "competition_id"
+    t.integer  "user_id"
+    t.integer  "position"
+    t.string   "description"
+    t.integer  "video_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

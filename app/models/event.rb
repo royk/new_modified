@@ -19,5 +19,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :user
   has_many :attendants
+  has_many :competitions
+  
   validates :start_date, presence: true
 end
