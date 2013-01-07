@@ -10,6 +10,14 @@
 	<% else %>
 		I participated.
 	<% end %>
+	<% if @event.competitions.any? %>
+		<ul class="event-competitions">
+			<% @event.competitions.each do |c| %>
+				<li><%= link_to c.name, competition_path(c) %>
+				</li>
+			<% end %>
+		</ul>
+	<% end %>
 	<% if admin? || @event.user==current_user %>
 		<div id="event_form">
 			<%= render "event_form", event: @event %>

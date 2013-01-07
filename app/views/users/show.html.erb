@@ -143,7 +143,7 @@
 					</div>
 				</div>
 			<% end %>
-			<% unless @user.attendances.empty? %>
+			<% unless @user.attendances.empty? && @user.results.empty?%>
 				<div class="span9">
 					<div class="table-box">
 						<div class="table-head">
@@ -151,12 +151,32 @@
 						</div>
 						<table>
 							<tbody>
-								<% @user.attendances.each do |a| %>
-									<% event = Event.find_by_id(a.event_id) %>
+								<% event_ids = [] %>
+								<% entries = [] %>
+								<% @user.results.each do |r| %>
+									<% competition = Competition.find_by_id(r.competition_id) %>
+									<% event = Event.find_by_id(competition.event_id) %>
+									<% event_ids << event.id %>
+									<% entries << {id: event.id, event: event, competition: competition, result: r} %>
+								<% end %>
+								<% entries.sort_by! do |x| %>
+									<% x[:event].start_date %>
+								<% end.reverse! %>
+								<% entries.each do |e| %>
 									<tr>
-										<td><%= event.name %></td>
-										<td>Attended</td>
-									</tr>
+										<td><%= "#{e[:event].name}: #{e[:competition].name}" %></td>
+										<td><%="#{e[:result].position.ordinalize} place" %>
+									</td>
+								<% end %>
+								<% @user.attendances.each do |a| %>
+									<% # only show participation if we didn't show results for this event %>
+									<% unless event_ids.include?(a.event_id) %>
+										<% event = Event.find_by_id(a.event_id) %>
+										<tr>
+											<td><%= event.name %></td>
+											<td>Attended</td>
+										</tr>
+									<% end %>
 								<% end %>
 							</tbody>
 						</table>

@@ -72,6 +72,8 @@ NewModified::Application.routes.draw do
   match '/getnotifications', to: 'notifications#get_latest'
 
   resources :events
+  resources :competitions, only: [:show]
+  resources :results, only: [:show, :create, :new, :update]
 
   match 'static/:name', controller: 'pages', action: 'show', as: "page"
 

@@ -13,7 +13,7 @@
 #
 
 class Result < ActiveRecord::Base
-  attr_accessible :competition_id, :description, :position, :user_id, :video_id
+  attr_accessible :competition_id, :description, :position, :user_id, :video_id, :user, :competition, :video
 
   belongs_to :competition
   belongs_to :user

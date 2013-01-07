@@ -1,0 +1,12 @@
+<% user = current_user if user.nil? %>
+<%= form_for(result) do |f| %>
+	<%= f.label :user %>
+	<%= text_field_tag :user_name, nil, class: "post-input", value: user.name %>
+	<%= f.label :position %>
+	<%= f.select :position, options_for_select((1..100).to_a.map { |a| "#{a.ordinalize} place" }) %>
+	<%= f.label :description %>
+	<%= f.text_field :description, class: "post-input" %>
+	<%= hidden_field_tag :competition_id, competition.id %>
+	<div class="spacer"></div>
+	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% end %>

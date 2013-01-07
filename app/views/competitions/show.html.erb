@@ -1,0 +1,6 @@
+<h2><%= "#{@competition.event.name} - #{@competition.name}" %></h2>
+
+<% if signed_in? %>
+	<p>My ranking:</p>
+	<%= render '/results/result_form', competition: @competition, result: @result %>
+<% end %>
