@@ -12,7 +12,8 @@
 	<%= f.text_field :description, class: "form-input" %>
 	<%= hidden_field_tag :competition_id, competition.id %>
 	<%= f.label :video_url %>
-	<%= text_field_tag :video_url, nil, class: "form-input", value: result.video.url unless result.video.nil? %>
+	<% video_url = result.video.nil? ? "" : result.video.url %>
+	<%= text_field_tag :video_url, nil, class: "form-input", value: video_url %>
 	<div class="spacer"></div>
 	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>
