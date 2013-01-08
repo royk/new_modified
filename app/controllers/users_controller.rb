@@ -117,8 +117,8 @@ class UsersController < ApplicationController
     @user = User.new(params[:user]) if @user.nil?
     if @user.save
       Video.move_to_user_players(@user)
-      UserMailer.welcome_mail(@user).deliver
       unless params[:admin_created]
+        UserMailer.welcome_mail(@user).deliver
         sign_in @user
         flash[:success] = "Welcome to the #{site_name}!"
         register_new_user(@user) if @user.registered
