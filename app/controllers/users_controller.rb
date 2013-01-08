@@ -171,7 +171,7 @@ class UsersController < ApplicationController
       params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
       if @user.update_attributes(params[:user])
         flash[:success]= "Profile updated"
-        sign_in @user
+        sign_in @user unless @user.registered==false
         redirect_to @user
       else
         render 'edit'

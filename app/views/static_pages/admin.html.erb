@@ -3,7 +3,7 @@
 		<h3>Virtual Profiles</h3>
 		<ul>
 		<% @virtual_profiles.each do |u| %>
-			<li><%= link_to u.name, u %> (<%= "#{u.email}" %>) | <%= link_to "delete", u, method: :delete, data: {confirm: "You sure?"} %></li>
+			<li><%= link_to u.name, u %> (<%= "#{u.email}" %>) | <%= link_to "edit", edit_user_path(u) %> | <%= link_to "delete", u, method: :delete, data: {confirm: "You sure?"} %></li>
 		<% end %>
 		</ul>
 		<div class="spacer"></div>
