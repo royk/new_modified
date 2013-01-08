@@ -4,6 +4,7 @@ class FeedsController < AuthenticatedController
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def index
+		@to_exclude = ["Main Feed", "Admin Feed"]
 		@feeds = Feed.all
 	end
 

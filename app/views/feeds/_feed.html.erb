@@ -1,4 +1,4 @@
-<% unless feed.name=="Main Feed" %>
+<% unless @to_exclude.include? feed.name%>
 	<% if !feed.hidden || feed.user==current_user %>
 		<div>
 			<h3 class="community-name <%= 'hidden' if feed.hidden %>"><%= link_to feed.name, feed_path(feed.permalink) %></h3>
