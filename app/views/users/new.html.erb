@@ -23,6 +23,12 @@
 			<%= text_field_tag :challenge, nil, class: "form-input" %>
 
 			<% recaptcha_tags %>
+			<% if admin? %>
+				<div>
+					<%= label_tag :registered, "Uncheck for virtual profile" %>
+					<%= f.check_box :registered %>
+				</div>
+			<% end %>
 			<div class="container">
 				<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
 			</div>

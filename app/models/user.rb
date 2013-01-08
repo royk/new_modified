@@ -30,13 +30,14 @@
 #  last_visit       :datetime
 #  about_title      :string(255)
 #  about_content    :text
+#  registered       :boolean          default(TRUE)
 #
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, 
                   :nickname, :blog_title, :reset_code, :country, :city, :modified_user, 
                   :birthday, :started_playing, :bap, :bap_name, :bap_induction,
-                  :motto, :hobbies, :last_visit, :about_title, :about_content
+                  :motto, :hobbies, :last_visit, :about_title, :about_content, :registered
 
   bitmask :privacy_settings, as: [:expose_name, :expose_location]
 

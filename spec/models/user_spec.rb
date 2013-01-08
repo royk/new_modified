@@ -30,6 +30,7 @@
 #  last_visit       :datetime
 #  about_title      :string(255)
 #  about_content    :text
+#  registered       :boolean          default(TRUE)
 #
 
 require 'spec_helper'

@@ -112,14 +112,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
     return unless anti_spam_verifications
+    @user = migrate_virtual_profile
+    @user = User.new(params[:user]) if @user.nil?
     if @user.save
       Video.move_to_user_players(@user)
       UserMailer.welcome_mail(@user).deliver
       sign_in @user
       flash[:success] = "Welcome to the #{site_name}!"
-      register_new_user(@user)
+      register_new_user(@user) if @user.registered
       redirect_to "/static/welcome"
     else
       flash[:error] = "Could not sign up"
@@ -128,6 +129,16 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def migrate_virtual_profile
+      virtual_profile = User.where("name LIKE ? AND registered = ?", params[:user][:name], false).first
+      unless virtual_profile.nil?
+        virtual_profile.registered = true
+        virtual_profile.update_attributes(params[:user])
+        virtual_profile.password = params[:user][:password]
+      end
+      return virtual_profile
+    end
 
     def get_sorted_competition_entries
       competition_entries = []

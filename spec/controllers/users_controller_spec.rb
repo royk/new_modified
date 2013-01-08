@@ -176,8 +176,61 @@ describe UsersController do
 				end.to_not change(User, :count).by(1)
 				response.should render_template :new
 			end
-
 		end
+
+		describe "when registering a virtual profile" do
+			it "should not send notification" do
+				expect do
+					post :create, challenge: "freestyle", user: {name: "fifi", email: "fifi@wix.com", gravatar_suffix: "fufu", password: "123456", password_confirmation: "123456", registered: false}
+				end.to_not change(Notification, :count)
+			end
+		end
+
+
+		describe "when using a name that's already registered" do
+			before do
+				@new_user = User.new
+				@new_user.name = user.name
+				@new_user.email = "real_email@gmail.com"
+				@new_user.password = "new_user_password"
+				@new_user.password_confirmation = @new_user.password
+
+				@old_pwd_digest = user.password_digest
+			end
+			it "should register the new user" do
+				expect do
+					post :create, challenge: "freestyle", user: {name: @new_user.name, email: @new_user.email, password: @new_user.password, password_confirmation: @new_user.password_confirmation}
+				end.to change(User, :count).by(1)
+			end
+			context "but there's a virtual profile with that name" do
+				before do
+					user.registered = false
+					user.save!
+				end
+				it "should not create a new user" do
+					expect do
+						post :create, challenge: "freestyle", user: {name: @new_user.name, email: @new_user.email, password: @new_user.password, password_confirmation: @new_user.password_confirmation}
+					end.to_not change(User, :count).by(1)
+				end
+				it "should change the email to the new email" do
+					post :create, challenge: "freestyle", user: {name: @new_user.name, email: @new_user.email, password: @new_user.password, password_confirmation: @new_user.password_confirmation}
+					user.reload
+					user.email.should eq @new_user.email					
+				end
+				it "should change the passwords" do
+					post :create, challenge: "freestyle", user: {name: @new_user.name, email: @new_user.email, password: @new_user.password, password_confirmation: @new_user.password_confirmation}
+					user.reload
+					user.password_digest.should_not eq @old_pwd_digest
+				end
+				it "should flag the account as registered" do
+					post :create, challenge: "freestyle", user: {name: @new_user.name, email: @new_user.email, password: @new_user.password, password_confirmation: @new_user.password_confirmation}
+					user.reload
+					user.registered.should eq true
+				end
+			end
+		end
+
+
 
 		describe "with mismatched password confirmation" do
 			it "should not create a user" do
