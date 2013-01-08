@@ -1,6 +1,6 @@
 <div>
 	<%= link_to event.name, event_path(event) %>
 	<% if future %>
-		<%= event.start_date.strftime(" - %B #{event.start_date.mday.ordinalize} %Y") %>
+		<%= " - #{event.date_formatter(event.start_date)} - #{event.location}" %>
 	<% end %>
 </div>

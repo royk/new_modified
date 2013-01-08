@@ -20,6 +20,7 @@ gem 'has_permalink'
 gem 'carrierwave'
 gem 'bitmask_attributes'
 gem "geocoder"
+gem "date_validator"
 
 
 group :development, :test do

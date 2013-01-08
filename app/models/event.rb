@@ -23,4 +23,14 @@ class Event < ActiveRecord::Base
   
   validates :start_date, presence: true
   validates :name, presence: true
+  validates :end_date, date: {after: :start_date, message: "Must be after start date"}
+
+  def location
+    [city, country].compact.join(", ")
+  end
+
+  def date_formatter(date)
+  	date.strftime("%B #{date.mday.ordinalize} %Y") unless date.nil?
+  end
+
 end
