@@ -105,12 +105,16 @@ module ApplicationHelper
 	end
 
 	def seed_main_feed
-		feed = Feed.create!(name:"Main Feed")
+		feed = Feed.create!(name:"Main Feed", permalink:"main_feed")
 	  	(Post.all + Video.where("for_feedback=?", false)).each do |item|
 	  		item.feed = feed
 	  		item.save!
 	  	end
 	  	return feed
+	end
+
+	def seed_admin_feed
+		Feed.create!(name:"Admin Feed", permalink:"admin_feed")
 	end
 
 end

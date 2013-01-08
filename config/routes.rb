@@ -9,6 +9,8 @@ NewModified::Application.routes.draw do
 
   match '/contact', to: 'static_pages#contact'
 
+  match '/admin', to: 'static_pages#admin'
+
   resources :users
 
   match '/user_videos', to: 'users#user_videos'

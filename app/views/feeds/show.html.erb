@@ -1,32 +1,36 @@
 <% unless @feed.nil? %>
-	<% if @feed.user==current_user || admin? %>
-		<%= link_to edit_feed_path(@feed) do %>
-			<span class="pull-right">
-				<i class="icon-cog"></i>
-			</span>
+	<% if @feed.permalink=="admin_feed" && !admin? %>
+		<p>Community not found</p>
+	<% else %>
+		<% if @feed.user==current_user || admin? %>
+			<%= link_to edit_feed_path(@feed) do %>
+				<span class="pull-right">
+					<i class="icon-cog"></i>
+				</span>
+			<% end %>
 		<% end %>
-	<% end %>
-	<% unless @feed.description.nil? %>
-		<div class="community-description">
-			<%= @feed.description.html_safe %>
-		</div>
-	<% end %>
-	<% unless @feed.permalink.nil? %>
-		<%= link_to feed_path(@feed.permalink, :atom) do %>
-			<div>
-				<%= image_tag("/assets/feed-icon-14x14.png", alt: "Community feed", class: "video-feed-icon", width: 14, height: 14)%>
-				<%= t(:community_feed) %>
+		<% unless @feed.description.nil? %>
+			<div class="community-description">
+				<%= @feed.description.html_safe %>
 			</div>
 		<% end %>
-	<% end %>
-	<div class="feed">
-		<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true} %>
-		<% if @feed_items.any? %>
-			<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
+		<% unless @feed.permalink.nil? %>
+			<%= link_to feed_path(@feed.permalink, :atom) do %>
+				<div>
+					<%= image_tag("/assets/feed-icon-14x14.png", alt: "Community feed", class: "video-feed-icon", width: 14, height: 14)%>
+					<%= t(:community_feed) %>
+				</div>
+			<% end %>
 		<% end %>
-	</div>	
+		<div class="feed">
+			<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true} %>
+			<% if @feed_items.any? %>
+				<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
+			<% end %>
+		</div>	
 
-	<%= render 'shared/ajax_loading', collection: @feed_items, loadPath: feed_path(@feed.store_name) %>
+		<%= render 'shared/ajax_loading', collection: @feed_items, loadPath: feed_path(@feed.store_name) %>
+	<% end %>
 <% else %>
 	<p>Community not found</p>
 <% end %>
