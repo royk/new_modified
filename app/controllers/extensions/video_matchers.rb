@@ -2,6 +2,10 @@ module VideoMatchers
 	require 'open-uri'
 	require 'nokogiri'
 
+	def get_uid_vendor(url)
+		match_youtube(url) || match_vimeo(url) || match_footbag_org(url)
+	end
+
 	def match_youtube(url)
 		youtubeIDLong = url.scan(/(?:youtube\.com\/watch[^\s]*[\?&]v=)([\w-]+)/i);
 		youtubeIdShort = url.scan(/(?:youtu\.be\/)([\w-]+)/i)

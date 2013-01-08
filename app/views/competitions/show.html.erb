@@ -2,14 +2,23 @@
 <h3>Results:</h3>
 <% if @competition.results.any? %>
 	<ul>
+		<% i=0 %>
 		<% @competition.results.sort_by {|r| r.position}.each do |r| %>
 			<li>
 				<%= "#{r.position.ordinalize} place: "%>
 				<%= link_to real_name(r.user), user_path(r.user) %>
 				<%  unless r.description.empty? %>
-					<%= "- #{r.description}" %>
+					<%= "- #{r.description}. " %>
+				<% end %>
+				<% unless r.video.nil? %>
+					<%= link_to_function "Video...", "NM.toggleVisibility('#result_video#{i}');" %>
+					<div id="result_video<%= i %>" style="display:none;">
+						<%= render '/shared/video_item', feed_item: r.video %>
+					</div>
 				<% end %>
 			</li>
+			<% i += 1 %>
+
 		<% end %>
 	</ul>
 <% else %>	

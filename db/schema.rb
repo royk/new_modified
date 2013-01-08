@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130108094548) do
+ActiveRecord::Schema.define(:version => 20130108121904) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -95,8 +95,9 @@ ActiveRecord::Schema.define(:version => 20130108094548) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.boolean  "ifpa_sanctioned"
   end
 
   create_table "feeds", :force => true do |t|

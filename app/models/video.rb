@@ -44,7 +44,10 @@ class Video < ActiveRecord::Base
   has_many :comments, as: :commentable, order: 'created_at ASC'
   has_many :likes, as: :liked_item
   has_many :notifications, as: :item, dependent: :destroy
+
   has_and_belongs_to_many :user_players, class_name: "User", uniq: true
+
+  has_one :result
 
   validates :uid, presence: true, uniqueness: { case_sensitive: true }
   validates :vendor, presence: true

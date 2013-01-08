@@ -2,15 +2,17 @@
 <%= form_for(result) do |f| %>
 	<% if admin? %>
 		<%= f.label :user %>
-		<%= text_field_tag :user_name, nil, class: "post-input", value: user.name %>
+		<%= text_field_tag :user_name, nil, class: "form-input", value: user.name %>
 	<% else %>
 		<%= hidden_field_tag :user_name, user.name %>
 	<% end %>
 	<%= f.label :position %>
 	<%= f.select :position, options_for_select((1..100).to_a.map { |a| ["#{a.ordinalize} place", a] }, result.position) %>
 	<%= f.label :description %>
-	<%= f.text_field :description, class: "post-input" %>
+	<%= f.text_field :description, class: "form-input" %>
 	<%= hidden_field_tag :competition_id, competition.id %>
+	<%= f.label :video_url %>
+	<%= text_field_tag :video_url, nil, class: "form-input", value: result.video.url unless result.video.nil? %>
 	<div class="spacer"></div>
 	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>
