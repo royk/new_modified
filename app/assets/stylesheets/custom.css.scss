@@ -572,7 +572,9 @@ select {
     @include boxShadow(-3px 3px 7px #000);
   }
   .table-box {
-
+    .table-box-content {
+      padding: 8px;
+    }
     border: 1px solid $black;
     @include boxShadow(-3px 3px 7px #000);
     background-color: $white;
@@ -588,7 +590,7 @@ select {
         padding: 8px;
       }
       .short {
-        width: 30%;
+        width: 40%;
       }
       .zebra {
         background-color: #efefef;

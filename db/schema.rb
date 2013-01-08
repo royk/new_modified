@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130108074349) do
+ActiveRecord::Schema.define(:version => 20130108094548) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(:version => 20130108074349) do
     t.string   "about_title"
     t.text     "about_content"
     t.boolean  "registered",       :default => true
+    t.string   "website"
   end
 
   add_index "users", ["country"], :name => "index_users_on_country"

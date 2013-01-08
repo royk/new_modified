@@ -31,13 +31,14 @@
 #  about_title      :string(255)
 #  about_content    :text
 #  registered       :boolean          default(TRUE)
+#  website          :string(255)
 #
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, 
                   :nickname, :blog_title, :reset_code, :country, :city, :modified_user, 
                   :birthday, :started_playing, :bap, :bap_name, :bap_induction,
-                  :motto, :hobbies, :last_visit, :about_title, :about_content, :registered
+                  :motto, :hobbies, :last_visit, :about_title, :about_content, :registered, :website
 
   bitmask :privacy_settings, as: [:expose_name, :expose_location]
 

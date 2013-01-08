@@ -31,6 +31,7 @@
 #  about_title      :string(255)
 #  about_content    :text
 #  registered       :boolean          default(TRUE)
+#  website          :string(255)
 #
 
 require 'spec_helper'

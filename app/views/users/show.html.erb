@@ -67,7 +67,7 @@
 				// add zebra bg for every odd row
 				$("tr:even").addClass("zebra");
 				// make label cells shorter.
-				$("td:odd").addClass("short");
+				$("td:even").addClass("short");
 			});
 		</script>
 		<div id="about">
@@ -121,6 +121,12 @@
 									<td> <%= @user.hobbies %></td>
 								</tr>
 							<% end %>
+							<% unless @user.website.nil? || @user.website.empty? %>
+								<tr>
+									<td>Website:</td>
+									<td> <%= link_to @user.website, @user.website %></td>
+								</tr>
+							<% end %>
 						<tbody>
 					</table>
 				</div>
@@ -135,13 +141,9 @@
 								<%= @user.about_title %>
 							<% end %>
 						</div>
-						<table>
-							<tbody>
-								<tr>
-									<td><%= @user.about_content.html_safe %></td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="table-box-content">
+							<%= @user.about_content.html_safe %>
+						</div>
 					</div>
 				</div>
 			<% end %>
