@@ -4,6 +4,10 @@ class ResultsController < AuthenticatedController
 		update_result
 	end
 
+	def delete
+		delete! { request.referer }
+	end
+
 	def update
 		@result = Result.find(params[:id])
 		unless @result.nil?

@@ -75,7 +75,7 @@ NewModified::Application.routes.draw do
 
   resources :events
   resources :competitions, only: [:show]
-  resources :results, only: [:show, :create, :new, :update]
+  resources :results
 
   match 'static/:name', controller: 'pages', action: 'show', as: "page"
 

@@ -16,6 +16,10 @@
 						<%= render '/shared/video_item', feed_item: r.video %>
 					</div>
 				<% end %>
+				<% if admin? %>
+				|
+					<%= link_to "Delete", r, method: :delete, data: {confirm: "Are you sure?" } %>
+				<% end %>
 			</li>
 			<% i += 1 %>
 
