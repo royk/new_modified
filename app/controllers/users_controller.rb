@@ -20,12 +20,12 @@ class UsersController < ApplicationController
     if defined? params[:sort_method]
       case(params[:sort_method].downcase)
         when "all"
-          @users = User.all
+          @users = User.where(registered: true)
         when "latest"
-          @users = User.order('id desc')
+          @users = User.where(registered: true).order('id desc')
         when "nearby"
           if signed_in? && current_user.geocoded?
-            @users = current_user.nearbys(9999).order("distance")
+            @users = current_user.nearbys(9999).where(registered: true).order("distance")
           end
       end
     end
