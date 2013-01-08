@@ -76,6 +76,7 @@ FactoryGirl.define do
 	factory :event do
 		name "Some Event"
 		start_date Time.now
+		end_date Time.now + 5.days
 	end
 
 end

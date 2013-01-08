@@ -5,7 +5,7 @@
 </h2>
 <h2>
 	<%= "#{@event.date_formatter(@event.start_date)}" %> 
-	<% unless @event.end_date.nil? %>
+	<% unless @event.end_date.nil? || @event.end_date==@event.start_date %>
 		- <%= "#{@event.date_formatter(@event.end_date)}" %></h2>
 	<% end %>
 <% if @event.competitions.any? %>

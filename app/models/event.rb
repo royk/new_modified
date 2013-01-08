@@ -24,7 +24,7 @@ class Event < ActiveRecord::Base
   
   validates :start_date, presence: true
   validates :name, presence: true
-  validates :end_date, date: {after: :start_date, message: "Must be after start date"}
+  validates :end_date, date: {after_or_equal_to: :start_date, message: "Must be after start date"}
 
   def location
     [city, country].compact.join(", ")
