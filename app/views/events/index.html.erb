@@ -1,7 +1,5 @@
 <% provide(:title, t(:events)) %>
-<% unless super_admin? %>
-	Coming soon!
-<% else %>
+<% if super_admin? || params[:debug]=="true"%>
 	<% if signed_in? %>
 		<% add_event_func = 'NM.toggleVisibility("#event_form");' %>
 		<%= link_to_function t(:add_an_event), add_event_func %>
@@ -23,4 +21,6 @@
 			</div>
 		<% end %>
 	</div>
+<% else %>
+	Coming soon!
 <% end %>
