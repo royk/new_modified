@@ -13,13 +13,13 @@
 		<% if @upcoming_events.any? %>
 			<div class="events-group">
 				<h2>Upcoming Events</h2>
-				<%= render @upcoming_events %>
+				<%= render @upcoming_events, future: true %>
 			</div>
 		<% end %>
 		<% if @past_events.any? %>
 			<div>
 				<h2>Past Events</h2>
-				<%= render @past_events %>
+				<%= render @past_events, future: false %>
 			</div>
 		<% end %>
 	</div>

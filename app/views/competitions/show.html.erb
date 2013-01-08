@@ -1,6 +1,6 @@
 <h2><%= "#{@competition.event.name} - #{@competition.name}" %></h2>
+<h3>Results:</h3>
 <% if @competition.results.any? %>
-	<h3>Results:</h3>
 	<ul>
 		<% @competition.results.sort_by {|r| r.position}.each do |r| %>
 			<li>
@@ -10,8 +10,10 @@
 			</li>
 		<% end %>
 	</ul>
-<% end %>	
-<% if signed_in? %>
+<% else %>	
+	<p>No results yet.</p>
+<% end %>
+<% if signed_in? && @competition.event.start_date < Time.now %>
 	<p>My ranking:</p>
 	<%= render '/results/result_form', competition: @competition, result: @result %>
 <% end %>
