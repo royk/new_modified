@@ -6,7 +6,9 @@
 			<li>
 				<%= "#{r.position.ordinalize} place: "%>
 				<%= link_to real_name(r.user), user_path(r.user) %>
-				<%= "- #{r.description}" %>
+				<%  unless r.description.empty? %>
+					<%= "- #{r.description}" %>
+				<% end %>
 			</li>
 		<% end %>
 	</ul>
