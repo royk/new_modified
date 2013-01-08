@@ -20,6 +20,7 @@ class StaticPagesController < ApplicationController
 		@feed = Feed.find_by_store_name("admin feed")
 		@feed = seed_admin_feed if @feed.nil?
 		@feed_items = @feed.feed_items.paginate(page: params[:page], per_page: 10)
+		@virtual_profiles = User.where(registered: false)
 		if request.xhr?
 			render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false
 		end

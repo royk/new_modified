@@ -12,9 +12,9 @@ xml.feed("xmlns"=>"http://www.w3.org/2005/Atom") do
 	xml.category(term: :sports)
 	xml.id site_url
 	xml.author do
-		xml.name @feed.user.name
+		xml.name @feed.user.name unless @feed.user.nil?
 		xml.uri site_url
-		xml.email @feed.user.email
+		xml.email @feed.user.email unless @feed.user.nil?
 	end
 	xml.rights "Copyleft 2012, Nobody"
 	for item in @feed_items 

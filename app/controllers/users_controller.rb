@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted."
-    redirect_to users_url
+    redirect_to request.referer
   end
 
   def index
@@ -118,10 +118,14 @@ class UsersController < ApplicationController
     if @user.save
       Video.move_to_user_players(@user)
       UserMailer.welcome_mail(@user).deliver
-      sign_in @user
-      flash[:success] = "Welcome to the #{site_name}!"
-      register_new_user(@user) if @user.registered
-      redirect_to "/static/welcome"
+      unless params[:admin_created]
+        sign_in @user
+        flash[:success] = "Welcome to the #{site_name}!"
+        register_new_user(@user) if @user.registered
+        redirect_to "/static/welcome"
+      else
+        redirect_to request.referer
+      end
     else
       flash[:error] = "Could not sign up"
       render 'new'

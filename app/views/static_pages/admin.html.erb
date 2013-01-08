@@ -1,6 +1,44 @@
 <% if admin? %>
-	<h1>Admins Hangout</h1>
+	<div>
+		<h3>Virtual Profiles</h3>
+		<ul>
+		<% @virtual_profiles.each do |u| %>
+			<li><%= link_to u.name, u %> (<%= "#{u.email}" %>) | <%= link_to "delete", u, method: :delete, data: {confirm: "You sure?"} %></li>
+		<% end %>
+		</ul>
+		<div class="spacer"></div>
+		<% add_virtual_profile_func = 'NM.toggleVisibility("#profile_form");' %>
+		<%= link_to_function "Add another...", add_virtual_profile_func %>
+		<div id="profile_form" style="display:none;">
+			<%= form_for(User.new) do |f| %>
+				<%= f.label :name %>
+				<%= f.text_field :name, class: "form-input" %>
+
+				<%= f.label :email %>
+				<%= f.text_field :email, class: "form-input" %>
+
+				<%= f.label :password  %>
+				<%= f.password_field  :password, class: "form-input"  %>
+
+				<%= f.label :password_confirmation, "Confirmation" %>
+				<%= f.password_field  :password_confirmation, class: "form-input" %>
+				<%= hidden_field_tag "challenge", "freestyle" %>
+				<%= f.hidden_field :registered, value: false %>
+				<%= hidden_field_tag :admin_created, true %>
+				<div class="spacer"></div>
+				<%= f.submit "Create virtual profile", class: "btn btn-large btn-primary" %>
+			<% end %>
+		</div>
+	</div>
+	<div class="spacer"></div>
+	<h3>Admins Hangout</h3>
 	<div class="feed">
+		<%= link_to feed_path(@feed.permalink, :atom) do %>
+			<div>
+				<%= image_tag("/assets/feed-icon-14x14.png", alt: "Admin feed", class: "video-feed-icon", width: 14, height: 14)%>
+				Admin feed
+			</div>
+		<% end %>
 		<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true} %>
 		<% if @feed_items.any? %>
 			<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
