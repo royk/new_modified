@@ -104,7 +104,7 @@ class VideosController < AuthenticatedController
 
 		def update_video_title
 			unless params[:video][:title].nil?
-				@video.tag_list.remove(@video.title)
+				@video.tag_list.remove(@video.title.split(/\W+/)) unless @video.title.empty?
 				@video.title = params[:video][:title]
 				@video.title.split(/\W+/).each { |w| @video.tag_list << w } unless @video.title.empty?
 			end

@@ -209,6 +209,38 @@ describe VideosController do
 				@to_edit.public.should be_true
 			end
 		end
+		context "title" do
+			before do
+				@new_title = "New Title!"
+				@old_title = "old title"
+				video.title = @old_title
+				video.save!
+			end
+			it "should change the title" do
+				put :update, id: video, video: {url: video.url, title: @new_title} 
+				video.reload
+				video.title.should eq @new_title
+			end
+			it "should be found in search using the new title" do
+				put :update, id: video, video: {url: video.url, title: @new_title} 
+				video.reload
+				Video.tagged_with(@new_title.split[0]).should include video
+			end
+			it "should not be found in search using the old title" do
+				put :update, id: video, video: {url: video.url, title: @new_title} 
+				video.reload
+				Video.tagged_with(@old_title.split[0]).should_not include video
+			end
+			it "should not delete user tags" do
+				put :update, id: video, video: {url: video.url}, Player_0: "some Guy"
+				video.reload
+				Video.tagged_with("some").should include video
+				put :update, id: video, video: {url: video.url, title: @new_title}, Player_0: "some Guy"
+				video.reload
+				Video.tagged_with("some").should include video
+			end
+
+		end
 		context "players:" do
 			context "adding" do
 				context "a named player" do
@@ -218,6 +250,13 @@ describe VideosController do
 						video.players_names.count.should eq 1
 						video.players.count.should eq 1
 					end
+					it "searching the video according to the player name should return results" do
+						put :update, id: video, video: {url: video.url}, Player_0: "Some Guy"
+						video.reload
+						Video.tagged_with("Some").should include video
+						Video.tagged_with("Guy").should include video
+						Video.tagged_with("some guy".split).should include video
+					end
 				end
 				context "a user player" do
 					it "should add the player to the players list" do
@@ -225,6 +264,11 @@ describe VideosController do
 						video.reload
 						video.players_names.count.should eq 1
 						video.user_players.count.should eq 1
+					end
+					it "searching the video according to the player name should return results" do
+						put :update, id: video, video: {url: video.url}, Player_0: user.name
+						video.reload
+						Video.tagged_with(user.name.split).should include video
 					end
 				end
 			end
@@ -241,6 +285,13 @@ describe VideosController do
 						video.players_names.should be_empty
 						video.players.should be_empty
 					end
+					it "Should remove the related tags" do
+						Video.tagged_with("Some").should include video # sanity
+						put :update, id: video, video: {url: video.url}, Player_0: ""
+						video.reload
+						Video.tagged_with("Some").should_not include video
+						Video.tagged_with("Guy").should_not include video
+					end
 				end
 				context "a user player" do
 					before do
@@ -253,6 +304,12 @@ describe VideosController do
 						video.reload
 						video.players_names.should be_empty
 						video.user_players.should be_empty
+					end
+					it "Should remove the related tags" do
+						Video.tagged_with(user.name.split).should include video # sanity
+						put :update, id: video, video: {url: video.url}, Player_0: ""
+						video.reload
+						Video.tagged_with(user.name.split).should_not include video
 					end
 				end
 			end
