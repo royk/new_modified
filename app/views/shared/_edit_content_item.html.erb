@@ -1,7 +1,7 @@
 <%= render '/shared/feed_info', user: user %>
 <div class="blog-post-content text-content">
 	<%= form_for (feed_item) do |f| %>
-	    <%= f.text_area :content, rows: 5%>
+	    <%= f.text_area :content, rows: 5, class: "tinymce-mini" %>
     	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
 </div>
