@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130108121904) do
+ActiveRecord::Schema.define(:version => 20130109141314) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -175,12 +175,16 @@ ActiveRecord::Schema.define(:version => 20130108121904) do
 
   create_table "results", :force => true do |t|
     t.integer  "competition_id"
-    t.integer  "user_id"
     t.integer  "position"
     t.string   "description"
     t.integer  "video_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+  end
+
+  create_table "results_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "result_id"
   end
 
   create_table "taggings", :force => true do |t|
@@ -204,10 +208,10 @@ ActiveRecord::Schema.define(:version => 20130108121904) do
     t.string   "name"
     t.string   "email"
     t.string   "remember_token"
-    t.string   "password_digest"
     t.boolean  "admin"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.string   "password_digest"
     t.string   "gravatar_suffix"
     t.string   "nickname"
     t.string   "reset_code"

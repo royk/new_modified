@@ -6,7 +6,9 @@
 		<% @competition.results.sort_by {|r| r.position}.each do |r| %>
 			<li>
 				<%= "#{r.position.ordinalize} place: "%>
-				<%= link_to real_name(r.user), user_path(r.user) %>
+				<% r.users.each do |u| %>
+					<%= link_to real_name(u), user_path(u) %>
+				<% end %>
 				<%  unless r.description.empty? %>
 					<%= "- #{r.description}. " %>
 				<% end %>
@@ -29,6 +31,6 @@
 	<p>No results yet.</p>
 <% end %>
 <% if signed_in? && @competition.event.start_date < Time.now %>
-	<p>My ranking:</p>
-	<%= render '/results/result_form', competition: @competition, result: @result %>
+	<p>Add ranking:</p>
+	<%= render '/results/result_form', competition: @competition, result: Result.new %>
 <% end %>

@@ -4,7 +4,6 @@
 #
 #  id             :integer          not null, primary key
 #  competition_id :integer
-#  user_id        :integer
 #  position       :integer
 #  description    :string(255)
 #  video_id       :integer

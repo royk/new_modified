@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :appears_in_videos, class_name: "Video", uniq: true
 
   has_many :attendances, class_name: "Attendant"
-  has_many :results
+  has_and_belongs_to_many :results
 
   has_many :notifications, dependent: :destroy
   has_many :notifications, dependent: :destroy, foreign_key: "sender_id"

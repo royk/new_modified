@@ -1,11 +1,18 @@
+<% i = 0 %>
 <% user = current_user if user.nil? %>
 <%= form_for(result) do |f| %>
-	<% if admin? %>
-		<%= f.label :user %>
-		<%= text_field_tag :user_name, nil, class: "form-input", value: user.name %>
-	<% else %>
-		<%= hidden_field_tag :user_name, user.name %>
-	<% end %>
+	<div id="players-input">
+		
+		<% if result.users.any? %>
+			<% result.users.each_with_index do |u| %>
+				<%= text_field_tag("Player_#{i}", nil, class: "form-input", value: u.name) %>
+				<% i = i+1 %>
+			<% end %>
+		<% else %>
+			<%= text_field_tag("Player_#{i}", nil, class: "form-input", placeholder: "User name") %>
+			<% i = i+1 %>
+		<% end %>
+	</div>
 	<%= f.label :position %>
 	<%= f.select :position, options_for_select((1..100).to_a.map { |a| ["#{a.ordinalize} place", a] }, result.position) %>
 	<%= f.label :description %>
@@ -17,3 +24,12 @@
 	<div class="spacer"></div>
 	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>
+<script>
+	NM.multiField({
+		container: "#players-input",
+		mold: "#Player_0",
+		startIndex: <%= i %>,
+		moreText: "Another player...",
+		placeholder: "User name"
+	});
+</script>
