@@ -84,11 +84,8 @@ class VideosController < AuthenticatedController
 		end
 
 		def save_video(url)
-			uid_vendor = get_uid_vendor(url)
-			if uid_vendor
-				@video.url = url
-				@video.vendor = uid_vendor[:vendor]
-				@video.uid = uid_vendor[:uid]
+			set_video_url(@video, url)
+			unless @video.uid.nil?
 				@video.tag_list = [] if @video.tag_list.nil?
 				update_video_title
 				if @video.save

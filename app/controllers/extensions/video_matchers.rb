@@ -2,6 +2,15 @@ module VideoMatchers
 	require 'open-uri'
 	require 'nokogiri'
 
+	def set_video_url(video, url)
+		uid_vendor = get_uid_vendor(url)
+		if uid_vendor
+			video.url = url
+			video.vendor = uid_vendor[:vendor]
+			video.uid = uid_vendor[:uid]
+		end
+	end
+	
 	def get_uid_vendor(url)
 		match_youtube(url) || match_vimeo(url) || match_footbag_org(url)
 	end
