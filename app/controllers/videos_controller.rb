@@ -119,7 +119,5 @@ class VideosController < AuthenticatedController
 			end
 		end
 
-		def get_uid_vendor(url)
-			match_youtube(url) || match_vimeo(url) || match_footbag_org(url)
-		end
+		
 end

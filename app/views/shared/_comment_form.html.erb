@@ -1,6 +1,6 @@
 <%= form_for(Comment.create()) do |f| %>
 <div class="comment">
-	<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Comment")%>
+	<%= f.text_area(:content, :class=>"post-input tinymce-mini", id: "comment_on#{parent.id}", placeholder: "Comment")%>
 	<%= hidden_field_tag 'parent_id', parent.id  %>
 	<%= hidden_field_tag 'parent_type', parent.class.to_s  %>
 	<%= f.submit "Post", class: "btn btn-large btn-primary" %>

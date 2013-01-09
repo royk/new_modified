@@ -22,7 +22,7 @@
 			<% if show_post %>
 				<div id="post-form">
 					<%= form_for(Post.create()) do |f| %>
-						<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Write something...")%>
+						<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input tinymce-mini", placeholder: "Write something...")%>
 						<%= f.hidden_field :feed_id, value: @feed.id %>
 						<% if current_user.admin? %>
 							<div>
@@ -71,3 +71,4 @@
 	</div>
 
 <% end %>
+
