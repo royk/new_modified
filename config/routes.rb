@@ -16,6 +16,7 @@ NewModified::Application.routes.draw do
   match '/user_videos', to: 'users#user_videos'
   match '/user_posts', to: 'users#user_posts'
   match '/user_articles', to: 'users#user_articles'
+  match '/user_data', to: 'users#export'
 
   match '/signup', to: 'users#new'
 
@@ -74,7 +75,10 @@ NewModified::Application.routes.draw do
   match '/getnotifications', to: 'notifications#get_latest'
 
   resources :events
-  resources :competitions, only: [:show]
+  resources :competitions, only: [:show, :update]
+
+  match 'competition/reorder/:id', to: 'competitions#reorder', via: :put, as: "reorder"
+
   resources :results
 
   match 'static/:name', controller: 'pages', action: 'show', as: "page"

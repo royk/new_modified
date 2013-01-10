@@ -88,6 +88,13 @@ class User < ActiveRecord::Base
 
   after_validation :geocode  # fill in longitude and latitude
 
+  def export_to_csv
+    CSV.generate do |csv|
+      csv << User.column_names
+      csv << attributes.values_at(*User.column_names)
+    end
+  end
+  
   def shown_name
     nickname.blank? ? name : nickname
   end

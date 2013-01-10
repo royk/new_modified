@@ -1,6 +1,13 @@
 class EventsController < AuthenticatedController
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
+	def show
+		show! do
+			@competitions = @event.competitions.sort_by { |c| c[:order_index] }
+			logger.debug "xxx #{@competitions[0].inspect}"
+		end
+	end
+
 	def index
 		@past_events = Event.where("start_date < ?", Time.now).order('start_date desc')
 		@upcoming_events = Event.where("start_date >= ?", Time.now).order('start_date desc')
@@ -48,7 +55,7 @@ class EventsController < AuthenticatedController
 				i = 0
 				until params[("Competition_#{i.to_s}").to_sym].nil?
 					name = params[("Competition_#{i.to_s}").to_sym]
-					competition = @event.competitions.find_by_index(i)
+					competition = @event.competitions.find_by_order_index(i)
 					if name.empty?
 						unless competition.nil?
 							# dissociate competitions that exist for the event, but weren't sent in this request
@@ -57,7 +64,7 @@ class EventsController < AuthenticatedController
 						end
 					else
 						if competition.nil?
-							competition = @event.competitions.build(name: name, event: @event, index: i)
+							competition = @event.competitions.build(name: name, event: @event, order_index: i)
 							competition.save
 						elsif competition.name!=name
 							competition.name = name

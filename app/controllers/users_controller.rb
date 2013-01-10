@@ -5,6 +5,12 @@ class UsersController < ApplicationController
   before_filter :correct_user,  only: [:edit, :update]
   before_filter :admin_user,  only: [:destroy]
 
+  def export
+    unless signed_in?
+      redirect_to root_path
+    end
+  end
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted."

@@ -72,7 +72,7 @@ describe EventsController do
 				end
 				context "when there is a competition" do
 					before do
-						event_item.competitions.build(name: "some comp", index: 0)
+						event_item.competitions.build(name: "some comp", order_index: 0)
 						event_item.save!
 					end
 					it "should rename the competition" do
@@ -93,7 +93,7 @@ describe EventsController do
 				end
 				context "when there is a competition" do
 					before do
-						event_item.competitions.build(name: "some comp", index: 0)
+						event_item.competitions.build(name: "some comp", order_index: 0)
 						event_item.save!
 					end
 					it "should dissociate it" do

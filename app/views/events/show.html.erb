@@ -11,9 +11,15 @@
 <% if @event.competitions.any? %>
 	<h3>Competitions:</h3>
 	<ul class="event-competitions">
-		<% @event.competitions.each do |c| %>
+		<% @competitions.each_with_index do |c, i| %>
 			<li><%= link_to c.name, competition_path(c) %>
+				<% if (@event.competitions.count>1) && (admin? || @event.user==current_user) %>
+					|
+					<%= link_to('^', reorder_path(c, order_index: i-1), method: :put) if i>0%>
+					<%= link_to('v', reorder_path(c, order_index: i+1, ), method: :put) if i<@event.competitions.count-1 %>
+				<% end %>
 			</li>
+
 		<% end %>
 	</ul>
 <% end %>
