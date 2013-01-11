@@ -2,7 +2,7 @@
 	<% if !feed.hidden || feed.user==current_user %>
 		<div>
 			<h3 class="community-name <%= 'hidden' if feed.hidden %>"><%= link_to feed.name, feed_path(feed.permalink) %></h3>
-			<% if feed.user==current_user %>
+			<% if admin? || feed.user==current_user %>
 				| <%= link_to t(:edit), edit_feed_path(feed) %> | 
 				<% if feed.hidden %>
 					<%= link_to t(:show), feed_path(feed, "feed" =>{hidden: false}), method: :put %>
