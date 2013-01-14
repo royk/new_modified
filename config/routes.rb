@@ -55,6 +55,7 @@ NewModified::Application.routes.draw do
 
   match '/importblog', to:"blogs#import"
   match '/performimport', to:"blogs#perform_import"
+  match '/initblog', to: "blogs#init_blog"
 
   resources :comments
 

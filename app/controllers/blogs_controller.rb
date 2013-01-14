@@ -20,6 +20,17 @@ class BlogsController < AuthenticatedController
 	def import
 	end
 
+	def init_blog
+		current_user.build_blog(title: "My new blog")
+		if current_user.save
+			sign_in current_user
+			redirect_to current_user.blog
+		else
+			flash[:errors] = "Couldn't create blog."
+			redirect_to request.referer
+		end
+	end
+
 	def perform_import
 		unless current_user.modified_user.nil?
 			posts = scrape_modified(params[:blog_url], current_user.modified_user) unless params[:blog_url].empty?

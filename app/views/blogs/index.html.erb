@@ -3,9 +3,21 @@
 
 <%= will_paginate %>
 <ul class="blogs">
-	<% if signed_in? && !current_user.modified_user.empty? %>
+	<% if signed_in? && !current_user.modified_user.to_s.empty? %>
 		<div class="import_blog">
 			<%= link_to t(:import_your_blog), importblog_path %>
+		</div>
+		<% if current_user.blog.nil? %>
+		<div class="import_blog">
+			OR..
+		</div>
+		<div class="import_blog">
+			<%= link_to t(:start_a_new_blog), '/initblog' %>
+		</div>	
+		<% end %>
+	<% elsif signed_in? && current_user.blog.nil? %>
+		<div class="import_blog">
+			<%= link_to t(:create_your_blog), '/initblog' %>
 		</div>
 	<% end %>
 	<%= render @blogs %>
