@@ -1,26 +1,22 @@
 <% provide(:title, t(:events)) %>
-<% if super_admin? || params[:debug]=="true"%>
-	<% if signed_in? %>
-		<% add_event_func = 'NM.toggleVisibility("#event_form");' %>
-		<%= link_to_function t(:add_an_event), add_event_func %>
-		<div id="event_form" style="display:none;">
-			<%= render "event_form", event: Event.create %>
+<% if signed_in? %>
+	<% add_event_func = 'NM.toggleVisibility("#event_form");' %>
+	<%= link_to_function t(:add_an_event), add_event_func %>
+	<div id="event_form" style="display:none;">
+		<%= render "event_form", event: Event.create %>
+	</div>
+<% end %>
+<div class="events-list">
+	<% if @upcoming_events.any? %>
+		<div class="events-group">
+			<h2>Upcoming Events</h2>
+			<%= render @upcoming_events, future: true %>
 		</div>
 	<% end %>
-	<div class="events-list">
-		<% if @upcoming_events.any? %>
-			<div class="events-group">
-				<h2>Upcoming Events</h2>
-				<%= render @upcoming_events, future: true %>
-			</div>
-		<% end %>
-		<% if @past_events.any? %>
-			<div>
-				<h2>Past Events</h2>
-				<%= render @past_events, future: false %>
-			</div>
-		<% end %>
-	</div>
-<% else %>
-	Coming soon!
-<% end %>
+	<% if @past_events.any? %>
+		<div>
+			<h2>Past Events</h2>
+			<%= render @past_events, future: false %>
+		</div>
+	<% end %>
+</div>
