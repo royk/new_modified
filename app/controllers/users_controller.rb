@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
   def index
     params[:sort_method] = "all"
-    sorted_index
+    sorted_index 
   end
 
   def sorted_index
@@ -36,7 +36,11 @@ class UsersController < ApplicationController
           @users = current_user.nearbys(9999).where(registered: true).order("distance")
         end
     end
-    render partial: '/users/user', collection: @users
+    if request.xhr?
+      render partial: '/users/user', collection: @users
+    else
+      render action: :index
+    end
   end
 
   def edit
