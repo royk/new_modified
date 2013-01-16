@@ -23,21 +23,20 @@ class UsersController < ApplicationController
   end
 
   def sorted_index
-    if defined? params[:sort_method]
-      case(params[:sort_method].downcase)
-        when "all"
-          @users = User.where(registered: true)
-        when "latest"
-          @users = User.where(registered: true).order('id desc')
-        when "nearby"
-          if signed_in? && current_user.geocoded?
-            @users = current_user.nearbys(9999).where(registered: true).order("distance")
-          end
-      end
+    if params[:sort_method].to_s.strip.length == 0 
+      params[:sort_method] = "all"
     end
-    if request.xhr?
-      render partial: '/users/user', collection: @users
+    case(params[:sort_method].downcase)
+      when "all"
+        @users = User.where(registered: true)
+      when "latest"
+        @users = User.where(registered: true).order('id desc')
+      when "nearby"
+        if signed_in? && current_user.geocoded?
+          @users = current_user.nearbys(9999).where(registered: true).order("distance")
+        end
     end
+    render partial: '/users/user', collection: @users
   end
 
   def edit
