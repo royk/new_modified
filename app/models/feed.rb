@@ -30,7 +30,7 @@ class Feed < ActiveRecord::Base
   end
 
   def check_permalink
-    if /[^a-zA-Z0-9-]/.match(self.permalink)
+    if /[^a-zA-Z0-9_]/.match(self.permalink)
       self.errors.add(:permalink, "Please use only alphanumeric characters in the URL.")
     end
     forbiddenNames = ["new","update", "create", "delete", "destroy", "index", "edit"]
