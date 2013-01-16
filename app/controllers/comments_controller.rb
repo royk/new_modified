@@ -27,6 +27,15 @@ class CommentsController < ResponseController
 		"commentable"
 	end
 
+	def show
+		@comment = Comment.find(params[:id])
+		if @comment.nil?
+			redirect_to root_url
+		else
+			redirect_to polymorphic_path(@comment.commentable)
+		end
+	end
+
 	private
 		def begin_of_association_chain
 			@parent
