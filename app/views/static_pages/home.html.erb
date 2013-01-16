@@ -2,9 +2,6 @@
 <% if @first_timer %>
 	<%= render 'first_time' %>
 <% end %>
-<% if admin? %>
-	test
-<% end %>
 <div class="front-page-feed feed">
 	<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true, show_blog: true} %>
 	<% if @feed_items.any? %>
