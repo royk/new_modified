@@ -32,7 +32,7 @@ class FeedsController < AuthenticatedController
 		if @feed.save
 			flash[:success] = "Created a new feed"
 		else
-			flash[:error] = "Failed creating feed"
+			flash[:error] = "Failed creating feed. Only alphanumeric and the minus character are allowed in the URL."
 		end
 		redirect_to request.referer
 	end

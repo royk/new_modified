@@ -23,8 +23,22 @@ class Feed < ActiveRecord::Base
   validates :name, presence:true, uniqueness: {case_sensitive: false}, length: {maximum: 50, minimum: 2}
   validates :permalink, presence:true, uniqueness: {case_sensitive: false}, length: {maximum: 50, minimum: 2}
 
+  validate :check_permalink
+
   before_save do |feeds| 
   	self.store_name = self.name.downcase
+  end
+
+  def check_permalink
+    if /[^a-zA-Z0-9-]/.match(self.permalink)
+      self.errors.add(:permalink, "Please use only alphanumeric characters in the URL.")
+    end
+    forbiddenNames = ["new","update", "create", "delete", "destroy", "index", "edit"]
+    unless self.permalink.nil?
+      if forbiddenNames.include? self.permalink.downcase
+        self.errors.add(:permalink, "Can't use this URL. Please pick another one.")
+      end
+    end
   end
 
   def feed_items
@@ -38,14 +52,6 @@ class Feed < ActiveRecord::Base
     end
   	q4 = q1 + ((q2 + q3).sort_by {|f| -f.updated_at.to_i})
   	return q4
-  end
-
-  def permalink=(value)
-  	self[:permalink] = value
-  	if self[:permalink].nil? || self[:permalink].empty?
-  		self[:permalink] = self.name.clone unless self.name.nil?
-  	end
-  	self[:permalink].downcase! unless self[:permalink].nil?
   end
 
   def permalink
