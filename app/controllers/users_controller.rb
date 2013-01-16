@@ -190,6 +190,7 @@ class UsersController < ApplicationController
     def anti_spam_verifications
       if params[:challenge].nil? || params[:challenge].match(/^free\s?style.*/i).nil?
         flash[:error] = "Wrong answer to Challenge Question"
+        @user = User.new
         render 'new'
         return false
       end
