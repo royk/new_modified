@@ -2,13 +2,15 @@
 <% if @first_timer %>
 	<%= render 'first_time' %>
 <% end %>
+<% if admin? %>
+	test
+<% end %>
 <div class="front-page-feed feed">
 	<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true, show_blog: true} %>
 	<% if @feed_items.any? %>
 		<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
 	<% end %>
 </div>
-
 <% if signed_in? %>
 	<script>
 		//NM.every(60000).refreshFeedItems();
