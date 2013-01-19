@@ -5,10 +5,15 @@ class CommentsController < ResponseController
 		if super
 			@parent.save # mark the parent component as updated
 			flash[:success] = "Comment posted!"
+			# register commenter as a listener to the original post
+			if @parent.listeners.find_by_user_id(current_user).nil?
+				listener = @parent.listeners.build(user: current_user)
+				listener.save
+			end
 			# send notification email to listeners
 			if @parent.respond_to?(:listeners) && !@parent.listeners.nil?
 				@parent.listeners.each do |listener|
-					UserMailer.listener_mail(listener).deliver
+					UserMailer.listener_mail(listener).deliver	unless current_user==listener.user # don't send notification when I write on my own stuff
 				end
 			end
 		else
