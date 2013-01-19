@@ -5,7 +5,12 @@ class CommentsController < ResponseController
 		if super
 			@parent.save # mark the parent component as updated
 			flash[:success] = "Comment posted!"
-			UserMailer.comment_mail(@parent.user, @response).deliver
+			# send notification email to listeners
+			if @parent.respond_to?(:listeners) && !@parent.listeners.nil?
+				@parent.listeners.each do |listener|
+					UserMailer.listener_mail(listener).deliver
+				end
+			end
 		else
 			flash[:error] = params[:parent_type]
 		end	

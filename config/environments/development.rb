@@ -36,4 +36,6 @@ NewModified::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  ActionMailer::Base.file_settings = { :location => Rails.root.join('tmp/mail') }
 end
