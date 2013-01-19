@@ -2,17 +2,39 @@ module BlogScraping
 	require 'open-uri'
 	require 'nokogiri'
 
+	def scrape_blogspot(feed_url)
+		# remove any params from url
+		my_url = feed_url.dup.gsub(/\?.*/, "")
+		page = Nokogiri::XML open my_url
+		# find out total posts count
+		posts_count = page.xpath("//totalResults").text.to_i
+		# re-request feed with all posts in it
+		my_url = "#{my_url}&start-index=1&max-results=#{posts_count}"
+		page = Nokogiri::XML open my_url
+		posts = page.xpath("//entry")
+		posts.each do |post|
+			date = Time.parse(post.xpath("//published").text)
+			content = post.xpath("//content").text
+			title = post.xpath("//title").text
+			@result_post = {}
+			@result_post[:date] = date
+			@result_post[:content] = content
+			@result_post[:author] = author
+			@result_post[:title] = title
+		end
+
+
 	def scrape_modified(url, name)
 		# remove any page indication from url
 		my_url = url.dup.gsub(/&start=\d*/, "")
-		@name = name
+		@name = namen
 		@result_posts = []
 		@result_post = nil		
 		@active_post = nil
 		@validated = false
 		curr_page = 0
 
-		page = Nokogiri::HTML(open(my_url))
+		page = Nokogiri::XML(open(my_url))
 		# collect all pages needed to be scraped
 		pages = page.css("div.pagination").css("a")
 		pages = pages[pages.count-1]	# last link contains the last blog page
