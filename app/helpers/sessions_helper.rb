@@ -3,11 +3,9 @@ module SessionsHelper
 		["roeiklein@gmail.com"]
 	end
 	def sign_in(user)
-		if signed_in? && current_user!=user
-			session[:last_visit] = user.last_visit || 1.week.ago
-			user.last_visit = Time.now
-			user.save
-		end
+		session[:last_visit] = 1.week.ago	# controls age of activities to see on site.
+		user.last_visit = Time.now
+		user.save
 	    cookies.permanent[:remember_token] = user.remember_token
 	    self.current_user = user
 	end
