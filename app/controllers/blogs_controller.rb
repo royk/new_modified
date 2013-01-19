@@ -49,6 +49,18 @@ class BlogsController < AuthenticatedController
 		end
 	end
 
+	def perform_blogpost_import
+		posts = scrape_blogspot(params[:feed_url])
+		unless posts.nil?
+			create_posts(posts)
+			redirect_to root_url
+		else
+			flash[:errors] = "Couldn't import from this feed."
+			redirect_to request.referer
+		end
+
+	end
+
 	private
 		def create_posts(posts)
 			create_blog(current_user) if current_user.blog.nil?

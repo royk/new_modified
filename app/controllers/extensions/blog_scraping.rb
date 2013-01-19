@@ -6,22 +6,30 @@ module BlogScraping
 		# remove any params from url
 		my_url = feed_url.dup.gsub(/\?.*/, "")
 		page = Nokogiri::XML open my_url
+		page.remove_namespaces!
 		# find out total posts count
 		posts_count = page.xpath("//totalResults").text.to_i
 		# re-request feed with all posts in it
-		my_url = "#{my_url}&start-index=1&max-results=#{posts_count}"
+		my_url = "#{my_url}?start-index=1&max-results=#{posts_count}"
 		page = Nokogiri::XML open my_url
+		page.remove_namespaces!
 		posts = page.xpath("//entry")
+		@result_posts = []
 		posts.each do |post|
-			date = Time.parse(post.xpath("//published").text)
-			content = post.xpath("//content").text
-			title = post.xpath("//title").text
+			date = Time.parse(post.xpath("published").text)
+			content = post.xpath("content").text
+			title = post.xpath("title").text
+
 			@result_post = {}
+			@result_post[:comments] = []
 			@result_post[:date] = date
 			@result_post[:content] = content
-			@result_post[:author] = author
+			@result_post[:author] = current_user.name
 			@result_post[:title] = title
+			@result_posts << @result_post
 		end
+		return @result_posts
+	end
 
 
 	def scrape_modified(url, name)
