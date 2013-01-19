@@ -6,6 +6,10 @@ module ApplicationHelper
 	def site_url
 		"http://footbagfront.com/"
 	end
+
+	def site_url_no_slash
+		"http://footbagfront.com"
+	end
 	
 	def full_title(page_title)
 		if page_title.empty?
