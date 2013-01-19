@@ -57,6 +57,7 @@ en:
     public_input: "Public:"
     make_public: "Make Public"
     make_private: "Make Private"
+    front_page_feed: "Front page feed"
     
 # Posts
     posts: "Posts"    
