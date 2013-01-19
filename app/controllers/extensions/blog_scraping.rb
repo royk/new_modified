@@ -42,7 +42,7 @@ module BlogScraping
 		@validated = false
 		curr_page = 0
 
-		page = Nokogiri::XML(open(my_url))
+		page = Nokogiri::HTML(open(my_url))
 		# collect all pages needed to be scraped
 		pages = page.css("div.pagination").css("a")
 		pages = pages[pages.count-1]	# last link contains the last blog page
