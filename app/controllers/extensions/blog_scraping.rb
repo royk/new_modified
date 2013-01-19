@@ -35,7 +35,7 @@ module BlogScraping
 	def scrape_modified(url, name)
 		# remove any page indication from url
 		my_url = url.dup.gsub(/&start=\d*/, "")
-		@name = namen
+		@name = name
 		@result_posts = []
 		@result_post = nil		
 		@active_post = nil
