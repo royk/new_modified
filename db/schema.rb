@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110100839) do
+ActiveRecord::Schema.define(:version => 20130119131250) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -121,6 +121,14 @@ ActiveRecord::Schema.define(:version => 20130110100839) do
 
   add_index "likes", ["liked_item_id", "liked_item_type"], :name => "index_likes_on_liked_item_id_and_liked_item_type"
   add_index "likes", ["liker_id"], :name => "index_likes_on_liker_id"
+
+  create_table "listeners", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "listened_to_id"
+    t.string   "listened_to_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "messages", :force => true do |t|
     t.text     "content"

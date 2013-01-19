@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Hey <%= @user.name %>,</h1>
+    <p>
+      Somone responded to something you wrote at <%= @site_name %>.
+    </p>
+    <p>
+      To see the response, just follow this link: <%= @url %>
+    </p>
+    <p>
+      To stop receiving mail regarding this content, follow this link: <%= @stop_url %>
+    </p>
+    <p>Thanks!</p>
+  </body>
+</html>
+

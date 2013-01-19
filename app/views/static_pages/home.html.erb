@@ -2,6 +2,14 @@
 <% if @first_timer %>
 	<%= render 'first_time' %>
 <% end %>
+<div style="height:14px;position: relative; top: 20px; right: 10px;">
+	<%= link_to feed_path(@feed.permalink, :atom) do %>
+		<span class="pull-right">
+			<%= image_tag("/assets/feed-icon-14x14.png", alt: "front page feed", class: "video-feed-icon", width: 14, height: 14)%>
+			<%= t(:front_page_feed) %>
+		</span>
+	<% end %>
+</div>
 <div class="front-page-feed feed">
 	<%= render partial: 'shared/post_form', locals: {show_post: true, show_video: true, show_blog: true} %>
 	<% if @feed_items.any? %>

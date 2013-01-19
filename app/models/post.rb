@@ -20,6 +20,7 @@ class Post < ActiveRecord::Base
   has_many :comments, as: :commentable, order: 'created_at ASC'
   has_many :likes, as: :liked_item
   has_many :notifications, as: :item, dependent: :destroy
+  has_many :listeners, as: :listened_to, dependent: :destroy
   
   validates :user_id, presence: true
   validates_length_of :content, :minimum => 1, maximum: 9999, presence: true

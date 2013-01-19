@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   has_many :notifications, dependent: :destroy, foreign_key: "item_id"
 
   has_many :comments, dependent: :destroy, foreign_key: "commenter_id"
-
+  has_many :listeners, as: :listened_to, dependent: :destroy
   has_many :likes, dependent: :destroy, foreign_key: "liker_id"
 
   has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"

@@ -90,6 +90,8 @@ NewModified::Application.routes.draw do
 
   resources :categories
 
+  match '/stop_listening/:guid', to: 'listeners#remove_listener'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

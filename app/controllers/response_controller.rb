@@ -26,7 +26,7 @@ class ResponseController < AuthenticatedController
 				register_new_content(@response, @parent)
 				@parent.touch
 				if @response.save
-
+					
 					return true
 				end
 			end

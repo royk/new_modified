@@ -19,9 +19,17 @@ xml.feed("xmlns"=>"http://www.w3.org/2005/Atom") do
 	xml.rights "Copyleft 2012, Nobody"
 	for item in @feed_items 
 		xml.entry do
-			xml.title item.content[0,10]+"..."
-			xml.link(href: base_url+polymorphic_path(item))
-			xml.content item.content
+
+			if item.respond_to?(:content)
+				xml.title item.content[0,10]+"..."
+				xml.link(href: base_url+polymorphic_path(item))
+				xml.content item.content
+			elsif item.class.to_s.downcase=="video"
+				xml.title item.title
+				xml.link(href: video_url(item))
+				xml.content item.players_names.join(",")
+			end
+				
 			xml.updated item.updated_at.xmlschema
 			xml.id "tag:footbagfront.com,2012-12-07:feed,?id="+@feed.id.to_s
 		end

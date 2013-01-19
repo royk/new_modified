@@ -16,5 +16,21 @@
 require 'spec_helper'
 
 describe Feed do
-  pending "add some examples to (or delete) #{__FILE__}"
+	let(:feed) { FactoryGirl.create(:feed) }
+
+	subject { feed }
+
+	context "Name validations" do
+		describe "shouldn't allow dot in permalink" do
+			before { feed.permalink = "lala.foo" }
+			it { should_not be_valid }
+		end
+		context "forbid crud permalink" do
+			describe "new" do
+				before { feed.permalink = "new" }
+				it { should_not be_valid }
+			end
+		end
+	end
+
 end

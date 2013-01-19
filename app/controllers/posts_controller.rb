@@ -16,6 +16,10 @@ class PostsController < AuthenticatedController
 	def create
 		create! do |success, failure|
 			success.html do 
+				listener = Listener.new
+				listener.user = current_user
+				listener.listened_to = @post
+				listener.save
 				register_new_content(@post)
 				redirect_to request.referer
 			end

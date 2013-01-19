@@ -42,6 +42,7 @@ class Video < ActiveRecord::Base
   serialize :players
 
   has_many :comments, as: :commentable, order: 'created_at ASC'
+  has_many :listeners, as: :listened_to, dependent: :destroy
   has_many :likes, as: :liked_item
   has_many :notifications, as: :item, dependent: :destroy
 
