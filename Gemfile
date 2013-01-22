@@ -21,6 +21,7 @@ gem 'carrierwave'
 gem 'bitmask_attributes'
 gem "geocoder"
 gem "date_validator"
+gem 'sanitize'
 
 
 group :development, :test do
