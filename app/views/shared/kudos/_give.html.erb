@@ -5,5 +5,5 @@
 				url: '/like?parent_id=<%= feed_item.id%>&parent_type=<%=feed_item.class.to_s%>&index=<%=feed_item_counter%>',
 				type: 'post',
 				container: '<%= container_id %>'
-			});">Kudos</a>
+			});"><%= I18n.t(:likes) %></a>
 </li>			

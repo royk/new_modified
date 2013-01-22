@@ -18,11 +18,14 @@ en:
 
 # footer
     footer_text1: "Built and maintained by"    
+# likes
+    likes: "Props"    
+    remove_likes: "Remove props"
 
 # Activity
     activity: "Activity"    
     commented: "commented"
-    liked: "gave kudos"
+    liked: "gave props"
     tagged_you: "tagged you"
     reacted: "reacted"
     joined: "joined the community"

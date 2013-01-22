@@ -68,7 +68,7 @@ describe Notification do
 			before :each do
 				notification.item = FactoryGirl.create(:like)
 			end
-			its(:action_verb) { should=="gave kudos" }
+			its(:action_verb) { should==I18n.t(:liked) }
 		end
 		describe "when action is tag" do
 			before :each do

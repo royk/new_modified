@@ -5,5 +5,5 @@
 				url: '/unlike?parent_id=<%= feed_item.id%>&parent_type=<%=feed_item.class.to_s%>&index=<%=feed_item_counter%>',
 				type: 'delete',
 				container: '<%= container_id %>'
-			});">Remove kudos</a>
+			});"><%= I18n.t(:remove_likes) %></a>
 </li>			
