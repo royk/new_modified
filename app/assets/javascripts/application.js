@@ -153,6 +153,28 @@ NM = (function() {
 			});
 		},
 
+		rememberForm: function rememberForm(selector) {
+			form = $(selector);
+			if (form.length) {
+				if (window && window['localStorage']!==null) {
+					form.children(".btn").click(function() {
+						var memObj = {};
+						if (window.localStorage[document.URL]) {
+							memObj = JSON.parse(window.localStorage[document.URL]);
+						}
+						memObj[selector] = {};
+						form.find("input,textarea").each(function(i,e) {
+							memObj[$(e).attr("name")] = $(e).val();
+							if ($(e).attr("name").indexOf("content")!=-1 && !$(e).val()) {
+								memObj[$(e).attr("name")] = tinyMCE.activeEditor.getContent();
+							}
+						});
+						window.localStorage[document.URL] = JSON.stringify(memObj);
+					});
+				}
+			}
+		},
+
 		selectMenuItem: function selectMenuItem(itemIndex) {
 			_currentToggleMenu.forEach(function(elem, index) {
 				elem = $(elem);
