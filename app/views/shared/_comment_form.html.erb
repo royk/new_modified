@@ -1,9 +1,13 @@
-<%= form_for(Comment.create(), html: {id:"new_comment#{parent.id}"}) do |f| %>
-<div class="comment">
-	<%= f.text_area(:content, :class=>"post-input tinymce-mini", id: "comment_on#{parent.id}", placeholder: "Comment")%>
-	<%= hidden_field_tag('parent_id', parent.id , id:"parent_id#{parent.id}") %>
-	<%= hidden_field_tag 'parent_type', parent.class.to_s, id:"parent_type#{parent.id}"  %>
-	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
-</div>
+<% if signed_in? %>
+	<%= form_for(Comment.create(), html: {id:"new_comment#{parent.id}"}) do |f| %>
+	<div class="comment">
+		<%= f.text_area(:content, :class=>"post-input tinymce-mini", id: "comment_on#{parent.id}", placeholder: "Comment")%>
+		<%= hidden_field_tag('parent_id', parent.id , id:"parent_id#{parent.id}") %>
+		<%= hidden_field_tag 'parent_type', parent.class.to_s, id:"parent_type#{parent.id}"  %>
+		<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+	</div>
 
-<% end %>
+	<% end %>
+<% else %>
+	<%= link_to t(:sign_in_to_comment), signin_path %>
+<% end %>	
