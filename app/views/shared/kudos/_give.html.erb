@@ -1,9 +1,17 @@
 <% unless defined? container_id %>
 	<% container_id = "#item#{feed_item_counter}" %>
 <% end %>
-<li><a href="javascript:NM.ajaxify({
+
+<li>
+	<% if signed_in? %>
+		<a href="javascript:NM.ajaxify({
 				url: '/like?parent_id=<%= feed_item.id%>&parent_type=<%=feed_item.class.to_s%>&index=<%=feed_item_counter%>',
 				type: 'post',
 				container: '<%= container_id %>'
-			});"><%= I18n.t(:likes) %></a>
+			});">
+	<% else %>
+		<a href="#">
+	<% end %>
+		<%= I18n.t(:likes) %>
+	</a>
 </li>			
