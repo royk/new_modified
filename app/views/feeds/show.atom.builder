@@ -21,7 +21,7 @@ xml.feed("xmlns"=>"http://www.w3.org/2005/Atom") do
 		xml.entry do
 
 			if item.respond_to?(:content)
-				xml.title Sanitize.clean(item.content[0,10])+"..."
+				xml.title Sanitize.clean(item.content[0,30])+"..."
 				xml.link(href: base_url+polymorphic_path(item))
 				xml.content item.content
 			elsif item.class.to_s.downcase=="video"
