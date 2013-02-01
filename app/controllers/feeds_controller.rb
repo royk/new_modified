@@ -14,8 +14,14 @@ class FeedsController < AuthenticatedController
 			@feed = Feed.find_by_store_name(params[:permalink].downcase)
 		end
 		unless @feed.nil?
-			@feed_items = @feed.feed_items do |collection|
-				privacy_query(collection)
+			if (@feed.store_name=="main feed")
+				@feed_items = @feed.feed_items(BlogPost) do |collection|
+					privacy_query(collection)
+				end
+			else
+				@feed_items = @feed.feed_items do |collection|
+					privacy_query(collection)
+				end
 			end
 			@feed_items = @feed_items.paginate(page: params[:page], :per_page=> 10)
 			if request.xhr?

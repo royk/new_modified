@@ -19,11 +19,15 @@ xml.feed("xmlns"=>"http://www.w3.org/2005/Atom") do
 	xml.rights "Copyleft 2012, Nobody"
 	for item in @feed_items 
 		xml.entry do
-
 			if item.respond_to?(:content)
-				xml.title Sanitize.clean(item.content[0,30])+"..."
-				xml.link(href: base_url+polymorphic_path(item))
-				xml.content item.content
+				unless item.class.to_s.downcase=="post" && item.sticky==true
+					titleLength = 200
+					shownTitle = Sanitize.clean(item.content[0,titleLength])
+					shownTitle = "#{shownTitle}..." if (item.content.length>titleLength)
+					xml.title shownTitle
+					xml.link(href: base_url+polymorphic_path(item))
+					xml.content item.content
+				end
 			elsif item.class.to_s.downcase=="video"
 				xml.title Sanitize.clean(item.title)
 				xml.link(href: video_url(item))
