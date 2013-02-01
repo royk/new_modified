@@ -30,6 +30,9 @@ NewModified::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
+  # limit log size (2 of 5 mb)
+  config.logger = Logger.new(config.paths.log.first, 1, 5242880)
+
   # See everything in the log (default is :info)
   config.log_level = :debug
 
