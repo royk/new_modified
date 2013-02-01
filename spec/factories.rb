@@ -46,6 +46,7 @@ FactoryGirl.define do
 
 	factory :blog_post do
 		blog
+		content "Some blog"
 	end
 
 	factory :message do

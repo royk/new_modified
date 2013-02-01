@@ -3,6 +3,8 @@ describe "main feed" do
 	let(:user) { FactoryGirl.create(:user) }
 	let(:post_item) { FactoryGirl.create(:post) }
 	let(:video_item) { FactoryGirl.create(:video) }
+	let(:blog) { FactoryGirl.create(:blog) }
+	let(:blog_post) { FactoryGirl.create(:blog_post, blog: blog) }
 	let(:comment) { FactoryGirl.create(:comment) }
 	let(:main_feed) { Feed.find_by_name("Main Feed") }
 
@@ -79,6 +81,41 @@ describe "main feed" do
 				it { should have_css("div.feed-item-container.sticky:first-child") }
 			end
 		end
+	end
+
+	context "blog posts->" do
+		describe "which are public" do
+			before do
+				blog_post.public = true
+				blog_post.save!
+				visit root_path
+			end
+			describe "should appear on the feed" do
+				it { should have_css("div.blog-post-content") }
+			end
+		end
+		describe "which are private," do
+			before do
+				blog_post.public = false;
+				blog_post.save!
+				visit root_path
+			end
+			describe "for a signed out user" do
+				it "should not appear on the feed" do
+					page.should_not have_css("div.blog-post-content") 
+				end
+			end
+			describe "for a signed in user" do
+				before do
+					sign_in user
+					visit root_path
+				end
+				it "should appear on the feed" do
+					page.should have_css("div.blog-post-content") 
+				end
+			end
+		end
+
 	end
 
 	describe "videos->" do

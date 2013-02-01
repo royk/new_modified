@@ -41,17 +41,20 @@ class Feed < ActiveRecord::Base
     end
   end
 
-  def feed_items
+  def feed_items(mergeWith)
+    mergeWith = mergeWith || Model.none
   	q1 = self.posts.where(sticky:true).order("updated_at DESC")
     if block_given?
   	 q2 = yield self.posts.where(sticky: false)
   	 q3 = yield(self.videos)
+     q4 = yield(mergeWith)
     else
       q2 = self.posts.where(sticky: false)
       q3 = self.videos
+      q4 = mergeWith
     end
-  	q4 = q1 + ((q2 + q3).sort_by {|f| -f.updated_at.to_i})
-  	return q4
+  	q5 = q1 + ((q2 + q3 + q4).sort_by {|f| -f.updated_at.to_i})
+  	return q5
   end
 
   def permalink

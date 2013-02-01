@@ -23,6 +23,7 @@ class BlogPost < ActiveRecord::Base
   has_many :notifications, as: :item, dependent: :destroy
 
   validates :blog, presence: true
+  validates :content, presence: true
 
 
  
