@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119131250) do
+ActiveRecord::Schema.define(:version => 20130301144321) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20130119131250) do
     t.integer  "user_id"
     t.string   "permalink"
     t.text     "description"
+    t.boolean  "public"
   end
 
   create_table "likes", :force => true do |t|

@@ -11,8 +11,10 @@ class StaticPagesController < ApplicationController
 		@feed_items = @feed.feed_items(BlogPost) do |collection|
 			privacy_query(collection)
 		end
-		
 		@feed_items = @feed_items.paginate(page: params[:page], :per_page=> per_page)
+		if mobile_device?
+			@feeds = Feed.where("hidden = ?", false)
+		end
 		if request.xhr?
 			render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false
 		end
