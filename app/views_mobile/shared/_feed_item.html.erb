@@ -1,0 +1,17 @@
+<div class="container feed-item feed-item-mobile">
+	<h3>
+		<%= feed_item.user.shown_name %>
+	</h3>
+	<% if feed_item.class==Video %>
+		<p class="text-content">
+			<%= render '/shared/video_item', feed_item: feed_item %>
+		</p>
+	<% else %>
+		<div class="text-content">
+			<%= feed_item.content.html_safe %>
+		</div>
+	<% end %>
+	<div>
+		<span class="timestamp"><%= time_ago_in_words(feed_item.created_at) %> ago</span>
+	</div>
+</div>

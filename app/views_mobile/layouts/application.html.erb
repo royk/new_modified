@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title><%= full_title(yield(:title)) %></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+	</head>
+	<body>
+		<header class="navbar navbar-fixed-top">
+			<div class="navbar-inner headernav">
+				<div class="container">
+					<!-- Logo -->				
+					<span class="header-logo">
+						<a class="brand" href="/#">
+							<p class="brand1"><%= site_name.upcase.split[0] %></p>
+							<p class="brand2"><%= site_name.upcase.split[1] %></p>
+						</a>
+					</span>
+				</div>
+			</div>
+		</header>
+		<%= yield %>
+	</body>
+</html>	

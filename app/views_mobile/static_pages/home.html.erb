@@ -1,0 +1,11 @@
+<!--
+<% if @feeds.any? %>
+	<%= select("post", "feed_id", @feeds.collect {|f| [f.name, f.id]}) %>
+<% end %>
+-->
+<div class="container">
+	<%= link_to "Full Site", :mobile => 0 %>  
+</div>
+<% if @feed_items.any? %>
+	<%= render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false %>
+<% end %>
