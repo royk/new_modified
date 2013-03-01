@@ -121,4 +121,16 @@ module ApplicationHelper
 		Feed.create!(name:"Admin Feed", permalink:"admin_feed")
 	end
 
+	def check_for_mobile
+  		session[:mobile_override] = params[:mobile] if params[:mobile]
+	end
+	
+	def mobile_device?
+  		if session[:mobile_override]
+   			session[:mobile_override] == "1"
+  		else
+			request.user_agent =~ /Mobile|webOS/
+  		end
+	end
+
 end

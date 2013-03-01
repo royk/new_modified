@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
 	include ApplicationHelper
 	require 'will_paginate/array' 
+	before_filter :check_for_mobile
 
 	def home
 	  	@first_timer = first_time_visitor?
@@ -26,4 +27,6 @@ class StaticPagesController < ApplicationController
 			render partial: 'shared/feed_item', collection: @feed_items, comments_shown: false
 		end
 	end
+
+
 end
