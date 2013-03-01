@@ -1,6 +1,10 @@
 <div class="container feed-item feed-item-mobile">
 	<h3>
-		<%= feed_item.user.shown_name %>
+		<% unless feed_item.user.nil? %>
+			<%= feed_item.user.shown_name %>
+		<% else %>
+			Anonymous
+		<% end %>
 	</h3>
 	<% if feed_item.class==Video %>
 		<p class="text-content">
