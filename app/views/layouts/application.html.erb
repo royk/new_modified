@@ -7,8 +7,18 @@
 				<%= yield %>
 			</div>
 			<!-- RIGHT BAR -->
-			<div class="right-bar span4 pull-right">
-				<h3><%=t(:activity)%></h3>
+			<div class="right-bar span4 pull-right" id="activitiesBar">
+
+				<h3><%=t(:activity)%>
+					<span class="pull-right" style="position:relative;right:5px;cursor:pointer;" id="activitiesHider">-</span>
+				</h3>
+				<script>
+					$(document).ready(function() {
+						$("#activitiesHider").click(function() {
+								NM.toggleVisibility($("#activitiesBar"));
+							});
+					});
+				</script>
 				<ul class="activities">
 					<%= render(partial: 'shared/front_page_notification_item', collection: site_activities) || t(:no_activities_since_last_visit) %>
 				</ul>
