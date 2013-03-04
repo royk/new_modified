@@ -3,6 +3,21 @@
 	<%= select("post", "feed_id", @feeds.collect {|f| [f.name, f.id]}) %>
 <% end %>
 -->
+<div class="login-form-mobile container" style="margin-bottom:5px;">
+	<% unless signed_in? %>
+		<%= form_for(:session, url: sessions_path) do |f| %>
+			<%= f.label :email %>
+			<%= f.text_field :email, class: "form-input" %>	
+			<%= f.label :password  %>
+			<%= f.password_field  :password, class: "form-input"  %>
+			<div>
+				<%= f.submit "Sign in", class: "btn" %>
+			</div>
+		<% end %>
+	<% else %>
+		Signed in as <%= current_user.name %>. <%= link_to t(:log_out), signout_path, method: "delete" %>
+	<% end %>
+</div>
 <div class="container">
 	<%= link_to "Full Site", :mobile => 0 %>  
 </div>

@@ -1023,3 +1023,12 @@ input.form-input {
   border-top-style: solid;
   padding: 8px;
 }
+
+.login-form-mobile {
+  input {
+    width: 300px;
+  }
+  input.btn {
+    width: auto;
+  }
+}
