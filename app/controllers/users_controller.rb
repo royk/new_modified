@@ -48,13 +48,16 @@ class UsersController < ApplicationController
   end
 
   def clear_notifications
-    unless current_user.nil?
-      current_user.notifications.where(read: false).each do |n|
-        n.read = true;
-        n.save
-      end
-    end
-    render :text => ""
+	  unless current_user.nil?
+		  notifications = current_user.notifications.where(read: false)
+		  if notifications.any?
+			  notifications.each do |n|
+				  n.read = true
+				  n.save!
+			  end
+		  end
+	  end
+	  render :text => ""
   end
 
   def reset_password

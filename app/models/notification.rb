@@ -25,7 +25,6 @@ class Notification < ActiveRecord::Base
 	belongs_to :action, polymorphic: true
 	alias_attribute :parent_item, :action
 
-	validates :item, presence: true
 
 	def action_verb
 		case item.class.to_s
