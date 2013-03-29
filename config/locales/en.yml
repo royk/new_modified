@@ -24,7 +24,7 @@ en:
     remove_likes: "Remove props"
 
 # Activity
-    activity: "Activity"    
+    activity: "Recently..."    
     commented: "commented"
     liked: "gave props"
     tagged_you: "tagged you"

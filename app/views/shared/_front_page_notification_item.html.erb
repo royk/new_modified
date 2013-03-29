@@ -10,38 +10,40 @@
 <% if sender %>
 	<li id="front_page_notification_item<%= notification_item.id %>">
 		<%= link_to sender do %>
-			<span>
+			<div class="avatar">
 				<%= gravatar_for sender, size: 25 %>
 				
-			</span>
-			<span>
-				<%= sender.shown_name %>
-		<% end %>
-		<% if notification_item.parent_item %>
-			<%= notification_item.action_verb %> on
-			<% if receiver %>
-				<%= link_to receiver.shown_name, receiver %>'s
-			<% else %>
-				a
+			</div>
+			<div>
+				<span>
+					<%= sender.shown_name %>
 			<% end %>
-			<% if notification_item.action_type.downcase=="comment" %>
-				<%= link_to notification_item.action_type.downcase, notification_item.parent_item.commentable%>
+			<% if notification_item.parent_item %>
+				<%= notification_item.action_verb %> on
+				<% if receiver %>
+					<%= link_to receiver.shown_name, receiver %>'s
+				<% else %>
+					a
+				<% end %>
+				<% if notification_item.action_type.downcase=="comment" %>
+					<%= link_to notification_item.action_type.downcase, notification_item.parent_item.commentable%>
+				<% else %>
+					<%= link_to notification_item.action_type.downcase, notification_item.parent_item  %>
+				<% end %>
 			<% else %>
-				<%= link_to notification_item.action_type.downcase, notification_item.parent_item  %>
-			<% end %>
-		<% else %>
-			<% if item_name=="user" %>
-				<%= I18n.t(:joined) %>
-			<% else %>
-				<% begin %>
-					created a new <%= link_to item_name, notification_item.item  %>
-				<% rescue %>
-					created a new <%= item_name %>
+				<% if item_name=="user" %>
+					<%= I18n.t(:joined) %>
+				<% else %>
+					<% begin %>
+						created a new <%= link_to item_name, notification_item.item  %>
+					<% rescue %>
+						created a new <%= item_name %>
+					<% end %>
 				<% end %>
 			<% end %>
-		<% end %>
 
-			</span>
+				</span>
+			</div>
 			<div class="timestamp">
 				<%= time_ago_in_words(notification_item.created_at) %> ago
 			</div>

@@ -3,6 +3,7 @@
 /* fonts */
 @import url(http://fonts.googleapis.com/css?family=Arvo);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans);
+@import url(http://fonts.googleapis.com/css?family=Nobile:700italic);
 /* vars */
 $lightYellow: #f9ed9d;
 $linkColor: #08C;
@@ -159,21 +160,23 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   margin-bottom: 0px;
   .brand {
     font-weight: bold;
-    margin-top: 5px;
     padding-top: 0px;
     padding-bottom: 0px;
+    font-family: 'Nobile', sans-serif;
+    font-size: 2em !important;
+    line-height: 1em !important;
+    .brand1 {
+      color: $black;
+      display: inline;
+      
+    }
+    .brand2{
+      color: $white;
+      display: inline;
+    }
   }
+}
 
-}
-.brand1 {
-  color: $black;
-  display: inline;
-}
-.brand2{
-  color: $white;
-  display: inline;
-
-}
 
 .navbar .nav > li > a, .navbar .nav .divider {
 	color: $white;
@@ -1003,6 +1006,10 @@ input.form-input {
     margin: 0;
 
     li {
+      .avatar {
+        float: left;
+        padding-right: 5px;
+      }
       padding-bottom: 5px;
       padding-top: 5px;
       border-bottom: solid 1px #E3E8F0;
