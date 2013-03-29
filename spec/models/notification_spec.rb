@@ -47,16 +47,6 @@ describe Notification do
 		its(:sender) { should==sender }
 	end
 
-	context "invalidates" do
-		describe "when there is no item" do
-			before do
-				notification.item = nil
-			end
-			it { should_not be_valid }
-		end
-	end
-
-
 	context "action verb" do
 		describe "when notifying on comment" do
 			before :each do
