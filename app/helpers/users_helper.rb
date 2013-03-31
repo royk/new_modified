@@ -6,7 +6,7 @@ module UsersHelper
 		    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
 		    return image_tag(gravatar_url, alt: user.shown_name, class: "gravatar", width: size, height: size)
 		else
-			gravatar_url = "https://secure.gravatar.com/avatar/00000000000000000000000000000000?s=#{40}"
+			gravatar_url = "https://secure.gravatar.com/avatar/2cc2c37963368cc3c03580a665aae8a7?s=#{40}"
 		    return image_tag(gravatar_url, alt: "no avatar", class: "gravatar", width: 40, height: 40)
 		end		    
   	end
