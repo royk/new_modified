@@ -6,10 +6,12 @@ class ArticlesController < AuthenticatedController
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
+		@full_site_layout = true
 		@article = get_item_permalink(Article, params)
 	end
 
 	def edit
+		@full_site_layout = true
 		@article = get_item_permalink(Article, params)
 		edit! { request.referer }
 	end
