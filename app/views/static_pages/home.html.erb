@@ -2,7 +2,7 @@
 <% if @first_timer %>
 	<%= render 'first_time' %>
 <% end %>
-<% if @feed_front_page || @article.nil? %>
+<% if @feed_front_page %>
 	<div style="height:14px;position: relative; top: 20px; right: 10px;">
 		<%= link_to feed_path(@feed.permalink, :atom) do %>
 			<span class="pull-right">
@@ -27,7 +27,9 @@
 <% else %>
 	<div class="article-show">
 	<div class="content">
-		<%= @article.content.html_safe %>
+		<% unless @article.nil? %>
+			<%= @article.content.html_safe %>
+		<% end %>
 	</div>
 </div>
 <% end %>

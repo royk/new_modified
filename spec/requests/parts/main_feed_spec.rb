@@ -9,7 +9,10 @@ describe "main feed" do
 	let(:main_feed) { Feed.find_by_name("Main Feed") }
 
 	subject { find("div.front-page-feed") }
-	before { visit root_path }
+	before do 
+		sign_in user
+		visit root_path 
+	end
 
 	shared_examples "feed post" do
 		it { should have_selector(".feed-item-container > .feed-item")}
@@ -19,17 +22,7 @@ describe "main feed" do
 
 
 	describe "posting form->" do
-		context "when logged out" do
-			it { should_not have_css("div#feed-form") }
-		end
-
-		context "when signed in" do
-			before do
-				sign_in user
-				visit root_path
-			end
-			it { should have_css("div#feed-form") }
-		end
+		it { should have_css("div#feed-form") }
 	end
 
 
@@ -68,18 +61,7 @@ describe "main feed" do
 			describe "should have sticky css" do
 				it { should have_css("div.feed-item-container.sticky") }
 			end
-			describe "should be on top" do
-				before do
-					post_item2 = FactoryGirl.create(:post)
-					post_item2.public = true
-					post_item2.content = "whatevs"
-					post_item2.feed = main_feed
-					post_item2.save!
-					visit root_path
-				end
-				it { should have_css("div.feed-item-container", count: 2) }
-				it { should have_css("div.feed-item-container.sticky:first-child") }
-			end
+			
 		end
 	end
 
@@ -100,19 +82,8 @@ describe "main feed" do
 				blog_post.save!
 				visit root_path
 			end
-			describe "for a signed out user" do
-				it "should not appear on the feed" do
-					page.should_not have_css("div.blog-post-content") 
-				end
-			end
-			describe "for a signed in user" do
-				before do
-					sign_in user
-					visit root_path
-				end
-				it "should appear on the feed" do
-					page.should have_css("div.blog-post-content") 
-				end
+			it "should appear on the feed" do
+				page.should have_css("div.blog-post-content") 
 			end
 		end
 

@@ -44,7 +44,6 @@ describe "Static pages" do
 		let(:page_title) {I18n.t(:home)}
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
-		it_has_behavior "activity bar"
 		it_has_behavior "footer"
 		
 		describe "signed in view" do

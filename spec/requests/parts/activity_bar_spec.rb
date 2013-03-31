@@ -6,6 +6,7 @@ describe "activity bar" do
 	let(:like) { FactoryGirl.create(:like) }
 
 	subject { find("ul.activities") }
+	before { sign_in user }
 
 	describe "when there are no activities" do
 		before { visit root_path }
