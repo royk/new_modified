@@ -30,6 +30,8 @@ class ArticlesController < AuthenticatedController
 	end
 
 	def index
+		@full_site_layout = true
+    	@bright_body = true
 		@categories = Category.all
 		@empty_category = Category.new
 		@empty_category.name = t(:unsorted)

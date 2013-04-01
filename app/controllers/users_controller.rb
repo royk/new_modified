@@ -120,10 +120,14 @@ class UsersController < ApplicationController
   end
   
   def new
+    @full_site_layout = true
+    @bright_body = true
     @user = User.new
   end
 
   def create
+    @full_site_layout = true
+    @bright_body = true
     return unless anti_spam_verifications
     @user = migrate_virtual_profile
     @user = User.new(params[:user]) if @user.nil?
@@ -134,7 +138,7 @@ class UsersController < ApplicationController
         sign_in @user
         flash[:success] = "Welcome to the #{site_name}!"
         register_new_user(@user) if @user.registered
-        redirect_to "/static/welcome"
+        redirect_to root_path
       else
         redirect_to request.referer
       end

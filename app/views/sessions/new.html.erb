@@ -1,21 +1,20 @@
 <%= provide(:title, t(:login)) %>
-<h1>Sign in</h1>
-<div class="row">
-	<div class="span6 offset4">
-		<%= form_for(:session, url: sessions_path) do |f| %>
-			
-			<%= f.label :email %>
-			<%= f.text_field :email, class: "form-input" %>
+	<h1 style="text-align:left">Sign in</h1>
+		<div class="span6 offset3">
+			<%= form_for(:session, url: sessions_path) do |f| %>
+				
+				<%= f.label :email %>
+				<%= f.text_field :email, class: "form-input" %>
 
-			<%= f.label :password  %>
-			<%= f.password_field  :password, class: "form-input"  %>
+				<%= f.label :password  %>
+				<%= f.password_field  :password, class: "form-input"  %>
 
-			<div>
-				<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+				<div>
+					<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+				</div>
+			<% end %>
+			<div class="forgot-password">
+				<%= link_to "Forgot your password?", '/forgotpassword' %>
 			</div>
-		<% end %>
-		<div class="forgot-password">
-			<%= link_to "Forgot your password?", '/forgotpassword' %>
 		</div>
 	</div>
-</div>

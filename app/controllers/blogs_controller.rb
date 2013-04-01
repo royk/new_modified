@@ -5,11 +5,13 @@ class BlogsController < AuthenticatedController
 	skip_before_filter :signed_in_user, only: [:index, :show]
 	
 	def index
+		@full_site_layout = true
+  		@bright_body = true
 		@blogs = Blog.paginate(page: params[:page], :per_page => 10)
-
 	end
 
 	def show
+		@full_site_layout = true
 		@blog = Blog.find(params[:id])
 		@blog_posts = privacy_query(@blog.blog_posts).paginate(page: params[:page], :per_page => 10)
 		if request.xhr?
@@ -18,9 +20,12 @@ class BlogsController < AuthenticatedController
 	end
 
 	def import
+		@full_site_layout = true
+  		@bright_body = true
 	end
 
 	def init_blog
+		@full_site_layout = true
 		current_user.build_blog(title: "My new blog")
 		if current_user.save
 			sign_in current_user
@@ -32,6 +37,8 @@ class BlogsController < AuthenticatedController
 	end
 
 	def perform_import
+		@full_site_layout = true
+  		@bright_body = true
 		unless current_user.modified_user.nil?
 			posts = scrape_modified(params[:blog_url], current_user.modified_user) unless params[:blog_url].empty?
 			unless posts.nil?
@@ -50,6 +57,8 @@ class BlogsController < AuthenticatedController
 	end
 
 	def perform_blogpost_import
+		@full_site_layout = true
+  		@bright_body = true
 		posts = scrape_blogspot(params[:feed_url])
 		unless posts.nil?
 			create_posts(posts)

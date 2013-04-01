@@ -1,3 +1,5 @@
 <% provide(:title, @page.name) %>
 <%= render '/shared/pages/page_options' %>
-<%= @page.content.html_safe %>
+<div class="light-box">
+	<%= @page.content.html_safe %>
+</div>

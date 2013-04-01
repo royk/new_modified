@@ -27,7 +27,7 @@
 		<%= render 'shared/ajax_loading', collection: @feed_items, loadPath: '/' %>
 	</div>
 <% else %>
-	<div class="article-show">
+	<div class="light-box">
 	<div class="content">
 		<% unless @article.nil? %>
 			<%= @article.content.html_safe %>

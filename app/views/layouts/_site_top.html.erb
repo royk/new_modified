@@ -21,7 +21,7 @@
 							container: ".activities"});
 		</script>
 	<% end %>
-	<body>
+	<body class="<%= defined?(@bright_body)? 'bright' : 'dark'%>">
 		<!-- static part of every page is the heade -->
 		<%= render 'layouts/header' %>
 		<div class="container">

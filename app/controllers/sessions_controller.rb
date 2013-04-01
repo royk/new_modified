@@ -1,8 +1,12 @@
 class SessionsController < ApplicationController
   def new
+    @full_site_layout = true
+    @bright_body = true
   end
 
   def create
+    @full_site_layout = true
+    @bright_body = true
     if (signed_in?)
       sign_out
     end
@@ -23,15 +27,20 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    @full_site_layout = true
+    @bright_body = true
     sign_out
     redirect_to root_url
   end
 
   def forgot_password
+    @bright_body = true
+    @full_site_layout = true
     render '/sessions/forgot_password'
   end
 
   def reset_password
+    @full_site_layout = true
     user = User.find_by_email(params[:session][:email].downcase)
     unless user.nil?
       flash[:success] = 'Reset password sent to your email.'
