@@ -56,11 +56,12 @@ header:before {
   width: 100%;
 }
 .navbar-inner {
+  @include boxShadow(0px 2px 8px #000000);
   @include border(0px);
 }
 .headernav {
-	background-color: #828282;
-	@include gradient(right, #828282, #828282);
+	background-color: #6c8083;
+	@include gradient(right, #6c8083, #6c8083);
 }
 
 .loading-indicator {
@@ -78,14 +79,18 @@ html {
 
 body {
   padding-top: 60px;
-  background-color: #5c5c5c;
+  
+  
 }
 body.bright {
   background-color: #f2f2f2;
 }
 body.dark {
+  //background-image: url('/assets/background.png');
+  //background-repeat: repeat-y;
+  background-color: #5c5c5c;
   h1 {
-    color: grey;
+    color: lightgrey;
   }
 }
 
@@ -195,7 +200,7 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
     .brand2{
       color: $white;
       display: inline;
-      text-shadow: 4px 4px 4px #000000;
+      text-shadow: 4px 4px 2px #000000;
     }
   }
 }
@@ -445,11 +450,14 @@ select {
   display: block;
   margin-bottom: 10px;
 }
-.light-box {
+div .light-box {
   padding: 10px;
   background-color: #f2f2f2;
   @include boxShadow(3px 3px 7px #000);
   @include border(4px, 4px, 4px, 4px);
+  h1 {
+    color: black;
+  }
 }
 .article-form {
   .spacer {
@@ -568,6 +576,7 @@ select {
     width: 100%;
     height: 100%;
     z-index: -9999;
+    background-color: #5c5c5c;
   }
 .profile {
   .span9 {

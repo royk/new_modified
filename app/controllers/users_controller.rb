@@ -44,6 +44,8 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @full_site_layout = true
+    @bright_body = true
     @user = User.find(params[:id])
   end
 
@@ -61,6 +63,8 @@ class UsersController < ApplicationController
   end
 
   def reset_password
+    @full_site_layout = true
+    @bright_body = true
     @user = User.find_by_reset_code(params[:reset_code]) unless params[:reset_code].nil?
     if @user
       @user.reset_code = nil
@@ -75,6 +79,8 @@ class UsersController < ApplicationController
 
 
   def update
+    @full_site_layout = true
+    @bright_body = true
     @user = User.find(params[:id])
     unless @user.nil?
       update_user_admin unless params[:admin].nil?
@@ -136,7 +142,7 @@ class UsersController < ApplicationController
       unless params[:admin_created]
         UserMailer.welcome_mail(@user).deliver
         sign_in @user
-        flash[:success] = "Welcome to the #{site_name}!"
+        flash[:success] = "Welcome to #{site_name}! We recommend filling in some details in your user profile."
         register_new_user(@user) if @user.registered
         redirect_to root_path
       else
