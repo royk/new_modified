@@ -32,9 +32,13 @@ class UsersController < ApplicationController
       when "latest"
         @users = User.where(registered: true).order('id desc')
       when "nearby"
-        if signed_in? && current_user.geocoded?
-          @users = current_user.nearbys(9999).where(registered: true).order("distance")
-        end
+	      if signed_in?
+		      if current_user.geocoded?
+			      @users = current_user.nearbys(9999).where(registered: true).order("distance")
+		      else
+			      @users = User.where(registered: true)
+		      end
+	      end
     end
     if request.xhr?
       render partial: '/users/user', collection: @users

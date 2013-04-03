@@ -72,6 +72,13 @@ header:before {
   display: none;
   opacity: 0;
 }
+#members {
+  .loading-indicator {
+    position: absolute;
+    left: 26px;
+    top: -7px;
+  }
+}
 
 html {
   overflow-y: scroll;

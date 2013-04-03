@@ -1,6 +1,5 @@
 <% provide(:title, t(:members)) %>
-
-<div class="members">
+<div id="members" class="members">
 	<div class="header">
 		<h1><%= t(:members) %></h1>
 			<div>
@@ -9,20 +8,41 @@
 					<li class="clickable" data-method="latest"><%= t(:latest) %></li>
 					<li class="clickable" data-method="nearby"><%= t(:nearby) %></li>
 				</ul>
+				<div style="position:relative;float:right">
+					<div class="loading-indicator">
+						<img  src="/assets/ajax-loader.gif"/>
+					</div>
+				</div>
 				<script>
 					$(document).ready(function() {
+						var _loading = false;
+						
 						$("#sort-methods").children().click(function() {
-								NM.ajaxify({
-									url: '/sorted_users?sort_method='+this.dataset.method,
-									container: '.members-list'
-								});
-								$(this).addClass("active");
-								$(this).siblings().removeClass("active");
+								if (!_loading) {
+									_loading = true;
+									$(".members-list").fadeTo(500, 0.2);
+									$(".loading-indicator").show().fadeTo('slow', 1);
+									$(".loading-indicator").show().fadeTo('slow', 1);
+									$("#sort-methods").fadeTo('slow', 0);
+									NM.ajaxify({
+										url: '/sorted_users?sort_method='+this.dataset.method,
+										container: '.members-list',
+										callback: function() {
+											$(".members-list").fadeTo(500, 1);
+											$(".loading-indicator").show().fadeTo('slow', 0);
+											$("#sort-methods").fadeTo('slow', 1);
+											_loading = false;
+										}
+									});
+									$(this).addClass("active");
+									$(this).siblings().removeClass("active");
+								}
 						});
 					});
 				</script>
 			</div>
 	</div>
+	
 	<table class="members-list">
 		<%= render @users %>
 	</table>

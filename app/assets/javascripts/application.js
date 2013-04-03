@@ -105,15 +105,20 @@ NM = (function() {
 		// container:	jquery identifier for the html container where the results will be stored (e.g. "#item5")
 		ajaxify: function ajaxify(params) {
 			params.type = params.type || 'get';
+			params.callback = params.callback || function(){};
 			$.ajax({
 				url: params.url,
 				type: params.type,
 				statusCode: {
 					302: function(response) {
 						window.location.href = response.redirect;
+						params.callback();
 					},
 					200: function(response) {
-						$(params.container).html(response);
+						if (response && /^\s*$/.test(response)==false) {
+							$(params.container).html(response);
+							params.callback();
+						}
 					}
 				}
 				
