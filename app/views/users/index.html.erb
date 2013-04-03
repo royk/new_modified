@@ -29,7 +29,7 @@
 										container: '.members-list',
 										callback: function() {
 											$(".members-list").fadeTo(500, 1);
-											$(".loading-indicator").show().fadeTo('slow', 0);
+											$(".loading-indicator").fadeTo('slow', 0).hide();
 											$("#sort-methods").fadeTo('slow', 1);
 											_loading = false;
 										}
