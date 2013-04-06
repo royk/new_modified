@@ -1025,11 +1025,42 @@ input.form-input {
 }
 
 
+  
+.chat-container {
+  padding: 5px;
+  padding-top: 0px;
+  .chat-send-container {
+    text-align:center;width:100%;
+  }
+  .chat-name {
+    color: grey;
+  }
+  #chat-messages {
+    margin-bottom: 10px;
+    overflow-y: auto;
+    max-height: 250px;
+    background-color: white;
+    padding: 5px;
+    @include border(1px);
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px;
+    display: none;
+    .chat-msg {
+      border-bottom: solid 1px #E3E8F0;
+    }
+    .chat-msg:last-child {
+      border-style: none;
+    }
+
+  }
+}
 /* front page right bar (activity bar) */
 .right-bar {
   @include boxShadow(3px 3px 7px #000);
   background-color: #f2f2f2;
   height: auto;
+  margin-bottom: 10px;
   @include border(4px);
   p {
     text-align: left;
