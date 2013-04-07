@@ -47,19 +47,24 @@
 
 				            //Process any incoming messages
 				            this.socket.on('new', this.add);
+				            this.socket.emit('history');
 				          },
 
 				          //Adds a new message to the chat.
 				          add : function(data) {
-				            var name = data.name || 'anonymous';
-				            var msg = $('<div class="chat-msg"></div>')
-				              .append('<span class="chat-name">' + name + '</span>: ')
-				              .append('<span class="chat-text">' + data.msg + '</span>');
+				          	data = JSON.parse(data);
+				          	for (var i=0; i<data.length; i++) {
+				          		var datum = data[i];
+					            var name = datum.name || 'anonymous';
+					            var msg = $('<div class="chat-msg"></div>')
+					              .append('<span class="chat-name">' + name + '</span>: ')
+					              .append('<span class="chat-text">' + datum.msg + '</span>');
 
-				            $('#chat-messages')
-				              .show()
-				              .append(msg)
-				              .animate({scrollTop: $('#chat-messages').prop('scrollHeight')}, 0);
+					            $('#chat-messages')
+					              .show()
+					              .append(msg)
+					              .animate({scrollTop: $('#chat-messages').prop('scrollHeight')}, 0);
+					          }
 				          },
 
 				          //Sends a message to the server,
@@ -79,7 +84,7 @@
 				        };
 				      }());
 				      $(document).ready(function() {
-				        Chat.initialize('http://54.244.123.247:8080');
+				       Chat.initialize('http://54.244.123.247:8080');
 				      });
 				    </script>
 				</div>
