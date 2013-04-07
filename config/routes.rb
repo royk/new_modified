@@ -17,6 +17,7 @@ NewModified::Application.routes.draw do
   match '/user_posts', to: 'users#user_posts'
   match '/user_articles', to: 'users#user_articles'
   match '/user_data', to: 'users#export'
+  match '/who_online', to: 'users#who_online'
 
   match '/signup', to: 'users#new'
 

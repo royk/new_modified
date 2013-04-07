@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, 
                   :nickname, :blog_title, :reset_code, :country, :city, :modified_user, 
                   :birthday, :started_playing, :bap, :bap_name, :bap_induction,
-                  :motto, :hobbies, :last_visit, :about_title, :about_content, :registered, :website
+                  :motto, :hobbies, :last_visit, :about_title, :about_content, :registered, :website,
+                  :last_online
 
   bitmask :privacy_settings, as: [:expose_name, :expose_location]
 
@@ -87,6 +88,10 @@ class User < ActiveRecord::Base
   before_destroy :destroy_notifications, :destroy_comments, :destroy_video_assoc
 
   after_validation :geocode  # fill in longitude and latitude
+
+  def self.online_now
+    where("last_online > ?", 5.minutes.ago)
+  end
 
   def export_to_csv
     CSV.generate do |csv|

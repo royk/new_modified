@@ -47,6 +47,14 @@
 
 				            //Process any incoming messages
 				            this.socket.on('new', this.add);
+				            var need_history = true;
+				            var _add = this.add;
+				            this.socket.on('history', function(data) {
+				            	if (need_history) {
+				            		_add(data);
+				            		need_history = false;
+				            	}
+				            })
 				            this.socket.emit('history');
 				          },
 
@@ -84,7 +92,8 @@
 				        };
 				      }());
 				      $(document).ready(function() {
-				       Chat.initialize('http://54.244.123.247:8080');
+				       //Chat.initialize('http://54.244.123.247:8080');
+				       Chat.initialize('http://localhost:4000');
 				      });
 				    </script>
 				</div>

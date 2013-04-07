@@ -17,6 +17,9 @@ class NotificationsController < AuthenticatedController
 	end
 
 	def get_latest
+		if signed_in? 
+			current_user.last_online = Time.now
+		end
 		render partial: 'shared/notifications/header_indicator'
 	end
 	

@@ -11,6 +11,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def who_online
+    @users = User.online_now
+    render partial: 'shared/users/who_online'
+  end
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted."
