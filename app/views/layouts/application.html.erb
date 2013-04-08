@@ -97,20 +97,6 @@
 				      });
 				    </script>
 				</div>
-				<div class="right-bar span3 pull-right" id="whoseOnlineBar">
-					<p>Online now</p>
-					<%= render partial: 'shared/users/who_online' %>
-					<div id="whoseOnlineContainer">
-					</div>
-				</div>
-				<script>
-				$(document).ready(function() {
-					NM.ajaxify({url:"/who_online",
-								container: "#whoseOnlineContainer"});
-					NM.every(10000).ajaxify({url:"/who_online",
-									container: "#header-whoseOnlineContainer"});
-				});
-				</script>
 				<% end %>
 				<div class="right-bar span3 pull-right" id="activitiesBar">
 					
