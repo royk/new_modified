@@ -12,7 +12,11 @@ class UsersController < ApplicationController
   end
 
   def who_online
-    @online_users = User.where("last_online > ?", 15.minutes.ago)
+    if signed_in?
+      current_user.last_online =  Time.now
+      current_user.save_without_signout
+    end
+    @online_users = User.where("last_online > ?", 5.minutes.ago)
     render partial: 'shared/users/who_online'
   end
 

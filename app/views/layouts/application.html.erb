@@ -99,7 +99,6 @@
 				</div>
 				<div class="right-bar span3 pull-right" id="whoseOnlineBar">
 					<p>Online now</p>
-					<%= render partial: 'shared/users/who_online' %>
 					<div id="whoseOnlineContainer">
 					</div>
 				</div>
@@ -108,7 +107,7 @@
 					NM.ajaxify({url:"/who_online",
 								container: "#whoseOnlineContainer"});
 					NM.every(10000).ajaxify({url:"/who_online",
-									container: "#header-whoseOnlineContainer"});
+									container: "#whoseOnlineContainer"});
 				});
 				</script>
 				<% end %>

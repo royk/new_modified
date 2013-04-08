@@ -5,8 +5,7 @@ module SessionsHelper
 	def sign_in(user)
 		session[:last_visit] = 1.week.ago	# controls age of activities to see on site.
 	    user.last_visit = Time.now
-	    #user.last_online = Time.now
-	    #user.save!
+	    user.last_online = Time.now
 	    cookies.permanent[:remember_token] = user.remember_token
 	    self.current_user = user
 	end
@@ -36,6 +35,10 @@ module SessionsHelper
 	end
 
 	def sign_out
+		if self.current_user
+			self.current_user.last_online = nil
+			self.current_user.save_without_signout
+		end
 		self.current_user = nil
 		cookies.delete(:remember_token)
 	end

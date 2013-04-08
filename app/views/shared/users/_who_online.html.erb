@@ -1,3 +1,6 @@
-<ul class="online-users">
-<%= render partial: 'shared/users/online_user', collection: @online_users %>
-</ul>
+<table class="online-users">
+	<tbody>
+		<% @user_counter = 0 %>
+		<%= render partial: 'shared/users/online_user', collection: @online_users %>
+	</tbody>
+</table>

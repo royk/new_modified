@@ -1023,7 +1023,23 @@ input.form-input {
 .gravatar {
   @include border(4px);
 }
-
+#whoseOnlineBar {
+  p {
+    margin: 0px;
+  }
+  .online-users {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    text-align: center;
+    a {
+      color: black;
+    }
+    td {
+      width: 50%;
+    }
+  }
+}
 
   
 .chat-container {

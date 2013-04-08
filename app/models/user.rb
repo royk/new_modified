@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
-  before_save :create_remember_token
+  before_save :recreate_remember_token
 
   has_many :posts, dependent: :destroy
 
@@ -88,6 +88,8 @@ class User < ActiveRecord::Base
   before_destroy :destroy_notifications, :destroy_comments, :destroy_video_assoc
 
   after_validation :geocode  # fill in longitude and latitude
+
+  @reset_remember_token = true
 
   def self.online_now
     where("last_online > ?", 5.minutes.ago)
@@ -169,10 +171,22 @@ class User < ActiveRecord::Base
     self.attendances + self.results
   end
 
+  def save_without_signout
+    @reset_remember_token = false;
+    self.save()
+    @reset_remember_token = true
+  end
+
   private
     def years_diff(date)
       now = Time.now.utc.to_date
       now.year - date.year - ((now.month > date.month || (now.month == date.month && now.day >= date.day)) ? 0 : 1)
+    end
+
+    def recreate_remember_token
+      if @reset_remember_token
+        create_remember_token
+      end
     end
 
   	def create_remember_token

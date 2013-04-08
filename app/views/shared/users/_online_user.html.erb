@@ -1,1 +1,9 @@
-<li class="online-user"><%= online_user.shown_name %></li>
+<% user_display = link_to online_user.shown_name, online_user %>
+<% if @user_counter%2==0%>
+	<tr>
+	<td><%= user_display  %></td>
+<% else %>	
+	<td><%= user_display %></td>
+	</tr>
+<% end %>
+<% @user_counter+=1 %>
