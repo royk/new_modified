@@ -4,9 +4,6 @@ class StaticPagesController < ApplicationController
 	before_filter :check_for_mobile
 
 	def chat
-		unless signed_in?
-			session[:return_to] = '/chat'
-		end
 		render layout: false
 	end
 
