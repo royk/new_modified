@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title><%= full_title("Chat") %></title>
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+		<%= javascript_include_tag "application" %>
+		<%= render 'layouts/shim' %>
+	</head>
+	<body class="popup dark">
+		<header class="navbar navbar-fixed-top">
+			<div class="navbar-inner headernav">
+				<div class="container">
+					<!-- Logo -->				
+					<span class="header-logo">
+						<a class="brand" href="/#">
+							<p class="brand1"><%= site_name.split[0] %></p>
+							<p class="brand2"><%= site_name.split[1] %>!</p>
+						</a>
+					</span>
+				</div>
+			</div>
+		</header>
+		<% if signed_in? %>
+			<%= render 'shared/chat', popup: true %>
+		
+		<% end %>
+	</body>	
+</html>

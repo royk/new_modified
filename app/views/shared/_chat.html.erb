@@ -1,0 +1,128 @@
+<% bar_classes = "span3 pull-right" %>
+<% if popup %>
+	<% bar_classes = "popup" %>
+<% end %>
+<div class="right-bar <%= bar_classes %>" id="chatBar">
+	<p>Chat
+		<% unless popup %>
+	 		<i class="icon-share icon-white" style="float:right;position:relative;right:5px;cursor:pointer;top:2px;" id="openChatWindow"></i>
+	 	<% end %>
+	 </p>
+	 <% unless popup %>
+		 <script type="text/javascript">
+		 	$(document).ready(function() {
+		 		$("#openChatWindow").click(function() {
+		 			window.open('/chat', "Footbag Chat!", "width=500, height=600");
+		 		});
+		 	})
+		 </script>
+	<% end %>
+	<div class="chat-container">
+		<div id="chat-messages"></div>
+		<textarea id="chat-message"></textarea>
+		<div class="chat-send-container">
+			<input class="btn" id="chat-send"
+			type="submit" value="Send"/>
+		</div>
+	</div>
+	<script type="text/javascript" src="assets/socket.io.js"></script>
+	<script type="text/javascript">
+    //Create a chat module to use.
+      (function () {
+      	var windowTitle = document.title;
+      	$(window).focus(function() {
+		    document.title = windowTitle;
+		});
+        window.Chat = {
+          socket : null,
+
+          initialize : function(socketURL) {
+            this.socket = io.connect(socketURL);
+
+            //Send message on button click or enter
+            $('#chat-send').click(function() {
+              Chat.send();
+            });
+
+            $('#chat-message').keyup(function(evt) {
+              if ((evt.keyCode || evt.which) == 13) {
+                Chat.send();
+                return false;
+              }
+            });
+
+            //Process any incoming messages
+            this.socket.on('new', this.add);
+            var need_history = true;
+            var _add = this.add;
+            this.socket.on('history', function(data) {
+            	if (need_history) {
+            		_add(data);
+            		need_history = false;
+            	}
+            })
+            this.socket.emit('history');
+          },
+
+          //Adds a new message to the chat.
+          add : function(data) {
+          	data = JSON.parse(data);
+          	for (var i=0; i<data.length; i++) {
+          		var datum = data[i];
+	            var name = datum.name || 'anonymous';
+	            var msg = $('<div class="chat-msg"></div>')
+	              .append('<span class="chat-name">' + name + '</span>: ')
+	              .append('<span class="chat-text">' + datum.msg + '</span>');
+	            $('#chat-messages')
+	              .show()
+	              .append(msg)
+	              .animate({scrollTop: $('#chat-messages').prop('scrollHeight')}, 0);
+	          }
+	          if (!document.hasFocus()) {
+	          	document.title = "New chat message!";
+	          }
+          },
+
+          //Sends a message to the server,
+          //then clears it from the textarea
+          send : function() {
+          	var message = $('#chat-message').val();
+          	if (!message || /^\s*$/.test(message)) {
+          		return;
+          	}
+            this.socket.emit('msg', {
+              name: '<%= current_user.shown_name %>',
+              msg: message
+            });
+
+            $('#chat-message').val('');
+          }
+        };
+      }());
+      $(document).ready(function() {
+       	Chat.initialize('http://54.244.123.247:8080');
+      });
+    </script>
+</div>
+<div class="right-bar <%= bar_classes %>" id="whoseOnlineBar">
+	<p>Online now</p>
+	<div id="whoseOnlineContainer">
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+	NM.ajaxify({url:"/who_online",
+				container: "#whoseOnlineContainer"});
+	NM.every(10000).ajaxify({url:"/who_online",
+					container: "#whoseOnlineContainer"});
+});
+</script>
+<% if popup %>
+	<script>
+		var resizeBars = function resizeBars() {
+			$(".right-bar").css("width", ($(window).width()-5)+"px");
+		};
+		$(document).ready(resizeBars);
+		$(window).on("resize", resizeBars);
+	</script>
+<% end %>	

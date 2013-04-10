@@ -3,6 +3,9 @@ class StaticPagesController < ApplicationController
 	require 'will_paginate/array' 
 	before_filter :check_for_mobile
 
+	def chat
+		render layout: false
+	end
 
 	def home
 	  	@first_timer = first_time_visitor?

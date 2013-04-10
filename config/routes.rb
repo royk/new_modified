@@ -11,6 +11,8 @@ NewModified::Application.routes.draw do
 
   match '/admin', to: 'static_pages#admin'
 
+  match '/chat', to: 'static_pages#chat'
+
   resources :users
 
   match '/user_videos', to: 'users#user_videos'

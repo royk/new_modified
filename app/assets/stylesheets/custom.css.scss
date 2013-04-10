@@ -86,8 +86,9 @@ html {
 
 body {
   padding-top: 60px;
-  
-  
+}
+body.popup {
+  padding-top: 47px;
 }
 body.bright {
   background-color: #f2f2f2;
@@ -779,6 +780,10 @@ input.form-input {
   border-width: 1px;
   border-color: #000000;
   height: 1000px;
+  .popup {
+    margin-left: 0px;
+
+  }
 }
 .dropdown-menu li a {
   color: black;
