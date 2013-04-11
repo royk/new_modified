@@ -32,7 +32,7 @@ describe "Static pages" do
 	end
 
 	shared_examples_for "activity bar" do
-		it { should have_selector('h3', text: I18n.t(:activity)) }
+		it { should have_selector('p', text: I18n.t(:activity)) }
 	end
 
 	shared_examples_for "footer" do
@@ -64,7 +64,6 @@ describe "Static pages" do
 		let(:page_title) { I18n.t(:login) }
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
-		it_has_behavior "activity bar"
 
 		it {should have_selector("input", :name =>"session[email]")}
 		it {should have_selector("input", :name =>"session[password]")}
@@ -76,7 +75,6 @@ describe "Static pages" do
 		let(:page_title) { I18n.t(:register) }
 		it_should_behave_like "all static pages"
 		it_has_behavior "logged-out header"
-		it_has_behavior "activity bar"
 		it_has_behavior "footer"
 
 		it {should have_selector("input", :name =>"user[name]")}
