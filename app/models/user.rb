@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
     end
 
     def recreate_remember_token
-      if @reset_remember_token
+      if @reset_remember_token.nil? || @reset_remember_token
         create_remember_token
       end
     end
