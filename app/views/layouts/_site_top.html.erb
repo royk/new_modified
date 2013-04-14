@@ -22,8 +22,12 @@
 		</script>
 	<% end %>
 	<body class="<%= defined?(@bright_body)? 'bright' : 'dark'%>">
+
 		<!-- static part of every page is the heade -->
 		<%= render 'layouts/header' %>
+		<div class="bg2">
+			<div class="bg2-image"></div>
+		</div>
 		<div class="container">
 			<% flash.each do |key, value| %>
 				<%= content_tag(:div, value, class: "alert alert-#{key}") %>

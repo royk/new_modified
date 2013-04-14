@@ -103,6 +103,21 @@ body.dark {
     color: lightgrey;
   }
 }
+.bg2 {
+  position: relative;
+  float: right;
+  width: 686px;
+  z-index: -9999;
+  top: -100px;
+  .bg2-image {
+    background-image: url('/assets/background5.png');
+    background-repeat: repeat-none;
+    background-repeat: no-repeat;  
+    position: absolute;
+    width:714px;
+  height:841px;
+  }
+}
 
 section {
   overflow: auto;
