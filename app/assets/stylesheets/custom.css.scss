@@ -1086,6 +1086,8 @@ input.form-input {
     display: none;
     .chat-msg {
       border-bottom: solid 1px #E3E8F0;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
     .chat-msg:last-child {
       border-style: none;
