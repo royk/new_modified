@@ -35,8 +35,7 @@ class MessagesController < AuthenticatedController
 
 
 	def create
-		recipient = User.find_by_name(params[:recipient])
-		recipient = User.find_by_nickname(params[:recipient]) if recipient.nil?
+		recipient = User.find(params[:recipient_id])
 		if recipient!=current_user
 			if !recipient.nil?
 				unless params[:replies_to].nil?

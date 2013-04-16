@@ -1,14 +1,17 @@
-<% provide(:title, 'Send message') %>
-<h1>Send message</h2>
-<% reply_content = "[quote=#{@replies_to.sender.shown_name}]#{@replies_to.content.html_safe}[/quote]\n" unless @replies_to.nil? %>
-<%= form_for(@message) do |f| %>
-	<%= f.label :recipient %>
-	<%= text_field_tag :recipient, h(@recipient.shown_name), class: "post-input" %>
-	<%= f.label :content %>
-	<%= f.text_area :content, value: reply_content%>
-	<% unless @replies_to.nil? %>
-		<%= hidden_field_tag 'replies_to', @replies_to.id  %>
-	<% end %>
-
-	<%= f.submit "Send", class: "btn btn-large btn-primary" %>
-<% end %>
+<% provide(:title, 'Private Message') %>
+<h1>Send message</h1>
+  <div class="light-box">
+    <p>To: <strong><%=  h(@recipient.shown_name) %></strong></p>
+    <% reply_content = "<hr/><p><em>From: #{@replies_to.sender.shown_name}</em></p><div style=\"padding-left: 30px\">#{@replies_to.content.html_safe}</div><hr/><br/>" unless @replies_to.nil? %>
+    <%= form_for(@message) do |f| %>
+        <%= f.label :content %>
+        <%= f.text_area(:content, class:"post-input tinymce-mini", value: reply_content)%>
+        <% unless @replies_to.nil? %>
+            <%= hidden_field_tag 'replies_to', @replies_to.id  %>
+        <% end %>
+        <%= hidden_field_tag 'recipient_id', @recipient.id %>
+        <div style="text-align:center">
+            <%= f.submit "Send", class: "btn btn-large btn-primary" %>
+        </div>
+    <% end %>
+  </div>
