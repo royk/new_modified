@@ -115,14 +115,14 @@ NM = (function() {
 						params.callback();
 					},
 					200: function(response) {
-						if (response && /^\s*$/.test(response)==false) {
-                            if (response==="session-ended") {
-                                window.location.reload();
-                            } else {
+                        if (response && response==="session-ended")    {
+                            window.location.reload();
+                        } else {
+                            if (response && /^\s*$/.test(response)==false) {
                                 $(params.container).html(response);
-                                params.callback();
                             }
-						}
+                            params.callback();
+                        }
 					}
 				}
 				

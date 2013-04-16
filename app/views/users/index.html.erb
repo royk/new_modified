@@ -6,7 +6,9 @@
 				<ul class="nav order-nav" id="sort-methods">
 					<li class="clickable active" data-method="all"><%= t(:all) %></li>
 					<li class="clickable" data-method="latest"><%= t(:latest) %></li>
-					<li class="clickable" data-method="nearby"><%= t(:nearby) %></li>
+					<% if signed_in? && current_user.geocoded? %>
+						<li class="clickable" data-method="nearby"><%= t(:nearby) %></li>
+					<% end %>
 				</ul>
 				<div style="position:relative;float:right">
 					<div class="loading-indicator">

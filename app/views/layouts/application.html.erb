@@ -12,24 +12,25 @@
 					<%= yield %>
 				</div>
 				<!-- RIGHT BAR -->
-				<% if signed_in? %>
-					<%= render 'shared/chat', popup:false %>
-				<% end %>
-				<div class="right-bar span3 pull-right" id="activitiesBar">
-					
-					<p><%=t(:activity)%>
-						<span class="pull-right" style="position:relative;right:5px;cursor:pointer;" id="activitiesHider">-</span>
-					</p>
-					<script>
-						$(document).ready(function() {
-							$("#activitiesHider").click(function() {
-									NM.toggleVisibility($("#activitiesBar"));
-								});
-						});
-					</script>
-					<ul class="activities">
-						<%= render(partial: 'shared/front_page_notification_item', collection: site_activities) || t(:no_activities_since_last_visit) %>
-					</ul>
+				<div class="span3">
+					<% if signed_in? %>
+						<%= render 'shared/chat', popup:false %>
+					<% end %>
+					<div class="right-bar pull-right" id="activitiesBar">
+						<p><%=t(:activity)%>
+							<span class="pull-right" style="position:relative;right:5px;cursor:pointer;" id="activitiesHider">-</span>
+						</p>
+						<script>
+							$(document).ready(function() {
+								$("#activitiesHider").click(function() {
+										NM.toggleVisibility($("#activitiesBar"));
+									});
+							});
+						</script>
+						<ul class="activities">
+							<%= render(partial: 'shared/front_page_notification_item', collection: site_activities) || t(:no_activities_since_last_visit) %>
+						</ul>
+					</div>
 				</div>
 			<% end %>
 			
