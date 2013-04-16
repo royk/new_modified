@@ -78,7 +78,7 @@
 	              .append(msg)
 	              .animate({scrollTop: $('#chat-messages').prop('scrollHeight')}, 0);
 	          }
-	          if (!document.hasFocus()) {
+	          if (data.length===1 && !document.hasFocus()) {
 	          	document.title = "New chat message!";
 	          }
           },
