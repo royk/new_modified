@@ -466,8 +466,12 @@ select {
 .category_title {
   text-align: left;
   margin-bottom: 0px;
-  background-color: white;
+  background-color: #6c8083;
+  color: black;
   padding: 10px 5px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }
 #articles-index * {
   font-family: 'PT Sans', sans-serif;
@@ -484,15 +488,14 @@ select {
   .articles {
     list-style:  none;
     .dropdown {
-      position: relative;
-      float: left;
-      left: -25px;
-      top: 10px;
+      display: inline-block;
+      margin-left: 10px;
     }
     hr {
       margin:  0;
     }
     .article {
+      display:inline-block;
       text-align: left;
       .article-title {
         font-size: 1.5em;

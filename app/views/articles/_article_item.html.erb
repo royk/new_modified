@@ -1,7 +1,15 @@
 <% if article_item_counter>0 %>
 	<hr/>
 <% end %>
-<% if signed_in? && (current_user.admin? || current_user==article_item.user) %>
+<li class="article">
+	<% begin %>
+		<p class="article-title"><%= link_to article_item.title, article_path(article_item) %></p>
+	<% rescue %>
+		<% article_item.generate_permalink! %>
+		<% article_item.save! %>
+	<% end %>
+	<p class="article-author"><%= "#{t(:by_author)} #{article_item.user.shown_name}" %></p>
+	<% if signed_in? && (current_user.admin? || current_user==article_item.user) %>
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				<i class="icon-cog"></i>
@@ -25,15 +33,6 @@
 				<li><%= link_to t(:delete), article_item, method: :delete, data: {confirm: t(:delete_confirmation)} %></li>
 			</ul>
 		</li>
-<% end %>
-<li class="article">
-	<% begin %>
-		<p class="article-title"><%= link_to article_item.title, article_path(article_item) %></p>
-	<% rescue %>
-		<% article_item.generate_permalink! %>
-		<% article_item.save! %>
 	<% end %>
-	<p class="article-author"><%= "#{t(:by_author)} #{article_item.user.shown_name}" %></p>
-
 
 </li>
