@@ -1,7 +1,38 @@
-<li>
-	<%= link_to blog.formatted_title, blog %>
-	| <%= pluralize(blog.blog_posts.count, t(:post)) %>
-	<% if correct_user?(blog.user) %> | 
-		<%= link_to "delete", blog, method: :delete, data: {confirm: "You sure?"} %>
-	<% end %>
-</li>
+<% counter_odd = (blog_counter%2)>0 %>
+<% counter_base =  counter_odd ? blog_counter-1 : blog_counter %>
+<% if !counter_odd %>
+	<tr>
+<% end %>
+	<td class="<%= "zebra" if (counter_base%4)==0 %>">
+		<table>
+			<tr>
+				<td class="blog-author-cell">
+					<% if correct_user?(blog.user) %>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="icon-cog"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<%= link_to "delete", blog, method: :delete, data: {confirm: "You sure?"} %>
+								</li>
+							</ul>
+					  </li>
+					<% end %>
+					<p class="blog-author"><%= link_to blog.user.shown_name, blog %></p>
+				</td>
+				<td>
+					<p class="blog-title"><%= link_to blog.title, blog %></p>
+				</td>
+			</tr>
+		</table>
+	</td>
+<% if blog_counter==@blogs.count-1 && (counter_base%4)==0 %>
+	<td class="zebra">
+
+	</td>
+<% end %>
+<% if counter_odd %>
+	</tr>
+
+<% end %>

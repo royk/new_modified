@@ -6,7 +6,6 @@ class BlogsController < AuthenticatedController
 	
 	def index
 		@full_site_layout = true
-  		@bright_body = true
 		@blogs = Blog.paginate(page: params[:page], :per_page => 10)
 	end
 
@@ -26,9 +25,8 @@ class BlogsController < AuthenticatedController
 
 	def init_blog
 		@full_site_layout = true
-		current_user.build_blog(title: "My new blog")
-		if current_user.save
-			sign_in current_user
+		create_blog(current_user) if current_user.blog.nil?
+		if current_user.save_without_signout
 			redirect_to current_user.blog
 		else
 			flash[:errors] = "Couldn't create blog."

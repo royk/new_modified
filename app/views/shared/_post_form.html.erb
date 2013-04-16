@@ -44,6 +44,7 @@
 				<div id="blog-form" <% if total>1 %>style="display:none;"<% end %>>
 				<h3>Write to your blog</h3>
 				<%= form_for(BlogPost.create()) do |f| %>
+					<%= text_field_tag("blog_title", nil, class: "post-input", placeholder: "Blog Title")  %>
 					<%= f.text_area(:content, :rows=>4, :cols=>2, :class=>"tinymce", placeholder: "Write to your blog...")%>
 					<%= tinymce %>
 					<div style="height:10px"></div>
