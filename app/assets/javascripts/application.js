@@ -116,8 +116,12 @@ NM = (function() {
 					},
 					200: function(response) {
 						if (response && /^\s*$/.test(response)==false) {
-							$(params.container).html(response);
-							params.callback();
+                            if (response==="session-ended") {
+                                window.location.reload();
+                            } else {
+                                $(params.container).html(response);
+                                params.callback();
+                            }
 						}
 					}
 				}

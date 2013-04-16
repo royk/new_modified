@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
   def new
-    @full_site_layout = true
-    @bright_body = true
+    if request.xhr?
+		render text: "session-ended"
+    else
+		@full_site_layout = true
+		@bright_body = true
+	end
   end
 
   def create
