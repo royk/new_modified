@@ -95,19 +95,19 @@ describe MessagesController do
 					context "without a prior conversation" do
 						it "should create a message" do
 							expect do
-								post :create, recipient: @recipient.name, message: {content: "yayo"}
+								post :create, recipient_id: @recipient.id, message: {content: "yayo"}
 							end.to change(Message, :count).by(1)
 						end
 						it "should create a conversation" do
 							expect do
-								post :create, recipient: @recipient.name, message: {content: "yayo"}
+								post :create, recipient_id: @recipient.id, message: {content: "yayo"}
 							end.to change(Conversation, :count).by(1)
 						end
 					end
 					context "using the recipient's nickname" do
 						it "should create a message" do
 							expect do
-								post :create, recipient: @recipient.nickname, message: {content: "yayo"}
+								post :create, recipient_id: @recipient.id, message: {content: "yayo"}
 							end.to change(Message, :count).by(1)
 						end
 					end
@@ -115,7 +115,7 @@ describe MessagesController do
 				context "and with an invalid message" do
 					it "shouldn't create a message" do
 						expect do
-								post :create, recipient: @recipient.name, message: {content: ""}
+								post :create, recipient_id: @recipient.id, message: {content: ""}
 						end.to_not change(Message, :count)
 					end
 				end
@@ -123,7 +123,7 @@ describe MessagesController do
 			context "with a recipient that is the sender" do
 				it "shouldn't create a message" do
 					expect do
-						post :create, recipient: user.name, message: {content: "yaya"}
+						post :create, recipient_id: user.id, message: {content: "yaya"}
 					end.to_not change(Message, :count)
 				end
 			end
