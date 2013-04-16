@@ -16,3 +16,10 @@
 .elasticbeanstalk/
 /coverage
 /product
+/app/assets/javascripts/SpecRunner.html
+/app/assets/javascripts/lib/jasmine-html.js
+/app/assets/javascripts/lib/jasmine-jquery.js
+/app/assets/javascripts/lib/jasmine.css
+/app/assets/javascripts/lib/jasmine.js
+/app/assets/javascripts/socket.io.min.js
+/app/assets/javascripts/tests/application-test.js
