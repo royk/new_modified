@@ -5,6 +5,10 @@ class ArticlesController < AuthenticatedController
 	before_filter   :author, only: [:create]
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
+	def new
+		@full_site_layout = true
+	end
+
 	def show
 		@full_site_layout = true
 		@article = get_item_permalink(Article, params)
@@ -20,7 +24,7 @@ class ArticlesController < AuthenticatedController
 		create! do |success, failure|
 			success.html do 
 				register_new_content(@article)
-				redirect_to request.referer
+				redirect_to articles_path
 			end
 			failure.html do
 				flash[:error] = "Could not create article. It must have a unique title and some content."
@@ -31,10 +35,9 @@ class ArticlesController < AuthenticatedController
 
 	def index
 		@full_site_layout = true
-    	@bright_body = true
-		@categories = Category.all
+		@categories = Category.order("weight ASC").all
 		@empty_category = Category.new
-		@empty_category.name = t(:unsorted)
+		@empty_category.name = t(:others)
 		@empty_category.articles = Article.where("category_id = ?", nil)
 	end
 

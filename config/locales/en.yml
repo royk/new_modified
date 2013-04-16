@@ -5,7 +5,7 @@ en:
 # Site Header
     register: Register
     login: "Login"
-    edit: "Edit Profile"
+    edit_profile: "Edit Profile"
     profile: "View Profile"
     log_out: "Log out"
     my_messages: "My Messages"
@@ -45,7 +45,8 @@ en:
 
 # Articles
     articles: "Articles"
-    write_an_article: "Write an article..."  
+    edit_article: "Edit"
+    write_an_article: "New Article"
     unpublish: "Unpublish"  
     publish: "Publish"
     published: "Published"
@@ -91,3 +92,6 @@ en:
 # Events
     events: "Events"    
     add_an_event: "Add an event..."
+# Generic
+    edit: "Edit"
+    others: "Others"

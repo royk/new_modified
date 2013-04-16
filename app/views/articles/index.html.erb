@@ -1,11 +1,9 @@
 <% provide(:title, t(:articles)) %>
-
-<% if signed_in? && (current_user.admin? || current_user.author?)%>
-	<% write_article_func = 'NM.toggleVisibility("#article_form");' %>
-	<%= link_to_function t(:write_an_article), write_article_func, class: :write_article %>
-	<div id="article_form" style="display:none;">
-		<%= render "article_form", article: Article.create %>
-	</div>
-<% end %>
-<%= render partial: 'category_item', collection: @categories %>
-<%= render partial: 'category_item', locals: {category_item: @empty_category} %>
+<h1 class="left-title" style="display:inline-block;">Footbag Articles</h1>
+<div class="light-box" id="articles-index">
+	<% if signed_in? && (current_user.admin? || current_user.author?)%>
+		<div class="article-new"><%= link_to t(:write_an_article), new_article_path, class: :write_article %></div>
+	<% end %>
+	<%= render partial: 'category_item', collection: @categories %>
+	<%= render partial: 'category_item', locals: {category_item: @empty_category} %>
+</div>

@@ -1,25 +1,39 @@
+<% if article_item_counter>0 %>
+	<hr/>
+<% end %>
+<% if signed_in? && (current_user.admin? || current_user==article_item.user) %>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<i class="icon-cog"></i>
+			</a>
+			<ul class="dropdown-menu">
+				<li><%= link_to t(:edit_article), edit_article_path(article_item) %></li>
+				<li>
+					<% if article_item.public %>
+						<%= link_to t(:make_private), article_path(article_item, "article"=>{public: false}), method: :put %>
+					<% else %>
+						<%= link_to t(:make_public), article_path(article_item, "article" =>{public: true}), method: :put %>
+					<% end%>
+				</li>
+				<li>
+					<% if article_item.published %>
+						<%= link_to t(:unpublish), article_path(article_item, "article"=>{published: false}), method: :put %>
+					<% else %>
+						<%= link_to t(:publish), article_path(article_item, "article" =>{published: true}), method: :put %>
+					<% end%>
+				</li>
+				<li><%= link_to t(:delete), article_item, method: :delete, data: {confirm: t(:delete_confirmation)} %></li>
+			</ul>
+		</li>
+<% end %>
 <li class="article">
 	<% begin %>
-		<h2><%= link_to article_item.title, article_path(article_item) %></h2>
+		<p class="article-title"><%= link_to article_item.title, article_path(article_item) %></p>
 	<% rescue %>
 		<% article_item.generate_permalink! %>
 		<% article_item.save! %>
 	<% end %>
-	- <h4><%= "#{t(:by_author)} #{article_item.user.shown_name}" %></h4>
-	<% if signed_in? && (current_user.admin? || current_user==article_item.user) %>
-		<%= link_to t(:edit), edit_article_path(article_item) %> | 
-		<% if article_item.public %>
-			<%= link_to t(:make_private), article_path(article_item, "article"=>{public: false}), method: :put %> 
-		<% else %>
-			<%= link_to t(:make_public), article_path(article_item, "article" =>{public: true}), method: :put %> 
-		<% end%>
-		| 
-		<% if article_item.published %>
-			<%= link_to t(:unpublish), article_path(article_item, "article"=>{published: false}), method: :put %> 
-		<% else %>
-			<%= link_to t(:publish), article_path(article_item, "article" =>{published: true}), method: :put %> 
-		<% end%>
-		| 
-		<%= link_to t(:delete), article_item, method: :delete, data: {confirm: t(:delete_confirmation)} %>
-	<% end %>
+	<p class="article-author"><%= "#{t(:by_author)} #{article_item.user.shown_name}" %></p>
+
+
 </li>
