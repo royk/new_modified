@@ -5,8 +5,8 @@ en:
 # Site Header
     register: Register
     login: "Login"
-    edit: "Edit"
-    profile: "Profile"
+    edit: "Edit Profile"
+    profile: "View Profile"
     log_out: "Log out"
     my_messages: "My Messages"
 # Site Menu    
