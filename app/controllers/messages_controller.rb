@@ -2,16 +2,19 @@ class MessagesController < AuthenticatedController
 	before_filter	:correct_user,	only: [:show]
 	
 	def index
+		@full_site_layout = true
 		@messages = (current_user.received_messages + current_user.sent_messages).sort_by {|f| -f.created_at.to_i}.paginate(page: params[:page])
 	end
 
 	def new
+		@full_site_layout = true
 		@message = Message.new
 		@recipient = User.find(params[:recipient])
 		@replies_to = Message.find(params[:replies_to]) unless params[:replies_to].nil?
 	end
 
 	def show
+		@full_site_layout = true
 		@message = Message.find(params[:id])
 		if current_user==@message.recipient
 			@message.update_attribute(:read, true)
