@@ -14,5 +14,33 @@
 	<table class="blogs">
 		<%= render @blogs %>
 	</table>
+	<script>
+		$(document).ready(function() {
+			$(".blog-title-input").keypress(function(e) {
+				 if (e.which===13) {
+					 var id = $(this).data("id");
+					 $.ajax({
+						 type: "POST",
+						 url: "/blogs/rename",
+						 data: {id: id,
+						 				title: $(this).val()},
+						 complete: function(data) {
+							 if (data && data.readyState===4 && data.status===200 && data.responseText) {
+								 $("#blog-title"+id).text(data.responseText);
+								 $("#blog-title-input"+id).attr("placeholder", data.responseText);
+							 }
+							 $("#blog-title"+id).show();
+							 $("#blog-title-input"+id).hide();
+						 }
+					 });
+				 }
+			});
+			 $(".dropdown-menu .change-title").click(function() {
+				 var id = $(this).data("id");
+				 $("#blog-title"+id).hide();
+				 $("#blog-title-input"+id).show();
+			 })
+		});
+	</script>
 </div>
 	

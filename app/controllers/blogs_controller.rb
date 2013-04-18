@@ -17,6 +17,16 @@ class BlogsController < AuthenticatedController
 			render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false
 		end
 	end
+	def rename
+		@blog = Blog.find(params[:id])
+		unless @blog.nil?
+			@blog.update_attribute(:title, params[:title])
+			@blog.save!
+			render text: @blog.title
+		else
+			render text: ""
+		end
+	end
 
 	def import
 		@full_site_layout = true

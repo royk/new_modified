@@ -447,10 +447,7 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
     background-color: #efefef;
   }
   .dropdown {
-    display: inline;
-    float: left;
-    position: relative;
-    top: 6px;
+    display: inline-block;
   }
   list-style: none;
   .blog-author-cell {
@@ -466,6 +463,10 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
   .blog-title {
 
+  }
+  .blog-title-input {
+    display: inline;
+    width: 200px;
   }
   .blog-author, .blog-title {
     display: inline-block;

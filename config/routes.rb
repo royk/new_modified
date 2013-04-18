@@ -61,6 +61,7 @@ NewModified::Application.routes.draw do
   match '/performimport', to:"blogs#perform_import"
   match '/perform_blogpost_import', to:"blogs#perform_blogpost_import"
   match '/initblog', to: "blogs#init_blog"
+  match '/blogs/rename', to: "blogs#rename", via: :post
 
   resources :comments
 
