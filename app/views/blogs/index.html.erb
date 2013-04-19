@@ -9,6 +9,7 @@
 			<div class="create-blog">
 				<%= link_to t(:create_your_blog), '/initblog' %>
 			</div>
+		<% end %>
 		<% unless signed_in? %>
 			<div class="blog-should-register">
 				<p>Blog posts are private by default. Sign in or <%=  link_to t(:register), signup_path %> to see them.</p>
