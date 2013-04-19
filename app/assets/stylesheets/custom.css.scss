@@ -468,12 +468,20 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
     display: inline;
     width: 200px;
   }
-  .blog-author, .blog-title {
+  .blog-author, .blog-title, .blog-featured {
     display: inline-block;
 
     a {
       color: black;
     }
+  }
+  .blog-featured {
+    font-size: 1em;
+    color: darkgrey;
+  }
+  .blog-title-container {
+    position: relative;
+    top: 4px;
   }
 }
 

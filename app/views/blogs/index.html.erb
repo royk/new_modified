@@ -4,7 +4,6 @@
 	<div class="import-blog"><%= link_to t(:import_your_blog), importblog_path %></div>
 <% end %>
 <div class="light-box" style="background-color: white;">
-	<%= will_paginate %>
 
 		<% if signed_in? && current_user.blog.nil? %>
 			<div class="create-blog">

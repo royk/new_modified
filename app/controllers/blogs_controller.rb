@@ -6,7 +6,16 @@ class BlogsController < AuthenticatedController
 	
 	def index
 		@full_site_layout = true
-		@blogs = Blog.paginate(page: params[:page], :per_page => 10)
+		@blogs = Blog.order("featured desc")
+	end
+
+	def update
+		blog = Blog.find(params[:id])
+		unless blog.update_attribute(:featured, params[:featured])
+			flash[:error] = "Could not create article. It must have a unique title and some content."
+		end
+		redirect_to request.referer
+
 	end
 
 	def show
@@ -19,12 +28,12 @@ class BlogsController < AuthenticatedController
 	end
 	def rename
 		@blog = Blog.find(params[:id])
-		unless @blog.nil?
+		if (@blog.nil? || params[:title].empty?)
+			render text: ""
+		else
 			@blog.update_attribute(:title, params[:title])
 			@blog.save!
 			render text: @blog.title
-		else
-			render text: ""
 		end
 	end
 
