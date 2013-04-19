@@ -55,7 +55,11 @@
 	</table>
 
 </td>
+<% if user_counter==@users.count-1 && (counter_base%4)==0 %>
+	<td class="zebra">
 
+	</td>
+<% end %>
 <% if counter_odd %>
  	</tr>
 

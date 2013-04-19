@@ -6,8 +6,16 @@ class BlogsController < AuthenticatedController
 	
 	def index
 		@full_site_layout = true
-  		@bright_body = true
-		@blogs = Blog.paginate(page: params[:page], :per_page => 10)
+		@blogs = Blog.order("featured desc")
+	end
+
+	def update
+		blog = Blog.find(params[:id])
+		unless blog.update_attribute(:featured, params[:featured])
+			flash[:error] = "Could not create article. It must have a unique title and some content."
+		end
+		redirect_to request.referer
+
 	end
 
 	def show
@@ -18,6 +26,16 @@ class BlogsController < AuthenticatedController
 			render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false
 		end
 	end
+	def rename
+		@blog = Blog.find(params[:id])
+		if (@blog.nil? || params[:title].empty?)
+			render text: ""
+		else
+			@blog.update_attribute(:title, params[:title])
+			@blog.save!
+			render text: @blog.title
+		end
+	end
 
 	def import
 		@full_site_layout = true
@@ -26,9 +44,8 @@ class BlogsController < AuthenticatedController
 
 	def init_blog
 		@full_site_layout = true
-		current_user.build_blog(title: "My new blog")
-		if current_user.save
-			sign_in current_user
+		create_blog(current_user) if current_user.blog.nil?
+		if current_user.save_without_signout
 			redirect_to current_user.blog
 		else
 			flash[:errors] = "Couldn't create blog."

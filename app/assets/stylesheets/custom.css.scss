@@ -8,7 +8,7 @@
 $lightYellow: #f9ed9d;
 $linkColor: #08C;
 /* Mixin */
-@mixin gradient ($origin: left, $start: #ffffff, $stop: #000000) {
+@mixin gradient($origin: left, $start: #ffffff, $stop: #000000) {
 	background-color: $start;
 	background-image: -webkit-linear-gradient($origin, $start, $stop);
 	background-image: -moz-linear-gradient($origin, $start, $stop);
@@ -286,7 +286,7 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   position:relative;
   top: -16px;
   background-color: black;
-  @include boxShadow(0px 0px 4px #000000)
+  @include boxShadow(0px 0px 4px #000000);
 }
 .main-menu {
   margin-top: 16px;
@@ -429,10 +429,60 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
 }
 /* blogs */
-.import_blog {
-  font-style: italic;
-  font-size: 1.5em;
-  padding-bottom: 20px;
+.import-blog {
+  a {
+    color: white;
+  }
+  float: right;
+  font-size: 1em;
+  position: relative;
+  top: -18px;
+}
+.create-blog {
+  padding-bottom: 10px;
+}
+.blogs {
+  width:  100%;
+  .zebra {
+    background-color: #efefef;
+  }
+  .dropdown {
+    display: inline-block;
+  }
+  list-style: none;
+  .blog-author-cell {
+    width:  150px;
+    .blog-author {
+      padding-right: 10px;
+      font-weight: bold;
+      font-size: 1.3em;
+      padding-left: 10px;
+      margin:  0;
+    }
+
+  }
+  .blog-title {
+
+  }
+  .blog-title-input {
+    display: inline;
+    width: 200px;
+  }
+  .blog-author, .blog-title, .blog-featured {
+    display: inline-block;
+
+    a {
+      color: black;
+    }
+  }
+  .blog-featured {
+    font-size: 1em;
+    color: darkgrey;
+  }
+  .blog-title-container {
+    position: relative;
+    top: 4px;
+  }
 }
 
 /* communities */

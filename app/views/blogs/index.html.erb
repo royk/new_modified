@@ -1,25 +1,45 @@
 <% provide(:title, 'All blogs') %>
-<h1>All Blogs</h1>
+<h1 class="left-title">All Blogs</h1>
+<% if signed_in? %>
+	<div class="import-blog"><%= link_to t(:import_your_blog), importblog_path %></div>
+<% end %>
+<div class="light-box" style="background-color: white;">
 
-<%= will_paginate %>
-<ul class="blogs">
-	<% if signed_in? && !current_user.modified_user.to_s.empty? %>
-		<div class="import_blog">
-			<%= link_to t(:import_your_blog), importblog_path %>
-		</div>
-		<% if current_user.blog.nil? %>
-		<div class="import_blog">
-			OR..
-		</div>
-		<div class="import_blog">
-			<%= link_to t(:start_a_new_blog), '/initblog' %>
-		</div>	
+		<% if signed_in? && current_user.blog.nil? %>
+			<div class="create-blog">
+				<%= link_to t(:create_your_blog), '/initblog' %>
+			</div>
 		<% end %>
-	<% elsif signed_in? && current_user.blog.nil? %>
-		<div class="import_blog">
-			<%= link_to t(:create_your_blog), '/initblog' %>
-		</div>
-	<% end %>
-	<%= render @blogs %>
-</ul>		
+	<table class="blogs">
+		<%= render @blogs %>
+	</table>
+	<script>
+		$(document).ready(function() {
+			$(".blog-title-input").keypress(function(e) {
+				 if (e.which===13) {
+					 var id = $(this).data("id");
+					 $.ajax({
+						 type: "POST",
+						 url: "/blogs/rename",
+						 data: {id: id,
+						 				title: $(this).val()},
+						 complete: function(data) {
+							 if (data && data.readyState===4 && data.status===200 && data.responseText) {
+								 $("#blog-title"+id).text(data.responseText);
+								 $("#blog-title-input"+id).attr("placeholder", data.responseText);
+							 }
+							 $("#blog-title"+id).show();
+							 $("#blog-title-input"+id).hide();
+						 }
+					 });
+				 }
+			});
+			 $(".dropdown-menu .change-title").click(function() {
+				 var id = $(this).data("id");
+				 $("#blog-title"+id).hide();
+				 $("#blog-title-input"+id).show();
+			 })
+		});
+	</script>
+</div>
 	

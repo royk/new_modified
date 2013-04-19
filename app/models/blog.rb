@@ -10,7 +10,7 @@
 #
 
 class Blog < ActiveRecord::Base
-  attr_accessible :title
+  attr_accessible :title, :featured?
 
   has_many :blog_posts, order: 'created_at DESC'
   belongs_to :user

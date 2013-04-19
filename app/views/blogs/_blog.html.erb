@@ -1,7 +1,54 @@
-<li>
-	<%= link_to blog.formatted_title, blog %>
-	| <%= pluralize(blog.blog_posts.count, t(:post)) %>
-	<% if correct_user?(blog.user) %> | 
-		<%= link_to "delete", blog, method: :delete, data: {confirm: "You sure?"} %>
-	<% end %>
-</li>
+<% counter_odd = (blog_counter%2)>0 %>
+<% counter_base =  counter_odd ? blog_counter-1 : blog_counter %>
+<% if !counter_odd %>
+	<tr>
+<% end %>
+	<td class="<%= "zebra" if (counter_base%4)==0 %>">
+		<table style="width:100%">
+			<tr>
+				<td class="blog-author-cell">
+					<p class="blog-author"><%= link_to blog.user.shown_name, blog %></p>
+				</td>
+				<td class="blog-title-container">
+					<p class="blog-title" id="blog-title<%=blog.id%>"><%= link_to blog.title, blog %></p>
+					<input class="blog-title-input post-input" type="text" data-id="<%=blog.id%>" id="blog-title-input<%=blog.id%>" name="title" placeholder="<%=blog.title%>" style="display:none;"></input>
+					<% if correct_user?(blog.user) %>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="icon-cog"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="change-title" data-id="<%=blog.id%>">Change Title</a>
+								</li>
+								<li>
+									<%= link_to "delete", blog, method: :delete, data: {confirm: "You sure?"} %>
+								</li>
+								<% if current_user.admin? %>
+								<li>
+									<% if blog.featured? %>
+										<%= link_to "Unmark featured", blog_path(blog.id, featured: false), method: :put %>
+									<% else %>
+										<%= link_to "Mark as featured", blog_path(blog.id, featured: true), method:  :put%>
+									<% end %>
+								</li>
+								<% end %>
+							</ul>
+						</li>
+					<% end %>
+					<% if blog.featured? %>
+					<p class="blog-featured"> -- Featured!</p>
+					<% end %>
+				</td>
+			</tr>
+		</table>
+	</td>
+<% if blog_counter==@blogs.count-1 && (counter_base%4)==0 %>
+	<td class="zebra">
+
+	</td>
+<% end %>
+<% if counter_odd %>
+	</tr>
+
+<% end %>
