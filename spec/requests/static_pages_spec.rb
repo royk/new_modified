@@ -14,7 +14,6 @@ describe "Static pages" do
 		it { should have_link(I18n.t(:videos)), href: videos_path }
 		it { should have_link(I18n.t(:blogs)), href: blogs_path }
 		it { should have_link(I18n.t(:users)), href: users_path }
-		it { should have_link(I18n.t(:about)), href: about_path }
 	end
 	shared_examples_for "logged-out header" do
 		# Site top Header logged out
