@@ -1,5 +1,5 @@
 <% provide(:title, 'All blogs') %>
-<h1 class="left-title">All Blogs</h1>
+<h1 class="left-title" xmlns="http://www.w3.org/1999/html">All Blogs</h1>
 <% if signed_in? %>
 	<div class="import-blog"><%= link_to t(:import_your_blog), importblog_path %></div>
 <% end %>
@@ -9,6 +9,10 @@
 			<div class="create-blog">
 				<%= link_to t(:create_your_blog), '/initblog' %>
 			</div>
+		<% else %>
+		<div class="blog-should-register">
+			<p>Blog posts are private by default. Sign in or <%=  link_to t(:register), signup_path %> to see them.</p>
+		</div>
 		<% end %>
 	<table class="blogs">
 		<%= render @blogs %>
