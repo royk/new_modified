@@ -83,11 +83,12 @@
 <!--			<li><%= link_to t(:events), events_path %></li> -->
 			<li><%= link_to t(:blogs), blogs_path %></li>
 			<li><%= link_to t(:users), users_path %></li>
-			<li><%= link_to t(:about),about_path %></li>
 			<% if admin? %>
 				<li><%= link_to t(:admin), admin_path %></li>
 			<% end %>
-			<li><%= link_to "Mobile Site", :mobile => 1 %></li>
+			<% if signed_in? %>
+				<li><%= link_to "Mobile Site", :mobile => 1 %></li>
+			<% end %>
 		</ul>
 	</div>
 </div>
