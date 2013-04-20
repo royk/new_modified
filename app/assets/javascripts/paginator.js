@@ -75,6 +75,8 @@ window.Paginator = function Paginator(container, current_page, total_pages, load
         last_active_page++;
         this.draw_pages();
     };
-    this.draw_pages();
+    if (total_pages>1) {
+        this.draw_pages();
+    }
 }
 

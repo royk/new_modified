@@ -6,7 +6,7 @@
 		currentPage: <%= params[:page] || 1 %>,
 		container: '<%= container %>',
 		scrollable: true
-		<% unless callbackName.nil? %>
+		<% if defined?(callbackName) %>
 			,callbackName: '<%= callbackName %>'
 		<% end %>
 	});

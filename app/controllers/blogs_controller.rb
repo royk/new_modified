@@ -28,7 +28,7 @@ class BlogsController < AuthenticatedController
 		@current_page = params[:page]
 		@current_page = 1 if @current_page.nil?
 		@blog_posts = all_posts.paginate(page: @current_page, :per_page => per_page)
-		@total_pages = (all_posts.count / per_page).floor + 1
+		@total_pages = (all_posts.count / per_page.to_f).ceil
 		if request.xhr?
 			render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false, total_pages: @total_pages, current_page: @current_page
 		end
