@@ -12,6 +12,8 @@ class ArticlesController < AuthenticatedController
 	def show
 		@full_site_layout = true
 		@article = get_item_permalink(Article, params)
+		author() if !@article.published
+		redirect_to request.referer if (!@article.public && !signed_in?)
 	end
 
 	def edit
@@ -59,7 +61,7 @@ class ArticlesController < AuthenticatedController
 
 	private
 		def author
-			unless current_user.admin? || current_user.author?
+			if !signed_in? || !current_user.admin? || !current_user.author?
 				redirect_to root_url
 			end
 		end
