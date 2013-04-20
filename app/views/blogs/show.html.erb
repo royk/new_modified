@@ -10,16 +10,12 @@
 	<% if current_user==@blog.user %>
 		<%= render partial: 'shared/post_form', locals: {show_blog: true} %>
 	<% end %>
-	<%= will_paginate @blog_posts, inner_window: 1, outer_window: 1 %>
 	<div style="text-align:center;" id="paginatorContainer">
-
-		<%= "total: #{@total_pages} current: #{@current_page}" %>
 		<script>
 			$(document).ready(function() {
-				window.NM_paginator = new Paginator($("#paginatorContainer"), <%=@current_page%>, <%=@total_pages%>);
+				window.NM_paginator = new Paginator($("#paginatorContainer"), <%=@current_page%>, <%=@total_pages%>, "<%= blog_path %>?page=");
 			});
 		</script>
-
 	</div>
 	<%= render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false %>
 </div>		
