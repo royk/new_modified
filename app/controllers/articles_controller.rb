@@ -13,7 +13,9 @@ class ArticlesController < AuthenticatedController
 		@full_site_layout = true
 		@article = get_item_permalink(Article, params)
 		author() if !@article.published
-		redirect_to request.referer if (!@article.public && !signed_in?)
+		if @article.public==false && signed_in?()==false
+			redirect_to request.referer
+		end
 	end
 
 	def edit
