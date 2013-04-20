@@ -1,0 +1,14 @@
+ul.paginator {
+    list-style: none;
+}
+ul.paginator > li {
+    display: inline-block;
+    padding: 0 5px;
+    margin: 0 5px;
+    color: white;
+    cursor: pointer;
+}
+ul.paginator > li.paginator-viewed {
+    color: grey;
+    cursor: default;
+}

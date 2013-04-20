@@ -1,4 +1,6 @@
 class BlogsController < AuthenticatedController
+	require 'will_paginate/array'
+
 	include BlogScraping
 	include UsersHelper
 
@@ -21,9 +23,14 @@ class BlogsController < AuthenticatedController
 	def show
 		@full_site_layout = true
 		@blog = Blog.find(params[:id])
-		@blog_posts = privacy_query(@blog.blog_posts).paginate(page: params[:page], :per_page => 10)
+		all_posts = privacy_query(@blog.blog_posts)
+		per_page = 10
+		@current_page = params[:page]
+		@current_page = 1 if @current_page.nil?
+		@blog_posts = all_posts.paginate(page: @current_page, :per_page => per_page)
+		@total_pages = (all_posts.count / per_page).floor + 1
 		if request.xhr?
-			render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false
+			render partial: 'shared/feed_item', collection: @blog_posts, comments_shown: false, total_pages: @total_pages, current_page: @current_page
 		end
 	end
 	def rename

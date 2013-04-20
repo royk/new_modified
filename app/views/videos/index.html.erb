@@ -1,6 +1,8 @@
 <% provide(:title, 'Videos') %>
+<% content_for :javascript_includes do %>
+	<%= javascript_include_tag "dataimporter.js" %>
+<% end %>
 <%= auto_discovery_link_tag(:atom, videos_path(:atom)) %>
-
 
 <h1>Freestyle Videos</h1>
 <% if signed_in? && current_user.admin? %>

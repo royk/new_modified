@@ -6,6 +6,9 @@
 		currentPage: <%= params[:page] || 1 %>,
 		container: '<%= container %>',
 		scrollable: true
+		<% unless callbackName.nil? %>
+			,callbackName: '<%= callbackName %>'
+		<% end %>
 	});
 </script>
 <div class="loading-indicator">

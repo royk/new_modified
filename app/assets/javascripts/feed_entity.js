@@ -3,6 +3,7 @@ function FeedEntity(__params) {
 	var _container;
 	var _loadingNextPage = false;
 	var _currentPage = 1;
+    var _callback = _params.callbackName;
 	var _initScroll = function initScroll() {
 		_container = $(_params.container);
 		if (_container) {
@@ -35,6 +36,9 @@ function FeedEntity(__params) {
 					$(".loading-indicator").fadeTo('fast', 0);
 					_container.append(response);
 					$("#footer").pinFooter("relative");
+                    if (_callback) {
+                        (0, eval)(_callback);
+                    }
 				}
 			});
 		}
@@ -52,6 +56,7 @@ function FeedEntity(__params) {
 					success: function(response) {
 						_loadingNextPage = false;
 						_container.html(response);
+
 					}
 				});
 			}

@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery.idle-timer
+//= require jquery.ez-pinned-footer
 //= require bootstrap
+//= require feed_entity
 //= require tinymce-jquery
 
 // two minutes time idle
