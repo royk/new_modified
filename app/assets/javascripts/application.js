@@ -57,7 +57,6 @@ NM = (function() {
 				$(params.mold).clone().attr('id', _id).val("").attr('name', _id).attr('placeholder', params.placeholder).appendTo(params.container);
 				moreButton.detach().appendTo($(params.container));
 				index++;
-				$("#footer").pinFooter("relative");
 			});
 		},
 		freeze: function freeze() {
@@ -143,7 +142,6 @@ NM = (function() {
 				}
 				elem.css('display', mode);
 			}
-			$("#footer").pinFooter("relative");
 		},
 		
 		clearNotifications: function clearNotifications() {
@@ -178,7 +176,6 @@ NM = (function() {
 				}
 
 			});
-			$("#footer").pinFooter("relative");
 		},
 		clearToggleMenu: function clearToggleMenu() {
 			_currentToggleMenu = null;

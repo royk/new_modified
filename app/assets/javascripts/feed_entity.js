@@ -35,7 +35,6 @@ function FeedEntity(__params) {
 					_loadingNextPage = false;
 					$(".loading-indicator").fadeTo('fast', 0);
 					_container.append(response);
-					$("#footer").pinFooter("relative");
                     if (_callback) {
                         (0, eval)(_callback);
                     }
