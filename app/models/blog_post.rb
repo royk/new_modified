@@ -12,7 +12,18 @@
 
 class BlogPost < ActiveRecord::Base
 
-  attr_accessible :content, :public
+  attr_accessible :content, :public, :created_at
+
+  searchable do
+	  text :content
+	  text :user do
+		  user.shown_name unless user.nil?
+	  end
+	  text :comments do
+		  comments.map { |comment| comment.content }
+	  end
+	  time :created_at
+  end
 
   belongs_to :blog
   has_one :user, through: :blog

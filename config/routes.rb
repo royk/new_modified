@@ -13,6 +13,8 @@ NewModified::Application.routes.draw do
 
   match '/chat', to: 'static_pages#chat'
 
+  match '/search', to: 'search#search_all'
+
   resources :users
 
   match '/user_videos', to: 'users#user_videos'

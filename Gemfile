@@ -22,6 +22,8 @@ gem 'bitmask_attributes'
 gem "geocoder"
 gem "date_validator"
 gem 'sanitize'
+gem 'sunspot_rails', '~> 1.3.0'
+gem 'sunspot_solr'
 
 
 group :development, :test do

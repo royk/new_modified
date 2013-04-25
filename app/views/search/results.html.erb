@@ -1,0 +1,14 @@
+<% content_for :javascript_includes do %>
+	<%= javascript_include_tag "paginator.js" %>
+<% end %>
+<div class="feed">
+	<div style="text-align:center;" id="paginatorContainer">
+		<script>
+			$(document).ready(function() {
+				window.NM_paginator = new Paginator($("#paginatorContainer"), <%=@search.results.current_page%>, <%=@search.results.total_pages%>, "/search?q=<%=params[:q]%>&page=");
+			});
+		</script>
+	</div>
+	<%= render partial: '/search/results_batch' %>
+</div>
+<%= render 'shared/ajax_loading', collection: @search.results, loadPath: '/search?q='+params[:q], callbackName: "NM_paginator.next_page()" %>

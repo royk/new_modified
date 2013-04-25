@@ -17,7 +17,15 @@
 class Article < ActiveRecord::Base
 	has_permalink 
 
-	attr_accessible :content, :public, :published, :title, :category, :category_id
+	attr_accessible :created_at, :content, :public, :published, :title, :category, :category_id
+
+	searchable do
+		text :content
+		text :user do
+			user.shown_name unless user.nil?
+		end
+		time :created_at
+	end
 
 	belongs_to :user
 

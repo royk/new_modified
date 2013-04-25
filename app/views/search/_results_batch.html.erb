@@ -1,0 +1,4 @@
+<% @search.each_hit_with_result do |hit, result| %>
+	<%= render '/shared/feed_item', feed_item: result, feed_item_counter: @counter%>
+	<% @counter = @counter + 1 %>
+<% end %>

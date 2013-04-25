@@ -33,8 +33,19 @@ class Video < ActiveRecord::Base
     end
   end
 
-  attr_accessible :title, :vendor, :uid, :url, :public, :location, :maker, :players, :for_feedback, :feed_id
+  attr_accessible :created_at, :title, :vendor, :uid, :url, :public, :location, :maker, :players, :for_feedback, :feed_id
   acts_as_taggable
+
+  searchable do
+	  text :title
+	  text :comments do
+		  comments.map { |comment| comment.content }
+	  end
+	  text :players_names do
+		  players_names.map { |name| name }
+	  end
+	  time :created_at
+  end
 
   belongs_to :user
   belongs_to :feed

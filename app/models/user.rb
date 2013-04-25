@@ -39,8 +39,13 @@ class User < ActiveRecord::Base
                   :nickname, :blog_title, :reset_code, :country, :city, :modified_user, 
                   :birthday, :started_playing, :bap, :bap_name, :bap_induction,
                   :motto, :hobbies, :last_visit, :about_title, :about_content, :registered, :website,
-                  :last_online
+                  :last_online, :created_at
 
+  searchable do
+	  text :nickname
+	  text :name
+	  time :created_at
+  end
   bitmask :privacy_settings, as: [:expose_name, :expose_location]
 
   geocoded_by :location
