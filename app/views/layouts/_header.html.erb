@@ -73,22 +73,40 @@
 <!-- Site top area (between the top bar and the content - place for navigation and big logo) -->
 <div class="site-top">
 	<div class="container">
-		<!-- Site main menu -->
-		<ul class="nav-bold main-menu">
-			<li><%= link_to t(:home), root_path %></li>
-			<li><%= link_to t(:videos), videos_path %></li>
-<!--			<li><%= link_to t(:communities), feeds_path %></li>
-			<li><%= link_to t(:feedback), feedbacks_path %></li> -->
-			<li><%= link_to t(:articles), articles_path %></li>
-<!--			<li><%= link_to t(:events), events_path %></li> -->
-			<li><%= link_to t(:blogs), blogs_path %></li>
-			<li><%= link_to t(:users), users_path %></li>
-			<% if admin? %>
-				<li><%= link_to t(:admin), admin_path %></li>
-			<% end %>
-			<% if signed_in? %>
-				<li><%= link_to "Mobile Site", :mobile => 1 %></li>
-			<% end %>
-		</ul>
+		<div class="main-menu">
+			<!-- Site main menu -->
+			<ul class="nav-bold">
+				<li><%= link_to t(:home), root_path %></li>
+				<li><%= link_to t(:videos), videos_path %></li>
+	<!--			<li><%= link_to t(:communities), feeds_path %></li>
+				<li><%= link_to t(:feedback), feedbacks_path %></li> -->
+				<li><%= link_to t(:articles), articles_path %></li>
+	<!--			<li><%= link_to t(:events), events_path %></li> -->
+				<li><%= link_to t(:blogs), blogs_path %></li>
+				<li><%= link_to t(:users), users_path %></li>
+				<% if admin? %>
+					<li><%= link_to t(:admin), admin_path %></li>
+				<% end %>
+				<% if signed_in? %>
+					<li><%= link_to "Mobile Site", :mobile => 1 %></li>
+				<% end %>
+			</ul>
+			<div class="search-bar span3">
+				<div style="position: relative;">
+					<i class="icon-search icon"></i>
+				</div>
+				<input type="text" placeholder="Search videos, posts, blogs..."/>
+				<script>
+					$(function() {
+						 $(".search-bar input").keypress(function(e) {
+							 if (e.which==10 || e.which==13) {
+								 window.location.href = '/search?q='+$(this).val();
+							 }
+
+						 });
+					});
+				</script>
+			</div>
+		</div>
 	</div>
 </div>
