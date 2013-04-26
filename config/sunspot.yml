@@ -1,7 +1,7 @@
 production:
   solr:
-    hostname: localhost
-    port: 8983
+    hostname: 54.244.123.247
+    port: 9000
     log_level: WARNING
 
 development:
