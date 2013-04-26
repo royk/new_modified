@@ -91,7 +91,7 @@
 					<li><%= link_to "Mobile Site", :mobile => 1 %></li>
 				<% end %>
 			</ul>
-			<% if admin? %>
+			<% if signed_in? %>
 				<div class="search-bar span3">
 					<div style="position: relative;">
 						<i class="icon-search icon"></i>
