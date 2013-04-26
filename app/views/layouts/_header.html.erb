@@ -91,22 +91,25 @@
 					<li><%= link_to "Mobile Site", :mobile => 1 %></li>
 				<% end %>
 			</ul>
-			<div class="search-bar span3">
-				<div style="position: relative;">
-					<i class="icon-search icon"></i>
-				</div>
-				<input type="text" placeholder="Search videos, posts, blogs..."/>
-				<script>
-					$(function() {
-						 $(".search-bar input").keypress(function(e) {
-							 if (e.which==10 || e.which==13) {
-								 window.location.href = '/search?q='+$(this).val();
-							 }
+			<% if admin? %>
+				<div class="search-bar span3">
+					<div style="position: relative;">
+						<i class="icon-search icon"></i>
+					</div>
+					<input type="text" placeholder="Search videos, posts, blogs..."/>
+					<script>
+						$(function() {
+							 $(".search-bar input").keypress(function(e) {
+								 if (e.which==10 || e.which==13) {
+									 window.location.href = '/search?q='+$(this).val();
+								 }
 
-						 });
-					});
-				</script>
+							 });
+						});
+					</script>
+				</div>
+			<% end %>
 			</div>
-		</div>
+
 	</div>
 </div>

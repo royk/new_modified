@@ -309,6 +309,7 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
 
 }
+
 .main-menu > ul, .main-menu > div {
   display: inline-block;
   list-style: none;
@@ -323,6 +324,16 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   .toggle-selected {
     text-decoration: underline;
 
+  }
+}
+
+.search-results-header {
+  h2 {
+    margin: 0;
+  }
+  p {
+    text-align: center;
+    color: white;
   }
 }
 

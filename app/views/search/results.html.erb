@@ -1,6 +1,10 @@
 <% content_for :javascript_includes do %>
 	<%= javascript_include_tag "paginator.js" %>
 <% end %>
+<div class="search-results-header">
+	<h2>Search Results</h2>
+	<p>Terms: <%=params[:q].html_safe%></p>
+</div>
 <div class="feed">
 	<div style="text-align:center;" id="paginatorContainer">
 		<script>
