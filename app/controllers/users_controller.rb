@@ -11,8 +11,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def user_enable_chat
+	  if signed_in?
+		  enable_chat
+	  end
+	  who_online
+  end
+
   def who_online
-    if signed_in?
+    if signed_in? && chat_enabled?
       current_user.last_online =  Time.now
       current_user.save_without_signout
     end

@@ -1189,13 +1189,14 @@ input.form-input {
   }
 }
 
-  
+
 .chat-container {
-  padding: 5px;
-  padding-top: 0px;
   .chat-send-container {
     text-align:center;width:100%;
   }
+  padding: 5px;
+  padding-top: 0px;
+
   .chat-name {
     color: grey;
   }

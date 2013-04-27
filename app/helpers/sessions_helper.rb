@@ -18,6 +18,18 @@ module SessionsHelper
 		end
 	end
 
+	def enable_chat
+		session[:chat_enabled] = true
+	end
+
+	def disable_chat
+		session[:chat_enabled] = false
+	end
+
+	def chat_enabled?
+		session[:chat_enabled] || false
+	end
+
 	def correct_user?(user)
 		signed_in? && (current_user.admin? || current_user==user)
 	end
@@ -41,6 +53,7 @@ module SessionsHelper
 		end
 		self.current_user = nil
 		cookies.delete(:remember_token)
+		session.delete(:chat_enabled)
 	end
 
 	def current_user=(user)
