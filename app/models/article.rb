@@ -38,6 +38,6 @@ class Article < ActiveRecord::Base
 	has_many :notifications, as: :item, dependent: :destroy
 
 	validates :user_id, presence: true
-	validates_length_of :content, :minimum => 1, maximum: 999999, presence: true
+	validates_length_of :content, :minimum => 1, presence: true
 	validates :title, allow_blank: false, uniqueness: {case_sensitive: true}
 end

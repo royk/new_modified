@@ -88,8 +88,7 @@ class UsersController < ApplicationController
     @user = User.find_by_reset_code(params[:reset_code]) unless params[:reset_code].nil?
     if @user
       @user.reset_code = nil
-      @user.save
-      sign_in @user
+	  @user.save_without_signout
       redirect_to edit_user_path(@user)
 
     else
@@ -157,7 +156,7 @@ class UsersController < ApplicationController
     return unless anti_spam_verifications
     @user = migrate_virtual_profile
     @user = User.new(params[:user]) if @user.nil?
-    if @user.save
+    if @user.save_without_signout
       Video.move_to_user_players(@user)
       unless params[:admin_created]
         UserMailer.welcome_mail(@user).deliver
