@@ -45,7 +45,7 @@
 				<h3>Write to your blog</h3>
 				<%= form_for(BlogPost.create()) do |f| %>
 					<%= f.text_area(:content, :rows=>4, :cols=>2, :class=>"tinymce", placeholder: "Write to your blog...")%>
-					<%= tinymce %>
+					<%= my_tinymce%>
 					<div style="height:10px"></div>
 					<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 				<% end %>

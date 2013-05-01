@@ -1,6 +1,6 @@
 <%= form_tag("/static/update/#{@page.name}", method: :put) do %>
 	<%= text_area_tag("content", @page.content, class: "tinymce") %>
-	<%= tinymce %>
+	<%= my_tinymce%>
 	<div style="height:10px"></div>
 	<%= submit_tag("Post", class: "btn btn-large btn-primary")%>
 <% end %>

@@ -7,7 +7,7 @@
 					<%= f.text_field(:title, class: "post-input", placeholder: "Title") %>
 					
 					<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"tinymce")%>
-					<%= tinymce %>
+					<%= my_tinymce %>
 					<div class="spacer"></div>
 					<%= f.label t(:public_input), id:"public_input_label" %>
 					<script>

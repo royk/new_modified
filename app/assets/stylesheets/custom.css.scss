@@ -87,6 +87,9 @@ html {
 body {
   padding-top: 60px;
 }
+body.mceContentBody {
+  padding-top: 0px;
+}
 body.popup {
   padding-top: 47px;
 }

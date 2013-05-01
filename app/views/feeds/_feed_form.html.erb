@@ -3,7 +3,7 @@
 	<%= f.text_field(:permalink, class: "post-input", placeholder: "URL (only alphanumeric and underscore are allowed)") %>
 	<%= f.label :description %>
 	<%= f.text_area(:description, cols: 2, class: "tinymce post-input") %>
-	<%= tinymce %>
+	<%= my_tinymce%>
 	<div class="spacer"></div>
 	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>	
