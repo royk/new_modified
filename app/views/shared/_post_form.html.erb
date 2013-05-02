@@ -22,7 +22,7 @@
 			<% if show_post %>
 				<div id="post-form">
 					<%= form_for(Post.create()) do |f| %>
-						<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input tinymce-mini", placeholder: "Write something...")%>
+						<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"post-input tinymce", placeholder: "Write something...")%>
 						<%= f.hidden_field :feed_id, value: @feed.id %>
 						<% if current_user.admin? %>
 							<div>
@@ -45,7 +45,7 @@
 				<h3>Write to your blog</h3>
 				<%= form_for(BlogPost.create()) do |f| %>
 					<%= f.text_area(:content, :rows=>4, :cols=>2, :class=>"tinymce", placeholder: "Write to your blog...")%>
-					<%= my_tinymce%>
+					<%= my_tinymce %>
 					<div style="height:10px"></div>
 					<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 				<% end %>
