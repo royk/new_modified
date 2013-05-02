@@ -85,7 +85,8 @@ body.user_content, .user_content, .user_content * {
   padding: 0;
   color: black;
   font-family: 'Arial', sans-serif;
-  background-color: #f2f2f2
+  background-color: #f2f2f2;
+  line-height: 1.3em;
 
 }
 
@@ -97,7 +98,6 @@ body.user_content, .user_content, .user_content * {
     color: black;
   }
   p {
-    line-height: 1.3em;
     font-size: 1em;
   }
   ul {
