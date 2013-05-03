@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   def export
     unless signed_in?
       redirect_to root_path
-    end
+	end
+    send_data(current_user.export_to_csv, filename: "#{current_user.name}_data.csv", type: "application/x-yaml")
   end
 
   def user_enable_chat

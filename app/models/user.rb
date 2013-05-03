@@ -35,185 +35,197 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix, 
-                  :nickname, :blog_title, :reset_code, :country, :city, :modified_user, 
-                  :birthday, :started_playing, :bap, :bap_name, :bap_induction,
-                  :motto, :hobbies, :last_visit, :about_title, :about_content, :registered, :website,
-                  :last_online, :created_at
+	require 'yaml'
+	attr_accessible :email, :name, :password, :password_confirmation, :gravatar_suffix,
+					:nickname, :blog_title, :reset_code, :country, :city, :modified_user,
+					:birthday, :started_playing, :bap, :bap_name, :bap_induction,
+					:motto, :hobbies, :last_visit, :about_title, :about_content, :registered, :website,
+					:last_online, :created_at
 
-  searchable do
-	  text :nickname
-	  text :name
-	  time :created_at
-  end
-  bitmask :privacy_settings, as: [:expose_name, :expose_location]
+	searchable do
+		text :nickname
+		text :name
+		time :created_at
+	end
+	bitmask :privacy_settings, as: [:expose_name, :expose_location]
 
-  geocoded_by :location
+	geocoded_by :location
 
-  has_secure_password
+	has_secure_password
 
-  before_save { |user| user.email = email.downcase }
-  before_save :recreate_remember_token
+	before_save { |user| user.email = email.downcase }
+	before_save :recreate_remember_token
 
-  has_many :posts, dependent: :destroy
+	has_many :posts, dependent: :destroy
 
-  has_many :feeds
-  
-  has_many :articles
+	has_many :feeds
 
-  has_many :videos
-  has_and_belongs_to_many :appears_in_videos, class_name: "Video", uniq: true
+	has_many :articles
 
-  has_many :attendances, class_name: "Attendant"
-  has_and_belongs_to_many :results
+	has_many :videos
+	has_and_belongs_to_many :appears_in_videos, class_name: "Video", uniq: true
 
-  has_many :notifications, dependent: :destroy
-  has_many :notifications, dependent: :destroy, foreign_key: "sender_id"
-  has_many :notifications, dependent: :destroy, foreign_key: "item_id"
+	has_many :attendances, class_name: "Attendant"
+	has_and_belongs_to_many :results
 
-  has_many :comments, dependent: :destroy, foreign_key: "commenter_id"
-  has_many :listeners, as: :listened_to, dependent: :destroy
-  has_many :likes, dependent: :destroy, foreign_key: "liker_id"
+	has_many :notifications, dependent: :destroy
+	has_many :notifications, dependent: :destroy, foreign_key: "sender_id"
+	has_many :notifications, dependent: :destroy, foreign_key: "item_id"
 
-  has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
-  has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
+	has_many :comments, dependent: :destroy, foreign_key: "commenter_id"
+	has_many :listeners, as: :listened_to, dependent: :destroy
+	has_many :likes, dependent: :destroy, foreign_key: "liker_id"
 
-  has_one :blog
+	has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
+	has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
 
-  validates :name, presence: true, length: {maximum: 50, minimum: 4}
-  validates :nickname, length: {maximum: 50, minimum: 3}, allow_blank: true, uniqueness: {case_sensitive: false}
-  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: {with: EMAIL_REGEX}, uniqueness: {case_sensitive: false}
+	has_one :blog
 
-  validates :modified_user, allow_blank: true, uniqueness: {case_sensitive: true}
+	validates :name, presence: true, length: {maximum: 50, minimum: 4}
+	validates :nickname, length: {maximum: 50, minimum: 3}, allow_blank: true, uniqueness: {case_sensitive: false}
+	EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+	validates :email, presence: true, format: {with: EMAIL_REGEX}, uniqueness: {case_sensitive: false}
 
-  validates :password, presence: true, length: {minimum: 6}, :if => :validate_password?
-  validates :password_confirmation, presence: true, :if => :validate_password?
+	validates :modified_user, allow_blank: true, uniqueness: {case_sensitive: true}
 
-  before_destroy :destroy_notifications, :destroy_comments, :destroy_video_assoc
+	validates :password, presence: true, length: {minimum: 6}, :if => :validate_password?
+	validates :password_confirmation, presence: true, :if => :validate_password?
 
-  after_validation :geocode  # fill in longitude and latitude
+	before_destroy :destroy_notifications, :destroy_comments, :destroy_video_assoc
 
-  @reset_remember_token = true
+	after_validation :geocode  # fill in longitude and latitude
 
-  def self.online_now
-    where("last_online > ?", 5.minutes.ago)
-  end
+	@reset_remember_token = true
 
-  def export_to_csv
-    CSV.generate do |csv|
-      csv << User.column_names
-      csv << attributes.values_at(*User.column_names)
-    end
-  end
-  
-  def shown_name
-    nickname.blank? ? name : nickname
-  end
+	class USER_DATA
+		def initialize(user_name, articles, blog, posts)
+			@user_name = user_name
+			@articles = articles
+			if blog.nil?
+				@blog_posts = nil
+			else
+				@blog_posts = blog.blog_posts
+			end
+			@posts = posts
+		end
+	end
 
-  def blog_title
-    blog.title if !blog.nil?
-  end
-  
-  def blog_title=(value)
-    if !blog.nil?
-      blog.title = value 
-      blog.save
-    end
-  end
-  def gravatar_email
-    if gravatar_suffix.nil? || gravatar_suffix.empty?
-      email
-    else
-      parts = email_parts
-      return parts[0] + "+" + gravatar_suffix + "@" + parts[1]
-    end
-  end
+	def self.online_now
+		where("last_online > ?", 5.minutes.ago)
+	end
 
-  def highest_role
-    if admin 
-      "Admin"
-    elsif author
-      "Author" 
-    end
-  end
+	def export_to_csv
+		user_data = USER_DATA.new(self.name, self.articles, self.blog, self.posts)
+		YAML::dump(user_data)
+	end
 
-  def email_parts
-    email.split("@")
-  end
+	def shown_name
+		nickname.blank? ? name : nickname
+	end
 
-  def notifications
-    Notification.where("user_id = ?", id).order("created_at DESC")
-  end
+	def blog_title
+		blog.title if !blog.nil?
+	end
 
-  def create_reset_code
-    self.attributes = {:reset_code => Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )}
-    self.save()
-    self.reset_code
-  end 
+	def blog_title=(value)
+		if !blog.nil?
+			blog.title = value
+			blog.save
+		end
+	end
+	def gravatar_email
+		if gravatar_suffix.nil? || gravatar_suffix.empty?
+			email
+		else
+			parts = email_parts
+			return parts[0] + "+" + gravatar_suffix + "@" + parts[1]
+		end
+	end
 
-  def location
-    [city, country].compact.join(", ")
-  end
+	def highest_role
+		if admin
+			"Admin"
+		elsif author
+			"Author"
+		end
+	end
 
-  def age
-    unless birthday.nil?
-      years_diff birthday
-    else
-      0
-    end
-  end
+	def email_parts
+		email.split("@")
+	end
 
-  def years_playing
-    unless started_playing.nil?
-      years_diff started_playing
-    else
-      0
-    end
-  end
+	def notifications
+		Notification.where("user_id = ?", id).order("created_at DESC")
+	end
 
-  def events_participation
-    self.attendances + self.results
-  end
+	def create_reset_code
+		self.attributes = {:reset_code => Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )}
+		self.save()
+		self.reset_code
+	end
 
-  def save_without_signout
-    @reset_remember_token = false;
-    self.save()
-    @reset_remember_token = true
-  end
+	def location
+		[city, country].compact.join(", ")
+	end
 
-  private
-    def years_diff(date)
-      now = Time.now.utc.to_date
-      now.year - date.year - ((now.month > date.month || (now.month == date.month && now.day >= date.day)) ? 0 : 1)
-    end
+	def age
+		unless birthday.nil?
+			years_diff birthday
+		else
+			0
+		end
+	end
 
-    def recreate_remember_token
-      if @reset_remember_token.nil? || @reset_remember_token
-        create_remember_token
-      end
-    end
+	def years_playing
+		unless started_playing.nil?
+			years_diff started_playing
+		else
+			0
+		end
+	end
 
-  	def create_remember_token
-  		self.remember_token = SecureRandom.urlsafe_base64
-  	end
+	def events_participation
+		self.attendances + self.results
+	end
 
-    def validate_password?
-      password.present? || password_confirmation.present?
-    end
+	def save_without_signout
+		@reset_remember_token = false
+		self.save()
+		@reset_remember_token = true
+	end
 
-    def destroy_notifications
-      Notification.find_all_by_sender_id(self).each {|n| n.destroy}
-    end
+	private
+	def years_diff(date)
+		now = Time.now.utc.to_date
+		now.year - date.year - ((now.month > date.month || (now.month == date.month && now.day >= date.day)) ? 0 : 1)
+	end
 
-    def destroy_comments
-      Comment.find_all_by_commenter_id(self).each {|n| n.destroy}
-    end
+	def recreate_remember_token
+		if remember_token==nil? || @reset_remember_token.nil? || @reset_remember_token
+			create_remember_token
+		end
+	end
 
-    def destroy_video_assoc
-      appears_in_videos.each do |video|
-        video.move_to_named_players self
-      end      
-    end
+	def create_remember_token
+		self.remember_token = SecureRandom.urlsafe_base64
+	end
+
+	def validate_password?
+		password.present? || password_confirmation.present?
+	end
+
+	def destroy_notifications
+		Notification.find_all_by_sender_id(self).each {|n| n.destroy}
+	end
+
+	def destroy_comments
+		Comment.find_all_by_commenter_id(self).each {|n| n.destroy}
+	end
+
+	def destroy_video_assoc
+		appears_in_videos.each do |video|
+			video.move_to_named_players self
+		end
+	end
 end
 
