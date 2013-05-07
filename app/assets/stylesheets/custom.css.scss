@@ -90,6 +90,10 @@ body.user_content, .user_content, .user_content * {
 
 }
 
+#tinymce.user_content {
+  background-color: #f2f2f2 !important;
+}
+
 .user_content, div .user_content, body .user_content {
   a {
     color: #0088cc;
