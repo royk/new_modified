@@ -24,6 +24,7 @@ gem "date_validator"
 gem 'sanitize'
 gem 'sunspot_rails', '~> 1.3.0'
 gem 'sunspot_solr'
+gem 'acts_as_trashable'
 
 
 group :development, :test do

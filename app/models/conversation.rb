@@ -8,6 +8,9 @@
 #
 
 class Conversation < ActiveRecord::Base
+
+	acts_as_trashable
+
 	attr_accessible :messages
 	attr_accessor :id
 

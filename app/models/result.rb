@@ -14,6 +14,8 @@
 class Result < ActiveRecord::Base
   attr_accessible :competition_id, :description, :position, :users, :video_id, :user, :competition, :video
 
+  acts_as_trashable
+
   belongs_to :competition
   has_and_belongs_to_many :users, uniq: true
   belongs_to :video

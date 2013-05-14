@@ -16,6 +16,8 @@
 class Feed < ActiveRecord::Base
   attr_accessible :name, :hidden, :description, :permalink
 
+  acts_as_trashable
+
   belongs_to :user
   has_many :posts
   has_many :videos

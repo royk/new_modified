@@ -13,6 +13,8 @@
 class Competition < ActiveRecord::Base
   attr_accessible :event_id, :name, :event, :order_index
 
+  acts_as_trashable
+
   belongs_to :event
   has_many :results
 end

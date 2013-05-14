@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419065433) do
+ActiveRecord::Schema.define(:version => 20130514112840) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -214,6 +214,16 @@ ActiveRecord::Schema.define(:version => 20130419065433) do
   create_table "tags", :force => true do |t|
     t.string "name"
   end
+
+  create_table "trash_records", :force => true do |t|
+    t.string   "trashable_type", :null => false
+    t.integer  "trashable_id",   :null => false
+    t.binary   "data"
+    t.datetime "created_at"
+  end
+
+  add_index "trash_records", ["created_at", "trashable_type"], :name => "created_at_type"
+  add_index "trash_records", ["trashable_type", "trashable_id"], :name => "trashable"
 
   create_table "users", :force => true do |t|
     t.string   "name"

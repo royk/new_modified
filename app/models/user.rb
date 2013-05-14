@@ -47,7 +47,10 @@ class User < ActiveRecord::Base
 		text :name
 		time :created_at
 	end
-	bitmask :privacy_settings, as: [:expose_name, :expose_location]
+
+	acts_as_trashable
+
+	#bitmask :privacy_settings, as: [:expose_name, :expose_location], zero_value: :none
 
 	geocoded_by :location
 

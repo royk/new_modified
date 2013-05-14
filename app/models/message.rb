@@ -15,6 +15,8 @@
 class Message < ActiveRecord::Base
   attr_accessible :content, :read, :sender, :recipient, :conversation
 
+  acts_as_trashable
+
   belongs_to :sender, class_name: "User"
   belongs_to :recipient, class_name: "User"
 

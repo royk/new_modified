@@ -12,6 +12,8 @@
 class Page < ActiveRecord::Base
   attr_accessible :content, :name
 
+  acts_as_trashable
+
   validates :name, presence: true
   validates_length_of :content, :minimum => 0, maximum: 99999, presence: true
 end

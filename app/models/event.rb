@@ -18,6 +18,8 @@
 class Event < ActiveRecord::Base
   attr_accessible :city, :country, :end_date, :name, :start_date, :state, :user_id
 
+  acts_as_trashable
+
   belongs_to :user
   has_many :attendants
   has_many :competitions
