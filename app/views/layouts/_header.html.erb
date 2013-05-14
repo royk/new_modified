@@ -42,21 +42,13 @@
 					</li>
 				</ul>
 				<script>
-				// get messages
-				NM.every(60000).ajaxify({url:"/getmail",
-									container: "#header-messages"});
-				</script>
-				<ul id="header-messages" class="nav header-messages pull-right">
-					<%= render partial: 'shared/messages/header_indicator' %>
-				</ul>
-				<script>
 				// get notifications
 				NM.every(30000).ajaxify({url:"/getnotifications",
 									container: "#header-notifications"});
 				</script>
 				<% unread_notifications = current_user.notifications.where(read: false) %>
 				<ul id="header-notifications" class="nav pull-right header-notifications">
-					<%= render partial: 'shared/notifications/header_indicator' %>
+					<%= render partial: 'shared/header_indicator' %>
 				</ul>
 			<% else %>
 				<!-- Signed out top bar option -->			

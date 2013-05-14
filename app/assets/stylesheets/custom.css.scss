@@ -196,7 +196,19 @@ header {
     }
   }
 }
+.header-notifications {
+    .icon-envelope {
+      position: relative;
+      top: 1px;
+      left: 5px;
+    }
+    .icon-ok {
+      position: relative;
+      top: 0px;
+      left: 9px;
+    }
 
+}
 .notifications-toggle {
   cursor: pointer;
   line-height: 47px;
@@ -205,8 +217,14 @@ header {
     width: 20px;
   }
   .notifications-count {
-    padding-left: 5px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding: 0 2px;
+    padding-left: 4px;
+    border: 1px solid red;
+    background-color: red;
     color: white;
+    font-weight: bold;
   }
 }
 
@@ -436,18 +454,20 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
       color: black;
       background-color: transparent;
     }
-    img.kudos-img {
-      width:15px;
-      padding: 0 2px;
-      padding-bottom: 2px;
-    }
 
-    img.comments-img {
-      width:18px;
-      padding: 0 2px;
-      padding-bottom: 2px;
-    }
+
+
   }
+}
+img.kudos-img {
+  width:15px;
+  padding: 0 2px;
+  padding-bottom: 2px;
+}
+img.comments-img {
+  width:18px;
+  padding: 0 2px;
+  padding-bottom: 2px;
 }
 /* first time dialog */
 .first-time {

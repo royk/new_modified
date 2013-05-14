@@ -23,7 +23,6 @@ describe "Static pages" do
 
 	shared_examples_for "signed-in header" do
 		it { should have_xpath('//ul[@id="header-notifications"]') }
-		it { should have_xpath('//ul[@id="header-messages"]') }
 		it { should have_link(user.shown_name, href:'#') }
 		it { should have_link(I18n.t(:profile), href: user_path(user)) }
 		it { should have_link(I18n.t(:edit), href: edit_user_path(user)) }

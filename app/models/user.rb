@@ -119,6 +119,12 @@ class User < ActiveRecord::Base
 		YAML::dump(user_data)
 	end
 
+	def unread_notifications
+		all_unread = notifications.where(read: false)
+		{	"texts"=>all_unread.where("item_type != ?", "Like"),
+			"likes"=>all_unread.where("item_type = ?", "Like")}
+	end
+
 	def shown_name
 		nickname.blank? ? name : nickname
 	end
