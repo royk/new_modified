@@ -81,6 +81,7 @@ class ArticlesController < AuthenticatedController
 		def author
 			if !signed_in?
 				redirect_to root_url
+				return
 			end
 			can_write = current_user.admin? || current_user.author?
 			if !can_write

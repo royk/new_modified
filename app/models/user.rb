@@ -190,8 +190,9 @@ class User < ActiveRecord::Base
 
 	def save_without_signout
 		@reset_remember_token = false
-		self.save()
+		result = self.save()
 		@reset_remember_token = true
+		return result
 	end
 
 	private
