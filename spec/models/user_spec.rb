@@ -68,6 +68,57 @@ describe User do
 	it {should be_valid}
 	it {should_not be_admin}
 
+	describe "unread notifications" do
+		before do
+			@user2 = User.new
+			@user2.name = "loko boko"
+			@user2.email = "lala@fofo.com"
+			@user2.admin = false
+			@user2.password = "lalalalal"
+			@user2.password_confirmation = "lalalalal"
+			@user2.save!
+			@like_item = FactoryGirl.create(:like)
+			@post_item = FactoryGirl.create(:post)
+			@comment_item = FactoryGirl.create(:comment)
+		end
+		context "When there are no notifications of any kind" do
+			before { @notifications = @user.unread_notifications}
+			it "should not have likes and texts notification" do
+				@notifications["likes"].any?.should be_false
+				@notifications["texts"].any?.should be_false
+			end
+		end
+		context "When there is a like notification" do
+			before do
+				notif = @user.notifications.build(sender: @user2, item: @like_item, action: @post_item)
+				notif.user = @user
+				notif.public = false
+				notif.read = false
+				notif.save!
+				@notifications = @user.unread_notifications
+			end
+			it "should have likes notification" do
+				@notifications["likes"].any?.should be_true
+				@notifications["texts"].any?.should be_false
+			end
+		end
+		context "When there is a text notification" do
+			before do
+				notif = @user.notifications.build(sender: @user2, item: @comment_item, action: @post_item)
+				notif.user = @user
+				notif.public = false
+				notif.read = false
+				notif.save!
+				@notifications = @user.unread_notifications
+			end
+			it "should have text notification" do
+				@notifications["likes"].any?.should be_false
+				@notifications["texts"].any?.should be_true
+			end
+		end
+
+	end
+
 	describe "age:" do
 		context "when birthday isn't set," do
 			its(:age) { should eq 0 }
