@@ -25,8 +25,24 @@ class ArticlesController < AuthenticatedController
 	end
 
 	def create
+		if params[:publishing_option]=="private"
+			params[:public] = false
+			params[:published] = false
+		end
+		if params[:publishing_option]=="protected"
+			params[:public] = false
+			params[:published] = true
+		end
+		if params[:publishing_option]=="public"
+			params[:public] = true
+			params[:published] = true
+		end
+		params.delete(:publishing_option)
 		create! do |success, failure|
-			success.html do 
+			success.html do
+				@article.public = params[:public]
+				@article.published = params[:published]
+				@article.save
 				register_new_content(@article)
 				redirect_to articles_path
 			end

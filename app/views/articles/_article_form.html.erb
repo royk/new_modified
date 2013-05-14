@@ -9,16 +9,10 @@
 					<%= f.text_area(:content, :rows=>1, :cols=>2, :class=>"tinymce")%>
 					<%= my_tinymce %>
 					<div class="spacer"></div>
-					<%= f.label t(:public_input), id:"public_input_label" %>
-					<script>
-						NM.tooltip("#public_input_label","<%= t(:public_input_tooltip) %>");
-					</script>
-					<%= f.check_box :public %>
-					<%= f.label t(:publish_input), id:"publish_input_label" %>
-					<script>
-						NM.tooltip("#publish_input_label","<%= t(:publish_input_tooltip) %>");
-					</script>
-					<%= f.check_box :published %>
+					<p><u>Visibility options</u></p>
+					<input type="radio" name="publishing_option" id="private" value="private"/><label for="private">  Only I can see it</label> <br/>
+					<input type="radio" name="publishing_option" id="protected" value="protected" checked/><label for="protected">  Site members can see it</label><br/>
+					<input type="radio" name="publishing_option" id="public" value="public"/><label for="public">  Everybody can see it</label>
 					<div class="spacer"></div>
 					<%= f.label :category_id %>
 					<%= f.select(:category_id, options_from_collection_for_select(Category.all, "id", "name", article.category_id), include_blank: true) %>
