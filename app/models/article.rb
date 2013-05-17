@@ -15,7 +15,8 @@
 #
 
 class Article < ActiveRecord::Base
-	has_permalink 
+	has_permalink
+	acts_as_trashable
 
 	attr_accessible :created_at, :content, :public, :published, :title, :category, :category_id
 

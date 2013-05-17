@@ -35,6 +35,7 @@ class Video < ActiveRecord::Base
 
   attr_accessible :created_at, :title, :vendor, :uid, :url, :public, :location, :maker, :players, :for_feedback, :feed_id
   acts_as_taggable
+  acts_as_trashable
 
   searchable do
 	  text :title

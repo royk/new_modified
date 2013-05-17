@@ -14,6 +14,8 @@ class BlogPost < ActiveRecord::Base
 
   attr_accessible :content, :public, :created_at
 
+  acts_as_trashable
+
   searchable do
 	  text :content
 	  text :user do

@@ -34,19 +34,12 @@
 								edit_user_path(current_user) %></li>
 							<li><%= link_to t(:my_messages), messages_path %></li>
 							<li class="divider"></li>
+							<li><%= link_to t(:download_my_data), user_data_path %></li>
 							<li><%= link_to t(:log_out), signout_path, method: "delete" %></li>
 						</ul>
 						
 					
 					</li>
-				</ul>
-				<script>
-				// get messages
-				NM.every(60000).ajaxify({url:"/getmail",
-									container: "#header-messages"});
-				</script>
-				<ul id="header-messages" class="nav header-messages pull-right">
-					<%= render partial: 'shared/messages/header_indicator' %>
 				</ul>
 				<script>
 				// get notifications
@@ -55,7 +48,7 @@
 				</script>
 				<% unread_notifications = current_user.notifications.where(read: false) %>
 				<ul id="header-notifications" class="nav pull-right header-notifications">
-					<%= render partial: 'shared/notifications/header_indicator' %>
+					<%= render partial: 'shared/header_indicator' %>
 				</ul>
 			<% else %>
 				<!-- Signed out top bar option -->			

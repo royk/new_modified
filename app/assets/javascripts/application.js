@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.idle-timer
 //= require jquery.ez-pinned-footer
+//= require jquery.qtip-1.0.0-rc3.min
 //= require bootstrap
 //= require feed_entity
 //= require tinymce-jquery
@@ -40,7 +41,12 @@ NM = (function() {
 	return {
 		tooltip: function tooltip(elem_name, content, params) {
 			if (!params) {
-				params = {style:{tip:true, border:{width:3}}};
+				params = {style:{
+                    tip:true,
+                    background: "black",
+                    color: "white",
+                    border:{radius:4, color:"black"}
+                }};
 			}
 			params.content = content;
 			$(document).ready(function() {

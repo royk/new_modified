@@ -12,6 +12,8 @@
 class Blog < ActiveRecord::Base
   attr_accessible :title, :featured?
 
+  acts_as_trashable
+
   has_many :blog_posts, order: 'created_at DESC'
   belongs_to :user
   validates :user, presence: true

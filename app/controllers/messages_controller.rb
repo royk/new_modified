@@ -23,7 +23,7 @@ class MessagesController < AuthenticatedController
 	end
 
 	def get_latest
-		render partial: 'shared/messages/header_indicator'
+		render partial: 'shared/header_indicator'
 	end
 
 	# mark the latest 10 unread messages as read
@@ -54,6 +54,7 @@ class MessagesController < AuthenticatedController
 				message.read = false
 				if message.valid?
 					if message.save
+						UserMailer.private_message_mail(message, recipient).deliver
 						flash[:success] = "Message sent"
 					else
 						flash[:error] = "Can't send message"

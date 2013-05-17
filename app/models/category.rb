@@ -11,6 +11,8 @@
 class Category < ActiveRecord::Base
   attr_accessible :name
 
+  acts_as_trashable
+
   has_many :articles
 
   validates :name, presence:true, length: {minimum: 1, maximum: 20}, uniqueness:{case_sensitive: true}

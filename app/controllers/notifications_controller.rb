@@ -20,7 +20,7 @@ class NotificationsController < AuthenticatedController
 		if signed_in? 
 			current_user.last_online = Time.now
 		end
-		render partial: 'shared/notifications/header_indicator'
+		render partial: 'shared/header_indicator'
 	end
 	
 	private

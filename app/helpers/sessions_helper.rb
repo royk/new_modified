@@ -6,6 +6,9 @@ module SessionsHelper
 		session[:last_visit] = 1.week.ago	# controls age of activities to see on site.
 	    user.last_visit = Time.now
 	    user.last_online = Time.now
+		if user.remember_token.nil?
+			user.save
+		end
 	    cookies.permanent[:remember_token] = user.remember_token
 	    self.current_user = user
 	end

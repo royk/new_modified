@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   def export
     unless signed_in?
       redirect_to root_path
-    end
+	end
+    send_data(current_user.export_to_csv, filename: "#{current_user.name}_data.csv", type: "application/x-yaml")
   end
 
   def user_enable_chat
@@ -88,7 +89,9 @@ class UsersController < ApplicationController
     @user = User.find_by_reset_code(params[:reset_code]) unless params[:reset_code].nil?
     if @user
       @user.reset_code = nil
+	  sign_in @user
 	  @user.save_without_signout
+
       redirect_to edit_user_path(@user)
 
     else

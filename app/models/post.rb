@@ -15,6 +15,8 @@
 class Post < ActiveRecord::Base
   attr_accessible :created_at, :content, :public, :sticky, :feed_id
 
+  acts_as_trashable
+
   belongs_to :user
   belongs_to :feed
   has_many :comments, as: :commentable, order: 'created_at ASC'

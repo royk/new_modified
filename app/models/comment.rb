@@ -16,6 +16,8 @@
 class Comment < ActiveRecord::Base
   attr_accessible :content, :commenter, :public, :commenter_name
 
+  acts_as_trashable
+
   belongs_to :commentable, polymorphic: true
   belongs_to :commenter, 	class_name: "User"
   alias_attribute :user, :commenter

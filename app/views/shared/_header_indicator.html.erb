@@ -1,0 +1,50 @@
+<% if signed_in? %>
+	<% unread_messages = current_user.received_messages.where(read: false).order('id desc').limit(10) %>
+	<% unread_notifications = current_user.unread_notifications %>
+
+	<li class="dropdown">
+		<a href="#" class="messages-toggle dropdown-toggle" data-toggle="dropdown">
+			<i id="privateMessagesNotificator" class="icon-envelope <%= "icon-white" if unread_messages.any? %>"></i>
+			<script>
+				var message;
+				<% if unread_messages.any? %>
+					messages = "You have <%=unread_messages.count%> unread private messages ";
+				<% else %>
+					messages = "You have no new private messages";
+				<% end %>
+				NM.tooltip("#privateMessagesNotificator", messages);
+			</script>
+		</a>
+		<ul class="dropdown-menu messages-flyout">
+			<%= render partial: 'shared/personal_message_item', collection: unread_messages %>
+			<li class="pull-right"><%= link_to "Mark all as read", '/markread' %></li>
+		</ul>
+	</li>
+	<li class="dropdown">
+		<a href="#" class="notifications-toggle dropdown-toggle" data-toggle="dropdown" onclick=<%= %q{NM.clearNotifications();} if unread_notifications.any?%> >
+			<img id="notificationsNotificator" src='/assets/comments<%="-white" if unread_notifications["texts"].any?%>.png' class="comments-img"/>
+			<i id="likesNotificator" class="icon-ok <%="icon-white" if unread_notifications["likes"].any?%>"></i>
+			<script>
+				var commentsMessage;
+				var likesMessage;
+				<% if  unread_notifications["texts"].any? %>
+				commentsMessage = "You have <%=unread_notifications["texts"].count%> new notifications";
+				<% else %>
+				commentsMessage = "You have no new notifications";
+				<% end %>
+				<% if  unread_notifications["likes"].any? %>
+					likesMessage = "You have <%=unread_notifications["likes"].count%> new props";
+				<% else %>
+					likesMessage = "You have no new props";
+				<% end %>
+				NM.tooltip("#notificationsNotificator", commentsMessage);
+				NM.tooltip("#likesNotificator", likesMessage);
+			</script>
+		</a>
+		<ul class="dropdown-menu notifications-flyout">
+			<% @old_notifications = false %>
+			<%= render partial: 'shared/personal_notification_item', collection: current_user.notifications.find(:all, limit: 10) %>
+		</ul>
+	</li>
+
+<% end %>
