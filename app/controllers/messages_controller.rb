@@ -23,7 +23,7 @@ class MessagesController < AuthenticatedController
 	end
 
 	def get_latest
-		render partial: 'shared/messages/header_indicator'
+		render partial: 'shared/header_indicator'
 	end
 
 	# mark the latest 10 unread messages as read
