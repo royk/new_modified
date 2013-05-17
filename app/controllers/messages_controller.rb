@@ -54,6 +54,7 @@ class MessagesController < AuthenticatedController
 				message.read = false
 				if message.valid?
 					if message.save
+						UserMailer.private_message_mail(message, recipient).deliver
 						flash[:success] = "Message sent"
 					else
 						flash[:error] = "Can't send message"

@@ -5,7 +5,8 @@
     <% reply_content = "<hr/><p><em>From: #{@replies_to.sender.shown_name}</em></p><div style=\"padding-left: 30px\">#{@replies_to.content.html_safe}</div><hr/><br/>" unless @replies_to.nil? %>
     <%= form_for(@message) do |f| %>
         <%= f.label :content %>
-        <%= f.text_area(:content, class:"post-input tinymce-mini", value: reply_content)%>
+        <%= f.text_area(:content, class:"post-input tinymce", value: reply_content)%>
+				<%= my_tinymce %>
         <% unless @replies_to.nil? %>
             <%= hidden_field_tag 'replies_to', @replies_to.id  %>
         <% end %>
