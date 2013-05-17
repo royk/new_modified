@@ -1,0 +1,36 @@
+<% if @videos.any? %>
+	<h3>Latest Videos</h3>
+	<% @videos.each do | video | %>
+		<% if video.vendor=="youtube" %>
+			<iframe class="youtube-player" type="text/html" width="500" height="281" src="http://www.youtube.com/embed/<%= video.uid %>" frameborder="0"></iframe>
+		<% end %>
+		<% if video.vendor=="vimeo" %>
+			<iframe src="http://player.vimeo.com/video/<%= video.uid %>" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		<% end %>
+		<% if video.vendor=="footbagorg" %>
+			<embed src="http://v.footbag.org/media/<%= video.uid %>" type="video/quicktime" pluginspage="http://www.apple.com/quicktime/download/" width="500" height="281" controller="true" loop="false" autoplay="false" cache="true" scale="aspect" __idm_id__="-1757044735"></embed>
+		<% end %>
+		<% players = (video.user_players||[]) +  (video.players||[]) %>
+		<% if players.any? %>
+			<%= players.count>1 ? "Players" : "Player"%>:
+
+			<% players.each do |p| %>
+				<span class="player">
+					<% if p.class==String %>
+						<%= p %>
+					<% else %>
+						<%=	p.shown_name %>
+					<% end %>
+				</span>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+<% if @blog_posts.any? %>
+	<h3>Blog Updates</h3>
+	<% @blog_posts.each do | post | %>
+		<p>By: <%= post.user.shown_name unless post.user.nil? %></p>
+		<p><%= post.content.html_safe%></p>
+	<% end %>
+<% end %>
+

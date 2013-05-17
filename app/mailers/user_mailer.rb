@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
 	include ApplicationHelper
 
-	default from: "roeiklein@gmail.com"
+	default from: "footbagfront@gmail.com"
 
 	def welcome_mail(user)
 		@user = user
@@ -32,6 +32,16 @@ class UserMailer < ActionMailer::Base
 		@url = "#{site_url_no_slash}#{message_path(message)}"
 		@site_name = site_name
 		mail(to: @recipient.email, subject: "Someone sent you a private message at #{@site_name}")
+	end
+
+	def footbag_magazine_mail(from_date, recipient)
+		@recipient = recipient
+		@blog_posts = BlogPost.where("created_at > ?", from_date.beginning_of_day)
+		@posts = Post.where("created_at > ?", from_date.beginning_of_day)
+		@videos = Video.where("created_at > ?", from_date.beginning_of_day)
+		@articles = Article.where("created_at > ?", from_date.beginning_of_day)
+		@site_name = site_name
+		mail(to: @recipient.email, subject: "Freestyle Magazine by #{@site_name}!")
 	end
 
 
