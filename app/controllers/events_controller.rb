@@ -2,6 +2,7 @@ class EventsController < AuthenticatedController
 	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
+		@full_site_layout = true
 		show! do
 			@competitions = @event.competitions.sort_by { |c| c[:order_index] }
 			logger.debug "xxx #{@competitions[0].inspect}"
@@ -9,6 +10,7 @@ class EventsController < AuthenticatedController
 	end
 
 	def index
+		@full_site_layout = true
 		@past_events = Event.where("start_date < ?", Time.now).order('start_date desc')
 		@upcoming_events = Event.where("start_date >= ?", Time.now).order('start_date desc')
 	end
