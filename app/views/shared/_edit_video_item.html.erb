@@ -5,7 +5,7 @@
 <% players = (video.user_players||[]) +  (video.players||[]) %>
 <% i=0 %>
 <%= form_for(video) do |f| %>
-	<%= f.text_field(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL")%>
+	<%= f.text_field(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL (supported: youtube, vimeo, footbag.org, juggling.tv)")%>
 	<%= f.text_field(:title, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Title")%>
 	<%= f.hidden_field :for_feedback, value: feedback %>
 	<% if defined?(feed) && !feed.nil?%>
