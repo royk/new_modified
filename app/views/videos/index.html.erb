@@ -19,19 +19,10 @@
 			</script>
 	</div>
 <% end %>
+<div class="feed">
 	<%= render 'shared/videos/search' %>
-<% @videos.each do |feed_item| %>
-	<% if feed_item.vendor=="youtube" %>
-		<%= render 'shared/videos/small/youtube_video', :uid => feed_item.uid %>
-	<% elsif feed_item.vendor=="vimeo" %>
-		<%= render 'shared/videos/small/vimeo_video', :uid => feed_item.uid %>
-	<% elsif feed_item.vendor=="footbagorg" %>
-		<%= render 'shared/videos/small/footbagorg_video', :uid => feed_item.uid %>
-	<% elsif feed_item.vendor=="jugglingtv" %>
-		<%= render 'shared/videos/small/jugglingtv_video', :uid => feed_item.uid %>
-	<% end %>
-	<div style="display:inline;">Comment | Like</div>
-<% end %>
+	<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
+</div>
 
 <%= render 'shared/ajax_loading', collection: @videos, loadPath: '/videos/' %>
 
