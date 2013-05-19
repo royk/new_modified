@@ -14,7 +14,7 @@
 				$("#importButton").click(function() {
 					var elem = $("#data");
 					var data = JSON.parse(elem.val());
-					IM.videoImport(data);
+					$.post('/saveVideo', {videos:data});
 				});
 			</script>
 	</div>
