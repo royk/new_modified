@@ -9,7 +9,7 @@ module VideoImporters
 					video_item = Video.new
 				end
 				video_item.title = video[:title]
-				video_item.vendor = video[:type]
+				video_item.vendor = video[:type].downcase
 				video_item.uid = video[:src]
 				video_item.location = video[:location]
 				video_item.created_at = video[:date]
