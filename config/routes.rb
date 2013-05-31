@@ -17,7 +17,9 @@ NewModified::Application.routes.draw do
 
   resources :users
 
- match '/utils/newsletter', to: 'utils#newsletter'
+ match '/utils/generateNewsletter', to: 'utils#generateNewsletter'
+
+	match '/magazines/:year/:month', to: 'magazines#show'
 
   match '/user_videos', to: 'users#user_videos'
   match '/user_posts', to: 'users#user_posts'

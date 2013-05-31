@@ -1,0 +1,8 @@
+<% provide(:title, @magazine.name) %>
+<h1><%=@magazine.name%></h1>
+<div class="light-box videos-page">
+	<h2>Videos</h2>
+	<div class="videos-list">
+		<%= render partial: 'shared/videos/small/small_video_item', collection: @videos, comments_shown: false %>
+	</div>
+</div>

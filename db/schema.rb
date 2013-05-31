@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514112840) do
+ActiveRecord::Schema.define(:version => 20130531095519) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -132,6 +132,21 @@ ActiveRecord::Schema.define(:version => 20130514112840) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  create_table "magazines", :force => true do |t|
+    t.string   "name"
+    t.string   "permalink"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.text     "video_ids"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "year"
+    t.string   "month"
+  end
+
+  add_index "magazines", ["month"], :name => "index_magazines_on_month"
+  add_index "magazines", ["year"], :name => "index_magazines_on_year"
 
   create_table "messages", :force => true do |t|
     t.text     "content"
