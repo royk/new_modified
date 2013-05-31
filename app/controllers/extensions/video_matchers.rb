@@ -12,7 +12,7 @@ module VideoMatchers
 	end
 	
 	def get_uid_vendor(url)
-		match_youtube(url) || match_vimeo(url) || match_footbag_org(url)
+		match_youtube(url) || match_vimeo(url) || match_footbag_org(url) || match_jugglingtv(url)
 	end
 
 	def match_youtube(url)
@@ -29,15 +29,25 @@ module VideoMatchers
 
 	def match_footbag_org(url)
 		if url.match(/footbag.org/i)
-			footbagorg = footbagorg_scrape(url)
+			footbagorg = embed_scrape(url)
 			if footbagorg
-				footbagorg = footbagorg.scan(/v.footbag.org\/media\/(\d+)\/(.+)/i);
+				footbagorg = footbagorg.scan(/v.footbag.org\/media\/(\d+)\/(.+)/i)
 				{uid: "#{footbagorg[0][0]}/#{footbagorg[0][1]}", vendor: "footbagorg"} if footbagorg.any?
 			end
 		end
 	end
+
+	def match_jugglingtv(url)
+		if url.match(/juggling.tv/i)
+			page = Nokogiri::HTML(open(url))
+			if page
+				key = page.to_s.scan(/config\.php\?key=(\w+)/i)
+				{uid: key[0][0], vendor: "jugglingtv"} if key.any?
+			end
+		end
+	end
 	private
-		def footbagorg_scrape(url)
+		def embed_scrape(url)
 			page = Nokogiri::HTML(open(url))
 			embed = page.css("embed")
 			if embed.any?

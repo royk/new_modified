@@ -14,15 +14,18 @@ class VideosController < AuthenticatedController
 		if /atom/.match(request.format)
 			@videos = Video.where("public = ? AND for_feedback = ? ", true, false)
 		else
-			@videos = Video.where("#{compound_privacy_query} for_feedback = ? ", false).paginate(page: params[:page], :per_page => 10)
+			@videos = Video.where("#{compound_privacy_query} for_feedback = ? ", false).paginate(page: params[:page], :per_page => 20)
 			if request.xhr?
-				render partial: 'shared/feed_item', collection: @videos, comments_shown: false
+				render partial: 'shared/videos/small/small_video_item', collection: @videos, comments_shown: false
 			end
 		end
 	end
 
 	def feedback_index
 		@videos = Video.where("#{compound_privacy_query} for_feedback = ? ", true).paginate(page: params[:page], :per_page => 10)
+		if request.xhr?
+			render partial: 'shared/videos/small/small_video_item', collection: @videos, comments_shown: false
+		end
 	end
 	
 	def create
@@ -62,7 +65,7 @@ class VideosController < AuthenticatedController
 	end
 
 	def search
-		@videos = Video.tagged_with(params[:search])
+		@videos = Video.tagged_with(params[:search]).paginate(page: params[:page], :per_page => 20)
 	end
 
 	private

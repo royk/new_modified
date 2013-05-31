@@ -14,15 +14,25 @@
 				$("#importButton").click(function() {
 					var elem = $("#data");
 					var data = JSON.parse(elem.val());
-					IM.videoImport(data);
+					$.post('/saveVideo', {videos:data});
 				});
 			</script>
 	</div>
 <% end %>
-<div class="feed">
+<div class="light-box videos-page">
+	<div class="atom-link">
+		<%= link_to videos_url(:atom) do %>
+			<span class="pull-right">
+				<%= image_tag("/assets/feed-icon-14x14.png", alt: "videos feed", class: "video-feed-icon", width: 14, height: 14)%>
+				<p class="label"><%= t(:videos_feed) %></p>
+			</span>
+		<% end %>
+	</div>
 	<%= render 'shared/videos/search' %>
-	<%= render partial: 'shared/feed_item', collection: @videos, comments_shown: false %>
+	<div class="videos-list">
+		<%= render partial: 'shared/videos/small/small_video_item', collection: @videos, comments_shown: false %>
+	</div>
 </div>
 
-<%= render 'shared/ajax_loading', collection: @videos, loadPath: '/videos/' %>
+<%= render 'shared/ajax_loading', collection: @videos, loadPath: '/videos/', container: ".videos-list" %>
 

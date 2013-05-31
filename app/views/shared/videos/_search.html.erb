@@ -1,14 +1,6 @@
 <div class="feed-item head-element">
-	<h3><%= t(:search) %></h3>
 	<%= form_tag search_videos_path, method: :get do %>
-		<%= search_field_tag("search", nil, class: "post-input", placeholder: "Search Videos according to title or players")%>
+		<%= search_field_tag("search", nil, class: "post-input", placeholder: "Search videos by title or players")%>
 	<% end %>
-	<div style="height:14px;">
-		<%= link_to videos_url(:atom) do %>
-			<span class="pull-right">
-				<%= image_tag("/assets/feed-icon-14x14.png", alt: "videos feed", class: "video-feed-icon", width: 14, height: 14)%>
-				<%= t(:videos_feed) %>
-			</span>
-		<% end %>
-	</div>
+
 </div>

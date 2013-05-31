@@ -5,13 +5,13 @@
 	<div class="meta-top">
 	</div>
 	<% if feed_item.vendor=="youtube" %>
-		<%= render 'shared/youtube_video', :uid => feed_item.uid %>
-	<% end %>
-	<% if feed_item.vendor=="vimeo" %>
-		<%= render 'shared/vimeo_video', :uid => feed_item.uid %>
-	<% end %>
-	<% if feed_item.vendor=="footbagorg" %>
+		<%= render 'shared/videos/youtube_video', :uid => feed_item.uid %>
+	<% elsif feed_item.vendor=="vimeo" %>
+		<%= render 'shared/videos/vimeo_video', :uid => feed_item.uid %>
+	<% elsif feed_item.vendor=="footbagorg" %>
 		<%= render 'shared/videos/footbagorg_video', :uid => feed_item.uid %>
+	<% elsif feed_item.vendor=="jugglingtv" %>
+		<%= render 'shared/videos/jugglingtv_video', :uid => feed_item.uid %>
 	<% end %>
 	<div class="meta-bottom">
 		<% players = (feed_item.user_players||[]) +  (feed_item.players||[]) %>
