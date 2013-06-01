@@ -416,6 +416,21 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   .post-input {
     width: 98%;
   }
+  .videos-list-mobile {
+    text-align: left;
+    a {
+      color: black;
+    }
+    .small.video-container {
+      margin-left: 5px;
+      display: block;
+
+      .video-title {
+        text-align: left;
+      }
+    }
+
+  }
   .videos-list {
     text-align: center;
 

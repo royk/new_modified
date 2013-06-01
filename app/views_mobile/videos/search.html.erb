@@ -1,0 +1,13 @@
+<% provide(:title, 'Videos') %>
+
+<h1>Freestyle Videos</h1>
+<div class="videos-page">
+	<%= render 'shared/videos/search' %>
+	<div class="videos-list-mobile">
+		<% if @videos.any? %>
+			<%= render partial: 'shared/videos/small_video_item_mobile', collection: @videos, comments_shown: false %>
+		<% end %>
+	</div>
+	<%= will_paginate @videos, :inner_window=>0, :outer_window=> 0 %>
+	<%= page_entries_info @videos %>
+</div>

@@ -1,0 +1,9 @@
+<% url = "http://www.youtube.com/watch?v=#{video.uid}" %>
+<% title = video.title %>
+<% title = url if title.empty? %>
+
+<a href=<%= url %>><%= title %>
+<%= render 'shared/videos/players', video: video %>
+</a>
+<br/>
+<br/>

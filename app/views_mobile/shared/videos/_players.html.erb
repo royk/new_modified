@@ -1,0 +1,18 @@
+<% players = (video.user_players||[]) +  (video.players||[]) %>
+<% if players.any? %>
+
+	-
+
+	<% players.each_with_index do |p, index| %>
+		<span class="player">
+					<% if p.class==String %>
+						<%= p %>
+					<% else %>
+						<%=	real_name(p) %>
+					<% end %>
+			<% if index != players.length-1 %>
+,
+			<% end %>
+				</span>
+	<% end %>
+<% end %>

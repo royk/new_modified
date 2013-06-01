@@ -8,7 +8,8 @@
 	</h3>
 	<% if feed_item.class==Video %>
 		<p class="text-content">
-			<%= render '/shared/video_item', feed_item: feed_item %>
+			Video:
+			<%= render '/shared/videos/small_video_item_mobile', small_video_item_mobile: feed_item %>
 		</p>
 	<% else %>
 		<div class="text-content user_content">

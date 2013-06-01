@@ -1,0 +1,14 @@
+<% if small_video_item_mobile.vendor=="youtube" || small_video_item_mobile.vendor=="vimeo"%>
+	<div class="small video-container">
+
+		<div class="video-body">
+
+			<% if small_video_item_mobile.vendor=="youtube" %>
+				<%= render 'shared/videos/youtube_video', video: small_video_item_mobile %>
+			<% elsif small_video_item_mobile.vendor=="vimeo" %>
+				<%= render 'shared/videos/vimeo_video', video: small_video_item_mobile %>
+			<% end %>
+
+		</div>
+	</div>
+ <% end %>

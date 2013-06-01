@@ -4,7 +4,8 @@ class VideosController < AuthenticatedController
 	include VideoImporters
 	
 	before_filter	:correct_user, only: [:destroy, :update]
-	skip_before_filter :signed_in_user, only: [:index, :show, :feedback_index]
+	skip_before_filter :signed_in_user, only: [:index, :show, :feedback_index, :search]
+	before_filter :check_for_mobile, only: [:index, :search]
 
 	def show
     	@video = get_item(Video, params)
