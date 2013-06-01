@@ -75,14 +75,6 @@ module ApplicationHelper
 		end
 	end
 
-	def compound_privacy_query
-		unless signed_in?
-			"public = 't' AND "
-		else
-			""
-		end
-	end
-
 	def publishing_query(collection)
 		if signed_in?
 			if (current_user.admin? || current_user.author?)
