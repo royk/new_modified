@@ -34,10 +34,14 @@
 				<% if item_name=="user" %>
 					<%= I18n.t(:joined) %>
 				<% else %>
+					<% creation_string = "created a new " %>
+					<% if item_name=="achievement" %>
+						<% creation_string = "published a new " %>
+					<% end %>
 					<% begin %>
-						created a new <%= link_to item_name, notification_item.item  %>
+						<%=creation_string %><%= link_to item_name, notification_item.item  %>
 					<% rescue %>
-						created a new <%= item_name %>
+						<%=creation_string %>><%= item_name %>
 					<% end %>
 				<% end %>
 			<% end %>

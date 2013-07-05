@@ -1,160 +1,162 @@
 NewModified::Application.routes.draw do
-    root to: 'static_pages#home'
+	root to: 'static_pages#home'
 
-  match '/help', to: 'static_pages#help'
+	match '/help', to: 'static_pages#help'
 
-  match '/about', to: 'static_pages#about'
+	match '/about', to: 'static_pages#about'
 
-  match '/unauthorized', to: 'static_pages#unauthorized'
+	match '/unauthorized', to: 'static_pages#unauthorized'
 
-  match '/contact', to: 'static_pages#contact'
+	match '/contact', to: 'static_pages#contact'
 
-  match '/admin', to: 'static_pages#admin'
+	match '/admin', to: 'static_pages#admin'
 
-  match '/chat', to: 'static_pages#chat'
+	match '/chat', to: 'static_pages#chat'
 
-  match '/search', to: 'search#search_all'
+	match '/search', to: 'search#search_all'
 
-  resources :users
+	resources :users
 
-  match '/user_videos', to: 'users#user_videos'
-  match '/user_posts', to: 'users#user_posts'
-  match '/user_articles', to: 'users#user_articles'
-  match '/user_data', to: 'users#export'
-  match '/who_online', to: 'users#who_online'
-  match '/enable_chat', to: 'users#user_enable_chat'
+	match '/user_videos', to: 'users#user_videos'
+	match '/user_posts', to: 'users#user_posts'
+	match '/user_articles', to: 'users#user_articles'
+	match '/user_data', to: 'users#export'
+	match '/who_online', to: 'users#who_online'
+	match '/enable_chat', to: 'users#user_enable_chat'
 
-  match '/signup', to: 'users#new'
+	match '/signup', to: 'users#new'
 
-  match '/clear_notifications', to: 'users#clear_notifications'
+	match '/clear_notifications', to: 'users#clear_notifications'
 
-  match '/reset/:reset_code', to:'users#reset_password'
+	match '/reset/:reset_code', to:'users#reset_password'
 
-  match '/sorted_users', to:'users#sorted_index'
+	match '/sorted_users', to:'users#sorted_index'
 
-  resources :sessions, only: [:new, :create, :destroy]
+	resources :sessions, only: [:new, :create, :destroy]
 
-  match '/signin',  to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
-  match '/signout', to: 'sessions#destroy'
-  match '/forgotpassword', to: 'sessions#forgot_password'
-  match '/resetpassword', to: 'sessions#reset_password'
+	match '/signin',  to: 'sessions#new'
+	match '/signout', to: 'sessions#destroy', via: :delete
+	match '/signout', to: 'sessions#destroy'
+	match '/forgotpassword', to: 'sessions#forgot_password'
+	match '/resetpassword', to: 'sessions#reset_password'
 
-  resources :feeds, only: [:index, :create, :update, :edit]
+	resources :feeds, only: [:index, :create, :update, :edit]
 
-  match 'feeds/:permalink', controller: 'feeds', action: 'show', as: "feed"
-  
-  resources :posts
+	match 'feeds/:permalink', controller: 'feeds', action: 'show', as: "feed"
 
-  resources :articles
+	resources :achievements
 
-  resources :videos do
-    get 'search', on: :collection
-  end
+	resources :posts
 
-  match '/feedbacks', to: 'videos#feedback_index'
+	resources :articles
 
-  match '/saveVideo', to: 'videos#import', via: :post
+	resources :videos do
+		get 'search', on: :collection
+	end
 
-  resources :blog_posts
+	match '/feedbacks', to: 'videos#feedback_index'
 
-  resources :blogs
+	match '/saveVideo', to: 'videos#import', via: :post
 
-  match '/importblog', to:"blogs#import"
-  match '/performimport', to:"blogs#perform_import"
-  match '/perform_blogpost_import', to:"blogs#perform_blogpost_import"
-  match '/initblog', to: "blogs#init_blog"
-  match '/blogs/rename', to: "blogs#rename", via: :post
+	resources :blog_posts
 
-  resources :comments
+	resources :blogs
 
-  resources :messages, only: [:new, :create, :index, :show]
+	match '/importblog', to:"blogs#import"
+	match '/performimport', to:"blogs#perform_import"
+	match '/perform_blogpost_import', to:"blogs#perform_blogpost_import"
+	match '/initblog', to: "blogs#init_blog"
+	match '/blogs/rename', to: "blogs#rename", via: :post
 
-  match '/getmail', to: 'messages#get_latest'
-  match '/markread', to: 'messages#mark_as_read'
+	resources :comments
 
-  resources :conversations, only: [:show]
+	resources :messages, only: [:new, :create, :index, :show]
 
-  resources :likes, only: [:new, :create, :destroy]
+	match '/getmail', to: 'messages#get_latest'
+	match '/markread', to: 'messages#mark_as_read'
 
-  match '/like', to: 'likes#create', via: :post
-  match '/unlike', to: 'likes#destroy', via: :delete
+	resources :conversations, only: [:show]
 
-  resources :notifications, only: [:index]
-  match '/activities', to: 'notifications#index'
-  match '/getnotifications', to: 'notifications#get_latest'
+	resources :likes, only: [:new, :create, :destroy]
 
-  resources :events
-  resources :competitions, only: [:show, :update]
+	match '/like', to: 'likes#create', via: :post
+	match '/unlike', to: 'likes#destroy', via: :delete
 
-  match 'competition/reorder/:id', to: 'competitions#reorder', via: :put, as: "reorder"
+	resources :notifications, only: [:index]
+	match '/activities', to: 'notifications#index'
+	match '/getnotifications', to: 'notifications#get_latest'
 
-  resources :results
+	resources :events
+	resources :competitions, only: [:show, :update]
 
-  match 'static/:name', controller: 'pages', action: 'show', as: "page"
+	match 'competition/reorder/:id', to: 'competitions#reorder', via: :put, as: "reorder"
 
-  match 'static/edit/:name', controller: 'pages', action: 'edit', as: "edit_page"
+	resources :results
 
-  match 'static/update/:name', controller: 'pages', action: 'update', via: :put
+	match 'static/:name', controller: 'pages', action: 'show', as: "page"
 
-  resources :categories
+	match 'static/edit/:name', controller: 'pages', action: 'edit', as: "edit_page"
 
-  match '/stop_listening/:guid', to: 'listeners#remove_listener'
+	match 'static/update/:name', controller: 'pages', action: 'update', via: :put
 
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+	resources :categories
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
+	match '/stop_listening/:guid', to: 'listeners#remove_listener'
 
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+	# The priority is based upon order of creation:
+	# first created -> highest priority.
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+	# Sample of regular route:
+	#   match 'products/:id' => 'catalog#view'
+	# Keep in mind you can assign values other than :controller and :action
 
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+	# Sample of named route:
+	#   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+	# This route can be invoked with purchase_url(:id => product.id)
 
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+	# Sample resource route (maps HTTP verbs to controller actions automatically):
+	#   resources :products
 
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
+	# Sample resource route with options:
+	#   resources :products do
+	#     member do
+	#       get 'short'
+	#       post 'toggle'
+	#     end
+	#
+	#     collection do
+	#       get 'sold'
+	#     end
+	#   end
 
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+	# Sample resource route with sub-resources:
+	#   resources :products do
+	#     resources :comments, :sales
+	#     resource :seller
+	#   end
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+	# Sample resource route with more complex sub-resources
+	#   resources :products do
+	#     resources :comments
+	#     resources :sales do
+	#       get 'recent', :on => :collection
+	#     end
+	#   end
 
-  # See how all your routes lay out with "rake routes"
+	# Sample resource route within a namespace:
+	#   namespace :admin do
+	#     # Directs /admin/products/* to Admin::ProductsController
+	#     # (app/controllers/admin/products_controller.rb)
+	#     resources :products
+	#   end
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+	# You can have the root of your site routed with "root"
+	# just remember to delete public/index.html.
+	# root :to => 'welcome#index'
+
+	# See how all your routes lay out with "rake routes"
+
+	# This is a legacy wild controller route that's not recommended for RESTful applications.
+	# Note: This route will make all actions in every controller accessible via GET requests.
+	# match ':controller(/:action(/:id))(.:format)'
 end
