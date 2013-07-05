@@ -1,10 +1,14 @@
 <% feedback = false unless defined? feedback %>
+<% need_post = true unless (defined?(need_post) and need_post==false) %>
+<% predefined_players ||= [] %>
+<% idsPrefix ||="" %>
 <% if defined? feed_item %>
 	<%= render '/shared/feed_info', user: feed_item.user %>
 <% end %>
-<% players = (video.user_players||[]) +  (video.players||[]) %>
+<% players = (predefined_players + video.user_players||[]) +  (video.players||[]) %>
 <% i=0 %>
-<%= form_for(video) do |f| %>
+<div id="<%=idsPrefix%>videoForm_wrapper">
+	<%= form_for(video) do |f| %>
 	<%= f.text_field(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL (supported: youtube, vimeo, footbag.org, juggling.tv)")%>
 	<%= f.text_field(:title, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Title")%>
 	<%= f.hidden_field :for_feedback, value: feedback %>
@@ -12,20 +16,20 @@
 		<%= f.hidden_field :feed_id, value: feed.id %>
 	<% end %>
 	<p>Players:</p>
-	<div id="players-input">
+	<div id="<%=idsPrefix%>players-input">
 		<% if players.any? %>
 			<% players.each do |p| %>
 				<% name = p.class==String ? p : p.name %>
-				<%= text_field_tag("Player_#{i}", nil, class: "post-input", value: name)%>
+				<%= text_field_tag("Player_#{i}", nil, class: "post-input #{idsPrefix}Player_#{i} player-input", value: name)%>
 				<% i = i+1 %>
 			<% end %>
 		<% else %>
-			<%= text_field_tag("Player_#{i}", nil, class: "post-input", placeholder: "Player name")%>
+			<%= text_field_tag("Player_#{i}", nil, class: "post-input #{idsPrefix}Player_#{i} player-input", placeholder: "Player name")%>
 				<% i = i+1 %>
 		<% end %>
 	</div>
 
-	<% if signed_in? && super_admins_email.include?(		current_user.email) && !feedback %>
+	<% if signed_in? && super_admins_email.include?(current_user.email) && !feedback %>
 		<div>
 			<%= label_tag "anonymous post" %>
 			<%= check_box_tag :anonymous %>
@@ -33,12 +37,16 @@
 	<% end %>
 	<script>
 		NM.multiField({
-			container: "#players-input",
-			mold: "#Player_0",
+			container: "#<%=idsPrefix%>videoForm_wrapper #<%=idsPrefix%>players-input",
+			mold: "#<%=idsPrefix%>videoForm_wrapper #Player_0",
 			startIndex: <%= i %>,
 			moreText: "Another player...",
-			placeholder: "Player name"
+			placeholder: "Player name",
+			idPrefix: "<%=idsPrefix%>"
 		});
 	</script>
-	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
-<% end %>	
+	<% unless !need_post %>
+		<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+	<% end %>
+<% end %>
+</div>

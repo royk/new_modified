@@ -21,6 +21,9 @@
 		<% if feed_item.class==Article %>
 			<%= render '/shared/article_item', :feed_item => feed_item %>
 		<% end %>
+		<% if feed_item.class==Achievement %>
+			<%= render '/shared/achievement_item', :feed_item => feed_item %>
+		<% end %>
 	<% else %>
 		<%= render '/shared/feed_info', user: feed_item%>
 		<%= render '/shared/user_item', :feed_item => feed_item %>

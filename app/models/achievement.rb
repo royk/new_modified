@@ -13,6 +13,18 @@ class Achievement < ActiveRecord::Base
 	validates :date, presence: true
 	validates :achievement_type, presence: true
 
-
-
+	def get_type_name_for_feed
+		case achievement_type
+			when 0
+				return "New Trick Hit"
+			when 1
+				return "New Combo Hit"
+			when 2
+				return "New Back to Back personal record"
+			when 3
+				return "Competition Result"
+			when 4
+				return "Completed a Challenge"
+		end
+	end
 end

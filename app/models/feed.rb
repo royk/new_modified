@@ -21,6 +21,7 @@ class Feed < ActiveRecord::Base
   belongs_to :user
   has_many :posts
   has_many :videos
+  has_many :achievements
 
   validates :name, presence:true, uniqueness: {case_sensitive: false}, length: {maximum: 50, minimum: 2}
   validates :permalink, presence:true, uniqueness: {case_sensitive: false}, length: {maximum: 50, minimum: 2}
@@ -48,19 +49,32 @@ class Feed < ActiveRecord::Base
     if block_given?
   	 q2 = yield self.posts.where(sticky: false)
   	 q3 = yield(self.videos)
-     q4 = yield(mergeWith) unless mergeWith==nil
+	 q4 = Array.new
+	 unless mergeWith==nil
+		mergeWith.each do |c|
+			 q4.push(yield(c))
+		end
+	end
     else
       q2 = self.posts.where(sticky: false)
       q3 = self.videos
-      q4 = mergeWith
+      mergeWith.each do |c|
+		  q4.push(c)
+	  end
     end
-    if q4==nil
+    if q4.length==0
       q5 = q1 + ((q2 + q3).sort_by {|f| -f.updated_at.to_i})
-    else
-      q5 = q1 + ((q2 + q3 + q4).sort_by {|f| -f.updated_at.to_i})
+	else
+	  q6 = nil
+	  q4.each_with_index do |c, i|
+		if (i==0)
+		  q6 = c
+		else
+		  q6 = q6 + c;
+		end
+	  end
+      q5 = q1 + ((q2 + q3 + q6).sort_by {|f| -f.updated_at.to_i})
     end
-
-      
   	return q5
   end
 

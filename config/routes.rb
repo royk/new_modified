@@ -46,6 +46,8 @@ NewModified::Application.routes.draw do
 
 	resources :achievements
 
+	match 'new_achievement', controller: 'achievements', action: 'create'
+
 	resources :posts
 
 	resources :articles

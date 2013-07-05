@@ -56,9 +56,10 @@ NM = (function() {
 
 		multiField: function multiField(params) {
 			var idParts = $(params.mold).attr('id').split('_');
-			$(params.container).append("<a id='moreButton' class='multifield'>"+params.moreText+"</a>");
+            params.idPrefix = params.idPrefix || "";
+			$(params.container).append("<a id='"+params.idPrefix+"moreButton' class='multifield'>"+params.moreText+"</a>");
 			var index = params.startIndex;
-			var moreButton = $("#moreButton").click(function() {
+			var moreButton = $("#"+params.idPrefix+"moreButton").click(function() {
 				var _id = idParts[0]+'_'+index;
 				$(params.mold).clone().attr('id', _id).val("").attr('name', _id).attr('placeholder', params.placeholder).appendTo(params.container);
 				moreButton.detach().appendTo($(params.container));

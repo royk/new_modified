@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705095240) do
+ActiveRecord::Schema.define(:version => 20130705115802) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130705095240) do
     t.boolean  "public"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "video_id"
   end
 
   add_index "achievements", ["date"], :name => "index_achievements_on_date"

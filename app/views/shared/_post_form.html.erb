@@ -60,8 +60,43 @@
 						<%= f.select :achievement_type, options_for_select([["Hit new trick", 0], ["Hit new combo", 1], ["Back to Back record", 2], ["Competition Result", 3], ["Challenge met",4]]) %>
 						<%= f.text_field(:name, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Achievement name")%>
 						<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date Achieved") %>
-						<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+						<p>Have video proof? (optional)</p>
 					<% end %>
+					<%= render '/shared/edit_video_item', video:Video.create(), idsPrefix: "achievement-", predefined_players: [current_user], feed: @feed, need_post: false, feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
+					<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="achievement_submit_btn">
+					<script>
+						$("#achievement_submit_btn").click(function() {
+							var data = {
+								achievement: {
+									achievement_type: $("#achievement_achievement_type").val(),
+									name: $("#achievement_name").val(),
+									date: $("#achievement_date").val(),
+									utf8: "✓",
+									authenticity_token: $("input[name='authenticity_token']").val(),
+									video: {
+										url: $("#achievement-videoForm_wrapper #video_url").val(),
+										title: $("#achievement-videoForm_wrapper #video_title").val(),
+										for_feedback: false,
+										feed_id: 1
+									}
+								}};
+							$("#achievement-videoForm_wrapper .player-input").each(function() {
+								var _this = $(this);
+								data.achievement.video[_this.attr("name")] = _this.val();
+							});
+							$.ajax( {
+								type: "POST",
+								url:"new_achievement",
+								data: data,
+								success: function() {
+									location.reload();
+								}
+							});
+							return false;
+						});
+					</script>
+
+
 				</div>
 				<script>
 					$(".datepicker").datepicker({maxDate:"0d"});
