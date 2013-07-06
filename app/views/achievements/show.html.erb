@@ -1,0 +1,6 @@
+<div class="achievement-show">
+	<h2 class="timeline-link"><a href="/timeline/<%=@achievement.user_id%>"><%=@achievement.user.shown_name%>'s achievements timeline</a></h2>
+	<div class="feed">
+		<%= render 'shared/feed_item', :feed_item => @achievement, feed_item_counter: 0, show_comments: true %>
+	</div>
+</div>

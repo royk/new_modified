@@ -4,10 +4,8 @@
 <script type="text/javascript">
 	var data = {timeline:{
 		type: "default",
-		headline: "RoyK's Achievements",
-		"description": "I am texto",
 		date:[
-			<% current_user.achievements.each_with_index do |achievement, i| %>
+			<% @user.achievements.each_with_index do |achievement, i| %>
 			{
 				'startDate': new Date('<%=achievement.date.strftime "%Y-%d-%m %H:%M:%S %z"%>'),
 				'headline': '<%=achievement.get_type_name_for_feed%>: <%=achievement.name%>',
@@ -16,7 +14,7 @@
 				<% else %>
 					'text': '<%= raw(render(partial: 'shared/videos/small/small_video_item', locals:{small_video_item: achievement.video, comments_shown: false, show_footer: false}).gsub("\n", ' '))%>'
 				<% end %>
-			}<% unless i==current_user.achievements.length-1%>, <%end%>
+			}<% unless i==@user.achievements.length-1%>, <%end%>
 
 			<% end %>
 ] }
@@ -32,8 +30,8 @@
 		hash_bookmark:      false,                           //OPTIONAL LOCATION BAR HASHES
 
 		lang:               'en',                           //OPTIONAL LANGUAGE
-		css:                'assets/timelinejs/css/timeline.css',     //OPTIONAL PATH TO CSS
-		js:                 'assets/timelinejs/js/timeline.js'    //OPTIONAL PATH TO JS
+		css:                '/assets/timelinejs/css/timeline.css',     //OPTIONAL PATH TO CSS
+		js:                 '/assets/timelinejs/js/timeline.js'    //OPTIONAL PATH TO JS
 	}
 </script>
-<script type="text/javascript" src="assets/timelinejs/js/storyjs-embed.js"></script>
+<script type="text/javascript" src="/assets/timelinejs/js/storyjs-embed.js"></script>

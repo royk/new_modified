@@ -13,6 +13,9 @@ class ResponseController < AuthenticatedController
 		if params[:parent_type]=="Comment"
 			return Comment.find(params[:parent_id])
 		end
+		if params[:parent_type]=="Achievement"
+			return Achievement.find(params[:parent_id])
+		end
 	end
 
 	def create

@@ -127,6 +127,14 @@
 									<td> <%= link_to @user.website, @user.website %></td>
 								</tr>
 							<% end %>
+							<% unless @user.achievements.nil? || !@user.achievements.any? %>
+								<tr>
+										<td>Achievements</td>
+										<td>
+											<a href="/timeline/<%=@user.id%>"><%=@user.shown_name%>'s achievements timeline</a>
+										</td>
+								</tr>
+							<% end %>
 						<tbody>
 					</table>
 				</div>

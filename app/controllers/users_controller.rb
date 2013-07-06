@@ -40,13 +40,8 @@ class UsersController < ApplicationController
 	end
 
 	def timeline
+		@user = User.find(params[:id])
 		@full_site_layout = true
-	end
-
-	def timeline_data
-		respond_to do |format|
-			format.json  { render file: "users/timeline.json.erb", content_type: 'application/json' }
-		end
 	end
 
 	def sorted_index
