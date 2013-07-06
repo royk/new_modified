@@ -46,7 +46,7 @@ class VideosController < AuthenticatedController
 			@video = current_user.videos.build(params[:video])
 		end
 		update_players(@video, params)
-		if save_video(video, @video.url)
+		if save_video(@video, @video.url)
 			flash[:success] = "Video created"
 			register_new_content(@video)
 		end
@@ -62,7 +62,7 @@ class VideosController < AuthenticatedController
 		@video.record_timestamps = false if current_user.admin? && @video.user!=current_user
 		update_players(@video, params)
 		@video.update_attribute(:public, params[:video][:public]) unless params[:video][:public].nil?
-		save_video(video, params[:video][:url]) unless params[:video][:url].nil?
+		save_video(@video, params[:video][:url]) unless params[:video][:url].nil?
 		flash[:success] = "Video modified"
 		@video.record_timestamps = true
 		redirect_to request.referer
