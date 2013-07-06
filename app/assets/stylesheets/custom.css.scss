@@ -1193,7 +1193,7 @@ input.form-input {
     text-align: center;
     .meta-top, .meta-bottom {
       text-align: left;
-      padding-left: 50px;
+      padding-left: 58px;
       padding-top: 5px;
       padding-bottom: 5px;
     }
@@ -1226,6 +1226,18 @@ input.form-input {
     position: relative;
     margin-top: -20px;
     font-size: 1.2em;
+  }
+  .achievement-content {
+    .sub-lbael {
+      margin-bottom: 21px;
+      margin-top: 10px;
+    }
+    .video-content {
+      margin-left: 0px;
+      .meta-bottom {
+        font-size: 0.9em;
+      }
+    }
   }
   .timestamp {
     color: $grayLight;
@@ -1404,5 +1416,11 @@ input.form-input {
   }
   input.btn {
     width: auto;
+  }
+}
+
+#timeline {
+  .date {
+    text-align: left;
   }
 }

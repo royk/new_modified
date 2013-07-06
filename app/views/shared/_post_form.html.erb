@@ -67,22 +67,24 @@
 					<script>
 						$("#achievement_submit_btn").click(function() {
 							var data = {
+								utf8: "✓",
+								authenticity_token: $("input[name='authenticity_token']").val(),
 								achievement: {
 									achievement_type: $("#achievement_achievement_type").val(),
 									name: $("#achievement_name").val(),
-									date: $("#achievement_date").val(),
-									utf8: "✓",
-									authenticity_token: $("input[name='authenticity_token']").val(),
-									video: {
-										url: $("#achievement-videoForm_wrapper #video_url").val(),
-										title: $("#achievement-videoForm_wrapper #video_title").val(),
-										for_feedback: false,
-										feed_id: 1
-									}
-								}};
+									date: $("#achievement_date").val()
+
+								},
+								video: {
+									url: $("#achievement-videoForm_wrapper #video_url").val(),
+									title: $("#achievement-videoForm_wrapper #video_title").val(),
+									for_feedback: false,
+									feed_id: 1
+								}
+							};
 							$("#achievement-videoForm_wrapper .player-input").each(function() {
 								var _this = $(this);
-								data.achievement.video[_this.attr("name")] = _this.val();
+								data[_this.attr("name")] = _this.val();
 							});
 							$.ajax( {
 								type: "POST",

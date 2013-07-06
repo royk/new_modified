@@ -1,3 +1,4 @@
+<% show_footer = true if show_footer.nil?%>
 <div class="small video-container">
 	<a href="<%= video_path(small_video_item) %>">
 		<span class="video-title">
@@ -14,16 +15,18 @@
 				<%= render 'shared/videos/small/jugglingtv_video', :uid => small_video_item.uid %>
 			<% end %>
 		</div>
-		<div class="video-footer">
-			<div class="date">
-				<%= "#{small_video_item.created_at.strftime('%b')} #{small_video_item.created_at.strftime('%Y')}" %>
+		<% if show_footer %>
+			<div class="video-footer">
+				<div class="date">
+					<%= "#{small_video_item.created_at.strftime('%b')} #{small_video_item.created_at.strftime('%Y')}" %>
+				</div>
+				<ul class="nav post-footer-info pull-right">
+					<img class="comments-img" src="/assets/comments.png">
+					<%= small_video_item.comments.count %>
+					<i class="icon-ok"></i>
+					<%= small_video_item.likes.count %>
+				</ul>
 			</div>
-			<ul class="nav post-footer-info pull-right">
-				<img class="comments-img" src="/assets/comments.png">
-				<%= small_video_item.comments.count %>
-				<i class="icon-ok"></i>
-				<%= small_video_item.likes.count %>
-			</ul>
-		</div>
+		<% end %>
 	</a>
 </div>

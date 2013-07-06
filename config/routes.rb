@@ -23,6 +23,8 @@ NewModified::Application.routes.draw do
 	match '/user_data', to: 'users#export'
 	match '/who_online', to: 'users#who_online'
 	match '/enable_chat', to: 'users#user_enable_chat'
+	match '/timeline', to: 'users#timeline'
+	match '/timeline_data', to: 'users#timeline_data'
 
 	match '/signup', to: 'users#new'
 

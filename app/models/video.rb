@@ -33,6 +33,8 @@ class Video < ActiveRecord::Base
     end
   end
 
+
+
   attr_accessible :created_at, :title, :vendor, :uid, :url, :public, :location, :maker, :players, :for_feedback, :feed_id
   acts_as_taggable
   acts_as_trashable
@@ -66,6 +68,8 @@ class Video < ActiveRecord::Base
   validates :vendor, presence: true
 
   default_scope order: 'videos.created_at DESC'
+
+
 
   def name_for_notification
     if for_feedback

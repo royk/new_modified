@@ -1,6 +1,11 @@
-<div class="text-content user_content">
+<div class="text-content user_content achievement-content">
 	<h3>
 		<%= feed_item.get_type_name_for_feed %>:&nbsp;<%= feed_item.name.html_safe %>
 	</h3>
-	<p>Video proof: None!</p>
+	<p class="sub-label">Video proof:
+	<% if feed_item.video==nil %>
+			None! </p>
+	<% else %>
+			<%= render '/shared/video_item', :feed_item => feed_item.video %>
+	<% end %>
 </div>
