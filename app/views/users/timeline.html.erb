@@ -7,7 +7,7 @@
 		date:[
 			<% @user.achievements.each_with_index do |achievement, i| %>
 			{
-				'startDate': new Date('<%=achievement.date.strftime "%Y-%d-%m %H:%M:%S %z"%>'),
+				'startDate': new Date('<%=achievement.date.strftime "%Y-%m-%d %H:%M:%S %z"%>'),
 				'headline': '<%=achievement.get_type_name_for_feed%>: <%=achievement.name%>',
 				<% if achievement.video_id==nil %>
 					'text': ''
@@ -25,7 +25,7 @@
 		source:             data,
 		embed_id:           'timeline',               //OPTIONAL USE A DIFFERENT DIV ID FOR EMBED
 		start_at_end:       false,                          //OPTIONAL START AT LATEST DATE
-		start_at_slide:     '3',                            //OPTIONAL START AT SPECIFIC SLIDE
+		start_at_slide:     '0',                            //OPTIONAL START AT SPECIFIC SLIDE
 		start_zoom_adjust:  '1',                            //OPTIONAL TWEAK THE DEFAULT ZOOM LEVEL
 		hash_bookmark:      false,                           //OPTIONAL LOCATION BAR HASHES
 

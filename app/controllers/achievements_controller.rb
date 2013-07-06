@@ -9,6 +9,7 @@ class AchievementsController  < AuthenticatedController
 	end
 
 	def create
+		params[:achievement][:date] = DateTime.strptime(params[:achievement][:date], "%m/%d/%Y")
 		@achievement = current_user.achievements.build(params[:achievement])
 		@achievement.record_timestamps = false
 		@achievement.created_at = DateTime.now

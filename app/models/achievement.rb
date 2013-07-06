@@ -6,7 +6,7 @@ class Achievement < ActiveRecord::Base
 	has_many :notifications, as: :item, dependent: :destroy
 	has_many :comments, as: :commentable, order: 'created_at ASC'
 	has_many :listeners, as: :listened_to, dependent: :destroy
-	has_many :likes, as: :liked_item
+	has_many :likes, as: :liked_item, dependent: :destroy
 	belongs_to :video
 	accepts_nested_attributes_for :video
 
@@ -17,15 +17,17 @@ class Achievement < ActiveRecord::Base
 	def get_type_name_for_feed
 		case achievement_type
 			when 0
-				return "New Trick Hit"
+				return "New Trick"
 			when 1
-				return "New Combo Hit"
+				return "New Combo"
 			when 2
-				return "New Back to Back personal record"
+				return "New Back to Back record"
 			when 3
 				return "Competition Result"
 			when 4
 				return "Completed a Challenge"
+			when 5
+				return "Important Event"
 		end
 	end
 end
