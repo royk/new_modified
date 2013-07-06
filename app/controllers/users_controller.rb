@@ -42,6 +42,10 @@ class UsersController < ApplicationController
 	def timeline
 		@user = User.find(params[:id])
 		@full_site_layout = true
+		@bright_body = true
+		@custom_container_style = "width:100%;"
+		@custom_body_style = "background-color:white;"
+		@custom_bg2_style = "display:none;"
 	end
 
 	def sorted_index

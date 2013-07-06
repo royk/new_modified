@@ -23,14 +23,14 @@
 							container: ".activities"});
 		</script>
 	<% end %>
-	<body class="<%= defined?(@bright_body)? 'bright' : 'dark'%>">
+	<body class="<%= defined?(@bright_body)? 'bright' : 'dark'%>" style="<%= @custom_body_style if defined?(@custom_body_style)%>">
 
 		<!-- static part of every page is the heade -->
 		<%= render 'layouts/header' %>
-		<div class="bg2">
+		<div class="bg2" style="<%= @custom_bg2_style if defined?(@custom_bg2_style)%>">
 			<div class="bg2-image"></div>
 		</div>
-		<div class="container">
+		<div class="container" style="<%= @custom_container_style if defined?(@custom_container_style) %>">
 			<% flash.each do |key, value| %>
 				<%= content_tag(:div, value, class: "alert alert-#{key}") %>
 			<% end %>
