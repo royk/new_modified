@@ -7,6 +7,7 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  featured   :boolean          default(FALSE)
 #
 
 require 'spec_helper'

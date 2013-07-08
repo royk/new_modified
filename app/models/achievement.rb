@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: achievements
+#
+#  id               :integer          not null, primary key
+#  name             :string(255)
+#  user_id          :integer
+#  achievement_type :integer
+#  date             :datetime
+#  public           :boolean
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  video_id         :integer
+#
+
 class Achievement < ActiveRecord::Base
 	acts_as_trashable
 	attr_accessible :date, :name, :achievement_type, :user_id , :public, :video

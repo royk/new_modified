@@ -6,10 +6,10 @@
 #  name             :string(255)
 #  email            :string(255)
 #  remember_token   :string(255)
+#  password_digest  :string(255)
 #  admin            :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  password_digest  :string(255)
 #  gravatar_suffix  :string(255)
 #  nickname         :string(255)
 #  reset_code       :string(255)
@@ -32,6 +32,7 @@
 #  about_content    :text
 #  registered       :boolean          default(TRUE)
 #  website          :string(255)
+#  last_online      :datetime
 #
 
 class User < ActiveRecord::Base
@@ -66,6 +67,7 @@ class User < ActiveRecord::Base
 	has_many :articles
 
 	has_many :achievements
+	has_many :training_sessions
 
 	has_many :videos
 	has_and_belongs_to_many :appears_in_videos, class_name: "Video", uniq: true

@@ -7,14 +7,16 @@
 	<script>
 		$(document).ready(function(){
 			NM.registerToggleMenu([	'div#post-form',
-									'div#video-form',
-									'div#blog-form',
-									'div#achievements-form'],
-									['li#wall',
-									 'li#videos',
-									 'li#blog',
-									 'li#achievements'
-									]);
+				'div#video-form',
+				'div#blog-form',
+				'div#achievements-form',
+				'div#session-form'],
+				['li#wall',
+					'li#videos',
+					'li#blog',
+					'li#achievements',
+					'li#session'
+				]);
 		});
 	</script>
 
@@ -44,17 +46,60 @@
 			<% if show_blog %>
 
 				<div id="blog-form" <% if total>1 %>style="display:none;"<% end %>>
-				<h3>Write to your blog</h3>
-				<%= form_for(BlogPost.create()) do |f| %>
-					<%= f.text_area(:content, :rows=>4, :cols=>2, :class=>"tinymce", placeholder: "Write to your blog...")%>
-					<%= my_tinymce %>
-					<div style="height:10px"></div>
-					<%= f.submit "Post", class: "btn btn-large btn-primary" %>
-				<% end %>
+					<h3>Write to your blog</h3>
+					<%= form_for(BlogPost.create()) do |f| %>
+						<%= f.text_area(:content, :rows=>4, :cols=>2, :class=>"tinymce", placeholder: "Write to your blog...")%>
+						<%= my_tinymce %>
+						<div style="height:10px"></div>
+						<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+					<% end %>
+				</div>
+				<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+				<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css" rel="stylesheet" type="text/css">
+				<div id="session-form" style="display:none;">
+					<h3>Record a session</h3>
+					<%= form_for(TrainingSession.create()) do |f| %>
+						<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date", value: DateTime.now.strftime("%m/%d/%Y")) %>
+						<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%> )
+						<p>Have a session video? (optional)</p>
+					<% end %>
+					<%= render '/shared/edit_video_item', video:Video.create(), idsPrefix: "session-", predefined_players: [current_user], feed: @feed, need_post: false, feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
+					<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="session_submit_btn">
+					<script>
+						$("#session_submit_btn").click(function() {
+							var data = {
+								utf8: "✓",
+								authenticity_token: $("input[name='authenticity_token']").val(),
+								training_session: {
+									description: $("#training_session_description").val(),
+									date: $("#training_session_date").val()
+
+								},
+								video: {
+									url: $("#session-videoForm_wrapper #video_url").val(),
+									title: $("#session-videoForm_wrapper #video_title").val(),
+									for_feedback: false,
+									feed_id: 1
+								}
+							};
+							$("#session-videoForm_wrapper .player-input").each(function() {
+								var _this = $(this);
+								data[_this.attr("name")] = _this.val();
+							});
+							$.ajax( {
+								type: "POST",
+								url:"new_training_session",
+								data: data,
+								complete: function() {
+									location.reload();
+								}
+							});
+							return false;
+						});
+					</script>
 				</div>
 				<div id="achievements-form" style="display:none;">
-					<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-					<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css" rel="stylesheet" type="text/css">
+
 					<h3>Record your latest achievement!</h3>
 					<%= form_for(Achievement.create()) do |f| %>
 						<%= f.select :achievement_type, options_for_select([["Hit new trick", 0], ["Hit new combo", 1], ["Back to Back record", 2], ["Competition Result", 3], ["Challenge met",4], ["Important Event", 5]]) %>
@@ -104,7 +149,7 @@
 					$(".datepicker").datepicker({maxDate:"0d"});
 				</script>
 			<% end %>
-			
+
 		</div>
 		<% if total>1 %>
 
@@ -121,7 +166,9 @@
 				<% if show_blog %>
 					<li id="blog" class="post-type">Blog</li>
 					<li>|</li>
-					<li id="achievements" class="post-type">Achievement!</li>
+					<li id="session" class="post-type">Session</li>
+					<li>|</li>
+					<li id="achievements" class="post-type">Achievement</li>
 				<% end %>
 			</ul>
 		<% end %>

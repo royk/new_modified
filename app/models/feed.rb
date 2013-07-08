@@ -11,6 +11,7 @@
 #  user_id     :integer
 #  permalink   :string(255)
 #  description :text
+#  public      :boolean
 #
 
 class Feed < ActiveRecord::Base

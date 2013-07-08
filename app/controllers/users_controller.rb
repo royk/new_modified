@@ -48,6 +48,24 @@ class UsersController < ApplicationController
 		@custom_bg2_style = "display:none;"
 	end
 
+	def sessions_timeline
+		@user = User.find(params[:id])
+		@sessions = nil
+		if @user
+			need_to_check_public = @user!=current_user
+			@full_site_layout = true
+			@bright_body = true
+			@custom_container_style = "width:100%;"
+			@custom_body_style = "background-color:white;"
+			@custom_bg2_style = "display:none;"
+			if need_to_check_public
+				@sessions = TrainingSession.where("user_id=? and public=?", @user.id, true)
+			else
+				@sessions = TrainingSession.where("user_id=?", @user.id)
+			end
+		end
+	end
+
 	def sorted_index
 		if params[:sort_method].to_s.strip.length == 0
 			params[:sort_method] = "all"

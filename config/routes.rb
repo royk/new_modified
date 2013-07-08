@@ -24,6 +24,7 @@ NewModified::Application.routes.draw do
 	match '/who_online', to: 'users#who_online'
 	match '/enable_chat', to: 'users#user_enable_chat'
 	match '/timeline/:id', to: 'users#timeline'
+	match '/sessions/:id', to: 'users#sessions_timeline'
 
 	match '/signup', to: 'users#new'
 
@@ -48,6 +49,9 @@ NewModified::Application.routes.draw do
 	resources :achievements
 
 	match 'new_achievement', controller: 'achievements', action: 'create'
+
+	resources :training_sessions
+	match 'new_training_session', controller: 'training_sessions', action: 'create'
 
 	resources :posts
 
