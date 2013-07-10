@@ -1,0 +1,20 @@
+<% idsPrefix ||= "" %>
+<%= render '/shared/edit_video_item', video:Video.create(), idsPrefix: idsPrefix, predefined_players: [current_user], feed: @feed, need_post: false, feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
+<script>
+	window["<%=idsPrefix%>prepareVideoData"] = function() {
+		var data = {video: {
+			url: $("#<%=idsPrefix%>videoForm_wrapper #video_url").val(),
+			title: $("#<%=idsPrefix%>videoForm_wrapper #video_title").val(),
+			for_feedback: false,
+			feed_id: 1
+		},
+		players: {
+
+		}};
+		$("#<%=idsPrefix%>videoForm_wrapper .player-input").each(function() {
+			var _this = $(this);
+			data.players[_this.attr("name")] = _this.val();
+		});
+		return data;
+	};
+</script>

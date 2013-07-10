@@ -60,32 +60,24 @@
 					<h3>Record a session</h3>
 					<%= form_for(TrainingSession.create()) do |f| %>
 						<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date", value: DateTime.now.strftime("%m/%d/%Y")) %>
-						<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%> )
+						<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
 						<p>Have a session video? (optional)</p>
 					<% end %>
-					<%= render '/shared/edit_video_item', video:Video.create(), idsPrefix: "session-", predefined_players: [current_user], feed: @feed, need_post: false, feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
+					<%= render '/shared/attachment_video_form', idsPrefix: "session"%>
 					<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="session_submit_btn">
 					<script>
 						$("#session_submit_btn").click(function() {
+							var videoData = window.sessionprepareVideoData();
 							var data = {
 								utf8: "✓",
 								authenticity_token: $("input[name='authenticity_token']").val(),
 								training_session: {
 									description: $("#training_session_description").val(),
 									date: $("#training_session_date").val()
-
 								},
-								video: {
-									url: $("#session-videoForm_wrapper #video_url").val(),
-									title: $("#session-videoForm_wrapper #video_title").val(),
-									for_feedback: false,
-									feed_id: 1
-								}
+								video:videoData.video,
+								players:videoData.players
 							};
-							$("#session-videoForm_wrapper .player-input").each(function() {
-								var _this = $(this);
-								data[_this.attr("name")] = _this.val();
-							});
 							$.ajax( {
 								type: "POST",
 								url:"new_training_session",
@@ -107,10 +99,11 @@
 						<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date Achieved", value: DateTime.now.strftime("%m/%d/%Y")) %>
 						<p>Have video proof? (optional)</p>
 					<% end %>
-					<%= render '/shared/edit_video_item', video:Video.create(), idsPrefix: "achievement-", predefined_players: [current_user], feed: @feed, need_post: false, feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
-					<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="achievement_submit_btn">
+					<%= render '/shared/attachment_video_form', idsPrefix: "achievement"%>
+					<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="achievement-submit_btn">
 					<script>
-						$("#achievement_submit_btn").click(function() {
+						$("#achievement-submit_btn").click(function() {
+							var videoData = window.achievementprepareVideoData();
 							var data = {
 								utf8: "✓",
 								authenticity_token: $("input[name='authenticity_token']").val(),
@@ -118,19 +111,10 @@
 									achievement_type: $("#achievement_achievement_type").val(),
 									name: $("#achievement_name").val(),
 									date: $("#achievement_date").val()
-
 								},
-								video: {
-									url: $("#achievement-videoForm_wrapper #video_url").val(),
-									title: $("#achievement-videoForm_wrapper #video_title").val(),
-									for_feedback: false,
-									feed_id: 1
-								}
+								video:videoData.video,
+								players:videoData.players
 							};
-							$("#achievement-videoForm_wrapper .player-input").each(function() {
-								var _this = $(this);
-								data[_this.attr("name")] = _this.val();
-							});
 							$.ajax( {
 								type: "POST",
 								url:"new_achievement",

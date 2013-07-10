@@ -41,29 +41,26 @@ module VideoHelper
 	end
 
 	def attach_video(entity, params)
-		success = true
+		success = false
 		unless params[:video][:url]==""
-			entity.video = Video.new
-			entity.video.update_attributes(params[:video])
-			entity.video.user = current_user
-			entity.video.feed_id = 0
-			success = save_video(entity.video,entity.video.url)
-			if success
-				update_players(entity.video, params)
+			video_uid = get_uid_vendor(params[:video][:url])[:uid]
+			existing_video = Video.find_by_uid(video_uid)
+			if existing_video
+				entity.video = existing_video
 				entity.video_id = entity.video.id
 			else
-				# if video wasn't saved because one already exists with the same id, use the existing one
-				unless entity.video.uid.nil?
-					existing_video = Video.find_by_uid(entity.video.uid)
-					if existing_video
-						flash.delete(:error)
-						entity.video = existing_video
-						entity.video_id = entity.video.id
-						success = true
-					end
-
+				entity.video = Video.new
+				entity.video.update_attributes(params[:video])
+				entity.video.user = current_user
+				entity.video.feed_id = 0
+				update_players(entity.video, params[:players])
+				success = save_video(entity.video,entity.video.url)
+				if success
+					entity.video_id = entity.video.id
 				end
 			end
+		else
+			flash[:error] = "Unrecognized Video URL"
 		end
 		return success
 	end
