@@ -61,6 +61,24 @@
 					<%= form_for(TrainingSession.create()) do |f| %>
 						<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date", value: DateTime.now.strftime("%m/%d/%Y")) %>
 						<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
+						<h4>Drills</h4>
+						<div id="sessionDrill-input">
+							<div id="sessionDrill_0">
+								<%= text_field_tag("sessionDrill_name_0", nil, class: "post-input", placeholder: "Drill Name") %>
+								<%= text_field_tag("sessionDrill_drops_0", nil, class: "post-input half", placeholder: "Number of drops") %>
+								<%= text_field_tag("sessionDrill_total_0", nil, class: "post-input half", placeholder: "Total attempts") %>
+							</div>
+						</div>
+						<script>
+							NM.multiField({
+								container: "#sessionDrill-input",
+								mold: "#sessionDrill_0",
+								startIndex: 1,
+								moreText: "Another drill...",
+								placeholder: "Player name",
+								idPrefix: "sessionDrill"
+							});
+						</script>
 						<p>Have a session video? (optional)</p>
 					<% end %>
 					<%= render '/shared/attachment_video_form', idsPrefix: "session"%>
@@ -76,8 +94,13 @@
 									date: $("#training_session_date").val()
 								},
 								video:videoData.video,
-								players:videoData.players
+								players:videoData.players,
+								drills: {}
 							};
+							$("#sessionDrill-input .post-input").each(function() {
+								var _this = $(this);
+								data.drills[_this.attr("name")] = _this.val();
+							});
 							$.ajax( {
 								type: "POST",
 								url:"new_training_session",

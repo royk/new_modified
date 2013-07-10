@@ -41,7 +41,7 @@ module VideoHelper
 	end
 
 	def attach_video(entity, params)
-		success = false
+		success = true
 		unless params[:video][:url]==""
 			video_uid = get_uid_vendor(params[:video][:url])[:uid]
 			existing_video = Video.find_by_uid(video_uid)
@@ -59,8 +59,6 @@ module VideoHelper
 					entity.video_id = entity.video.id
 				end
 			end
-		else
-			flash[:error] = "Unrecognized Video URL"
 		end
 		return success
 	end

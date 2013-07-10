@@ -416,6 +416,9 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   .post-input {
     width: 98%;
   }
+  .post-input.half {
+    width: 48%;
+  }
   .videos-list-mobile {
     text-align: left;
     a {
@@ -1257,6 +1260,9 @@ input.form-input {
   }
   .post-input {
     width: 97%;
+  }
+  .post-input.half {
+    width: 48%;
   }
   .field_with_errors {
     display: inline;
