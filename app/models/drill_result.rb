@@ -16,6 +16,4 @@ class DrillResult < ActiveRecord::Base
 	attr_accessible :drops, :name, :public, :training_session_id, :total_contacts
 
 	belongs_to :training_session
-
-	validates :training_session_id, presence: true
 end

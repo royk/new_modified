@@ -64,8 +64,8 @@ NM = (function() {
                 var dup = $(params.mold).clone().attr('id', _id).val("").attr('name', _id).attr('placeholder', params.placeholder);
                 var prevIndex = index-1;
                 dup.children().each(function(i, child) {
-                    $(child).attr('id', $(child).attr('id').replace("_"+prevIndex, index));
-                    $(child).attr('name', $(child).attr('name').replace("_"+prevIndex, index));
+                    $(child).attr('id', $(child).attr('id').replace("_"+prevIndex, "_"+index));
+                    $(child).attr('name', $(child).attr('name').replace("_"+prevIndex, "_"+index));
                     $(child).val("");
                 });
                 dup.appendTo(params.container);
