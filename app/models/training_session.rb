@@ -2,12 +2,14 @@
 #
 # Table name: training_sessions
 #
-#  id         :integer          not null, primary key
-#  date       :datetime
-#  user_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  public     :boolean
+#  id          :integer          not null, primary key
+#  date        :datetime
+#  user_id     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  public      :boolean
+#  description :text
+#  video_id    :integer
 #
 
 class TrainingSession < ActiveRecord::Base

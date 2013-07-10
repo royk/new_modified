@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708192636) do
+ActiveRecord::Schema.define(:version => 20130710103921) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(:version => 20130708192636) do
   create_table "drill_results", :force => true do |t|
     t.integer  "training_session_id"
     t.integer  "total_contacts"
-    t.integer  "drops"
+    t.string   "drops"
     t.string   "name"
     t.boolean  "public"
     t.datetime "created_at",          :null => false

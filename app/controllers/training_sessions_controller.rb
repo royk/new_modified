@@ -31,8 +31,9 @@ class TrainingSessionsController  < AuthenticatedController
 			if !name.empty? && !total.empty? && !drops.empty?
 				@drill = DrillResult.new()
 				@drill.name = name
-				@drill.drops = drops.to_i
+				@drill.drops = drops
 				@drill.total_contacts = total.to_i
+				@drill.total_contacts = 1 if @drill.total_contacts==0
 				@drill.training_session_id = entity.id
 				if @drill.save
 					entity.drill_results ||= []

@@ -55,23 +55,24 @@ NM = (function() {
         },
 
         multiField: function multiField(params) {
-            var idParts = $(params.mold).attr('id').split('_');
-            params.idPrefix = params.idPrefix || "";
-            $(params.container).append("<a id='"+params.idPrefix+"moreButton' class='multifield'>"+params.moreText+"</a>");
-            var index = params.startIndex;
-            var moreButton = $("#"+params.idPrefix+"moreButton").click(function() {
-                var _id = idParts[0]+'_'+index;
-                var dup = $(params.mold).clone().attr('id', _id).val("").attr('name', _id).attr('placeholder', params.placeholder);
-                var prevIndex = index-1;
-                dup.children().each(function(i, child) {
-                    $(child).attr('id', $(child).attr('id').replace("_"+prevIndex, "_"+index));
-                    $(child).attr('name', $(child).attr('name').replace("_"+prevIndex, "_"+index));
-                    $(child).val("");
+            (function multiFieldInst(params) {
+                var idParts = $(params.mold).attr('id').split('_');
+                params.idPrefix = params.idPrefix || "";
+                $(params.container).append("<a id='"+params.idPrefix+"moreButton' class='multifield'>"+params.moreText+"</a>");
+                var index = params.startIndex;
+                var moreButton = $("#"+params.idPrefix+"moreButton").click(function() {
+                    var _id = idParts[0]+'_'+index;
+                    var dup = $(params.mold).clone().attr('id', _id).val("").attr('name', _id).attr('placeholder', params.placeholder);
+                    dup.children().each(function(i, child) {
+                        $(child).attr('id', $(child).attr('id').replace("_"+(params.startIndex-1), "_"+index));
+                        $(child).attr('name', $(child).attr('name').replace("_"+(params.startIndex-1), "_"+index));
+                        $(child).val("");
+                    });
+                    dup.appendTo(params.container);
+                    moreButton.detach().appendTo($(params.container));
+                    index++;
                 });
-                dup.appendTo(params.container);
-                moreButton.detach().appendTo($(params.container));
-                index++;
-            });
+            })(params);
         },
         freeze: function freeze() {
             for (var o in _periodify_intervals) {

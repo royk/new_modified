@@ -1443,5 +1443,15 @@ input.form-input {
   .content {
     position: relative;
     left: 10%;
+    width: 800px
+  }
+}
+
+#timeline {
+  .drill-name {
+    margin-bottom: 0;
+  }
+  .drills_container * {
+    font-family: Arial;
   }
 }
