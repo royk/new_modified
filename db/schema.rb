@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710103921) do
+ActiveRecord::Schema.define(:version => 20130710182300) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -111,7 +111,10 @@ ActiveRecord::Schema.define(:version => 20130710103921) do
     t.boolean  "public"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "order_index"
   end
+
+  add_index "drill_results", ["training_session_id", "name"], :name => "index_drill_results_on_training_session_id_and_name"
 
   create_table "events", :force => true do |t|
     t.string   "name"

@@ -1,0 +1,45 @@
+<% submit_url ||="/new_achievement" %>
+<% date = (achievement.date.nil? ? DateTime.now : achievement.date).strftime("%m/%d/%Y") %>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css" rel="stylesheet" type="text/css">
+<%= form_for(achievement) do |f| %>
+	<%= f.select :achievement_type, options_for_select([["Hit new trick", 0], ["Hit new combo", 1], ["Back to Back record", 2], ["Competition Result", 3], ["Challenge met",4], ["Important Event", 5]]) %>
+	<%= f.text_field(:name, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Achievement description")%>
+	<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date Achieved", value: date) %>
+	<p>Have video proof? (optional)</p>
+<% end %>
+<%= render '/shared/attachment_video_form', video: achievement.video, idsPrefix: "achievement"%>
+<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="achievement-submit_btn">
+<script>
+
+	var submitting = false;
+	$("#achievement-submit_btn").click(function() {
+		if (submitting) {
+			return;
+		}
+		$("#achievement-submit_btn").css("opacity", "0.2");
+		$("#achievement-submit_btn").css("cursor", "default");
+		var videoData = window.achievementprepareVideoData();
+		var data = {
+			utf8: "✓",
+			authenticity_token: $("input[name='authenticity_token']").val(),
+			<% unless achievement.id.nil?%> id: <%=achievement.id%> , <% end %>
+			achievement: {
+				achievement_type: $("#achievement_achievement_type").val(),
+				name: $("#achievement_name").val(),
+				date: $("#achievement_date").val()
+			},
+			video:videoData.video,
+			players:videoData.players
+		};
+		$.ajax( {
+			type: "POST",
+			url:"<%=submit_url%>",
+			data: data,
+			complete: function() {
+				location.reload();
+			}
+		});
+		return false;
+	});
+</script>

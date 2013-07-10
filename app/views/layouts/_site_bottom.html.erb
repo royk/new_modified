@@ -14,6 +14,15 @@
   })();
 
 </script>
+<script>
+	$(document).ready(function() {
+		var datePickers = $(".datepicker");
+		if (datePickers.length>0) {
+			datePickers.datepicker({maxDate:"0d"});
+		}
+	});
+
+</script>
 <script type="text/javascript">
   $(document).ready(function() {
     tinyMCE.init({

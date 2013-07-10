@@ -71,7 +71,7 @@ class VideosController < AuthenticatedController
 	def destroy
 		@video.destroy
 		flash[:success] = "Video deleted"
-		redirect_to request.referer
+		redirect_to root_url
 	end
 
 	def search

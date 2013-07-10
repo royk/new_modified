@@ -74,7 +74,7 @@ class ArticlesController < AuthenticatedController
 
 	def destroy
 		@article = Article.find_by_permalink(params[:id])
-		destroy! { request.referer }
+		destroy! { root_url }
 	end
 
 	private

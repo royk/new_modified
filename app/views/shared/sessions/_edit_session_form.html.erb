@@ -1,0 +1,78 @@
+<% submit_url ||="/new_training_session" %>
+<% date = (training_session.date.nil? ? DateTime.now : training_session.date).strftime("%m/%d/%Y") %>
+<% drills = training_session.drill_results||[] %>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css" rel="stylesheet" type="text/css">
+<%= form_for(training_session) do |f| %>
+	<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date", value: date) %>
+	<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
+	<h4>Drills</h4>
+	<div id="sessionDrill-input">
+		<% i=0 %>
+		<% if drills.any? %>
+			<% drills.order("order_index asc").each do |d| %>
+				<div id="sessionDrill_<%=i%>">
+					<%= text_field_tag("sessionDrill_name_#{i}", nil, class: "post-input", placeholder: "Drill Name", value: d.name) %>
+					<%= text_field_tag("sessionDrill_drops_#{i}", nil, class: "post-input half", placeholder: "Number of drops", value: d.drops) %>
+					<%= text_field_tag("sessionDrill_total_#{i}", nil, class: "post-input half", placeholder: "Total attempts", value: d.total_contacts) %>
+				</div>
+			<% i=i+1%>
+			<% end %>
+		<% else %>
+			<div id="sessionDrill_0">
+				<%= text_field_tag("sessionDrill_name_0", nil, class: "post-input", placeholder: "Drill Name") %>
+				<%= text_field_tag("sessionDrill_drops_0", nil, class: "post-input half", placeholder: "Number of drops") %>
+				<%= text_field_tag("sessionDrill_total_0", nil, class: "post-input half", placeholder: "Total attempts") %>
+			</div>
+		<% end %>
+	</div>
+	<script>
+		NM.multiField({
+			container: "#sessionDrill-input",
+			mold: "#sessionDrill_0",
+			startIndex: 1,
+			moreText: "Another drill...",
+			placeholder: "Player name",
+			idPrefix: "sessionDrill"
+		});
+	</script>
+	<p>Have a session video? (optional)</p>
+<% end %>
+<%= render '/shared/attachment_video_form', video: training_session.video, idsPrefix: "session"%>
+<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="session_submit_btn">
+<script>
+	var submitting = false;
+	$("#session_submit_btn").click(function() {
+		if (submitting) {
+			return;
+		}
+		$("#session_submit_btn").css("opacity", "0.2");
+		$("#session_submit_btn").css("cursor", "default");
+		var videoData = window.sessionprepareVideoData();
+		var data = {
+			utf8: "✓",
+			authenticity_token: $("input[name='authenticity_token']").val(),
+			<% unless training_session.id.nil?%> id: <%=training_session.id%> , <% end %>
+			training_session: {
+				description: $("#training_session_description").val(),
+				date: $("#training_session_date").val()
+			},
+			video:videoData.video,
+			players:videoData.players,
+			drills: {}
+		};
+		$("#sessionDrill-input .post-input").each(function() {
+			var _this = $(this);
+			data.drills[_this.attr("name")] = _this.val();
+		});
+		$.ajax( {
+			type: "POST",
+			url:"<%=submit_url%>",
+			data: data,
+			complete: function() {
+				location.reload();
+			}
+		});
+		return false;
+	});
+</script>

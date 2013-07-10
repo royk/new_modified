@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	include ApplicationHelper
 
 	before_filter :signed_in_user, only: [:edit, :update, :destroy]
-	before_filter :correct_user,  only: [:edit, :update]
+	before_filter :correct_user,  only: [:sessions_timeline, :edit, :update]
 	before_filter :admin_user,  only: [:destroy]
 
 	def export

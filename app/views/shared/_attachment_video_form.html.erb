@@ -1,5 +1,6 @@
 <% idsPrefix ||= "" %>
-<%= render '/shared/edit_video_item', video:Video.create(), idsPrefix: idsPrefix, predefined_players: [current_user], feed: @feed, need_post: false, feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
+<% video ||= Video.create() %>
+<%= render '/shared/edit_video_item', video: video, idsPrefix: idsPrefix, predefined_players: [current_user], feed: @feed, need_post: false, feedback: defined?( show_video[:feedback]) ? show_video[:feedback] : false %>
 <script>
 	window["<%=idsPrefix%>prepareVideoData"] = function() {
 		var data = {video: {

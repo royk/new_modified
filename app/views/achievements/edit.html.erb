@@ -1,0 +1,7 @@
+<div class="feed">
+	<div class="feed-item video-edit">
+		<h3>Edit Achievement</h3>
+		<%= render '/shared/achievements/edit_achievement_form', :achievement => @achievement, submit_url: "/update_achievement" %>
+	</div>
+	<%= render 'shared/feed_item_footer', :feed_item => @achievement, comments_shown: true %>
+</div>

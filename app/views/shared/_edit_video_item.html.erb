@@ -5,7 +5,8 @@
 <% if defined? feed_item %>
 	<%= render '/shared/feed_info', user: feed_item.user %>
 <% end %>
-<% players = (predefined_players + video.user_players||[]) +  (video.players||[]) %>
+<% players = (video.user_players||[]) +  (video.players||[]) %>
+<% players = predefined_players if players.empty? %>
 <% i=0 %>
 <div id="<%=idsPrefix%>videoForm_wrapper">
 	<%= form_for(video) do |f| %>

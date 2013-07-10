@@ -33,6 +33,7 @@
 							<li><%= link_to t(:edit_profile),
 								edit_user_path(current_user) %></li>
 							<li><%= link_to t(:my_messages), messages_path %></li>
+							<li><a href="/sessions/<%=current_user.id%>">My Sessions</a></li>
 							<li class="divider"></li>
 							<li><%= link_to t(:download_my_data), user_data_path %></li>
 							<li><%= link_to t(:log_out), signout_path, method: "delete" %></li>

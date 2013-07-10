@@ -49,9 +49,11 @@ NewModified::Application.routes.draw do
 	resources :achievements
 
 	match 'new_achievement', controller: 'achievements', action: 'create'
+	match 'update_achievement', controller: 'achievements', action: 'update'
 
 	resources :training_sessions
 	match 'new_training_session', controller: 'training_sessions', action: 'create'
+	match 'update_training_session', controller: 'training_sessions', action: 'update'
 
 	resources :posts
 

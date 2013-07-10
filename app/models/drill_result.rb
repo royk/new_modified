@@ -10,6 +10,7 @@
 #  public              :boolean
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  order_index         :integer
 #
 
 class DrillResult < ActiveRecord::Base
@@ -37,7 +38,7 @@ class DrillResult < ActiveRecord::Base
 	end
 
 	def get_drops_stdev
-		drops_as_array.standard_deviation
+		'%.2f' % drops_as_array.standard_deviation
 	end
 
 	def get_drop_percentage

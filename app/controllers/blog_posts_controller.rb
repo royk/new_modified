@@ -21,7 +21,7 @@ class BlogPostsController < AuthenticatedController
 	end
 
 	def destroy
-		destroy! { request.referer }
+		destroy! { root_url }
 	end
 
 	def create

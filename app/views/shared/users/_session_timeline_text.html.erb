@@ -1,8 +1,8 @@
 <% unless training_session.drill_results.empty? %>
 	<div class="drills-container">
-		<% training_session.drill_results.each do |drill|%>
+		<% training_session.drill_results.order("order_index asc").each do |drill|%>
 			<div class="drill-container">
-				<p class="drill-name">Drill: <%=drill.name%></p>
+				<p class="drill-name"><%=drill.name%></p>
 				<p class="drill-results"><%=drill.get_summed_drops%>/<%=drill.total_contacts%> (Drop pct.:<%=drill.get_drop_percentage%>% AVG:<%=drill.get_drops_average%> STDEV: <%=drill.get_drops_stdev%>)</p>
 			</div>
 		<% end %>
