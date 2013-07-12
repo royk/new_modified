@@ -17,31 +17,46 @@ class TrainingSessionsController  < AuthenticatedController
 	end
 
 	def create
-		params[:training_session][:date] = DateTime.strptime(params[:training_session][:date], "%m/%d/%Y")
-		@trainingSession = current_user.training_sessions.build(params[:training_session])
-		success = attach_video(@trainingSession, params)
-		success = attach_drills(@trainingSession, params[:drills]) if success
-		success = @trainingSession.save if success
-		if success
-			flash[:success] = "Session saved"
-		else
-			flash[:error] = "Failed saving Session. Please make sure you filled all the required information." if flash[:error].blank?
+		success = true
+		begin
+			params[:training_session][:date] = DateTime.strptime(params[:training_session][:date], "%m/%d/%Y")
+		rescue
+			success = false
+			message = "Failed saving Session: Invalid date."
 		end
-		redirect_to request.referer
+		if success
+			@trainingSession = current_user.training_sessions.build(params[:training_session])
+			success = attach_video(@trainingSession, params)
+			success = attach_drills(@trainingSession, params[:drills]) if success
+			success = @trainingSession.save if success
+			message = "Session saved"
+			unless success
+				message = flash[:error].blank? ? "Failed saving Session. Please make sure you filled all the required information." : flash[:error]
+			end
+		end
+		render json: {message: message, success:success}
 	end
 
 	def update
-		params[:training_session][:date] = DateTime.strptime(params[:training_session][:date], "%m/%d/%Y")
-		@trainingSession.update_attributes(params[:training_session])
-		success = attach_video(@trainingSession, params)
-		success = attach_drills(@trainingSession, params[:drills]) if success
-		success = @trainingSession.save if success
-		if success
-			flash[:success] = "Session updated"
-		else
-			flash[:error] = "Failed updating Session. Please make sure you filled all the required information." if flash[:error].blank?
+		success = true
+		begin
+			params[:training_session][:date] = DateTime.strptime(params[:training_session][:date], "%m/%d/%Y")
+		rescue
+			success = false
+			message = "Failed updating Session: Invalid date."
 		end
-		redirect_to request.referer
+		if (success)
+			@trainingSession.update_attributes(params[:training_session])
+			success = attach_video(@trainingSession, params)
+			success = attach_drills(@trainingSession, params[:drills]) if success
+			success = @trainingSession.save if success
+			if success
+				message = "Session updated"
+			else
+				message = flash[:error].blank? ? "Failed updating Session. Please make sure you filled all the required information." : flash[:error]
+			end
+		end
+		render json: {message: message, success:success}
 	end
 
 	def attach_drills(entity, params)

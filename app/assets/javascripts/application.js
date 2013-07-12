@@ -39,6 +39,61 @@ NM = (function() {
     var _feeds = [];
 
     return {
+        initForm: function initForm(formID, submit_url, dataFunction, options) {
+
+            (function form(formID, submit_url, dataFunction, options) {
+                options = options || {};
+                if (options.resetForm===undefined) {
+                    options.resetForm = true;
+                }
+                var submitting = false;
+                var submit_btn = $("#"+formID+"_submit_btn");
+                var loading_indicator = $("#"+formID+"_loading_indicator");
+                submit_btn.click(function() {
+                    if (submitting) {
+                        return;
+                    }
+                    submitting = true;
+                    NM.clearAlerts();
+                    submit_btn.hide();
+                    loading_indicator.show();
+                    var data = dataFunction();
+                    $.ajax( {
+                        type: "POST",
+                        url:submit_url,
+                        data: data,
+                        success: function(request) {
+                            NM.showAlert(request.message, request.success);
+                            if (request.success && options.resetForm) {
+                                $("#"+formID+" input").val("");
+                            }
+
+                        },
+                        error: function(request) {
+                            NM.showAlert(request.statusText, false);
+                        },
+                        complete: function() {
+                            submitting = false;
+                            submit_btn.show();
+                            loading_indicator.hide();
+                        }
+                    });
+                    return false;
+                });
+            })(formID, submit_url, dataFunction, options);
+        },
+        clearAlerts: function clearAlerts() {
+            $("#bodyMainContainer > .alert").remove();
+        },
+        showAlert: function showAlert(message, success) {
+            var type = "success";
+            if (success==false) {
+                type = "error";
+            }
+            this.clearAlerts();
+            var html = '<div class="alert alert-'+type+'">'+message+'</div>';
+            $("#bodyMainContainer").prepend(html);
+        },
         tooltip: function tooltip(elem_name, content, params) {
             if (!params) {
                 params = {style:{

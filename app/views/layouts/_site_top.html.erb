@@ -30,7 +30,7 @@
 		<div class="bg2" style="<%= @custom_bg2_style if defined?(@custom_bg2_style)%>">
 			<div class="bg2-image"></div>
 		</div>
-		<div class="container" style="<%= @custom_container_style if defined?(@custom_container_style) %>">
+		<div id="bodyMainContainer" class="container" style="<%= @custom_container_style if defined?(@custom_container_style) %>">
 			<% flash.each do |key, value| %>
 				<%= content_tag(:div, value, class: "alert alert-#{key}") %>
 			<% end %>

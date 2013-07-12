@@ -11,36 +11,57 @@ class AchievementsController  < AuthenticatedController
 	end
 
 	def create
-		params[:achievement][:date] = DateTime.strptime(params[:achievement][:date], "%m/%d/%Y")
-		@achievement = current_user.achievements.build(params[:achievement])
-		@achievement.record_timestamps = false
-		@achievement.created_at = DateTime.now
-		@achievement.updated_at = @achievement.date
-		if attach_video(@achievement, params)
-			if @achievement.save
-				flash[:success] = "Achievement saved"
-				register_new_content(@achievement)
-			else
-				flash[:error] = "Failed saving achievement. Please make sure you filled all the required information." if flash[:error].blank?
-			end
+		success = true
+		begin
+			params[:achievement][:date] = DateTime.strptime(params[:achievement][:date], "%m/%d/%Y")
+		rescue
+			success = false
+			message = "Failed saving achievement: Invalid date."
 		end
-		@achievement.record_timestamps = true
-		render text: ""
+		if success
+			@achievement = current_user.achievements.build(params[:achievement])
+			@achievement.record_timestamps = false
+			@achievement.created_at = DateTime.now
+			@achievement.updated_at = @achievement.date
+			success = attach_video(@achievement, params)
+			if success
+				success = @achievement.save
+				if success
+					message = "Achievement saved"
+					register_new_content(@achievement)
+				end
+			end
+			@achievement.record_timestamps = true
+		end
+
+		unless success
+			message = flash[:error].blank? ? "Failed saving Achievement. Please make sure you filled all the required information." : flash[:error]
+		end
+		render json: {message: message, success:success}
 	end
 
 	def update
-		params[:achievement][:date] = DateTime.strptime(params[:achievement][:date], "%m/%d/%Y")
-		@achievement.update_attributes(params[:achievement])
-		@achievement.record_timestamps = false
-		@achievement.updated_at = @achievement.date
-		attach_video(@achievement, params)
-		if @achievement.save
-			flash[:success] = "Achievement updated"
-		else
-			flash[:error] = "Failed saving achievement. Please make sure you filled all the required information." if flash[:error].blank?
+		success = true
+		begin
+			params[:achievement][:date] = DateTime.strptime(params[:achievement][:date], "%m/%d/%Y")
+		rescue
+			success = false
+			message = "Failed saving achievement: Invalid date."
 		end
-		@achievement.record_timestamps = true
-		render text: ""
+		if success
+			@achievement.update_attributes(params[:achievement])
+			@achievement.record_timestamps = false
+			@achievement.updated_at = @achievement.date
+			attach_video(@achievement, params)
+			success = @achievement.save
+			if success
+				message = "Achievement updated"
+			else
+				message = flash[:error].blank? ? "Failed updating Achievement. Please make sure you filled all the required information." : flash[:error]
+			end
+			@achievement.record_timestamps = true
+		end
+		render json: {message: message, success:success}
 
 	end
 
