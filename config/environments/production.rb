@@ -4,6 +4,8 @@ NewModified::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
+  config.whiny_nils = true
+
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -31,13 +33,13 @@ NewModified::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  #config.logger = Logger.new(STDOUT) 
+  #config.logger = Logger.new(STDOUT)
   #config.logger.level = Logger::INFO
   #config.lograge.enabled = true
 
