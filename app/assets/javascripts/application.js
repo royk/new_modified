@@ -113,7 +113,7 @@ NM = (function() {
             (function multiFieldInst(params) {
                 var idParts = $(params.mold).attr('id').split('_');
                 params.idPrefix = params.idPrefix || "";
-                $(params.container).append("<a id='"+params.idPrefix+"moreButton' class='multifield'>"+params.moreText+"</a>");
+                $(params.container).append("<a id='"+params.idPrefix+"moreButton' class='multifield'><img class='add-icon' src='/assets/plus-icon.png'>"+params.moreText+"</a>");
                 var index = params.startIndex;
                 var moreButton = $("#"+params.idPrefix+"moreButton").click(function() {
                     var _id = idParts[0]+'_'+index;

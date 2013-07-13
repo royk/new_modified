@@ -14,7 +14,7 @@
 			<% drills.order("order_index asc").each do |d| %>
 				<div id="sessionDrill_<%=i%>">
 					<%= text_field_tag("sessionDrill_name_#{i}", nil, class: "post-input", placeholder: "Drill Name", value: d.name) %>
-					<%= text_field_tag("sessionDrill_drops_#{i}", nil, class: "post-input half", placeholder: "Number of drops", value: d.drops) %>
+					<%= text_field_tag("sessionDrill_drops_#{i}", nil, class: "post-input half", placeholder: "Number of drops (comma separated)", value: d.drops) %>
 					<%= text_field_tag("sessionDrill_total_#{i}", nil, class: "post-input half", placeholder: "Total attempts", value: d.total_contacts) %>
 				</div>
 			<% i=i+1%>
@@ -22,7 +22,7 @@
 		<% else %>
 			<div id="sessionDrill_0">
 				<%= text_field_tag("sessionDrill_name_0", nil, class: "post-input", placeholder: "Drill Name") %>
-				<%= text_field_tag("sessionDrill_drops_0", nil, class: "post-input half", placeholder: "Number of drops") %>
+				<%= text_field_tag("sessionDrill_drops_0", nil, class: "post-input half", placeholder: "Number of drops (comma separated)") %>
 				<%= text_field_tag("sessionDrill_total_0", nil, class: "post-input half", placeholder: "Total attempts") %>
 			</div>
 		<% end %>

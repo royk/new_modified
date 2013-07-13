@@ -64,6 +64,12 @@ header:before {
   @include gradient(right, #6c8083, #6c8083);
 }
 
+
+.add-icon {
+  margin-right: 5px;
+  position: relative;
+  bottom: 1px;
+}
 .loading-indicator {
   img {
     position: relative;
