@@ -15,7 +15,7 @@ class FeedsController < AuthenticatedController
 		end
 		unless @feed.nil?
 			if (@feed.store_name=="main feed")
-				@feed_items = @feed.feed_items(BlogPost) do |collection|
+				@feed_items = @feed.feed_items([BlogPost]) do |collection|
 					privacy_query(collection)
 				end
 			else
