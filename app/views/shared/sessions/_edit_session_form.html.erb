@@ -5,7 +5,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css" rel="stylesheet" type="text/css">
 <%= form_for(training_session, html: {id: "session_form"}) do |f| %>
-	<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date", value: date) %>
+	<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date (mm/dd/yyyy)", value: date) %>
 	<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
 	<h4>Drills</h4>
 	<div id="sessionDrill-input">
