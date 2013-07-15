@@ -40,7 +40,7 @@
 	<p>Have a session video? (optional)</p>
 <% end %>
 <%= render '/shared/attachment_video_form', video: training_session.video, idsPrefix: "session"%>
-<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="session_form_submit_btn">
+<input type="submit" value="<%=is_new_entry ? "Save Session" : "Update Session"%>" class="btn btn-large btn-primary" name="commit" id="session_form_submit_btn">
 <div class=".loading-indicator" id="session_form_loading_indicator" style="display:none"><img  src="/assets/ajax-loader.gif"/></div>
 <script>
 	var dataFunction = function() {

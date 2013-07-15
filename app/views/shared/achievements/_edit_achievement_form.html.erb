@@ -10,7 +10,7 @@
 	<p>Have video proof? (optional)</p>
 <% end %>
 <%= render '/shared/attachment_video_form', video: achievement.video, idsPrefix: "achievement"%>
-<input type="submit" value="Post" class="btn btn-large btn-primary" name="commit" id="achievement_form_submit_btn">
+<input type="submit" value="<%=is_new_entry ? "Save Achievement" : "Update Achievement"%>" class="btn btn-large btn-primary" name="commit" id="achievement_form_submit_btn">
 <div class=".loading-indicator" id="achievement_form_loading_indicator" style="display:none"><img  src="/assets/ajax-loader.gif"/></div>
 <script>
 	var dataFunction = function() {
