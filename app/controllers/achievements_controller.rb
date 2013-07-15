@@ -28,7 +28,9 @@ class AchievementsController  < AuthenticatedController
 				success = @achievement.save
 				if success
 					message = "Achievement saved"
-					register_new_content(@achievement)
+					if @achievement.updated_at>=Date.yesterday
+						register_new_content(@achievement)
+					end
 				end
 			end
 			@achievement.record_timestamps = true
