@@ -6,7 +6,7 @@
 			date:[
 				<% @sessions.each_with_index do |session, i| %>
 				{
-					'startDate': new Date('<%=session.date.strftime "%Y-%m-%d %H:%M:%S %z"%>'),
+					'startDate': new Date('<%=session.date.strftime "%Y,%m,%d"%>'),
 					'headline': 'Session: <%= session.description.html_safe unless session.description.nil?%>',
 					'text': '<%= raw(render(partial: 'shared/sessions/edit_menu', locals: {training_session: session}).gsub("\n", ' ')) %><%= raw(render(partial: 'shared/videos/small/small_video_item', locals:{small_video_item: session.video, comments_shown: false, show_footer: false}).gsub("\n", ' '))%><br/><%= raw(render('/shared/users/session_timeline_text', training_session: session).gsub("\n", ' ')) %>'
 				}<% unless i==@user.achievements.length-1%>, <%end%>
