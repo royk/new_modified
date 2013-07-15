@@ -39,7 +39,7 @@
 	<script>
 		NM.multiField({
 			container: "#<%=idsPrefix%>videoForm_wrapper #<%=idsPrefix%>players-input",
-			mold: "#<%=idsPrefix%>videoForm_wrapper #Player_0",
+			mold: "#<%=idsPrefix%>videoForm_wrapper #Player_<%= i-1 %>",
 			startIndex: <%= i %>,
 			moreText: "Another player...",
 			placeholder: "Player name",
