@@ -9,7 +9,7 @@
 			{
 				'startDate': new Date('<%=achievement.date.strftime "%Y-%m-%d %H:%M:%S %z"%>'),
 				'headline': '<%=achievement.get_type_name_for_feed%>: <%=achievement.name%>',
-				'text': '<%= raw(render(partial: 'shared/videos/small/small_video_item', locals:{small_video_item: achievement.video, comments_shown: false, show_footer: false}).gsub("\n", ' '))%>'
+				'text': '<%= raw(render(partial: 'shared/achievements/edit_menu', locals: {achievement: achievement}).gsub("\n", ' ')) %><%= raw(render(partial: 'shared/videos/small/small_video_item', locals:{small_video_item: achievement.video, comments_shown: false, show_footer: false}).gsub("\n", ' '))%>'
 			}<% unless i==@user.achievements.length-1%>, <%end%>
 
 			<% end %>

@@ -1,0 +1,11 @@
+<% if signed_in? && !achievement.nil? && (current_user.admin? || current_user==achievement.user) %>
+	<li class="dropdown" style="float:left;">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<i class="icon-cog"></i>
+		</a>
+		<ul class="dropdown-menu">
+			<li><%= link_to "Edit Session", edit_achievement_path(achievement) %></li>
+			<li><%= link_to t(:delete), achievement, method: :delete, data: {confirm: t(:delete_confirmation)} %></li>
+		</ul>
+	</li>
+<% end %>
