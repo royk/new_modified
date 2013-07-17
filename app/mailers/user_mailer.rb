@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
 	include ApplicationHelper
 
-	default from: "roeiklein@gmail.com"
+	default from: "footbagfront@gmail.com"
 
 	def welcome_mail(user)
 		@user = user
