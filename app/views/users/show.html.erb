@@ -189,21 +189,21 @@
 			<div id="videos" style="display:none;">
 				<div class="feed" id="video_feed" >
 				</div>
-				<%= render 'shared/ajax_loading', collection: @videos, loadPath: '/user_videos?id='+params[:id], container: 'video_feed', loadOnClick: true, loadToggler: "#videos" %>
+				<%= render 'shared/ajax_loading', collection: @videos, loadPath: '/user_videos?id='+params[:id], container: '#video_feed', loadOnClick: true, loadToggler: "#videos" %>
 			</div>
 		<% end %>
 		<% if @posts.any? %>
 			<div id="posts" style="display:none;">
 				<div class="feed" id="posts_feed">
 				</div>
-				<%= render 'shared/ajax_loading', collection: @posts, loadPath: '/user_posts?id='+params[:id], container: 'posts_feed', loadOnClick: true, loadToggler: "#posts" %>
+				<%= render 'shared/ajax_loading', collection: @posts, loadPath: '/user_posts?id='+params[:id], container: '#posts_feed', loadOnClick: true, loadToggler: "#posts" %>
 			</div>
 		<% end %>
 		<% if @articles.any? %>
 			<div id="articles" style="display:none;">
 				<div class="feed" id="articles_feed">
 				</div>
-				<%= render 'shared/ajax_loading', collection: @articles, loadPath: '/user_articles?id='+params[:id], container: 'articles_feed', loadOnClick: true, loadToggler: "#articles" %>
+				<%= render 'shared/ajax_loading', collection: @articles, loadPath: '/user_articles?id='+params[:id], container: '#articles_feed', loadOnClick: true, loadToggler: "#articles" %>
 			</div>
 		<% end %>
 		
@@ -211,7 +211,7 @@
 			<div id="blog" style="display:none;">
 				<div class="feed" id="blog_feed">
 				</div>
-				<%= render 'shared/ajax_loading', collection: @blog_posts, loadPath: '/blogs/'+@blog_id.to_s, container: "blog_feed", loadOnClick: true, loadToggler: "#blog" %>
+				<%= render 'shared/ajax_loading', collection: @blog_posts, loadPath: '/blogs/'+@blog_id.to_s, container: "#blog_feed", loadOnClick: true, loadToggler: "#blog" %>
 			</div>
 		<% end %>
 	</div>

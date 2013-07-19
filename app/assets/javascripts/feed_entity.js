@@ -13,10 +13,7 @@ function FeedEntity(__params) {
 	var _initScroll = function initScroll() {
         // temporary. remove once selector is canonized
         var containerSel = _params.container;
-        if (containerSel[0]!=="." && containerSel[0]!=="#") {
-            containerSel = "#" + containerSel;
-        }
-		_container = $(containerSel);
+		_container = $(_params.container);
 		if (_container) {
 			$(window).scroll(function(){
 				if ($(window).scrollTop() + $(window).innerHeight()>=document.body.scrollHeight) {
@@ -34,7 +31,7 @@ function FeedEntity(__params) {
 	var _requestNextPage = function _requestNextPage() {
 		if (++_currentPage<=_params.maxPages) {
 			_loadingNextPage = true;
-			$(".loading-indicator."+_params.container).show().fadeTo('slow', 1);
+			$(_params.ajaxIconSelector).show().fadeTo('slow', 1);
 			var delimiter = '?';
 			if (_params.path.indexOf(delimiter)>-1) {
 				delimiter = '&';
@@ -44,7 +41,7 @@ function FeedEntity(__params) {
 				type: 'get',
 				success: function(response) {
 					_loadingNextPage = false;
-                    $(".loading-indicator."+_params.container).fadeTo('fast', 0);
+                    $(_params.ajaxIconSelector).fadeTo('fast', 0);
 					_container.append(response);
                     if (_callback) {
                         (0, eval)(_callback);

@@ -11,9 +11,7 @@ class NotificationsController < AuthenticatedController
 
 	def index
 		col = site_activities
-		unless col.empty?
-			render partial: 'shared/front_page_notification_item', collection: col
-		end
+		render partial: 'shared/front_page_notification_item', collection: col
 	end
 
 	def get_latest

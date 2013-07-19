@@ -2,6 +2,8 @@
 <% loadNow = false if loadNow.nil? %>
 <% loadOnClick = false if loadOnClick.nil? %>
 <% loadToggler = "" if loadToggler.nil? %>
+<% loaderClass = container+"AjaxIcon" %>
+<% loaderClass[0] = '' %>
 <script>
 	NM.registerFeed({
 		maxPages: <%= collection.total_pages %>,
@@ -11,12 +13,13 @@
 		scrollable: true,
 		loadNow: <%=loadNow%>,
 		loadOnClick: <%=loadOnClick %>,
-		loadToggler: '<%=loadToggler%>'
+		loadToggler: '<%=loadToggler%>',
+		ajaxIconSelector: '.loading-indicator.<%=loaderClass%>'
 		<% if defined?(callbackName) %>
 			,callbackName: '<%= callbackName %>'
 		<% end %>
 	});
 </script>
-<div class="loading-indicator <%=container%>">
+<div class="loading-indicator <%=loaderClass%>">
 	<img  src="/assets/ajax-loader.gif"/>
 </div>

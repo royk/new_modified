@@ -11,7 +11,7 @@ class StaticPagesController < ApplicationController
 	  	@first_timer = first_time_visitor?
 	  	if mobile_device? || signed_in? || request.xhr?
 	  		@feed_front_page = true
-		  	per_page = params[:items_count] || 10
+		  	per_page = params[:items_count] || 5
 			logger.debug "Start"
 		  	@feed = Feed.find_by_store_name("main feed")
 			logger.debug "1"
