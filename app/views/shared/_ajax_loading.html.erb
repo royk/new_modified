@@ -1,16 +1,22 @@
 <% container = ".feed" if container.nil? %>
+<% loadNow = false if loadNow.nil? %>
+<% loadOnClick = false if loadOnClick.nil? %>
+<% loadToggler = "" if loadToggler.nil? %>
 <script>
 	NM.registerFeed({
 		maxPages: <%= collection.total_pages %>,
 		path: '<%= loadPath %>',
 		currentPage: <%= params[:page] || 1 %>,
 		container: '<%= container %>',
-		scrollable: true
+		scrollable: true,
+		loadNow: <%=loadNow%>,
+		loadOnClick: <%=loadOnClick %>,
+		loadToggler: '<%=loadToggler%>'
 		<% if defined?(callbackName) %>
 			,callbackName: '<%= callbackName %>'
 		<% end %>
 	});
 </script>
-<div class="loading-indicator">
+<div class="loading-indicator <%=container%>">
 	<img  src="/assets/ajax-loader.gif"/>
 </div>

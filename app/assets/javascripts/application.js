@@ -174,6 +174,7 @@ NM = (function() {
         // url:			name of the call
         // type:		request type (get, post, delete...) default: get
         // container:	jquery identifier for the html container where the results will be stored (e.g. "#item5")
+        // callback
         ajaxify: function ajaxify(params) {
             params.type = params.type || 'get';
             params.callback = params.callback || function(){};
@@ -252,7 +253,9 @@ NM = (function() {
         },
 
         registerFeed: function registerFeed(params) {
-            _feeds.push(new FeedEntity(params));
+            $(document).ready(function() {
+                _feeds.push(new FeedEntity(params));
+            });
         }
 
     };

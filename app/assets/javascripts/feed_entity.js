@@ -3,9 +3,20 @@ function FeedEntity(__params) {
 	var _container;
 	var _loadingNextPage = false;
 	var _currentPage = 1;
+    var _loadToggler;
+    if (_params.loadNow) {
+        _currentPage = 0;
+    }
+
     var _callback = _params.callbackName;
+
 	var _initScroll = function initScroll() {
-		_container = $(_params.container);
+        // temporary. remove once selector is canonized
+        var containerSel = _params.container;
+        if (containerSel[0]!=="." && containerSel[0]!=="#") {
+            containerSel = "#" + containerSel;
+        }
+		_container = $(containerSel);
 		if (_container) {
 			$(window).scroll(function(){
 				if ($(window).scrollTop() + $(window).innerHeight()>=document.body.scrollHeight) {
@@ -23,7 +34,7 @@ function FeedEntity(__params) {
 	var _requestNextPage = function _requestNextPage() {
 		if (++_currentPage<=_params.maxPages) {
 			_loadingNextPage = true;
-			$(".loading-indicator").show().fadeTo('slow', 1);
+			$(".loading-indicator."+_params.container).show().fadeTo('slow', 1);
 			var delimiter = '?';
 			if (_params.path.indexOf(delimiter)>-1) {
 				delimiter = '&';
@@ -33,7 +44,7 @@ function FeedEntity(__params) {
 				type: 'get',
 				success: function(response) {
 					_loadingNextPage = false;
-					$(".loading-indicator").fadeTo('fast', 0);
+                    $(".loading-indicator."+_params.container).fadeTo('fast', 0);
 					_container.append(response);
                     if (_callback) {
                         (0, eval)(_callback);
@@ -46,6 +57,19 @@ function FeedEntity(__params) {
 	if (_params.scrollable) {
 		_initScroll();
 	}
+    if (_params.loadNow) {
+        _requestNextPage();
+    }
+    if (_params.loadOnClick && _params.loadToggler) {
+        _loadToggler = $(_params.loadToggler);
+        if (_loadToggler.length) {
+            _currentPage = 0;
+            _loadToggler.on("click.feed", function() {
+                _requestNextPage();
+                _loadToggler.off("click.feed");
+            });
+        }
+    }
 	return {
 		refresh: function refresh() {
 			if (_container && _container.is(":visible")) {
