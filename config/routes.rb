@@ -110,6 +110,11 @@ NewModified::Application.routes.draw do
 
 	resources :categories
 
+	resources :video_categories
+
+	resources :video_super_categories
+
+
 	match '/stop_listening/:guid', to: 'listeners#remove_listener'
 
 	# The priority is based upon order of creation:

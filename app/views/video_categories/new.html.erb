@@ -1,0 +1,15 @@
+<h1>Create new Video Category</h1>
+<div class="row">
+	<div class="span6 offset4 light-box">
+		<%= form_for(@video_category) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<%= f.label :name %>
+			<%= f.text_field :name, class: "form-input" %>
+			<%= f.label :permalink %>
+			<%= f.text_field :permalink, class: "form-input" %>
+			<div>
+				<%= f.submit "Create category", class: "btn btn-large btn-primary" %>
+			</div>
+		<% end %>
+	</div>
+</div>
