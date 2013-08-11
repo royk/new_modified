@@ -6,23 +6,22 @@ class VideoSuperCategoriesController < AuthenticatedController
 	skip_before_filter :admin_only, only: [:index]
 
 	def show
-		@video_super_category = VideoSuperCategory.find(params[:id])
-		@videos = nil
+		@video_super_category = VideoSuperCategory.find_by_permalink(params[:permalink])
+		@categories_hash = Hash.new
 		unless @video_super_category.nil?
 			@video_categories = VideoCategory.where("video_super_category_id = ?", @video_super_category.id)
 			unless @video_categories.nil? || @video_categories.empty?
 				@video_categories.each do |cat|
 					if signed_in?
-						videos = Video.where("video_category_id = ? AND for_feedback = ? ", @video_category.id, false)
+						videos = Video.where("video_category_id = ? AND for_feedback = ? ", cat.id, false)
 					else
-						videos = Video.where("video_category_id = ? AND public = ? AND for_feedback = ? ", @video_category.id, true, false)
+						videos = Video.where("video_category_id = ? AND public = ? AND for_feedback = ? ", cat.id, true, false)
 					end
-					if @videos.nil?
-						@videos = videos
-					else
-						@videos = @videos + videos
+					unless videos.nil? || videos.empty?
+						@categories_hash[cat] = videos
 					end
 				end
+				@sorted_categories = @categories_hash.keys.sort_by {|c| c.weight}
 			end
 		end
 	end

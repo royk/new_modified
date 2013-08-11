@@ -114,6 +114,7 @@ NewModified::Application.routes.draw do
 
 	resources :video_super_categories
 
+	match 'video_groups/:permalink', controller: 'video_super_categories', action: 'show', as: "video_super_category"
 
 	match '/stop_listening/:guid', to: 'listeners#remove_listener'
 

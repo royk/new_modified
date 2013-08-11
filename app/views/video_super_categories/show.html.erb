@@ -1,0 +1,14 @@
+<% provide(:title, 'Videos') %>
+<% unless @video_super_category.nil? %>
+	<h1><%=@video_super_category.name%> Freestyle Videos</h1>
+	<div class="light-box videos-page videos-super-categories">
+		<% @sorted_categories.each do |cat| %>
+				<% videos = @categories_hash[cat] %>
+				<h2><%= cat.name %></h2>
+				<p class="sub-header"><%= cat.description %></p>
+			<div class="videos-list">
+				<%= render partial: 'shared/videos/small/small_video_item', collection: videos, comments_shown: false %>
+			</div>
+		<% end %>
+	</div>
+<% end %>

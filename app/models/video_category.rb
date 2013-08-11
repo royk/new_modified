@@ -13,5 +13,5 @@
 #
 
 class VideoCategory < ActiveRecord::Base
-  attr_accessible :name, :weight
+  attr_accessible :name, :weight, :video_super_category_id, :description
 end
