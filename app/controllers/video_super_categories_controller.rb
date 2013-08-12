@@ -1,9 +1,9 @@
 class VideoSuperCategoriesController < AuthenticatedController
 	before_filter :admin_only
 
-	skip_before_filter :signed_in_user, only: [:index]
+	skip_before_filter :signed_in_user, only: [:index, :show]
 
-	skip_before_filter :admin_only, only: [:index]
+	skip_before_filter :admin_only, only: [:index, :show]
 
 	def show
 		@video_super_category = VideoSuperCategory.find_by_permalink(params[:permalink])

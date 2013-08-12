@@ -18,7 +18,12 @@
 	<% end %>
 	<%= f.hidden_field :for_feedback, value: feedback %>
 	<% if defined?(feed) && !feed.nil?%>
-		<%= f.hidden_field :feed_id, value: feed.id %>
+			<% if signed_in? && current_user.admin? %>
+				<p>Feed id:</p>
+				<%= f.text_field :feed_id, value: feed.id %>
+			<% else %>
+				<%= f.hidden_field :feed_id, value: feed.id %>
+			<% end %>
 	<% end %>
 	<p>Players:</p>
 	<div id="<%=idsPrefix%>players-input">
