@@ -110,6 +110,12 @@ NewModified::Application.routes.draw do
 
 	resources :categories
 
+	resources :video_categories
+
+	resources :video_super_categories
+
+	match 'video_groups/:permalink', controller: 'video_super_categories', action: 'show', as: "video_super_category"
+
 	match '/stop_listening/:guid', to: 'listeners#remove_listener'
 
 	# The priority is based upon order of creation:

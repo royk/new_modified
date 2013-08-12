@@ -2,20 +2,21 @@
 #
 # Table name: videos
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
-#  title        :string(255)
-#  vendor       :string(255)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  uid          :string(255)
-#  url          :string(255)
-#  public       :boolean          default(TRUE)
-#  location     :string(255)
-#  maker        :string(255)
-#  players      :text
-#  for_feedback :boolean          default(FALSE)
-#  feed_id      :integer
+#  id                :integer          not null, primary key
+#  user_id           :integer
+#  title             :string(255)
+#  vendor            :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  uid               :string(255)
+#  url               :string(255)
+#  public            :boolean          default(TRUE)
+#  location          :string(255)
+#  maker             :string(255)
+#  players           :text
+#  for_feedback      :boolean          default(FALSE)
+#  feed_id           :integer
+#  video_category_id :integer
 #
 
 require 'spec_helper'

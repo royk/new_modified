@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710182300) do
+ActiveRecord::Schema.define(:version => 20130810095728) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -319,23 +319,44 @@ ActiveRecord::Schema.define(:version => 20130710182300) do
     t.integer "video_id"
   end
 
+  create_table "video_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "weight"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "permalink"
+    t.integer  "video_super_category_id"
+    t.string   "description"
+  end
+
+  add_index "video_categories", ["video_super_category_id"], :name => "index_video_categories_on_video_super_category_id"
+
+  create_table "video_super_categories", :force => true do |t|
+    t.string   "name"
+    t.string   "permalink"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "videos", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
     t.string   "vendor"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "uid"
     t.string   "url"
-    t.boolean  "public",       :default => true
+    t.boolean  "public",            :default => true
     t.string   "location"
     t.string   "maker"
     t.text     "players"
-    t.boolean  "for_feedback", :default => false
+    t.boolean  "for_feedback",      :default => false
     t.integer  "feed_id"
+    t.integer  "video_category_id"
   end
 
   add_index "videos", ["uid"], :name => "index_videos_on_uid", :unique => true
   add_index "videos", ["user_id", "created_at"], :name => "index_videos_on_user_id_and_created_at"
+  add_index "videos", ["video_category_id"], :name => "index_videos_on_video_category_id"
 
 end

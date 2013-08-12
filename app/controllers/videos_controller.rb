@@ -14,12 +14,12 @@ class VideosController < AuthenticatedController
 
 	def index
 		if /atom/.match(request.format)
-			@videos = Video.where("public = ? AND for_feedback = ? ", true, false)
+			@videos = Video.where("video_category_id IS ? AND public = ? AND for_feedback = ? ", nil, true, false)
 		else
 			if signed_in?
-				@videos = Video.where("for_feedback = ? ", false).paginate(page: params[:page], :per_page => 20)
+				@videos = Video.where("video_category_id IS ? AND for_feedback = ? ", nil, false).paginate(page: params[:page], :per_page => 20)
 			else
-				@videos = Video.where("public = ? AND for_feedback = ? ", true, false).paginate(page: params[:page], :per_page => 20)
+				@videos = Video.where("video_category_id IS ? AND public = ? AND for_feedback = ? ", nil, true, false).paginate(page: params[:page], :per_page => 20)
 			end
 			if request.xhr?
 				render partial: 'shared/videos/small/small_video_item', collection: @videos, comments_shown: false
@@ -62,6 +62,10 @@ class VideosController < AuthenticatedController
 		@video.record_timestamps = false if current_user.admin? && @video.user!=current_user
 		update_players(@video, params)
 		@video.update_attribute(:public, params[:video][:public]) unless params[:video][:public].nil?
+		unless params[:video][:video_category_id].nil?
+			video_category = VideoCategory.find(params[:video][:video_category_id])
+			@video.update_attribute(:video_category, video_category) unless video_category.nil?
+		end
 		save_video(@video, params[:video][:url]) unless params[:video][:url].nil?
 		flash[:success] = "Video modified"
 		@video.record_timestamps = true

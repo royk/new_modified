@@ -12,6 +12,10 @@
 	<%= form_for(video) do |f| %>
 	<%= f.text_field(:url, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Video URL (supported: youtube, vimeo, footbag.org, juggling.tv)")%>
 	<%= f.text_field(:title, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Title")%>
+	<% if signed_in? && current_user.admin? %>
+			<p>Category:</p>
+			<%= f.select(:video_category_id, options_from_collection_for_select(VideoCategory.all, "id", "name", video.video_category_id), include_blank: true) %>
+	<% end %>
 	<%= f.hidden_field :for_feedback, value: feedback %>
 	<% if defined?(feed) && !feed.nil?%>
 		<%= f.hidden_field :feed_id, value: feed.id %>

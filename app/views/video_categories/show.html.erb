@@ -1,0 +1,8 @@
+<% provide(:title, 'Videos') %>
+<h1><%=@video_category.name%> Freestyle Videos</h1>
+<div class="light-box videos-page">
+	<div class="videos-list">
+		<%= render partial: 'shared/videos/small/small_video_item', collection: @videos, comments_shown: false %>
+	</div>
+</div>
+<%= render 'shared/ajax_loading', collection: @videos, loadPath: "/video_categories/#{@video_category.permalink}", container: ".videos-list" %>
