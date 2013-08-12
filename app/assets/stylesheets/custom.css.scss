@@ -439,7 +439,7 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
     color: white;
   }
 }
-.videos-super-categories {
+.videos-super-categories.videos-page {
   h2 {
     margin-bottom: 0px;
     font-weight: bold;
@@ -455,15 +455,23 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   .videos-list {
     margin-bottom: 20px;
     border-bottom: 1px solid #555;
+    text-align: left;
     &:last-child {
       border-bottom: 0;
     }
-    .small.video-container span.video-title {
-      font-size: 1.5em;
-      font-family: Arial;
-      font-weight: bold;
-      color: #555;
-      padding-bottom: 5px;
+    .small.video-container  {
+      margin: 0 56px;
+      margin-bottom: 30px;
+      &:first-child {
+        margin-top:30px;
+      }
+      span.video-title {
+        font-size: 1.5em;
+        font-family: Arial;
+        font-weight: bold;
+        color: #555;
+        padding-bottom: 5px;
+      }
     }
   }
 
