@@ -1,9 +1,13 @@
+<% touch_control = false if touch_control.nil? %>
 <% unless small_video_item.nil? %>
 	<% show_footer = true if show_footer.nil?%>
 	<div class="small video-container">
 		<a href="<%= video_path(small_video_item) %>">
 			<span class="video-title">
 				<%= small_video_item.title %>
+				<% if touch_control %>
+						<%= link_to "(move to top)", video_touch_path(small_video_item), method: "POST", style: "float:right;" %>
+				<% end %>
 			</span>
 			<div class="video-body">
 				<% if small_video_item.vendor=="youtube" %>

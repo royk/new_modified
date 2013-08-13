@@ -61,6 +61,7 @@ NewModified::Application.routes.draw do
 
 	resources :videos do
 		get 'search', on: :collection
+		post 'touch'
 	end
 
 	match '/feedbacks', to: 'videos#feedback_index'

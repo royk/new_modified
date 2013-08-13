@@ -39,6 +39,10 @@ class VideosController < AuthenticatedController
 	end
 	
 	def create
+		unless params[:video][:video_category_id].nil?
+			params[:anonymous] = true
+			params[:video][:feed_id] = nil
+		end
 		if params[:anonymous]
 			@video = Video.new
 			@video.update_attributes(params[:video])
@@ -70,6 +74,19 @@ class VideosController < AuthenticatedController
 		flash[:success] = "Video modified"
 		@video.record_timestamps = true
 		redirect_to request.referer
+	end
+
+	def touch
+		if current_user.admin?
+			@video = Video.find(params[:video_id])
+			unless @video.nil?
+				@video.touch
+				flash[:success] = "Video touched"
+			else
+				flash[:error] = "Video not found"
+			end
+			redirect_to request.referer
+		end
 	end
 
 	def destroy

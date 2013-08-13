@@ -7,7 +7,7 @@
 				<h2><%= cat.name %></h2>
 				<p class="sub-header"><%= cat.description %></p>
 			<div class="videos-list">
-				<%= render partial: 'shared/videos/small/small_video_item', collection: videos, comments_shown: false %>
+				<%= render partial: 'shared/videos/small/small_video_item', collection: videos, locals: {comments_shown: false, touch_control:signed_in? && current_user.admin?} %>
 			</div>
 		<% end %>
 	</div>

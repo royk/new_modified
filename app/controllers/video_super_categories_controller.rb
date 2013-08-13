@@ -13,9 +13,9 @@ class VideoSuperCategoriesController < AuthenticatedController
 			unless @video_categories.nil? || @video_categories.empty?
 				@video_categories.each do |cat|
 					if signed_in?
-						videos = Video.where("video_category_id = ? AND for_feedback = ? ", cat.id, false)
+						videos = Video.where("video_category_id = ? AND for_feedback = ? ", cat.id, false).reorder("updated_at desc")
 					else
-						videos = Video.where("video_category_id = ? AND public = ? AND for_feedback = ? ", cat.id, true, false)
+						videos = Video.where("video_category_id = ? AND public = ? AND for_feedback = ? ", cat.id, true, false).reorder("updated_at asc")
 					end
 					unless videos.nil? || videos.empty?
 						@categories_hash[cat] = videos
