@@ -51,6 +51,13 @@
 						<%= f.text_area(:content, :rows=>4, :cols=>2, :class=>"tinymce", placeholder: "Write to your blog...")%>
 						<%= my_tinymce %>
 						<div style="height:10px"></div>
+						<span id="blogPublicCheckBox">
+						Public: <%= f.check_box(:public) %>
+						</span>
+						<script>
+							NM.tooltip("#blogPublicCheckBox", "Check if you want non-registered users to be able to see this post.");
+						</script>
+						<br/><br/>
 						<%= f.submit "Post", class: "btn btn-large btn-primary" %>
 					<% end %>
 				</div>
