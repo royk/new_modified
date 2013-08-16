@@ -28,7 +28,7 @@ module VideoHelper
 					flash[:error] = "Video not saved: Already exists"
 				else
 					# if a video is used for category, alter the uid in a non-damaging way and try again...
-					video.uid = video.uid+" "
+					video.uid = video.uid+"?vc="+video.video_category_id.to_s
 					if video.save
 						return true
 					else
