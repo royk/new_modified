@@ -13,5 +13,11 @@
 #
 
 class VideoCategory < ActiveRecord::Base
-  attr_accessible :name, :weight, :video_super_category_id, :description
+  	attr_accessible :name, :weight, :video_super_category_id, :description
+
+	belongs_to :video_super_category
+
+	def video_edit_display_name
+		self.video_super_category.name + ": "+self.name
+	end
 end
