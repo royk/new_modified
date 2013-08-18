@@ -1,9 +1,13 @@
 class AchievementsController  < AuthenticatedController
 	include VideoHelper
 	before_filter	:correct_user, only: [:destroy, :update]
+	skip_before_filter :signed_in_user, only: [:index, :show]
 
 	def show
 		@achievement = Achievement.find(params[:id])
+		if @achievement!=nil && !signed_in? && !@achievement.public
+			signed_in_user
+		end
 	end
 
 	def new
@@ -44,17 +48,21 @@ class AchievementsController  < AuthenticatedController
 
 	def update
 		success = true
-		begin
-			params[:achievement][:date] = DateTime.strptime(params[:achievement][:date], "%m/%d/%Y")
-		rescue
-			success = false
-			message = "Failed saving achievement: Invalid date."
+		unless params[:achievement][:date].nil?
+			begin
+				params[:achievement][:date] = DateTime.strptime(params[:achievement][:date], "%m/%d/%Y")
+			rescue
+				success = false
+				message = "Failed saving achievement: Invalid date."
+			end
 		end
 		if success
 			@achievement.update_attributes(params[:achievement])
 			@achievement.record_timestamps = false
 			@achievement.updated_at = @achievement.date
-			attach_video(@achievement, params)
+			unless params[:video].nil?
+				attach_video(@achievement, params)
+			end
 			success = @achievement.save
 			if success
 				message = "Achievement updated"
