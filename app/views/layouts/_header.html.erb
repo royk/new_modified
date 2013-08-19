@@ -74,13 +74,13 @@
 				<li><%= link_to t(:home), root_path %></li>
 				<li>
 					<%= link_to t(:videos), videos_path %>
-					<% if false %>
-						<ul>
-							<li><a href="/video_groups/beginners/">Beginners</a></li>
-							<li><a href="/video_groups/advanced/">Advanced</a></li>
-							<li><%= link_to "User Submitted", videos_path %></li>
-						</ul>
-					<% end %>
+					<ul>
+						<li><a href="/video_tutorials/beginners/">Beginners</a></li>
+						<li><a href="/video_tutorials/intermediates/">Intermediates</a></li>
+						<li><a href="/video_tutorials/advanced/">Advanced</a></li>
+						<li><a href="/video_tutorials/elite/">Elite</a></li>
+						<li><%= link_to "User Submitted", videos_path %></li>
+					</ul>
 				</li>
 	<!--			<li><%= link_to t(:communities), feeds_path %></li>
 				<li><%= link_to t(:feedback), feedbacks_path %></li> -->
