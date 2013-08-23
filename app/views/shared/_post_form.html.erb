@@ -64,8 +64,10 @@
 				<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 				<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css" rel="stylesheet" type="text/css">
 				<div id="session-form" style="display:none;">
-					<h3>Record a session</h3>
-					<%= render 'shared/sessions/edit_session_form', training_session:TrainingSession.create() %>
+					<% if current_user.admin? %>
+						<h3>Record a session</h3>
+							<%= render 'shared/sessions/edit_session_form', training_session:TrainingSession.create() %>
+					<% end %>
 
 				</div>
 				<div id="achievements-form" style="display:none;">
@@ -92,8 +94,10 @@
 				<% if show_blog %>
 					<li id="blog" class="post-type">Blog</li>
 					<li>|</li>
-					<li id="session" class="post-type">Session</li>
-					<li>|</li>
+					<% if current_user.admin? %>
+						<li id="session" class="post-type">Session</li>
+						<li>|</li>
+					<% end %>
 					<li id="achievements" class="post-type">Achievement</li>
 				<% end %>
 			</ul>
