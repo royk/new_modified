@@ -13,7 +13,11 @@
 		<% if drills.any? %>
 			<% drills.order("order_index asc").each do |d| %>
 				<div id="sessionDrill_<%=i%>">
-					<%= text_field_tag("sessionDrill_name_#{i}", nil, class: "post-input", placeholder: "Drill Name", value: d.name) %>
+					<select name="sessionDrill_id#{i}">
+						<% TrainingDrill.where("user_id=?", :user_id).each do |drill| %>
+							<option value="<%= drill.id%>"><%=drill.name%></option>
+						<% end %>
+					</select>
 					<%= text_field_tag("sessionDrill_drops_#{i}", nil, class: "post-input half", placeholder: "Number of drops (comma separated)", value: d.drops) %>
 					<%= text_field_tag("sessionDrill_total_#{i}", nil, class: "post-input half", placeholder: "Total attempts", value: d.total_contacts) %>
 				</div>
@@ -21,7 +25,11 @@
 			<% end %>
 		<% else %>
 			<div id="sessionDrill_0">
-				<%= text_field_tag("sessionDrill_name_0", nil, class: "post-input", placeholder: "Drill Name") %>
+				<select name="sessionDrill_id0">
+					<% TrainingDrill.where("user_id=?", :user_id).each do |drill| %>
+						<option value="<%= drill.id%>"><%=drill.name%></option>
+					<% end %>
+				</select>
 				<%= text_field_tag("sessionDrill_drops_0", nil, class: "post-input half", placeholder: "Number of drops (comma separated)") %>
 				<%= text_field_tag("sessionDrill_total_0", nil, class: "post-input half", placeholder: "Total attempts") %>
 				<% i=1 %>

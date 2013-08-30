@@ -66,7 +66,7 @@
 				<div id="session-form" style="display:none;">
 					<% if current_user.admin? %>
 						<h3>Record a session</h3>
-							<%= render 'shared/sessions/edit_session_form', training_session:TrainingSession.create() %>
+							<%= render 'shared/sessions/new_session_form', training_session:TrainingSession.create() %>
 					<% end %>
 
 				</div>

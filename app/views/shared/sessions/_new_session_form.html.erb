@@ -1,0 +1,25 @@
+<% is_new_entry = true %>
+<% submit_url ||="/new_training_session" %>
+<% date = (training_session.date.nil? ? DateTime.now : training_session.date).strftime("%m/%d/%Y") %>
+<% drills = training_session.drill_results||[] %>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="/assets/session_controller.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css" rel="stylesheet" type="text/css">
+
+<%= form_for(training_session, html: {id: "session_form"}) do |f| %>
+	<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date (mm/dd/yyyy)", value: date) %>
+	<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
+	<h4>Drill #1:</h4>
+	<div id="sessionDrill-input">
+		<div id="sessionDrill_0">
+			<div id="drillForm">
+				<a href="" id="existingDrillButton">Existing drill</a> or <a href="" id="newDrillButton">New drill</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+
+		});
+	</script>
+<% end %>

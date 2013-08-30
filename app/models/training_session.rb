@@ -19,6 +19,8 @@ class TrainingSession < ActiveRecord::Base
 
 	has_many :drill_results, dependent: :destroy
 
+	has_many :training_drills, through: :training_drill_results
+
 	belongs_to :video
 	accepts_nested_attributes_for :video
 

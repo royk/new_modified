@@ -1,0 +1,11 @@
+<form id="existingDrillForm">
+	<select name="sessionDrill_id0">
+		<% @available_drills.each do |drill| %>
+			<option value="<%= drill.id%>"><%=drill.select_name%></option>
+		<% end %>
+	</select>
+	<input type="submit" value="Select"/>
+</form>
+<script>
+	window.NM_SESSION.initExistingDrillForm();
+</script>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130810095728) do
+ActiveRecord::Schema.define(:version => 20130830091648) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -255,6 +255,22 @@ ActiveRecord::Schema.define(:version => 20130810095728) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "training_drill_results", :force => true do |t|
+    t.integer  "training_session_id"
+    t.integer  "training_drill_id"
+    t.integer  "attempts_count"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "training_drills", :force => true do |t|
+    t.string   "name"
+    t.integer  "contacts_per_attempt"
+    t.integer  "user_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "training_sessions", :force => true do |t|

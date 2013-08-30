@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
 
 	has_many :achievements
 	has_many :training_sessions
+	has_many :training_drills
 
 	has_many :videos
 	has_and_belongs_to_many :appears_in_videos, class_name: "Video", uniq: true

@@ -55,6 +55,12 @@ NewModified::Application.routes.draw do
 	match 'new_training_session', controller: 'training_sessions', action: 'create'
 	match 'update_training_session', controller: 'training_sessions', action: 'update'
 
+
+
+	match 'training_drills/select', to: 'training_drills#select'
+
+	resources :training_drills
+
 	resources :posts
 
 	resources :articles
