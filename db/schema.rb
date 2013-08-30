@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130830091648) do
+ActiveRecord::Schema.define(:version => 20130830134511) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -263,6 +263,7 @@ ActiveRecord::Schema.define(:version => 20130830091648) do
     t.integer  "attempts_count"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "drops_count"
   end
 
   create_table "training_drills", :force => true do |t|

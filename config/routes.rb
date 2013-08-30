@@ -61,6 +61,8 @@ NewModified::Application.routes.draw do
 
 	resources :training_drills
 
+	resources :training_drill_results
+
 	resources :posts
 
 	resources :articles
