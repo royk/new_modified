@@ -1,4 +1,8 @@
 class TrainingDrillsController     < AuthenticatedController
+
+	def init
+		render partial: "shared/drills/new_or_existing_form"
+	end
 	def new
 		if request.xhr?
 			@training_drill = TrainingDrill.new
@@ -12,7 +16,7 @@ class TrainingDrillsController     < AuthenticatedController
 		if request.xhr?
 			@training_drill = current_user.training_drills.build(params[:training_drill])
 			if @training_drill.save
-				render json: {id: @training_drill.id}
+				render json: {payload: {id: @training_drill.id}}
 				return
 			else
 				flash[:error] = "Failed creating drill"

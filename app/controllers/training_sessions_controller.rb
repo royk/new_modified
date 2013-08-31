@@ -37,7 +37,7 @@ class TrainingSessionsController  < AuthenticatedController
 				message = flash[:error].blank? ? "Failed saving Session. Please make sure you filled all the required information." : flash[:error]
 			end
 		end
-		render json: {message: message, success:success, id: @trainingSession.id}
+		render json: {message: message, success:success, payload: {id: @trainingSession.id}}
 	end
 
 	def update

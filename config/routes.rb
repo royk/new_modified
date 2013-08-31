@@ -58,6 +58,7 @@ NewModified::Application.routes.draw do
 
 
 	match 'training_drills/select', to: 'training_drills#select'
+	match 'training_drills/init', to: 'training_drills#init'
 
 	resources :training_drills
 

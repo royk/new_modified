@@ -13,7 +13,7 @@ class TrainingDrillResultsController < AuthenticatedController
 	def create
 		@training_drill_result = TrainingDrillResult.create(params[:training_drill_result])
 		if @training_drill_result.save
-			render partial: "shared/drill_results/show"
+			render json: {content: render_to_string(partial: "shared/drill_results/show")}
 			return;
 		else
 			flash[:error] = "Failed saving results"
