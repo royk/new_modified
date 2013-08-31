@@ -73,6 +73,10 @@ window.NM_SESSION = (function() {
         var value = fieldElement.val();
         var validationError = "";
         var mustBeFilled = fieldElement.data("mandatory");
+        // remove all previously set tooltips so we don't have multiple tooltips on the same field.
+        if ((mustBeFilled || validatorType) && fieldElement.data("qtip")) {
+            fieldElement.qtip("api").destroy();
+        }
         if (mustBeFilled && (!value || !value.match(/.+/gi))) {
             validationError = "empty";
         }

@@ -1,4 +1,5 @@
 <form id="existingDrillForm">
+	<div>Select drill:</div>
 	<select name="sessionDrill_id0">
 		<% @available_drills.each do |drill| %>
 			<option value="<%= drill.id%>"><%=drill.select_name%></option>
