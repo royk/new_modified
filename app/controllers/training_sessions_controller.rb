@@ -26,15 +26,18 @@ class TrainingSessionsController  < AuthenticatedController
 		end
 		if success
 			@trainingSession = current_user.training_sessions.build(params[:training_session])
+=begin
 			success = attach_video(@trainingSession, params)
 			success = attach_drills(@trainingSession, params[:drills]) if success
+=end
 			success = @trainingSession.save if success
+
 			message = "Session saved"
 			unless success
 				message = flash[:error].blank? ? "Failed saving Session. Please make sure you filled all the required information." : flash[:error]
 			end
 		end
-		render json: {message: message, success:success}
+		render json: {message: message, success:success, id: @trainingSession.id}
 	end
 
 	def update

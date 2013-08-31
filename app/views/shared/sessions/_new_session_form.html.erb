@@ -9,16 +9,11 @@
 <%= form_for(training_session, html: {id: "session_form"}) do |f| %>
 	<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date (mm/dd/yyyy)", value: date) %>
 	<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
-	<div id="sessionDrill-input">
-		<div id="sessionInfo"></div>
-		<h3>Add:</h3>
-		<div id="drillForm">
-			<a href="" id="existingDrillButton">Existing drill</a> or <a href="" id="newDrillButton">New drill</a>
-		</div>
-	</div>
-	<script>
-		$(document).ready(function() {
-
-		});
-	</script>
 <% end %>
+<div id="sessionDrill-input">
+	<div id="sessionInfo"></div>
+	<h3>Add:</h3>
+	<div id="drillForm">
+		<a href="" id="existingDrillButton">Existing drill</a> or <a href="" id="newDrillButton">New drill</a>
+	</div>
+</div>

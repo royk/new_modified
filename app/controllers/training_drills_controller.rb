@@ -12,7 +12,7 @@ class TrainingDrillsController     < AuthenticatedController
 		if request.xhr?
 			@training_drill = current_user.training_drills.build(params[:training_drill])
 			if @training_drill.save
-				render text: "{\"id\":#{@training_drill.id}}"
+				render json: {id: @training_drill.id}
 				return
 			else
 				flash[:error] = "Failed creating drill"
