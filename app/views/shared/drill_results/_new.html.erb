@@ -1,6 +1,6 @@
 <div id="drillResult">
-	<h3><%= @training_drill.name %></h3>
-	<input type="text" placeholder="Attempts count" name="training_drill_result[attempts_count]" class="post-input half"/>
-	<input type="text" placeholder="Drops Count" name="training_drill_result[drops_count]" class="post-input half"/>
+	<h3><%= @training_drill.select_name %></h3>
+	<input type="text" data-validation="number" data-mandatory="true" placeholder="Attempts count" name="training_drill_result[attempts_count]" class="post-input half"/>
+	<input type="text" data-validation="number" data-mandatory="true" placeholder="Drops Count" name="training_drill_result[drops_count]" class="post-input half"/>
 	<input type="submit" value="Done"/>
 </div>

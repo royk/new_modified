@@ -476,6 +476,9 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   }
 
 }
+.post-input.validation-error {
+  border-color: red !important;
+}
 .videos-page {
   .atom-link {
     position: relative;
@@ -489,6 +492,7 @@ ul.notifications-flyout.dropdown-menu, .messages-flyout {
   .post-input {
     width: 98%;
   }
+
   .post-input.half {
     width: 48%;
   }

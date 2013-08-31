@@ -94,18 +94,22 @@ NM = (function() {
             var html = '<div class="alert alert-'+type+'">'+message+'</div>';
             $("#bodyMainContainer").prepend(html);
         },
-        tooltip: function tooltip(elem_name, content, params) {
-            if (!params) {
-                params = {style:{
+        tooltip: function tooltip(elem, content, params) {
+            if (typeof elem==="string") {
+                elem = $(elem);
+            }
+            var defaults = {
+                content: content,
+                style:{
                     tip:true,
                     background: "black",
                     color: "white",
-                    border:{radius:4, color:"black"}
-                }};
-            }
-            params.content = content;
+                    border:{radius:4, color:"black"},
+                }
+            };
+            params = $.extend(defaults, params);
             $(document).ready(function() {
-                $(elem_name).qtip(params);
+                elem.qtip(params);
             });
         },
 

@@ -33,7 +33,7 @@ class TrainingDrillsController     < AuthenticatedController
 
 	def select
 		if request.xhr?
-			@available_drills = current_user.training_drills.all
+			@available_drills = current_user.training_drills.find(:all, order: "updated_at DESC")
 			if @available_drills.any?
 				render partial: "shared/drills/existing_training_drill_selector"
 			else
