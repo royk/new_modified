@@ -6,13 +6,15 @@
 <script src="/assets/session_controller.js"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css" rel="stylesheet" type="text/css">
 
-<%= form_for(training_session, html: {id: "session_form"}) do |f| %>
-	<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date (mm/dd/yyyy)", value: date) %>
-	<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
-<% end %>
+<div id="sessionTitle">
+	<%= form_for(training_session, html: {id: "session_form"}) do |f| %>
+		<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date (mm/dd/yyyy)", value: date) %>
+		<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
+		<input type="submit" value="Start Session"/>
+	<% end %>
+</div>
 <div id="sessionDrill-input">
 	<div id="sessionInfo"></div>
-	<h3>Add:</h3>
 	<div id="drillForm">
 	</div>
 </div>

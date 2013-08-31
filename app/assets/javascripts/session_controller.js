@@ -89,23 +89,31 @@ window.NM_SESSION = (function() {
 
     var _initResultsForm = function _initResultsForm() {
         $("#drillResult input[type='submit']").click(function() {
-            var saveResult = function saveResult() {
-                var data = {training_drill_result:{}};
-                data.training_drill_result.training_drill_id = _active_drill_id;
-                data.training_drill_result.training_session_id = _active_session_id;
-                _postForm({
-                    form_selector: "#drillResult",
-                    data: data,
-                    controller_name: "training_drill_results",
-                    container_selector: "#sessionInfo",
-                    success_cb: _addAnotherDrill
-                });
+            var data = {training_drill_result:{}};
+            data.training_drill_result.training_drill_id = _active_drill_id;
+            data.training_drill_result.training_session_id = _active_session_id;
+            _postForm({
+                form_selector: "#drillResult",
+                data: data,
+                controller_name: "training_drill_results",
+                container_selector: "#sessionInfo",
+                success_cb: _addAnotherDrill
+            });
+            return false;
+        });
+    };
+    var _initSessionForm = function _initSessionForm() {
+        $("#session_form input[type='submit']").click(function() {
+            var onSuccess = function(payload) {
+                _active_session_id = payload.id;
+                _addAnotherDrill();
             };
-            if (_active_session_id==-1) {
-                _registerSession(saveResult);
-            } else {
-                saveResult();
-            }
+            _postForm( {
+                form_selector: "#session_form",
+                controller_name: "training_sessions",
+                container_selector: "#sessionTitle",
+                success_cb: onSuccess
+            });
             return false;
         });
     };
@@ -120,18 +128,6 @@ window.NM_SESSION = (function() {
                 success_cb: _initResultsForm});
     };
 
-    var _registerSession = function _registerSession(cb) {
-        var onSuccess = function(payload) {
-            _active_session_id = payload.id;
-            cb();
-        };
-        _postForm({
-            form_selector: "#session_form",
-            controller_name: "training_sessions",
-            success_cb: onSuccess
-        });
-    };
-
     var _addAnotherDrill = function _addAnotherDrill() {
 
         _createForm({
@@ -143,7 +139,7 @@ window.NM_SESSION = (function() {
     };
 
     $(document).ready(function() {
-        _addAnotherDrill();
+        _initSessionForm();
     });
     return {};
 }());
