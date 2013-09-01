@@ -141,7 +141,12 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = User.find(params[:id])
+		begin
+			@user = User.find(params[:id])
+		rescue
+			redirect_to(root_path)
+			return;
+		end
 		@posts = privacy_query(@user.posts).paginate(page: params[:page], per_page: 10)
 		@videos = privacy_query(@user.appears_in_videos).paginate(page: params[:page], per_page: 10)
 		@articles = publishing_query(@user.articles).paginate(page: params[:page], :per_page => 10)
