@@ -13,7 +13,7 @@
 #
 
 class TrainingSession < ActiveRecord::Base
-	attr_accessible :date, :user_id, :public, :description, :drill_results
+	attr_accessible :date, :user_id, :public, :description, :drill_results, :startTime, :endTime
 
 	belongs_to :user
 

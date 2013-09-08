@@ -20,9 +20,10 @@ class TrainingSessionsController  < AuthenticatedController
 		success = true
 		begin
 			params[:training_session][:date] = DateTime.strptime(params[:training_session][:date], "%m/%d/%Y")
+			params[:training_session][:startTime] = params[:training_session][:startTime].to_datetime
 		rescue
 			success = false
-			message = "Failed saving Session: Invalid date."
+			message = "Failed saving Session: Invalid date or time."
 		end
 		if success
 			@trainingSession = current_user.training_sessions.build(params[:training_session])
@@ -42,12 +43,19 @@ class TrainingSessionsController  < AuthenticatedController
 
 	def update
 		success = true
+		if defined?(params[:training_session][:endTime])
+			params[:training_session][:endTime] = params[:training_session][:endTime].to_datetime;
+			@trainingSession.update_attributes(params[:training_session])
+			render json: {message: "Session updated", success:success}
+			return
+		end
 		begin
 			params[:training_session][:date] = DateTime.strptime(params[:training_session][:date], "%m/%d/%Y")
 		rescue
 			success = false
 			message = "Failed updating Session: Invalid date."
 		end
+
 		if (success)
 			@trainingSession.update_attributes(params[:training_session])
 			success = attach_video(@trainingSession, params)

@@ -43,7 +43,7 @@ window.NM_SESSION = (function() {
     var _postForm = function(params) {
         var submit_data = {};
         var validated = true;
-        $(params.form_selector + " input[type='text']").each(function() {
+        $(params.form_selector + " input[type='text'],"+params.form_selector + " input[type='hidden'] ").each(function() {
             var result = _validateField($(this));
             if (validated) {
                 validated = result;
@@ -123,6 +123,7 @@ window.NM_SESSION = (function() {
 
     };
     var _initNewDrillForm = function _initNewDrillForm() {
+        _forbidEndSession();
         $("#newDrillForm input[type='submit']").click(function() {
             _postForm({
                     form_selector: "#newDrillForm",
@@ -133,6 +134,7 @@ window.NM_SESSION = (function() {
         });
     };
     var _initExistingDrillForm = function _initExistingDrillForm() {
+        _forbidEndSession();
         $("#existingDrillForm input[type='submit']").click(function() {
             _registerDrill({id:parseInt($("#existingDrillForm select").val(), 10)});
             return false;
@@ -155,16 +157,32 @@ window.NM_SESSION = (function() {
         });
     };
     var _initSessionForm = function _initSessionForm() {
+        $("#endSessionButton").click(function() {
+            var data = {id:_active_session_id, training_session:{endTime:new Date().toString()}};
+            $.ajax({
+                type: "POST",
+                url: "update_training_session",
+                data: data,
+                success: function(data, status) {
+                    if (status==="success") {
+                        $("#sessionTitle").hide();
+                        $("#sessionDrill-input").hide();
+                        $("#endSessionButton").hide();
+                        window.location = "/training_sessions/"+_active_session_id;
+                    }
+                }
+            });
+        });
+        $("#session_form input[name='training_session[startTime]']").val(new Date().toString());
         $("#session_form input[type='submit']").click(function() {
-            var onSuccess = function(payload) {
-                _active_session_id = payload.id;
-                _addAnotherDrill();
-            };
             _postForm( {
                 form_selector: "#session_form",
                 controller_name: "training_sessions",
                 container_selector: "#sessionTitle",
-                success_cb: onSuccess
+                success_cb: function(payload) {
+                    _active_session_id = payload.id;
+                    _addAnotherDrill();
+                }
             });
             return false;
         });
@@ -181,13 +199,21 @@ window.NM_SESSION = (function() {
     };
 
     var _addAnotherDrill = function _addAnotherDrill() {
-
+        _allowEndSession();
         _createForm({
             container_selector: "#drillForm",
             controller_name: "training_drills",
             action: "init",
             success_cb: _initAddDrill
         });
+    };
+
+    var _allowEndSession = function _allowEndSession() {
+        $("#endSessionButton").show();
+    };
+
+    var _forbidEndSession = function _forbidEndSession() {
+        $("#endSessionButton").hide();
     };
 
     $(document).ready(function() {

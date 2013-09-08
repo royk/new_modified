@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130830134511) do
+ActiveRecord::Schema.define(:version => 20130908184556) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -282,6 +282,8 @@ ActiveRecord::Schema.define(:version => 20130830134511) do
     t.boolean  "public"
     t.text     "description"
     t.integer  "video_id"
+    t.datetime "startTime"
+    t.datetime "endTime"
   end
 
   create_table "trash_records", :force => true do |t|

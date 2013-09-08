@@ -10,6 +10,7 @@
 	<%= form_for(training_session, html: {id: "session_form"}) do |f| %>
 		<%= f.text_field(:date, :rows=>1, :cols=>2, :class=>"post-input datepicker", placeholder: "Date (mm/dd/yyyy)", value: date) %>
 		<%= f.text_field(:description, :rows=>1, :cols=>2, :class=>"post-input", placeholder: "Session description")%>
+		<input type="hidden" value="" name="training_session[startTime]"/>
 		<input type="submit" value="Start Session"/>
 	<% end %>
 </div>
@@ -18,3 +19,4 @@
 	<div id="drillForm">
 	</div>
 </div>
+<input type="submit" value="End Session" style="display:none;" id="endSessionButton"/>
