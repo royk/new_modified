@@ -11,6 +11,11 @@
 			Video:
 			<%= render '/shared/videos/small_video_item_mobile', small_video_item_mobile: feed_item %>
 		</p>
+	<% elsif feed_item.class==Achievement %>
+		<div class="text-content user_content">
+			Achievement:
+			<%= feed_item.get_type_name_for_feed %>:&nbsp;<%= feed_item.name.html_safe %>
+		</div>
 	<% else %>
 		<div class="text-content user_content">
 			<%= feed_item.content.html_safe %>

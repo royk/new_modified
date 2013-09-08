@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 	private
 	def handle_exceptions(e)
 		if Rails.env.production?
-			ErrorMailer.experror(e).deliver
+			ErrorMailer.experror(e, request).deliver
 			render :template => "error_mailer/500", :status => 500
 		else
 			raise e

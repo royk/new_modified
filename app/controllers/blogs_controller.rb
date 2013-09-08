@@ -26,7 +26,7 @@ class BlogsController < AuthenticatedController
 		all_posts = privacy_query(@blog.blog_posts)
 		per_page = 10
 		@current_page = params[:page]
-		@current_page = 1 if @current_page.nil?
+		@current_page = 1 if (@current_page.nil? || !@current_page.is_a?(Integer))
 		@blog_posts = all_posts.paginate(page: @current_page, :per_page => per_page)
 		@total_pages = (all_posts.count / per_page.to_f).ceil
 		if request.xhr?
