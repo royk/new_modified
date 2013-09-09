@@ -39,10 +39,14 @@ window.NM_SESSION = (function() {
         controller_name
         data
         success_cb
+        append : optional (default: false)
      */
     var _postForm = function(params) {
         var submit_data = {};
         var validated = true;
+        if (typeof params.append!="boolean") {
+            params.append = false;
+        }
         $(params.form_selector + " input[type='text'],"+params.form_selector + " input[type='hidden'] ").each(function() {
             var result = _validateField($(this));
             if (validated) {
@@ -59,7 +63,11 @@ window.NM_SESSION = (function() {
                 success: function(data, status) {
                     if (status==="success") {
                         if (data.content && params.container_selector) {
-                            $(params.container_selector).html(data.content);
+                            if (params.append) {
+                                $(params.container_selector).append(data.content);
+                            } else {
+                                $(params.container_selector).html(data.content);
+                            }
                         }
                         params.success_cb(data.payload);
                     }
@@ -148,6 +156,7 @@ window.NM_SESSION = (function() {
             data.training_drill_result.training_session_id = _active_session_id;
             _postForm({
                 form_selector: "#drillResult",
+                append: true,
                 data: data,
                 controller_name: "training_drill_results",
                 container_selector: "#sessionInfo",
@@ -157,6 +166,7 @@ window.NM_SESSION = (function() {
         });
     };
     var _initSessionForm = function _initSessionForm() {
+
         $("#endSessionButton").click(function() {
             var data = {id:_active_session_id, training_session:{endTime:new Date().toString()}};
             $.ajax({
@@ -199,6 +209,8 @@ window.NM_SESSION = (function() {
     };
 
     var _addAnotherDrill = function _addAnotherDrill() {
+        $("#sessionInfo").show();
+        $("#session-form-title").hide();
         _allowEndSession();
         _createForm({
             container_selector: "#drillForm",
