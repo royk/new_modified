@@ -1,6 +1,36 @@
 <div id="drillResult">
 	<h3><%= @training_drill.select_name %></h3>
-	<input type="text" data-validation="number" data-mandatory="true" placeholder="Attempts count" name="training_drill_result[attempts_count]" class="post-input half"/>
-	<input type="text" data-validation="number" data-mandatory="true" placeholder="Drops Count" name="training_drill_result[drops_count]" class="post-input half"/>
-	<input type="submit" value="Done"/>
+	Attempts Count: <span id="attemptsCount"></span><input type="text" data-validation="number" data-mandatory="true" name="training_drill_result[attempts_count]" class="post-input half" id="attemptsCountInput"/>
+	<div id="dropCountsContainer">
+		<input type="button" value="Continue" id="dropCountApplier"/>
+	</div>
+	<input type="submit" value="Done" style="display:none;" id="drillResultDone"/>
+	<script>
+		$(document).ready(function() {
+			$("#dropCountApplier").click(function() {
+				var attemptsInput = $("#attemptsCountInput");
+				attemptsInput.hide();
+				$("#drillResultDone").show();
+				var count = parseInt(attemptsInput.val(), 10);
+				if (count>40) {
+					count = 40;
+				}
+				$("#attemptsCount").html(count)
+				if (count) {
+					var _html = "";
+					for (var i=0; i<count; i++) {
+						var attemptName = "";
+						var countNumber = i+1;
+						if (countNumber==1 || countNumber==21 || countNumber==31) attemptName = countNumber+"st"; else
+						if (countNumber==2 || countNumber==22 || countNumber==32) attemptName = countNumber+"nd"; else
+						if (countNumber==3 || countNumber==33 || countNumber==33) attemptName = countNumber+"rd"; else
+							attemptName = countNumber+"th";
+						_html += '<input type="text" data-validation="number" data-mandatory="true" placeholder="'+attemptName+' attempt drop count" name="drops_count'+i+'" class="post-input half"/></div>';
+					}
+					$("#dropCountsContainer").html(_html);
+				}
+				return false;
+			});
+		});
+	</script>
 </div>

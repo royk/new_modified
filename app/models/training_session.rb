@@ -18,7 +18,7 @@ class TrainingSession < ActiveRecord::Base
 	belongs_to :user
 
 	has_many :drill_results, dependent: :destroy
-
+	has_many :training_drill_results
 	has_many :training_drills, through: :training_drill_results
 
 	belongs_to :video

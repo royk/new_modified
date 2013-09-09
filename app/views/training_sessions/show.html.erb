@@ -1,0 +1,33 @@
+<div class="feed">
+	<div class="feed-item video-edit">
+		<h2>Session Summary</h2>
+
+		<% unless @trainingSession.description.empty? %>
+				<div>
+					Name: <%= @trainingSession.description %>
+				</div>
+		<% end %>
+		<div>
+			<% unless @trainingSession.date.nil?%>
+				<% date = @trainingSession.date.strftime("%m/%d/%Y") %>
+				<div>
+					Date: <%= date %>
+				</div>
+			<% end %>
+			<% unless @trainingSession.startTime.nil? || @trainingSession.endTime.nil? %>
+				<div>
+					<% elapsedMinutes = ((@trainingSession.endTime - @trainingSession.startTime)/60) %>
+					Length: <%= elapsedMinutes %> Minutes
+				</div>
+			<% end %>
+			<% if @trainingSession.training_drill_results.any? %>
+				<h3>Drills:</h3>
+				<% @trainingSession.training_drill_results.each do |result| %>
+				  <span class="drill-result">
+						<%= result.training_drill.name %>. Attempts: <%= result.attempts_count%>. Total Contacts: <%= result.attempts_count * result.training_drill.contacts_per_attempt%>. Drops: <%= result.get_summed_drops%>
+					</span><br/>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
