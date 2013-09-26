@@ -30,7 +30,7 @@ class TrainingDrillsController     < AuthenticatedController
 	end
 
 	def show
-    @results = @training_drill.training_drill_results.all(order: 'created_at DESC')
+    @results = @training_drill.training_drill_results.all(include: :training_session, order:'training_sessions.date')
     if @results.any?
       @start_date = @results.first.training_session.date
       @end_date = @results.last.training_session.date
