@@ -2,6 +2,7 @@ class TrainingDrillResultsController < AuthenticatedController
 	def new
 		@training_drill = TrainingDrill.find_by_id(params[:training_drill][:id])
 		unless @training_drill.nil?
+      @training_drill.touch
 			if request.xhr?
 				render partial: "shared/drill_results/new"
 				return
