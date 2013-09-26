@@ -1,13 +1,22 @@
 class TrainingDrillResult < ActiveRecord::Base
 	attr_accessible :attempts_count, :training_drill_id, :training_session_id, :drops_count, :drops
 	belongs_to :training_drill
+  belongs_to :training_session
 
 	def getTotalContacts
-		training_drill.contacts_per_attempt * attempts_count
+    if attempts_count.nil?
+      training_drill.contacts_per_attempt
+    else
+		  training_drill.contacts_per_attempt * attempts_count
+    end
 	end
 
 	def drops_as_array
-		return drops.squish.split(",").map(&:to_i)
+    unless drops.nil?
+		  return drops.squish.split(",").map(&:to_i)
+    else
+      return []
+    end
 	end
 
 	def get_drop_count

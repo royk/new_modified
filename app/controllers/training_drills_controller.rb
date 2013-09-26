@@ -1,5 +1,7 @@
 class TrainingDrillsController     < AuthenticatedController
 
+  before_filter	:correct_user, only: [:show]
+
 	def init
 		render partial: "shared/drills/new_or_existing_form"
 	end
@@ -28,7 +30,12 @@ class TrainingDrillsController     < AuthenticatedController
 	end
 
 	def show
-		render text: "ok"
+    @results = @training_drill.training_drill_results.all(order: 'created_at DESC')
+    if @results.any?
+      @start_date = @results.first.training_session.date
+      @end_date = @results.last.training_session.date
+      @sessions = current_user.training_sessions.where("created_at BETWEEN ? AND ? ", @start_date, @end_date).all
+    end
 	end
 
 	def select
@@ -42,5 +49,15 @@ class TrainingDrillsController     < AuthenticatedController
 			return
 		end
 		render text: "nothing here."
-	end
+  end
+
+  private
+    def correct_user
+      unless current_user.admin?
+        @training_drill = current_user.training_drills.find_by_id(params[:id])
+        redirect_to root_url if @training_drill.nil?
+      else
+        @training_drill = TrainingDrill.find(params[:id])
+      end
+    end
 end

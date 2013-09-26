@@ -1,0 +1,45 @@
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<div class="light-box">
+  <div id="container" style="width:100%; height:400px;"></div>
+  <% if @results.any?%>
+      <script>
+          $(function () {
+              $('#container').highcharts({
+                  chart: {
+                      type: 'line'
+                  },
+                  title: {
+                      text: '<%=@training_drill.name%>'
+                  },
+                  xAxis: {
+                      type: 'datetime',
+                      min: Date.UTC(<%=@start_date.strftime "%Y,%m,%d"%>),
+                      max: Date.UTC(<%=@end_date.strftime "%Y,%m,%d"%>)
+
+                  },
+                  yAxis: {
+                      title: {
+                          text: 'Drop Percentage'
+                      }
+                  },
+                  tooltip: {
+                      pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}%</b> ({point.sum_drops:,.0f} out of {point.attempts:,.0f}) ',
+                      shared: true
+                  },
+                  series:[{name:'<%=@training_drill.name%> drop pct',
+                          data: [
+                      <% @results.each_with_index do |r,i| %>
+                      {
+                          y:<%= r.get_drop_percentage %>,
+                          sum_drops: <%= r.get_summed_drops %>,
+                          attempts: <%= r.getTotalContacts %>,
+                          x:Date.UTC(<%=r.training_session.date.strftime "%Y,%m,%d"%>)
+                      }
+                          <% unless i==@results.length-1%>, <%end%>
+                      <% end %>
+                      ]}]
+              });
+          });
+      </script>
+    <% end %>
+</div>

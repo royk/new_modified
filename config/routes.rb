@@ -56,7 +56,6 @@ NewModified::Application.routes.draw do
 	match 'update_training_session', controller: 'training_sessions', action: 'update'
 
 
-
 	match 'training_drills/select', to: 'training_drills#select'
 	match 'training_drills/init', to: 'training_drills#init'
 
