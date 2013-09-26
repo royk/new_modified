@@ -13,8 +13,8 @@
                   },
                   xAxis: {
                       type: 'datetime',
-                      min: Date.UTC(<%=@start_date.strftime "%Y,%m,%d"%>),
-                      max: Date.UTC(<%=@end_date.strftime "%Y,%m,%d"%>)
+                      min: Date.UTC(<%=@start_date.strftime "%Y"%>,<%=@start_date.strftime "%m"%>-1,<%=@start_date.strftime "%d"%>),
+                      max: Date.UTC(<%=@end_date.strftime "%Y"%>,<%=@end_date.strftime "%m"%>-1,<%=@end_date.strftime "%d"%>)
 
                   },
                   yAxis: {
@@ -33,7 +33,7 @@
                           y:<%= r.get_drop_percentage %>,
                           sum_drops: <%= r.get_summed_drops %>,
                           attempts: <%= r.getTotalContacts %>,
-                          x:Date.UTC(<%=r.training_session.date.strftime "%Y,%m,%d"%>)
+                          x:Date.UTC(<%=r.training_session.date.strftime "%Y"%>,<%=r.training_session.date.strftime "%m"%>-1,<%=r.training_session.date.strftime "%d"%>)
                       }
                           <% unless i==@results.length-1%>, <%end%>
                       <% end %>

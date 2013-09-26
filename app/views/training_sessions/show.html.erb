@@ -88,7 +88,7 @@
                                         y:<%= sr.get_drop_percentage %>,
                                         sum_drops: <%= sr.get_summed_drops %>,
                                         attempts: <%= sr.getTotalContacts %>,
-                                        x:Date.UTC(<%=sr.training_session.date.strftime "%Y,%m,%d"%>)
+                                        x:Date.UTC(<%=sr.training_session.date.strftime "%Y"%>,<%=sr.training_session.date.strftime "%m"%>-1,<%=sr.training_session.date.strftime "%d"%>)
                                     }
                                     <% unless i==r.training_drill.training_drill_results.length-1%>, <%end%>
                                     <% end %>
