@@ -4,6 +4,12 @@ class TrainingSessionsController  < AuthenticatedController
 
 	def show
 		@trainingSession = TrainingSession.find(params[:id])
+    unless @trainingSession.nil?
+      previousSessions = TrainingSession.where("user_id = ? AND date IS NOT NULL AND date<?", @trainingSession.user_id, @trainingSession.date).order("date DESC").all
+      if previousSessions!=nil && previousSessions.any?
+        @previousSession = previousSessions.first
+      end
+    end
 	end
 
 	def new

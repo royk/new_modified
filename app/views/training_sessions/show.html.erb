@@ -1,40 +1,106 @@
 <div class="feed">
-	<div class="feed-item video-edit">
-		<h2>Session Summary</h2>
+  <div class="feed-item video-edit">
+    <h2>Session Summary<% unless @trainingSession.description.empty? %> - <%= @trainingSession.description %><% end %></h2>
 
-		<% unless @trainingSession.description.empty? %>
-				<div>
-					Name: <%= @trainingSession.description %>
-				</div>
-		<% end %>
-		<div>
-			<% unless @trainingSession.date.nil?%>
-				<% date = @trainingSession.date.strftime("%m/%d/%Y") %>
-				<div>
-					Date: <%= date %>
-				</div>
-			<% end %>
-			<% unless @trainingSession.startTime.nil? || @trainingSession.endTime.nil? %>
-				<div>
-					<% elapsedMinutes = ((@trainingSession.endTime - @trainingSession.startTime)/60) %>
-					Length: <%= elapsedMinutes %> Minutes
-				</div>
-			<% end %>
-			<% if @trainingSession.training_drill_results.any? %>
-				<h3>Drills:</h3>
-				<% @trainingSession.training_drill_results.each do |result| %>
+    <div>
+      <table class="table">
 
-                      <span class="drill-result">
-                            <%= link_to training_drill_path(result.training_drill) do %>
-                                <%= result.training_drill.name %>
-                            <% end %>
-                            . Attempts: <%= result.attempts_count%>. Total Contacts: <%= result.attempts_count * result.training_drill.contacts_per_attempt%>. Drops: <%= result.get_summed_drops%>
-                        </span>
 
-                  <br/>
 
-				<% end %>
-			<% end %>
-		</div>
-	</div>
+        <% unless @trainingSession.date.nil?%>
+            <tr>
+              <td>
+                Date:
+              </td>
+              <td>
+                <%= @trainingSession.date.strftime("%m/%d/%Y") %>
+              </td>
+            </tr>
+        <% end %>
+        <% unless @previousSession.nil? %>
+            <tr>
+              <td>
+                Days since last session:
+              </td>
+              <td>
+                <%= ((@trainingSession.date - @previousSession.date)/60/60/24).to_i %>
+              </td>
+            </tr>
+        <% end %>
+        <% unless @trainingSession.startTime.nil? || @trainingSession.endTime.nil? %>
+            <tr>
+              <td>
+                Length:
+              </td>
+              <td>
+                <% elapsedMinutes = ((@trainingSession.endTime - @trainingSession.startTime)/60) %>
+                <%= elapsedMinutes.round(1) %> Minutes
+              </td>
+            </tr>
+        <% end %>
+      </table>
+
+      <% if @trainingSession.training_drill_results.any? %>
+          <script src="http://code.highcharts.com/highcharts.js"></script>
+          <h3 style="margin:10px 0;">Drills:</h3>
+          <table class="table table-striped">
+            <% @trainingSession.training_drill_results.each do |result| %>
+                <tr>
+                  <td>
+                    <%= link_to training_drill_path(result.training_drill) do %>
+                        <%= result.training_drill.name %>
+                    <% end %>
+                  </td>
+                  <td>
+                    Attempts: <%= result.attempts_count%>. Total Contacts: <%= result.attempts_count * result.training_drill.contacts_per_attempt%>. Drops: <%= result.get_summed_drops%>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+          <div id="chart-container" style="width:100%; height:400px;"></div>
+          <script>
+              $(function () {
+                  $('#chart-container').highcharts({
+                      chart: {
+                          type: 'line'
+                      },
+                      title: {
+                          text: 'Drills graphs'
+                      },
+                      xAxis: {
+                          type: 'datetime'
+                      },
+                      yAxis: {
+                          title: {
+                              text: 'Drop Percentage'
+                          }
+                      },
+                      tooltip: {
+                          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}%</b> ({point.sum_drops:,.0f} out of {point.attempts:,.0f}) ',
+                          shared: true
+                      },
+                      series:[
+                          <% @trainingSession.training_drill_results.each_with_index do |r, i| %>
+                            {name:'<%=r.training_drill.name%> drop pct',
+                            data: [
+                                <% r.training_drill.training_drill_results.each_with_index do |sr,i| %>
+                                    {
+                                        y:<%= sr.get_drop_percentage %>,
+                                        sum_drops: <%= sr.get_summed_drops %>,
+                                        attempts: <%= sr.getTotalContacts %>,
+                                        x:Date.UTC(<%=sr.training_session.date.strftime "%Y,%m,%d"%>)
+                                    }
+                                    <% unless i==r.training_drill.training_drill_results.length-1%>, <%end%>
+                                    <% end %>
+                                ]}
+                          <% unless i==@trainingSession.training_drill_results.length-1%>, <%end%>
+                          <% end %>
+                         ]
+                  });
+              });
+          </script>
+      <% end %>
+
+    </div>
+  </div>
 </div>
