@@ -18,10 +18,13 @@
             </td>
         </tr>
     </table>
+
 	<div id="dropCountsContainer">
-		<input type="button" value="Continue" id="dropCountApplier"/>
+
 	</div>
-	<input type="submit" value="Done" style="display:none;" id="drillResultDone"/>
+    <input class="back button row" type="submit" value="Back"/>
+    <input type="button" value="Continue" id="dropCountApplier"/>
+	<input class="submit" type="submit" value="Done" style="display:none;" id="drillResultDone"/>
 	<script>
 		$(document).ready(function() {
 			$("#dropCountApplier").click(function() {
@@ -52,7 +55,9 @@
 							attemptName = countNumber+"th";
 						_html += '<input type="text" data-validation="number" data-mandatory="true" placeholder="'+attemptName+' attempt drop count" name="drops_count'+i+'" class="post-input half"/></div>';
 					}
+                    $("#dropCountApplier").hide();
 					$("#dropCountsContainer").html(_html);
+                    $("input.back").data("confirm", "Are you sure?");
 				}
 				return false;
 			});

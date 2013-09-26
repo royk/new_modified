@@ -132,7 +132,7 @@ window.NM_SESSION = (function() {
     };
     var _initNewDrillForm = function _initNewDrillForm() {
         _forbidEndSession();
-        $("#newDrillForm input[type='submit']").click(function() {
+        $("#newDrillForm input.submit").click(function() {
             _postForm({
                     form_selector: "#newDrillForm",
                     controller_name: "training_drills",
@@ -140,17 +140,25 @@ window.NM_SESSION = (function() {
             });
             return false;
         });
+        $("#newDrillForm input.back").click(function() {
+            _addAnotherDrill();
+            return false;
+        });
     };
     var _initExistingDrillForm = function _initExistingDrillForm() {
         _forbidEndSession();
-        $("#existingDrillForm input[type='submit']").click(function() {
+        $("#existingDrillForm input.submit").click(function() {
             _registerDrill({id:parseInt($("#existingDrillForm select").val(), 10)});
+            return false;
+        });
+        $("#existingDrillForm input.back").click(function() {
+            _addAnotherDrill();
             return false;
         });
     };
 
     var _initResultsForm = function _initResultsForm() {
-        $("#drillResult input[type='submit']").click(function() {
+        $("#drillResult input.submit").click(function() {
             var data = {training_drill_result:{}};
             data.training_drill_result.training_drill_id = _active_drill_id;
             data.training_drill_result.training_session_id = _active_session_id;
@@ -163,6 +171,12 @@ window.NM_SESSION = (function() {
                 success_cb: _addAnotherDrill
             });
             return false;
+        });
+        $("#drillResult input.back").click(function() {
+            var confirmMsg = $(this).data("confirm");
+            if (!confirmMsg || confirm(confirmMsg)) {
+                _addAnotherDrill();
+            }
         });
     };
     var _initSessionForm = function _initSessionForm() {
@@ -184,7 +198,7 @@ window.NM_SESSION = (function() {
             });
         });
         $("#session_form input[name='training_session[startTime]']").val(new Date().toString());
-        $("#session_form input[type='submit']").click(function() {
+        $("#session_form input.submit").click(function() {
             _postForm( {
                 form_selector: "#session_form",
                 controller_name: "training_sessions",
