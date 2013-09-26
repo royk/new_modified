@@ -59,9 +59,9 @@ class UsersController < ApplicationController
 			@custom_body_style = "background-color:white;"
 			@custom_bg2_style = "display:none;"
 			if need_to_check_public
-				@sessions = TrainingSession.where("user_id=? and public=?", @user.id, true)
+				@sessions = TrainingSession.where("user_id=? and public=? and (startTime IS NULL) OR (startTime IS NOT NULL AND endTime IS NOT NULL)", @user.id, true)
 			else
-				@sessions = TrainingSession.where("user_id=?", @user.id)
+				@sessions = TrainingSession.where("user_id=? and (startTime IS NULL) OR (startTime IS NOT NULL AND endTime IS NOT NULL)", @user.id)
 			end
 		end
 	end
