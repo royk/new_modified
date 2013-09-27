@@ -9,7 +9,7 @@ class TrainingDrillResultsController < AuthenticatedController
 			end
 		end
 		render text: "nothing here."
-	end
+  end
 
 	def create
 		i=0

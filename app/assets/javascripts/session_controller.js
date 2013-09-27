@@ -1,7 +1,7 @@
 window.NM_SESSION = (function() {
+    var _cookieName = "ff_new_session_ck";
     var _active_drill_id = -1;
     var _active_session_id = -1;
-    var _active_result_id = -1;
     var _defaultValidationMessages = {
         empty: "This field is mandatory",
         number: {
@@ -189,6 +189,7 @@ window.NM_SESSION = (function() {
                 data: data,
                 success: function(data, status) {
                     if (status==="success") {
+                        $.removeCookie(_cookieName);
                         $("#sessionTitle").hide();
                         $("#sessionDrill-input").hide();
                         $("#endSessionButton").hide();
@@ -205,6 +206,7 @@ window.NM_SESSION = (function() {
                 container_selector: "#sessionTitle",
                 success_cb: function(payload) {
                     _active_session_id = payload.id;
+                    $.cookie(_cookieName, _active_session_id, {expires: 1});
                     _addAnotherDrill();
                 }
             });
@@ -243,7 +245,29 @@ window.NM_SESSION = (function() {
     };
 
     $(document).ready(function() {
+        var savedSession = parseInt($.cookie(_cookieName), 10);
         _initSessionForm();
+        if (savedSession===savedSession) {
+            _active_session_id = savedSession;
+            $("#session_form input.submit").hide();
+            $("#sessionTitle").html("");
+            $.ajax({
+                type: "GET",
+                url: "/training_sessions/"+_active_session_id,
+                success: function(data, status) {
+                    if (status==="success") {
+                        if (data.resultsContent) {
+                            $("#sessionInfo").append(data.resultsContent);
+                        }
+                        if (data.title) {
+                            $("#sessionTitle").html(data.title);
+                        }
+                    }
+                }
+            });
+            _addAnotherDrill();
+        }
+
     });
     return {};
 }());

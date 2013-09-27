@@ -4,11 +4,22 @@ class TrainingSessionsController  < AuthenticatedController
   before_filter :check_for_mobile
 
 	def show
-		@trainingSession = TrainingSession.find(params[:id])
+    @trainingSession = TrainingSession.find(params[:id])
     unless @trainingSession.nil?
-      previousSessions = TrainingSession.where("user_id = ? AND date IS NOT NULL AND date<?", @trainingSession.user_id, @trainingSession.date).order("date DESC").all
-      if previousSessions!=nil && previousSessions.any?
-        @previousSession = previousSessions.first
+      if request.xhr?
+        # used for reloading session during recording.
+        @training_drill_results = @trainingSession.training_drill_results.all
+        resultsContent = ""
+        @training_drill_results.each do |r|
+          @training_drill_result = r
+          resultsContent = resultsContent + render_to_string(partial: "shared/drill_results/show")
+        end
+        render json: {title: render_to_string(partial: "shared/sessions/show_title"), resultsContent: resultsContent}
+      else
+        previousSessions = TrainingSession.where("user_id = ? AND date IS NOT NULL AND date<?", @trainingSession.user_id, @trainingSession.date).order("date DESC").all
+        if previousSessions!=nil && previousSessions.any?
+          @previousSession = previousSessions.first
+        end
       end
     end
 	end
