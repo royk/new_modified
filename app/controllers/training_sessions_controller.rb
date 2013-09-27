@@ -1,6 +1,7 @@
 class TrainingSessionsController  < AuthenticatedController
 	include VideoHelper
 	before_filter	:correct_user, only: [:destroy, :update]
+  before_filter :check_for_mobile
 
 	def show
 		@trainingSession = TrainingSession.find(params[:id])

@@ -58,7 +58,7 @@ window.NM_SESSION = (function() {
             submit_data = $.extend(submit_data, params.data);
             $.ajax({
                 type: "POST",
-                url: params.controller_name,
+                url: "/"+params.controller_name,
                 data: submit_data,
                 success: function(data, status) {
                     if (status==="success") {
@@ -185,7 +185,7 @@ window.NM_SESSION = (function() {
             var data = {id:_active_session_id, training_session:{endTime:new Date().toString()}};
             $.ajax({
                 type: "POST",
-                url: "update_training_session",
+                url: "/update_training_session",
                 data: data,
                 success: function(data, status) {
                     if (status==="success") {

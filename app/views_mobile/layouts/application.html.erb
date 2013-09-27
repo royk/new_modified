@@ -4,6 +4,7 @@
 		<title><%= full_title(yield(:title)) %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<%= stylesheet_link_tag    "application", :media => "all" %>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	</head>
 	<body class="bright">
 		<header class="navbar navbar-fixed-top">
@@ -19,6 +20,20 @@
 				</div>
 			</div>
 		</header>
+        <div class="site-top">
+          <div class="container">
+            <div class="main-menu">
+              <!-- Site main menu -->
+              <ul class="nav-bold">
+                <li><%= link_to t(:home), root_path %></li>
+                <li><%= link_to "Start Session", "/training_sessions/new"%></li>
+                <li>
+                  <%= link_to "Full Site", :mobile => 0 %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
 		<%= yield %>
 	</body>
 </html>	

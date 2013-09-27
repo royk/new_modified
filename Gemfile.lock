@@ -51,7 +51,8 @@ GEM
     binding_of_caller (0.6.8)
     bitmask_attributes (0.4.0)
       activerecord (~> 3.0)
-    bootstrap-sass (2.0.4.0)
+    bootstrap-sass (2.3.2.2)
+      sass (~> 3.2)
     bootstrap-will_paginate (0.0.6)
       will_paginate
     bourne (1.1.2)
@@ -251,7 +252,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bitmask_attributes
-  bootstrap-sass (= 2.0.4)
+  bootstrap-sass (= 2.3.2.2)
   bootstrap-will_paginate (= 0.0.6)
   capybara (= 1.1.2)
   carrierwave
