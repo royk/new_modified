@@ -2,6 +2,9 @@
 	<div>Create a new drill:</div>
 	<input type="text" data-mandatory="true" name="training_drill[name]" placeholder="Name" class="post-input half"/>
 	<input type="text" data-mandatory="true" data-validation="number" name="training_drill[contacts_per_attempt]" placeholder="Contacts per drill attempt" class="post-input half"/>
-    <input class="back button row" type="submit" value="Back"/>
+    <div style="margin-bottom: 24px;">
+        <i class="icon-warning-sign"></i><p class="warning-text sub-text">Suggested usage: Amount of contacts between hand catches.<br/>e.g: infinity->infinity->hand catch = 2 contacts per drill</p>
+    </div>
+    <input class="back button-row" type="submit" value="Back"/>
     <input class="submit" type="submit" value="Create Drill"/>
 </form>

@@ -2,19 +2,13 @@
 	<h3><%= @training_drill.select_name %></h3>
     <table>
         <tr>
-	        <td>
-              Attempts Count: <span id="attemptsCount"></span>
-             </td>
             <td>
-              <input type="text" data-validation="number" data-mandatory="true" name="training_drill_result[attempts_count]" class="post-input half" id="attemptsCountInput"/><br/>
+              <input type="text" data-validation="number" data-mandatory="true" name="training_drill_result[attempts_count]" class="post-input half" id="attemptsCountInput" placeholder="Attempts Count"/><br/>
             </td>
         </tr>
         <tr id="attempsPerBreak">
             <td>
-              Attempts between breaks:
-            </td>
-            <td>
-              <input type="text" data-validation="number" data-mandatory="false" class="post-input half" id="attemptsPerBreakInput"/>
+              <input type="text" data-validation="number" data-mandatory="false" class="post-input half" id="attemptsPerBreakInput" placeholder="Attempts between breaks"/>
             </td>
         </tr>
     </table>
@@ -22,12 +16,15 @@
 	<div id="dropCountsContainer">
 
 	</div>
-    <input class="back button row" type="submit" value="Back"/>
+    <input class="back button-row" type="submit" value="Back"/>
     <input type="button" value="Continue" id="dropCountApplier"/>
 	<input class="submit" type="submit" value="Done" style="display:none;" id="drillResultDone"/>
 	<script>
 		$(document).ready(function() {
 			$("#dropCountApplier").click(function() {
+                if (!window.NM_SESSION.validateField($("#attemptsCountInput")) || !window.NM_SESSION.validateField($("#attemptsPerBreakInput"))) {
+                    return false;
+                }
 				var attemptsInput = $("#attemptsCountInput");
 				attemptsInput.hide();
                 $("#attempsPerBreak").hide();

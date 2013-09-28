@@ -85,7 +85,7 @@ window.NM_SESSION = (function() {
         if ((mustBeFilled || validatorType) && fieldElement.data("qtip")) {
             fieldElement.qtip("api").destroy();
         }
-        if (mustBeFilled && (!value || !value.match(/.+/gi))) {
+        if (mustBeFilled && (!value || !value.replace(/\s*/gi, "").match(/.+/gi))) {
             validationError = "empty";
         }
         fieldElement.removeClass("validation-error");
@@ -269,5 +269,7 @@ window.NM_SESSION = (function() {
         }
 
     });
-    return {};
+    return {
+        validateField: _validateField
+    };
 }());
