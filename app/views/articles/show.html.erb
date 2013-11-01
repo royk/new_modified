@@ -1,5 +1,9 @@
 <div class="light-box">
 	<div class="content user_content">
-		<%= @article.content.html_safe %>
+        <%unless @article.nil?%>
+		    <%= @article.content.html_safe %>
+       <%else%>
+            <h3>Article not found! Please check that you have the correct URL.</h3>
+       <%end%>
 	</div>
 </div>
