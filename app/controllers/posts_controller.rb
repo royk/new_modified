@@ -30,7 +30,7 @@ class PostsController < AuthenticatedController
 	end
 
 	def index
-		@posts = privacy_query(Post).paginate(page: params[:page], :per_page => 10)
+    redirect_to root_url
 	end
 
 	def update
