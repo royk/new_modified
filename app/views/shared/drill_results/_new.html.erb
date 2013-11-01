@@ -1,9 +1,12 @@
+<script type="text/javascript" src="/assets/jquery.ui.touch-punch.min.js"></script>
 <div id="drillResult">
 	<h3><%= @training_drill.select_name %></h3>
-    <table>
+    <table style="width:90%;">
         <tr>
             <td>
-              <input type="text" data-validation="number" data-mandatory="true" name="training_drill_result[attempts_count]" class="post-input half" id="attemptsCountInput" placeholder="Attempts Count"/><br/>
+              <input type="text" data-validation="number" data-mandatory="true" name="training_drill_result[attempts_count]" class="post-input half" id="attemptsCountInput" placeholder="Attempts Count"/>
+              <p id="totalContactsTitle" style="display:none;">Total contacts: <span id="totalContactsDisplay"></span></p>
+              <br/>
             </td>
         </tr>
         <tr id="attempsPerBreak">
@@ -21,6 +24,14 @@
 	<input class="submit" type="submit" value="Done" style="display:none;" id="drillResultDone"/>
 	<script>
 		$(document).ready(function() {
+            $("#attemptsCountInput").change(function() {
+                var count = parseInt($(this).val(), 10);
+                var perAttempt = <%=@training_drill.contacts_per_attempt%>;
+                if (typeof(count)==="number") {
+                    $("#totalContactsDisplay").text(count*perAttempt);
+                    $("#totalContactsTitle").css("display", "inline");
+                }
+            });
 			$("#dropCountApplier").click(function() {
                 if (!window.NM_SESSION.validateField($("#attemptsCountInput")) || !window.NM_SESSION.validateField($("#attemptsPerBreakInput"))) {
                     return false;
@@ -28,6 +39,7 @@
 				var attemptsInput = $("#attemptsCountInput");
 				attemptsInput.hide();
                 $("#attempsPerBreak").hide();
+                $("#totalContactsTitle").hide();
 				$("#drillResultDone").show();
 				var count = parseInt(attemptsInput.val(), 10);
                 var breakEvery = parseInt($("#attemptsPerBreakInput").val(), 10);
@@ -36,11 +48,11 @@
 				}
 				$("#attemptsCount").html(count)
 				if (count) {
-					var _html = "";
+					var _html = "<h4 style='margin-bottom:10px;'>Drops per attempt:</h4>";
 					for (var i=0; i<count; i++) {
                         if (breakEvery==breakEvery && i>0) {
                             if (i%breakEvery==0) {
-                                _html += '<p style="text-align:center">Take a break!</p>';
+                                _html += '<p>Take a break!</p>';
                             }
                         }
 						var attemptName = "";
@@ -49,10 +61,22 @@
 						if (countNumber==2 || countNumber==22 || countNumber==32 || countNumber==42 || countNumber==52) attemptName = countNumber+"nd"; else
 						if (countNumber==3 || countNumber==33 || countNumber==33 || countNumber==43 || countNumber==53) attemptName = countNumber+"rd"; else
 							attemptName = countNumber+"th";
-						_html += '<input type="text" data-validation="number" data-mandatory="true" placeholder="'+attemptName+' attempt drop count" name="drops_count'+i+'" class="post-input half"/></div>';
+                        _html += '<div data-count="'+i+'" id="drops_slider'+i+'" style="width:200px;margin:10px 0;display:inline-block;"></div><input type="text" name="drops_count'+i+'" id="drops_count'+i+'" style="display:inline;position:relative;bottom:8px;left:15px;width:30px;" value="0"/><div></div>';
+						//_html += '<input type="text" data-validation="number" data-mandatory="true" placeholder="'+attemptName+' attempt drop count" name="drops_count'+i+'" class="post-input half"/></div>';
 					}
                     $("#dropCountApplier").hide();
 					$("#dropCountsContainer").html(_html);
+                    for (var i=0; i<count; i++) {
+                        $("#drops_slider"+i).slider({
+                            min:0,
+                            max:<%=@training_drill.contacts_per_attempt%>,
+                            value:0,
+                            slide: function(e, ui) {
+                                var count = $(this).data("count");
+                                $("#drops_count"+count).val(ui.value);
+                            }
+                        });
+                    }
                     $("input.back").data("confirm", "Are you sure?");
 				}
 				return false;

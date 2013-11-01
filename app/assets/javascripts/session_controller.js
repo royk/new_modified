@@ -8,7 +8,7 @@ window.NM_SESSION = (function() {
             incorrect: "Please fill in with numbers only"
         }
     }
-    /*
+    /*                        contacts per drill
         params:
             container_selector
             controller_name
