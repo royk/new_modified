@@ -3,6 +3,18 @@
 	<%= render 'first_time' %>
 <% end %>
 <% if @feed_front_page %>
+    <% if @video_of_day %>
+        <div class="video_of_the_day" style="margin:10px;">
+          <% if false %>
+            <%= render 'shared/feed_item', :feed_item => @video_of_day, feed_item_counter: 0, show_comments: false %>
+          <% end %>
+          <div class="feed-item christmas">
+            <div style="margin:10px">
+                <%= render '/shared/video_item', :feed_item => @video_of_day%>
+            </div>
+          </div>
+        </div>
+    <% end %>
 	<div style="position:relative">
 		<div style="height:14px;position: absolute; top: 20px; right: 10px;">
 			<%= link_to feed_path(@feed.permalink, :atom) do %>

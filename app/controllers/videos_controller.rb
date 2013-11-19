@@ -17,7 +17,7 @@ class VideosController < AuthenticatedController
 			@videos = Video.where("video_category_id IS ? AND public = ? AND for_feedback = ? ", nil, true, false)
 		else
 			if signed_in?
-				@videos = Video.where("video_category_id IS ? AND for_feedback = ? ", nil, false).paginate(page: params[:page], :per_page => 20)
+				@videos = Video.where("video_category_id IS ? AND for_feedback = ? AND public = ?", nil, false, true).paginate(page: params[:page], :per_page => 20)
 			else
 				@videos = Video.where("video_category_id IS ? AND public = ? AND for_feedback = ? ", nil, true, false).paginate(page: params[:page], :per_page => 20)
 			end
