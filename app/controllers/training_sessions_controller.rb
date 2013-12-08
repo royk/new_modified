@@ -61,10 +61,14 @@ class TrainingSessionsController  < AuthenticatedController
 
 	def update
 		success = true
-		if defined?(params[:training_session][:endTime])
-			params[:training_session][:endTime] = params[:training_session][:endTime].to_datetime;
-			@trainingSession.update_attributes(params[:training_session])
-			render json: {message: "Session updated", success:success}
+		if defined?(params[:training_session][:endTime]) && !params[:training_session][:endTime].nil?
+      begin
+			  params[:training_session][:endTime] = params[:training_session][:endTime].to_datetime;
+			  @trainingSession.update_attributes(params[:training_session])
+			  render json: {message: "Session updated", success:success}
+      rescue
+        render json: {message: "Failed updating session, invalid End time.", success:false}
+      end
 			return
 		end
 		begin
